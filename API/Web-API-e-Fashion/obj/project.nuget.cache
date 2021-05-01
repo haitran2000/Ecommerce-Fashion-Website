@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "sje21fY818dVMjitclP0ZGQ32Wpu0kk/yBMKWAMk/k9o5yX4a6zjn0W7evZBInAoiKx+UGHr4V/qjinViohgOA==",
+  "dgSpecHash": "T7Z5/GYHDKvFCnIfI57Ue0ve7BKVwtAsvSPTgARvNyLgszhU5eY/mpKxqD4vapLgSPbQQe7XXfdRl1hes7H1QQ==",
   "success": true,
-  "projectFilePath": "D:\\-DO-AN-TOT-NGHIEP\\Ecommerce-Fashion-Website\\Admin\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
+  "projectFilePath": "D:\\-DO-AN-TOT-NGHIEP\\Ecommerce-Fashion-Website\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
