@@ -1,0 +1,137 @@
+<style>
+  mat-form-field {
+    margin-top: 2rem;
+  }
+</style>
+<form [formGroup]="newForm" (ngSubmit)="onSubmit(newForm.value)">
+  <button mat-button color="accent" type="submit" style="width: 100%;">Submit</button>
+  <mat-tab-group [color]="accent">
+    <mat-tab label="Thuộc tính cơ bản 1">
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Id</mat-label>
+        <input matInput [value]="service.product.id">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Tên</mat-label>
+        <input matInput placeholder="Tên" formControlName="Ten" type="text" [(ngModel)]="service.product.ten">
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Khuyến mãi</mat-label>
+        <input matInput placeholder="Khuyến mãi" formControlName="KhuyenMai" type="text"  [(ngModel)]="service.product.khuyenMai">
+      </mat-form-field>
+      <mat-label>Mô tả</mat-label>
+      <ckeditor [editor]="Editor"></ckeditor>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Số lượng</mat-label>
+        <input matInput placeholder="Số lượng sản phẩm" formControlName="SoLuong" type="number" [(ngModel)]="service.product.soLuong">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Trạng thái sản phẩm</mat-label>
+        <input matInput placeholder="TrangThaiSanPham" formControlName="TrangThaiSanPham" type="number" [(ngModel)]="service.product.trangThaiSanPham">
+      </mat-form-field>
+    </mat-tab>
+
+
+
+
+
+
+    <mat-tab label="Thuộc tính cơ bản 2">
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Khối lượng</mat-label>
+        <input matInput placeholder="Khối lượng" formControlName="KhoiLuong" type="text" [(ngModel)]="service.product.khoiLuong">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent"
+        style="width: 100%;margin-top: 2rem;">
+        <mat-label>Hướng dẫn</mat-label>
+        <textarea matInput placeholder="Hướng dẫn" formControlName="HuongDan" type="text" rows="3" [(ngModel)]="service.product.huongDan">
+      </textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Màu sắc</mat-label>
+        <input matInput placeholder="Màu sắc" formControlName="MauSac" type="text" [(ngModel)]="service.product.mauSac">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Thành phần</mat-label>
+        <input matInput placeholder="Thành phần" formControlName="ThanhPhan" type="text" [(ngModel)]="service.product.thanhPhan">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Chất liệu</mat-label>
+        <input matInput placeholder="Chất liệu" formControlName="ChatLieu" type="text">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>CreateBy</mat-label>
+        <input matInput placeholder="CreateBy" formControlName="CreateBy" type="number">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;"  >
+        <mat-label>UpdateBy</mat-label>
+        <input matInput placeholder="UpdateBy" formControlName="UpdateBy" type="text" [(ngModel)]="service.product.UpdateBy">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;"  >
+        <mat-label>CreateDate</mat-label>
+        <input matInput placeholder="CreateDate" formControlName="CreateDate" type="text" [(ngModel)]="service.product.CreateDate">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>UpdateDate</mat-label>
+        <input matInput placeholder="CreateDate" formControlName="ChatLieu" type="text">
+      </mat-form-field>
+    </mat-tab>
+
+
+
+    <!-- 3 -->
+    <mat-tab label="Upload nhiều hình">
+    
+      <mat-label>Upload nhiều hình</mat-label>
+      <br>
+      <input type="file" multiple (change)="gopHam($event)">
+      <div>
+        <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">
+      </div>
+    
+    </mat-tab>
+
+
+
+
+    <mat-tab label="Ràng buộc">
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent"
+        style="width: 100%;margin-top: 2rem;">
+        <mat-label>TrangThaiHoatDong</mat-label>
+        <input matInput placeholder="TrangThaiHoatDong" formControlName="TrangThaiHoatDong" type="text" [(ngModel)]="service.product.TrangThaiHoatDong">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent"
+        style="width: 100%;margin-top: 2rem;">
+        <mat-label>BillInfor</mat-label>
+        <input matInput placeholder="BillInfor" formControlName="BillInfor" type="text">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent"
+        style="width: 100%;margin-top: 2rem;">
+        <mat-label>BrandId</mat-label>
+        <input matInput placeholder="BrandId" formControlName="BrandId" type="text" [(ngModel)]="service.product.brandId">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent"
+        style="width: 100%;margin-top: 2rem;">
+        <mat-label>CategoryId</mat-label>
+        <input matInput placeholder="CategoryId" formControlName="CategoryId" type="text" [(ngModel)]="service.product.categoryId">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent"
+        style="width: 100%;margin-top: 2rem;">
+        <mat-label>Gía sản phẩm</mat-label>
+        <input matInput placeholder="GiaSanPhams" formControlName="GiaSanPhams" type="text">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent"
+        style="width: 100%;margin-top: 2rem;">
+        <mat-label>SanPhamThietKes</mat-label>
+        <input matInput placeholder="SanPhamThietKes" formControlName="SanPhamThietKes" type="text">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent"
+        style="width: 100%;margin-top: 2rem;">
+        <mat-label>SanPham_SanPhamThietKes</mat-label>
+        <input matInput placeholder="SanPham_SanPhamThietKes" formControlName="SanPham_SanPhamThietKes" type="text">
+      </mat-form-field>
+    </mat-tab>
+  </mat-tab-group>
+</form>
