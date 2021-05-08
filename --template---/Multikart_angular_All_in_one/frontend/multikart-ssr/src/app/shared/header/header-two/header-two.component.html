@@ -1,0 +1,71 @@
+<!-- header start -->
+<header class="sticky" [ngClass]="class" [class.fixed]="stick && sticky">
+    <div class="mobile-fix-option"></div>
+    <div class="top-header top-header-dark2" *ngIf="topbar">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="header-contact">
+                        <ul>
+                            <li>Welcome to Our store Multikart</li>
+                            <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 123 - 456 - 7890</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-right">
+                    <ul class="header-dropdown">
+                        <li class="compare">
+                            <a [routerLink]="['/shop/compare']"><i class="fa fa-random" aria-hidden="true"></i>Compare</a>
+                        </li>
+                        <li class="mobile-wishlist">
+                            <a [routerLink]="['/shop/wishlist']"><i class="fa fa-heart" aria-hidden="true"></i>Wishlist</a>
+                        </li>
+                        <li class="onhover-dropdown mobile-account">
+                            <i class="fa fa-user" aria-hidden="true"></i> My Account
+                            <ul class="onhover-show-div">
+                                <li>
+                                    <a data-lng="en">
+                    Login
+                  </a>
+                                </li>
+                                <li>
+                                    <a data-lng="es">
+                    Logout
+                  </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container layout3-menu">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="main-menu">
+                    <div class="menu-left around-border">
+                        <div class="main-menu-right">
+                            <app-menu></app-menu>
+                        </div>
+                    </div>
+                    <div class="absolute-logo">
+                        <div class="brand-logo">
+                            <a [routerLink]="['/home/fashion']">
+                                <img [src]="themeLogo" alt="logo">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="">
+                        <div class="menu-right pull-right">
+                            <div>
+                                <app-settings></app-settings>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- header end -->

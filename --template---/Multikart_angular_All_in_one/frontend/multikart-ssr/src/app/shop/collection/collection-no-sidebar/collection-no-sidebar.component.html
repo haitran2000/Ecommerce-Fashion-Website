@@ -1,0 +1,73 @@
+<app-breadcrumb [title]="'Collection'" [breadcrumb]="'Collection'"></app-breadcrumb>
+<!-- section start -->
+<section class="section-b-space">
+    <div class="collection-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="collection-content col">
+                    <div class="page-main-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="top-banner-wrapper">
+                                    <a [routerLink]="['/shop/collection/left/sidebar']">
+                                        <img src="assets/images/collection-banner.jpg" class="img-fluid " alt="">
+                                    </a>
+                                    <div class="top-banner-content small-section">
+                                        <h4>fashion</h4>
+                                        <h5>Lorem Ipsum is simply dummy text of the printing and typesetting
+                                            industry.</h5>
+                                        <p>
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting
+                                            industry. Lorem Ipsum has been the industry's standard dummy text ever
+                                            since the 1500s, when an unknown printer took a galley of type and
+                                            scrambled it to make a type specimen book. It has survived not only five
+                                            centuries, but also the leap into electronic typesetting, remaining
+                                            essentially unchanged. It was popularised in the 1960s with the release
+                                            of Letraset sheets containing Lorem Ipsum passages, and more recently
+                                            with desktop publishing software like Aldus PageMaker including versions
+                                            of Lorem Ipsum.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="collection-product-wrapper" id="products">
+                                    <app-grid 
+                                        [products]="products"
+                                        [paginate]="paginate"
+                                        [layoutView]="layoutView"
+                                        [sortBy]="sortBy"
+                                        (setGrid)="updateGridLayout($event)"
+                                        (setLayout)="updateLayoutView($event)"
+                                        (sortedBy)="sortByFilter($event)">
+                                    </app-grid>
+                                    <div class="product-wrapper-grid" [ngClass]="layoutView">
+                                        <div class="row">
+                                            <div class="col-grid-box"
+                                                [ngClass]="grid"
+                                                *ngFor="let product of products">
+                                                <div class="product-box">
+                                                    <app-product-box-one 
+                                                        [product]="product" 
+                                                        [currency]="productService?.Currency"
+                                                        [thumbnail]="false"
+                                                        [cartModal]="true"
+                                                        [loader]="true">
+                                                    </app-product-box-one>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <app-pagination
+                                        [products]="products"
+                                        [paginate]="paginate"
+                                        (setPage)="setPage($event)">
+                                    </app-pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section End -->

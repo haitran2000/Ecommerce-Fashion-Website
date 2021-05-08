@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Web_API_e_Fashion.Data
 {
-    public partial class DPContext : DbContext
+    public partial class DPContext : IdentityDbContext
     {
         public DPContext(DbContextOptions<DPContext> options) : base(options) { }
 
@@ -15,8 +16,7 @@ namespace Web_API_e_Fashion.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             TableBuilder(modelBuilder);
-            OnModelCreatingPartial(modelBuilder);
-         
+            base.OnModelCreating(modelBuilder);
         }
 
 

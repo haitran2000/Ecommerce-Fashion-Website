@@ -1,0 +1,288 @@
+<app-header-two [themeLogo]="themeLogo"></app-header-two>
+
+<!-- Home slider start-->
+<section class="p-0">
+  <app-slider 
+    [sliders]="sliders" 
+    [textClass]="'text-center p-center'"
+    [category]="'bags'"
+    [buttonText]="'save up to 50% off'"> 
+  </app-slider>
+</section>
+<!-- Home slider End -->
+
+<!-- Product Tab start-->
+<section class="section-b-space">
+  <div class="container">
+    <div class="title2">
+        <h4>new collection</h4>
+        <h2 class="title-inner2">trending products</h2>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="theme-tab">
+          <ngb-tabset [justify]="'center'" [type]="'pills'" class="tabs tab-title">
+            <ngb-tab *ngFor="let collection of productCollections">
+              <ng-template ngbTabTitle>{{collection}}</ng-template>
+              <ng-template ngbTabContent>
+                <div class="no-slider row">
+                  <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:4">
+                    <div class="product-box">
+                      <app-product-box-five 
+                        [product]="product" 
+                        [currency]="productService?.Currency"
+                        [thumbnail]="false"
+                        [onHowerChangeImage]="true"
+                        [cartModal]="true">
+                      </app-product-box-five>
+                    </div>
+                  </ng-container>
+                </div>
+              </ng-template>
+            </ngb-tab>
+          </ngb-tabset>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Product Tab end-->
+
+<!-- category  -->
+<div class="container category-button">
+  <section class="section-b-space border-section border-bottom-0">
+    <div class="row partition1">
+      <div class="col" *ngFor="let category of categories">
+        <a [routerLink]="['/shop/collection/left/sidebar']" 
+           [queryParams]="{ category: 'bags'}"
+           class="btn btn-outline btn-block">
+           {{category}}
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- category end -->
+
+<!-- Parallax banner start-->
+<section class="p-0">
+  <div class="full-banner banner-layout-3 parallax text-center p-center"
+    [ngStyle]="{'background-image': 'url(assets/images/parallax/9.jpg)'}">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="banner-contain">
+            <h4 class="color pt-0">special offer for you</h4>
+            <h3>leather bag</h3>
+            <h4>extra 50% off</h4> 
+            <a [routerLink]="['/shop/collection/left/sidebar']"
+               [queryParams]="{ category: 'bags'}" class="btn btn-solid">
+              shop now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Parallax banner End -->
+
+<!-- product slider-->
+<section class="section-b-space">
+  <div class="container">
+      <div class="row partition3 partition_3">
+          <div class="col-lg-4">
+            <div class="theme-card card-border">
+              <app-product-box-vertical-slider 
+                [title]="'New product'"
+                [type]="'bags'">    
+              </app-product-box-vertical-slider>
+            </div>
+          </div>
+          <div class="col-lg-4 center-slider border-0">
+            <div>
+                <div class="title2">
+                    <h4>on sale</h4>
+                    <h2 class="title-inner2">season sale</h2>
+                </div>
+                <owl-carousel-o class="offer-slider slide-1" [options]="ProductSliderOneConfig">
+                  <ng-container *ngFor="let product of products | slice:0:8">
+                    <ng-template carouselSlide>
+                      <div>
+                        <div class="product-box product-wrap">
+                          <app-product-box-five 
+                            [product]="product" 
+                            [currency]="productService?.Currency"
+                            [thumbnail]="false"
+                            [onHowerChangeImage]="false"
+                            [cartModal]="true">
+                          </app-product-box-five>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-container>
+                </owl-carousel-o>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="theme-card card-border">
+              <app-product-box-vertical-slider 
+                [title]="'Feature product'"
+                [type]="'bags'">    
+              </app-product-box-vertical-slider>
+            </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+
+<!-- category -->
+<div class="category-bg">
+    <div class="container-fluid p-0">
+        <div class="row order-section">
+            <div class="col-sm-4 p-0">
+                <a [routerLink]="['/shop/collection/left/sidebar']" 
+                   [queryParams]="{ category: 'bags'}"
+                   class="image-block">
+                    <img src="assets/images/categories/11.jpg" class="img-fluid" alt="">
+                </a>
+            </div>
+            <div class="col-sm-4 p-0">
+                <div class="contain-block even">
+                    <div>
+                        <h6>new products</h6>
+                        <a [routerLink]="['/shop/collection/left/sidebar']" 
+                           [queryParams]="{ category: 'bags'}">
+                            <h2>zipper storage bag</h2>
+                        </a>
+                        <a [routerLink]="['/shop/collection/left/sidebar']"
+                           [queryParams]="{ category: 'bags'}"
+                           class="btn btn-solid category-btn">
+                          -80% off
+                        </a>
+                        <a [routerLink]="['/shop/collection/left/sidebar']" 
+                           [queryParams]="{ category: 'bags'}">
+                            <h6><span>shop now</span></h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 p-0">
+                <a [routerLink]="['/shop/collection/left/sidebar']"
+                   [queryParams]="{ category: 'bags'}"
+                   class="image-block">
+                    <img src="assets/images/categories/12.jpg" class="img-fluid" alt="">
+                </a>
+            </div>
+            <div class="col-sm-4 p-0">
+                <div class="contain-block">
+                    <div>
+                        <h6>on sale</h6>
+                        <a [routerLink]="['/shop/collection/left/sidebar']"
+                           [queryParams]="{ category: 'bags'}">
+                            <h2>tucker bag</h2>
+                        </a> 
+                        <a [routerLink]="['/shop/collection/left/sidebar']"
+                           [queryParams]="{ category: 'bags'}" 
+                           class="btn btn-solid category-btn">
+                            save 30% off
+                        </a>
+                        <a [routerLink]="['/shop/collection/left/sidebar']" 
+                           [queryParams]="{ category: 'bags'}">
+                            <h6><span>shop now</span></h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 p-0">
+                <a [routerLink]="['/shop/collection/left/sidebar']"
+                   [queryParams]="{ category: 'bags'}" 
+                   class="image-block even">
+                    <img src="assets/images/categories/13.jpg" class="img-fluid" alt="">
+                </a>
+            </div>
+            <div class="col-sm-4 p-0">
+                <div class="contain-block">
+                    <div>
+                        <h6>summer sale</h6>
+                        <a [routerLink]="['/shop/collection/left/sidebar']"
+                           [queryParams]="{ category: 'bags'}">
+                            <h2>gate check bag</h2>
+                        </a> 
+                        <a [routerLink]="['/shop/collection/left/sidebar']"
+                           [queryParams]="{ category: 'bags'}"
+                            class="btn btn-solid category-btn">
+                            minimum 50% off
+                        </a>
+                        <a [routerLink]="['/shop/collection/left/sidebar']"
+                           [queryParams]="{ category: 'bags'}">
+                            <h6><span>shop now</span></h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- product-box slider -->
+<div class="container">
+  <section class="section-b-space border-section border-top-0">
+    <div class="row">
+      <div class="col">
+        <div class="title2">
+          <h4>trend</h4>
+          <h2 class="title-inner2">exclusive bag</h2>
+        </div>
+        <owl-carousel-o class="product-4 product-m no-arrow" [options]="ProductSliderConfig">
+          <ng-container *ngFor="let product of products | slice:0:8">
+            <ng-template carouselSlide>
+              <div class="product-box product-wrap">
+                <app-product-box-five 
+                  [product]="product" 
+                  [currency]="productService?.Currency"
+                  [thumbnail]="false"
+                  [onHowerChangeImage]="true"
+                  [cartModal]="true">
+                </app-product-box-five>
+              </div>
+            </ng-template>
+          </ng-container>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- product-box end -->
+
+<!-- blog section start-->
+<section class="blog">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="title2">
+                    <h4>recent story</h4>
+                    <h2 class="title-inner2">latest blog</h2>
+                </div>
+                <app-blog [blogs]="blogs"></app-blog>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- blog section end-->
+
+<!-- Instagram section -->
+<section class="instagram">
+  <div class="container-fluid ">
+    <div class="row">
+      <div class="col-md-12 p-0">
+        <h2 class="title-borderless"># instagram</h2>
+        <app-instagram></app-instagram>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Instagram section End -->
+
+<app-footer-two [themeLogo]="themeLogoWhite"></app-footer-two>

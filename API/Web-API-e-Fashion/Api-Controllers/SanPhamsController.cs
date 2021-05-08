@@ -47,7 +47,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/SanPhams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSanPham(int id, UploadSanpham upload, string search)
+        public async Task<IActionResult> PutSanPham(int id,[FromForm]UploadSanpham upload, string search)
         {
             SanPham sanpham = new SanPham();
             sanpham = await _context.SanPhams.FirstOrDefaultAsync(s => s.Id == id);
@@ -65,10 +65,12 @@ namespace Web_API_e_Fashion.Api_Controllers
             sanpham.TrangThaiSanPham = upload.TrangThaiSanPham;
             sanpham.UpdateBy = upload.UpdateBy;
             sanpham.UpdatedDate = null;
+            sanpham.CategoryId = null;
+            sanpham.BrandId = null;
             ImageSanPham image = new ImageSanPham();
-            if (upload.TileImage != null)
+            if (upload.ListImage != null)
             {
-                foreach (var formFile in upload.TileImage)
+                foreach (var formFile in upload.ListImage)
                 {
                     if (formFile.Length > 0)
                     {
@@ -87,7 +89,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
             else
             {
-            
+                      
             }
             _context.imageSanPhams.Update(image);
             _context.SanPhams.Update(sanpham);
@@ -120,12 +122,17 @@ namespace Web_API_e_Fashion.Api_Controllers
                 KhuyenMai = upload.KhuyenMai,
                 UpdatedDate = null,
                 ImageSanPhams = listImage,
+                SanPhamThietKes = null,
+                SanPham_SanPhamThietKes = null,
+                GiaSanPhams = null,
+                CategoryId = null,
+                BrandId = null,
             };
             _context.SanPhams.Add(sanpham);
             await _context.SaveChangesAsync();
-            if (upload.TileImage != null)
+            if (upload.ListImage != null)
             {
-                foreach (var formFile in upload.TileImage)
+                foreach (var formFile in upload.ListImage)
                 {
                     if (formFile.Length > 0)
                     {

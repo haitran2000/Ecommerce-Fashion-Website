@@ -1,0 +1,433 @@
+<div>
+    <!-- theme setting -->
+    <a href="javascript:void(0)">
+        <div class="setting-sidebar" id="setting-icon" (click)="layoutSidebarToggle()">
+            <div>
+                <i class="fa fa-cog" aria-hidden="true"></i>
+            </div>
+        </div>
+    </a>
+    <div id="setting_box" class="setting-box" [class.opensetting]="layoutsidebar">
+        <a href="javascript:void(0)" class="overlay" (click)="layoutSidebarToggle()"></a>
+        <div class="setting_box_body">
+            <div>
+                <div class="sidebar-back text-left" (click)="layoutSidebarToggle()">
+                    <i class="fa fa-angle-left pr-2" aria-hidden="true"></i> Back
+                </div>
+            </div>
+            <div class="setting-body">
+                <div class="setting-title" (click)="opensettingcontent('layout')">
+                    <h4>
+                        layout
+                        <span class="according-menu"></span>
+                    </h4>
+                </div>
+                <div class="setting-contant" [class.opensubmenu]="isActive('layout')">
+                    <div class="row demo-section">
+
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo1"></div>
+                                <div class="demo-text">
+                                    <h4>Fashion</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/fashion']" class="btn new-tab-btn">
+                    		Preview
+                    	</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo2"></div>
+                                <div class="demo-text">
+                                    <h4>Fashion 2</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/fashion-2']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo3"></div>
+                                <div class="demo-text">
+                                    <h4>Fashion 2</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/fashion-3']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo4"></div>
+                                <div class="demo-text">
+                                    <h4>Vegetable</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/vegetable']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo5"></div>
+                                <div class="demo-text">
+                                    <h4>Watch</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/watch']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo6"></div>
+                                <div class="demo-text">
+                                    <h4>Furniture</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/furniture']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo7"></div>
+                                <div class="demo-text">
+                                    <h4>Flower</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/flower']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo8"></div>
+                                <div class="demo-text">
+                                    <h4>Beauty</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/beauty']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo9"></div>
+                                <div class="demo-text">
+                                    <h4>Electronics</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/electronics']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo10"></div>
+                                <div class="demo-text">
+                                    <h4>Pets</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/pets']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo11"></div>
+                                <div class="demo-text">
+                                    <h4>Gym</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/gym']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo12"></div>
+                                <div class="demo-text">
+                                    <h4>Tools</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/tools']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo13"></div>
+                                <div class="demo-text">
+                                    <h4>Shoes</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/shoes']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container demo14"></div>
+                                <div class="demo-text">
+                                    <h4>Bags</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/bags']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects mb-0">
+                            <div class="set-position">
+                                <div class="layout-container demo15"></div>
+                                <div class="demo-text">
+                                    <h4>Marijuana</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/home/marijuana']" class="btn new-tab-btn">
+                    		Preview
+                    	</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-title" (click)="opensettingcontent('shop')">
+                    <h4>
+                        shop
+                        <span class="according-menu"></span>
+                    </h4>
+                </div>
+                <div class="setting-contant" [class.opensubmenu]="isActive('shop')">
+                    <div class="row demo-section">
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container shop1"></div>
+                                <div class="demo-text">
+                                    <h4>left sidebar</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/shop/collection/left/sidebar']" class="btn new-tab-btn">
+                    		Preview
+                    	</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container shop2"></div>
+                                <div class="demo-text">
+                                    <h4>right sidebar</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/shop/collection/right/sidebar']" class="btn new-tab-btn">
+                    		Preview
+                    	</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container shop3"></div>
+                                <div class="demo-text">
+                                    <h4>no sidebar</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/shop/collection/no/sidebar']" class="btn new-tab-btn">
+                    		Preview
+                    	</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="setting-title" (click)="opensettingcontent('product')">
+                    <h4>
+                        product
+                        <span class="according-menu"></span>
+                    </h4>
+                </div>
+                <div class="setting-contant" [class.opensubmenu]="isActive('product')">
+                    <div class="row demo-section">
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container product1"></div>
+                                <div class="demo-text">
+                                    <h4>left sidebar</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container product2"></div>
+                                <div class="demo-text">
+                                    <h4>right sidebar</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/shop/product/right/sidebar/trim-dress']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container product3"></div>
+                                <div class="demo-text">
+                                    <h4>no sidebar</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/shop/product/no/sidebar/trim-dress']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container product4"></div>
+                                <div class="demo-text">
+                                    <h4>three column</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/shop/product/three/column/trim-dress']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container product5"></div>
+                                <div class="demo-text">
+                                    <h4>Four image</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/shop/product/four/image/belted-dress']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container product6"></div>
+                                <div class="demo-text">
+                                    <h4>Bundle Product</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/shop/product/bundle/trim-dress']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-12 text-center demo-effects">
+                            <div class="set-position">
+                                <div class="layout-container product7"></div>
+                                <div class="demo-text">
+                                    <h4>Image Outside</h4>
+                                    <div class="btn-group demo-btn" role="group" aria-label="Basic example">
+                                        <a [routerLink]="['/shop/product/image/outside/trim-dress']" class="btn new-tab-btn">
+                        Preview
+                      </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="setting-title" (click)="opensettingcontent('color option')">
+                    <h4>
+                        color picker
+                        <span class="according-menu"></span>
+                    </h4>
+                </div>
+                <div class="setting-contant" [class.opensubmenu]="isActive('color option')">
+                    <ul class="color-box">
+                        <li>
+                            <input id="colorPicker1" type="color" value="#ff4c3b" name="Background" (change)="customizeThemeColor($event)">
+                            <span>theme deafult color</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="setting-title" (click)="opensettingcontent('rtl')">
+                    <h4>
+                        RTL
+                        <span class="according-menu"></span>
+                    </h4>
+                </div>
+                <div class="setting-contant" [class.opensubmenu]="isActive('rtl')">
+                    <ul class="setting_buttons">
+                        <li id="ltr_btn">
+                            <a href="javascript:void(0)" (click)="customizeLayoutType('ltr')" class="btn setting_btn">LTR</a>
+                        </li>
+                        <li id="rtl_btn">
+                            <a href="javascript:void(0)" (click)="customizeLayoutType('rtl')" class="btn setting_btn">RTL</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="buy_btn">
+                    <a href="https://themeforest.net/item/multikart-responsive-angular-ecommerce-template/22905358?s_rank=3" target="_blank" class="btn btn-block purchase_btn">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Purchase Multikart now!
+                    </a>
+                    <a href="https://themeforest.net/item/multikart-responsive-ecommerce-html-template/22809967" target="_blank" class="btn btn-block purchase_btn">
+                        <img src="assets/images/icon/html.png" alt class="img-fluid" /> Multikart Html
+                    </a>
+                    <a href="https://themeforest.net/item/multikart-responsive-vuejs-ecommerce-template/25174665" target="_blank" class="btn btn-block purchase_btn">
+                        <img src="assets/images/icon/vue.png" alt class="img-fluid" /> Multikart Vue
+                    </a>
+                    <a href="https://themeforest.net/item/multikart-responsive-react-ecommerce-template/23067773?s_rank=2" target="_blank" class="btn btn-block purchase_btn">
+                        <img src="assets/images/icon/react.png" alt class="img-fluid" /> Multikart React
+                    </a>
+                    <a href="https://themeforest.net/item/multikart-multipurpose-shopify-sections-theme/23093831?s_rank=1" target="_blank" class="btn btn-block purchase_btn">
+                        <img src="assets/images/icon/shopify.png" alt class="img-fluid" /> Multikart Shopify
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- theme setting -->
+    <div class="sidebar-btn dark-light-btn">
+        <div class="dark-light">
+            <div class="theme-layout-version" (click)="customizeLayoutDark()">Dark</div>
+        </div>
+    </div>
+
+</div>

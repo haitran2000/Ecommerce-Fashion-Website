@@ -1,0 +1,201 @@
+<app-header-three [themeLogo]="themeLogo"></app-header-three>
+
+<!-- Home slider start-->
+<section class="p-0">
+    <app-slider [sliders]="sliders" [textClass]="'text-center'" [category]="'flower'" [buttonText]="'shop now'">
+    </app-slider>
+</section>
+<!-- Home slider End -->
+
+<!-- collection banner -->
+<section class="banner-padding pb-0">
+    <div class="container">
+        <div class="row partition2">
+            <div class="col-md-4">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'flower'}">
+                    <div class="collection-banner p-left text-center">
+                        <img src="assets/images/collection/flower/1.jpg" class="img-fluid" alt="banner">
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'flower'}">
+                    <div class="collection-banner p-right text-right">
+                        <img src="assets/images/collection/flower/2.jpg" class="img-fluid" alt="banner">
+                        <div class="contain-banner">
+                            <div>
+                                <h4>save 30%</h4>
+                                <h2>hot deal</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- collection banner end -->
+
+<!-- product-box slider -->
+<section class="section-b-space">
+    <div class="full-box">
+        <div class="container">
+            <div class="title4">
+                <h2 class="title-inner4">best selling products</h2>
+                <div class="line">
+                    <span></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="theme-card center-align">
+                        <div class="offer-slider">
+                            <div class="sec-1">
+                                <div class="product-box2" *ngFor="let product of products | slice:0:2">
+                                    <app-product-box-vertical [product]="product" [currency]="productService?.Currency">
+                                    </app-product-box-vertical>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 center-slider">
+                    <div>
+                        <div class="offer-slider">
+                            <div>
+                                <div class="product-box product-wrap text-center" *ngFor="let product of products | slice:4:5">
+                                    <app-product-box-two [product]="product" [currency]="productService?.Currency">
+                                    </app-product-box-two>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="theme-card center-align">
+                        <div class="offer-slider">
+                            <div class="sec-1">
+                                <div class="product-box2" *ngFor="let product of products | slice:2:4">
+                                    <app-product-box-vertical [product]="product" [currency]="productService?.Currency">
+                                    </app-product-box-vertical>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- product-box slider end -->
+
+<!-- tab section  -->
+<div class="bg-block" [ngStyle]="{'background-image': 'url(assets/images/flower-bg1.jpg)'}">
+    <section class="p-0">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <div class="title4">
+                        <h2 class="title-inner4">trending products</h2>
+                        <div class="line">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="theme-tab">
+                        <ngb-tabset [justify]="'center'" [type]="'pills'" class="tabs tab-title">
+                            <ngb-tab *ngFor="let collection of productCollections">
+                                <ng-template ngbTabTitle>{{collection}}</ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="row product-tab">
+                                        <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:8">
+                                            <div class="tab-box">
+                                                <div class="product-box2">
+                                                    <app-product-box-vertical [product]="product" [currency]="productService?.Currency">
+                                                    </app-product-box-vertical>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                        </ngb-tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- tab section end -->
+
+<!-- product section -->
+<section class="section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="title4">
+                    <h2 class="title-inner4">trending items</h2>
+                    <div class="line">
+                        <span></span>
+                    </div>
+                </div>
+                <owl-carousel-o class="product-4 product-m no-arrow" [options]="ProductSliderConfig">
+                    <ng-container *ngFor="let product of products | slice:0:16">
+                        <ng-template carouselSlide>
+                            <div class="product-box product-wrap">
+                                <app-product-box-two [product]="product" [currency]="productService?.Currency">
+                                </app-product-box-two>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- product section end -->
+
+<!-- blog section start-->
+<section class="blog flower-bg section-b-space" 
+    [ngStyle]="{'background-image': 'url(assets/images/flower-bg.jpg)'}">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="title1 section-t-space">
+                    <h4>Recent Story</h4>
+                    <h2 class="title-inner1">from the blog</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <app-blog [blogs]="blogs"></app-blog>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- blog section End -->
+
+<!-- services start-->
+<div class="container section-t-space">
+    <section class="service border-section small-section">
+        <app-services></app-services>
+    </section>
+</div>
+<!-- services End -->
+
+<!-- Instagram section -->
+<section class="instagram section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 p-0">
+                <h2 class="title-borderless"># instagram</h2>
+                <app-instagram></app-instagram>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- instagram section end -->
+
+<!-- Cart Open To bottom Side-->
+<app-cart-variation [direction]="'bottom'"></app-cart-variation>
+<app-footer-one [themeLogo]="themeLogo"></app-footer-one>

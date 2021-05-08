@@ -1,0 +1,33 @@
+<form [formGroup]="newForm" (ngSubmit)="onSubmit(newForm.value)">
+    <button mat-button color="accent" type="submit" style="width: 100%;">Submit</button>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email" formControlName="email" type="text">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Password</mat-label>
+        <input matInput placeholder="Password" formControlName="password" type="password">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>FirstName</mat-label>
+        <input matInput placeholder="FirstName" formControlName="firstName" type="text">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>LastName</mat-label>
+        <input matInput placeholder="LastName" formControlName="lastName" type="text">
+      </mat-form-field>
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Location</mat-label>
+        <input matInput placeholder="Location" formControlName="location" type="text">
+      </mat-form-field>
+       <mat-label>Upload ảnh đại diện</mat-label>
+      <br>
+      <input type="file" multiple (change)="gopHam($event)">
+      <div>
+        <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">
+      </div>
+    
+</form>
+<div *ngIf="errors" class="alert alert-danger" role="alert">
+  <strong>Oops!</strong> {{errors}}
+</div>

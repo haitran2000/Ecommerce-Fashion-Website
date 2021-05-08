@@ -1,0 +1,140 @@
+<app-header-four [themeLogo]="themeLogo"></app-header-four>
+
+<!-- Home slider start-->
+<section class="p-0">
+  <app-slider 
+    [sliders]="sliders" 
+    [textClass]="'text-center'"
+    [category]="'pets'"
+    [buttonText]="'shop now'"> 
+  </app-slider>
+</section>
+<!-- Home slider End -->
+
+<!--  logo section start-->
+<section class="section-b-space">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <app-logo [logos]="logos"></app-logo>
+      </div>
+    </div>
+  </div>
+</section>
+<!--  logo section End-->
+
+<!-- Banner section -->
+<section class="pt-0 banner-6">
+    <div class="container">
+        <div class="row partition3">
+            <div class="col-md-4" *ngFor="let collection of collections1">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'pets'}">
+                    <div class="collection-banner p-left">
+                        <img [src]="collection.image" class="img-fluid" alt="pets">
+                        <div class="contain-banner banner-3">
+                            <div>
+                                <h2>{{collection.title}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row partition3 banner-top-cls">
+            <div class="col-md-4" *ngFor="let collection of collections2">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'pets'}">
+                    <div class="collection-banner p-right">
+                        <img [src]="collection.image" class="img-fluid" alt="pets">
+                        <div class="contain-banner banner-3">
+                            <div>
+                                <h2>{{collection.title}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- banner section End -->
+
+<!-- Product slider -->
+<section class="section-b-space j-box pets-box">
+  <div class="container">
+      <div class="row">
+          <div class="col">
+              <div class="title1 title5">
+                  <h4>special offer</h4>
+                  <h2 class="title-inner1">top collection</h2>
+                  <hr role="tournament6">
+              </div>
+              <owl-carousel-o class="product-4 product-m no-arrow" [options]="ProductSliderConfig">
+                <ng-container *ngFor="let product of products | slice:0:16">
+                  <ng-template carouselSlide>
+                    <div class="product-box">
+                      <app-product-box-one 
+                        [product]="product"
+                        [currency]="productService?.Currency">    
+                      </app-product-box-one>
+                    </div>
+                  </ng-template>
+                </ng-container>
+              </owl-carousel-o>              
+          </div>
+      </div>
+  </div>
+</section>
+<!-- Product slider end -->
+
+<!-- Parallax banner -->
+<section class="p-0 pet-parallax">
+    <div class="full-banner parallax parallax-banner19  text-center p-center"
+        [ngStyle]="{'background-image': 'url(assets/images/parallax/6.jpg)'}">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="banner-contain">
+                        <h4>choose what you love</h4>
+                        <h3>get upto 70% off</h3>
+                        <p>
+                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                        </p>
+                        <a [routerLink]="['/shop/collection/left/sidebar']"
+                           [queryParams]="{ category: 'pets'}" 
+                           class="btn btn-solid black-btn">
+                           shop now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pet-decor">
+            <img src="assets/images/dog.png" alt="" class="img-fluid">
+        </div>
+    </div>
+</section>
+<!-- Parallax banner end -->
+
+<!-- blog section start-->
+<section class="section-b-space blog p-t-0 blog_box">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="title1 section-t-space">
+          <h4>Recent Story</h4>
+          <h2 class="title-inner1">from the blog</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <app-blog [blogs]="blogs"></app-blog>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- blog section End -->
+
+<!-- Cart Open To Left Side-->
+<app-cart-variation [direction]="'left'"></app-cart-variation> 
+<app-footer-four [class]="'footer-light pet-layout-footer'" [themeLogo]="themeLogo"></app-footer-four>

@@ -1,0 +1,249 @@
+<app-header-one [themeLogo]="themeLogo"></app-header-one>
+
+<!-- Home slider start-->
+<section class="p-0">
+    <app-slider [sliders]="sliders" [textClass]="'text-center'" [category]="'watch'" [buttonText]="'shop now'">
+    </app-slider>
+</section>
+<!-- Home slider End -->
+
+<!--  logo section start-->
+<section class="section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <app-logo [logos]="logos"></app-logo>
+            </div>
+        </div>
+    </div>
+</section>
+<!--  logo section End-->
+
+<!-- timer banner -->
+<section>
+    <div class="container">
+        <div class="row banner-timer" [ngStyle]="{'background-image': 'url(assets/images/offer-banner-2.jpg)'}">
+            <div class="col-md-6">
+                <div class="banner-text">
+                    <h2>Save <span>30% off</span> Digital Watch</h2>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="timer-box">
+                    <div class="timer">
+                        <p id="demo">
+                            <span>
+                            11<span class='padding-l'>:</span><span class='timer-cal'>Days</span>
+                            </span>
+                            <span>
+                            11<span class='padding-l'>:</span><span class='timer-cal'>Hrs</span>
+                            </span>
+                            <span>
+                            11<span class='padding-l'>:</span><span class='timer-cal'>Min</span>
+                            </span>
+                            <span>
+                            11<span class='timer-cal'>Sec</span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- timer banner end -->
+
+<!-- category -->
+<section class="section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <app-collection [categories]="categories" [category]="'watch'"></app-collection>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- category end -->
+
+<!--  tab section  -->
+<section class="p-0">
+    <div class=" tab-bg">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col">
+                    <div class="title4">
+                        <h2 class="title-inner4">trending products</h2>
+                        <div class="line">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="theme-tab">
+                        <ngb-tabset [justify]="'center'" [type]="'pills'" class="tabs tab-title">
+                            <ngb-tab *ngFor="let collection of productCollections">
+                                <ng-template ngbTabTitle>{{collection}}</ng-template>
+                                <ng-template ngbTabContent>
+                                    <div class="row product-tab">
+                                        <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:8">
+                                            <div class="tab-box">
+                                                <div class="product-box2">
+                                                    <app-product-box-vertical [product]="product" [currency]="productService?.Currency">
+                                                    </app-product-box-vertical>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </ng-template>
+                            </ngb-tab>
+                        </ngb-tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--  tab section end -->
+
+<!-- product section -->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="title4">
+                    <h2 class="title-inner4">trending products</h2>
+                    <div class="line">
+                        <span></span>
+                    </div>
+                </div>
+                <owl-carousel-o [options]="ProductSliderConfig" class="product-4 product-m no-arrow">
+                    <ng-container *ngFor="let product of products">
+                        <ng-template carouselSlide>
+                            <div class="product-box product-wrap">
+                                <app-product-box-two [product]="product" [currency]="productService?.Currency">
+                                </app-product-box-two>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- product section end -->
+
+<!-- collection banner -->
+<section>
+    <div class="container">
+        <div class="row partition3">
+            <div class="col-md-4" *ngFor="let collection of collections">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'watch'}">
+                    <div class="collection-banner p-left">
+                        <img [src]="collection.image" class="img-fluid" alt="">
+                        <div class="contain-banner banner-3" *ngIf="collection.title && collection.text">
+                            <div>
+                                <h4>{{collection.title}}</h4>
+                                <h2>{{collection.text}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- collection banner end -->
+
+<!-- product-box -->
+<section class="section-b-space">
+    <div class="full-box">
+        <div class="container">
+            <div class="title4">
+                <h2 class="title-inner4">special products</h2>
+                <div class="line">
+                    <span></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="theme-card center-align">
+                        <div class="offer-slider">
+                            <div class="sec-1">
+                                <div class="product-box2" *ngFor="let product of products | slice:0:2">
+                                    <app-product-box-vertical [product]="product" [currency]="productService?.Currency">
+                                    </app-product-box-vertical>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 center-slider">
+                    <div>
+                        <div class="offer-slider">
+                            <div>
+                                <div class="product-box product-wrap" *ngFor="let product of products | slice:4:5">
+                                    <app-product-box-two [product]="product" [currency]="productService?.Currency">
+                                    </app-product-box-two>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="theme-card center-align">
+                        <div class="offer-slider">
+                            <div class="sec-1">
+                                <div class="product-box2" *ngFor="let product of products | slice:2:4">
+                                    <app-product-box-vertical [product]="product" [currency]="productService?.Currency">
+                                    </app-product-box-vertical>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- product-box end -->
+
+<!-- blog section start-->
+<section class="blog blog-bg section-b-space">
+    <div class="container">
+        <div class="title4">
+            <h2 class="title-inner4">Recent Story</h2>
+            <div class="line">
+                <span></span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <app-blog [blogs]="blogs"></app-blog>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- blog section end -->
+
+<!-- services start-->
+<div class="container section-t-space">
+    <section class="service border-section small-section">
+        <app-services></app-services>
+    </section>
+</div>
+<!-- services End -->
+
+<!-- Instagram section -->
+<section class="instagram section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 p-0">
+                <h2 class="title-borderless"># instagram</h2>
+                <app-instagram></app-instagram>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Instagram section End -->
+
+<!-- Cart Open To Left Side-->
+<app-cart-variation [direction]="'left'"></app-cart-variation>
+<app-footer-one [themeLogo]="themeLogo"></app-footer-one>

@@ -1,0 +1,84 @@
+<app-header-one [themeLogo]="themeLogo"></app-header-one>
+
+<!-- home banner start -->
+<div class="container banner-slider">
+    <div class="row">
+        <div class="col-md-7">
+            <img src="assets/images/banner/1.jpg" class="img-fluid height-banner" alt="electronics">
+        </div>
+        <div class="col-md-5">
+            <div class="row home-banner">
+                <div class="col-12">
+                    <a [routerLink]="['/shop/collection/left/sidebar']" 
+                       [queryParams]="{ category: 'electronics'}">
+                        <img src="assets/images/banner/2.jpg" class="img-fluid" alt="electronics">
+                    </a>
+                </div>
+                <div class="col-12">
+                    <a [routerLink]="['/shop/collection/left/sidebar']"
+                       [queryParams]="{ category: 'electronics'}">
+                        <img src="assets/images/banner/3.jpg" class="img-fluid" alt="electronics">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- home banner end  -->
+
+<!-- collection banner -->
+<section class="banner-padding banner-goggles">
+    <div class="container">
+        <div class="row partition3">
+            <div class="col-md-4" *ngFor="let collection of collections">
+                <a [routerLink]="['/shop/collection/left/sidebar']"
+                   [queryParams]="{ category: 'electronics'}">
+                    <div class="collection-banner p-right text-right">
+                        <img [src]="collection.image" class="img-fluid" alt="">
+                        <div class="contain-banner banner-3">
+                            <div>
+                                <h4>{{collection.save}}</h4>
+                                <h2>{{collection.title}}</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- collection banner end -->
+
+<!-- slider tab  -->
+<section class="section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="theme-tab">
+                    <ngb-tabset [justify]="'center'" [type]="'pills'" class="tabs tab-title2">
+                      <ngb-tab *ngFor="let collection of productCollections">
+                        <ng-template ngbTabTitle>{{collection}}</ng-template>
+                        <ng-template ngbTabContent>
+                          <div class="no-slider row">
+                            <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:8">
+                              <div class="product-box">
+                                <app-product-box-one 
+                                  [product]="product" 
+                                  [currency]="productService?.Currency">
+                                </app-product-box-one>
+                              </div>
+                            </ng-container>
+                          </div>
+                        </ng-template>
+                      </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- slider tab end -->
+
+<!-- Cart Open To bottom Side-->
+<app-cart-variation [direction]="'left'"></app-cart-variation> 
+<app-footer-one [themeLogo]="themeLogo"></app-footer-one>

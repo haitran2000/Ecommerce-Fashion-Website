@@ -1,0 +1,65 @@
+<!-- Add to cart modal popup start-->
+<ng-template #cartModal let-modal>
+    <div class="modal-body">
+        <div class="container-fluid p-0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="modal-bg addtocart">
+                        <button type="button" id="close-cart-modal" class="close" (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <div class="media">
+                            <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
+                                <img class="img-fluid pro-img" [src]="product.images[0].src" [alt]="product.images[0].alt">
+                            </a>
+                            <div class="media-body align-self-center text-center">
+                                <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
+                                    <h6>
+                                        <i class="fa fa-check"></i>Item
+                                        <span>{{ product.title | titlecase }}</span>
+                                        <span> successfully added to your Cart</span>
+                                    </h6>
+                                </a>
+                                <div class="buttons">
+                                    <a [routerLink]="['/shop/cart']" class="view-cart btn btn-solid">Your cart</a>
+                                    <a [routerLink]="['/shop/checkout']" class="checkout btn btn-solid">Check out</a>
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" class="continue btn btn-solid">Continue shopping</a>
+                                </div>
+
+                                <div class="upsell_payment">
+                                    <img src="assets/images/payment_cart.png" class="img-fluid" alt="">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-section">
+                            <div class="col-12 product-upsell text-center">
+                                <h4>Customers who bought this item also.</h4>
+                            </div>
+                            <div class="row" id="upsell_product">
+                                <ng-container *ngFor="let product of products | slice:0:4">
+                                    <div class="product-box col-sm-3 col-6">
+                                        <div class="img-wrapper">
+                                            <div class="front">
+                                                <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
+                                                    <img [src]="product.images[0].src" class="img-fluid mb-1" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="product-detail">
+                                                <h6 class="mt-0">
+                                                    <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]"><span>{{ product.title | titlecase }}</span></a>
+                                                </h6>
+                                                <h4><span>{{ product.price * currency?.price | discount:product | currency:currency?.currency:'symbol' }}</span></h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<!-- Add to cart modal popup end-->

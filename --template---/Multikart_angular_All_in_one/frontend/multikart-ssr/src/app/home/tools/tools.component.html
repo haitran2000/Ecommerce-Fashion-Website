@@ -1,0 +1,229 @@
+<app-header-one [class]="'header-tools'"></app-header-one>
+
+<!-- Home slider start-->
+<section class="p-0 height-85 tools_slider">
+    <owl-carousel-o [options]="HomeSliderConfig" class="home-slider">
+        <ng-template carouselSlide>
+            <div class="home text-center" [ngStyle]="{'background-image': 'url(assets/images/slider/21.jpg)'}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="slider-contain">
+                                <div>
+                                    <h4>welcome to tools</h4>
+                                    <h1>auto parts</h1>
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'tools'}" class="btn btn-solid">shop now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tools-parts" id="tools-move">
+                        <img src="assets/images/tools-2.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="tools-parts1" id="tools-move1">
+                        <img src="assets/images/tools-3.png" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template carouselSlide>
+            <div class="home text-center" [ngStyle]="{'background-image': 'url(assets/images/slider/22.jpg)'}">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="slider-contain">
+                                <div>
+                                    <h4>welcome to tools</h4>
+                                    <h1>auto parts</h1>
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'tools'}" class="btn btn-solid">shop now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tools-parts" id="tools-move2">
+                        <img src="assets/images/tools-1.png" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </owl-carousel-o>
+</section>
+<!-- Home slider End -->
+
+<!-- service section start -->
+<section class="banner-padding absolute-banner pb-0 tools-service">
+    <div class="container absolute-bg">
+        <div class="service p-0 ">
+            <app-services></app-services>
+        </div>
+    </div>
+</section>
+<!-- service section end -->
+
+<!-- about section start-->
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <div class="title3">
+                    <h2 class="title-inner3">welcome to tool store</h2>
+                    <div class="line"></div>
+                </div>
+                <div class="about-text">
+                    <p>
+                        Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas
+                        sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- about section end-->
+
+<!-- category -->
+<section class="pt-0 category-tools">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <app-collection [class]="'pt-0'" [categories]="categories" [category]="'tools'">
+                </app-collection>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- category end -->
+
+<!-- product slider start -->
+<section class="section-b-space tools-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="title3">
+                    <h2 class="title-inner3">Popular products</h2>
+                    <div class="line"></div>
+                </div>
+                <owl-carousel-o [options]="ProductSliderConfig" class="product-5 product-m no-arrow">
+                    <ng-container *ngFor="let product of products">
+                        <ng-template carouselSlide>
+                            <div class="product-box product-wrap">
+                                <app-product-box-three [product]="product" [currency]="productService?.Currency">
+                                </app-product-box-three>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- product slider end -->
+
+<!-- parallax section start -->
+<section class="full-banner parallax-banner21 parallax small-slider tools-parallax-product" [ngStyle]="{'background-image': 'url(assets/images/parallax/8.jpg)'}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-12">
+                <div class="tools-description">
+                    <div>
+                        <h3>select your vehical</h3>
+                        <div class="tools-form">
+                            <div class="search-box">
+                                <select class="form-control">
+                                    <option value="">Select Make</option>
+                                    <option value="1">Audi</option>
+                                    <option value="2">BMW</option>
+                                    <option value="3">Fiat</option>
+                                    <option value="4">Hyndai</option>
+                                    <option value="5">Skoda</option>
+                                </select>
+                            </div>
+                            <div class="search-box">
+                                <select name="model" class="form-control">
+                                    <option value="">Select Model</option>
+                                </select>
+                            </div>
+                            <div class="search-box">
+                                <select name="engine" class="form-control">
+                                    <option value="">Select category</option>
+                                </select>
+                            </div>
+                            <div class="search-box">
+                                <select name="year" class="form-control">
+                                    <option value="">Select Year</option>
+                                </select>
+                            </div>
+                            <div class="search-button">
+                                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}" class="btn btn-solid btn-find">find my part</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-12 tools-grey">
+                <owl-carousel-o [options]="ProductSliderConfig" class="tools-product-4 product-m">
+                    <ng-container *ngFor="let product of products">
+                        <ng-template carouselSlide>
+                            <div class="product-box product-wrap">
+                                <app-product-box-three [product]="product" [currency]="productService?.Currency"></app-product-box-three>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- parallax section end -->
+
+<!-- product section start -->
+<section class="tools_product">
+    <div class="container">
+        <div class="row multiple-slider">
+            <div class="col-xl-3 col-lg-4 col-md-12">
+                <app-product-box-vertical-slider [title]="'new products'" [type]="'tools'">
+                </app-product-box-vertical-slider>
+            </div>
+            <div class="col-xl-9 col-lg-8 col-md-12 tools-grey">
+                <div class="theme-tab">
+                    <ngb-tabset [justify]="'center'" [type]="'pills'" class="tabs tab-title">
+                        <ngb-tab *ngFor="let collection of productCollections">
+                            <ng-template ngbTabTitle>{{collection}}</ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="no-slider row">
+                                    <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:4">
+                                        <div class="product-box">
+                                            <app-product-box-three [product]="product" [currency]="productService?.Currency">
+                                            </app-product-box-three>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+                <div class="banner-tools">
+                    <img src="assets/images/offer-banner-4.jpg" alt="banner" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- product section end -->
+
+<!--  logo section start-->
+<section class="section-b-space tools-brand">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <app-logo [logos]="logos"></app-logo>
+            </div>
+        </div>
+    </div>
+</section>
+<!--  logo section End-->
+
+<!-- Cart Open To Top Side-->
+<app-cart-variation [direction]="'top'"></app-cart-variation>
+<app-footer-one [class]="'sticky-footer'" [newsletter]="false" [themeLogo]="themeLogo"></app-footer-one>

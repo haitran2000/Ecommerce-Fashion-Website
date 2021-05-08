@@ -11,7 +11,7 @@ export const navItems: INavData[] = [
     }
   },
   {
-    name: 'products',
+    name: 'Products',
     url: '/products',
     icon: 'icon-drop'
   },
@@ -19,7 +19,7 @@ export const navItems: INavData[] = [
     name: 'Pages',
     url: '/pages',
     icon: 'icon-star',
-    children: [
+   /*  children: [
       {
         name: 'Login',
         url: '/login',
@@ -40,7 +40,7 @@ export const navItems: INavData[] = [
         url: '/500',
         icon: 'icon-star'
       }
-    ]
+    ] */
   },
   {
     name: 'Disabled',

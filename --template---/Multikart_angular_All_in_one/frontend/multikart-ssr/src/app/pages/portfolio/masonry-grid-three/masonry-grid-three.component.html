@@ -1,0 +1,45 @@
+<app-breadcrumb [title]="'Portfolio'" [breadcrumb]="'Portfolio'"></app-breadcrumb>
+<!-- section start -->
+<section class="filter-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="title1 ">
+                    <h2 class="title-inner1">portfolio</h2>
+                </div>
+                <div class="filter-container isotopeFilters">
+                    <ul class="list-inline filter">
+                        <li [class.active]="galleryFilter == 'all'"><a href="javascript:void(0)" (click)="filter('all')">All </a></li>
+                        <li [class.active]="galleryFilter == 'fashion'"><a href="javascript:void(0)" (click)="filter('fashion')">Fashion</a></li>
+                        <li [class.active]="galleryFilter == 'shoes'"><a href="javascript:void(0)" (click)="filter('shoes')">Shoes</a></li>
+                        <li [class.active]="galleryFilter == 'watch'"><a href="javascript:void(0)" (click)="filter('watch')">Watch</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="portfolio-section pt-0 port-col zoom-gallery">
+    <div class="container">
+        <div class="row isotopeContainer">
+            <div class="col-lg-4 col-sm-6 isotopeSelector" [ngClass]="galleryFilter"  *ngFor="let image of Images">
+                <div class="overlay">
+                    <div class="border-portfolio">
+                        <a href="javascript:void(0)">
+                            <div class="overlay-background" (click)="openImage(image)">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </div>
+                            <img [src]="image.modal.img" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>
+    <ks-modal-gallery [id]="200" 
+        [modalImages]="Images"
+        [plainGalleryConfig]="GalleryConfig" 
+        [buttonsConfig]="ButtonsConfig">
+    </ks-modal-gallery>
+</section>
+<!-- Section ends -->

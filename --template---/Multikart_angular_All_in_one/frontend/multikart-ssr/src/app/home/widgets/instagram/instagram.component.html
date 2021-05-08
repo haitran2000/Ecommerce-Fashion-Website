@@ -1,0 +1,16 @@
+<owl-carousel-o [options]="InstaSliderConfig" class="no-arrow instagram">
+  <ng-container *ngFor="let insta of instagram?.data">
+    <ng-template carouselSlide>
+      <div>
+        <a [href]="insta.link">
+          <div class="instagram-box">
+            <img [src]="insta.images.standard_resolution.url" alt="Avatar" style="width:100%">
+            <div class="overlay">
+              <i class="fa fa-instagram" aria-hidden="true"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </ng-template>
+  </ng-container>
+</owl-carousel-o>

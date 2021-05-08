@@ -1,0 +1,93 @@
+<app-breadcrumb [title]="'Cart'" [breadcrumb]="'Cart'"></app-breadcrumb>
+<!-- section start -->
+<section class="cart-section section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table cart-table table-responsive-xs">
+                    <thead>
+                        <tr class="table-head">
+                            <th scope="col">image</th>
+                            <th scope="col">product name</th>
+                            <th scope="col">price</th>
+                            <th scope="col">quantity</th>
+                            <th scope="col">action</th>
+                            <th scope="col">total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a [routerLink]="['/shop/product/left/sidebar/trim-dress']">
+                                    <img src="assets/images/product/fashion/1.jpg" alt="">
+                                </a>
+                            </td>
+                            <td><a [routerLink]="['/shop/product/left/sidebar/trim-dress']">cotton shirt</a>
+                                <div class="mobile-cart-content row">
+                                    <div class="col-xs-3">
+                                        <div class="qty-box">
+                                            <div class="input-group">
+                                                <input type="text"  name="quantity" class="form-control input-number" value="1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h2 class="td-color">$63.00</h2>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h2 class="td-color">
+                                            <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon">
+                                                <i class="ti-close"></i>
+                                            </a>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><h2>$63.00</h2></td>
+                            <td>
+                                <div class="qty-box">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend">
+                                            <button type="button" class="btn quantity-left-minus" data-type="minus">
+                                                <i class="ti-angle-left"></i>
+                                            </button>
+                                        </span>
+                                        <input type="text" name="quantity" class="form-control input-number" disabled value="1">
+                                        <span class="input-group-prepend">
+                                            <button type="button" class="btn quantity-right-plus"  data-type="plus">
+                                                <i class="ti-angle-right"></i>
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon">
+                                    <i class="ti-close"></i>
+                                </a>
+                            </td>
+                            <td><h2 class="td-color">$4539.00</h2></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table cart-table table-responsive-md">
+                    <tfoot>
+                        <tr>
+                            <td>total price :</td>
+                            <td><h2> $6935.00 </h2></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        <div class="row cart-buttons">
+            <div class="col-6">
+                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
+            </div>
+            <div class="col-6">
+                <a [routerLink]="['/shop/checkout']" class="btn btn-solid">check out</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!--section end-->

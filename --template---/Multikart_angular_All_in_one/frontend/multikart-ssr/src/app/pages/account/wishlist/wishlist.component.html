@@ -1,0 +1,69 @@
+<app-breadcrumb [title]="'Register'" [breadcrumb]="'Register'"></app-breadcrumb>
+<!-- section start -->
+<section class="wishlist-section section-b-space">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table cart-table table-responsive-xs">
+                    <thead>
+                    <tr class="table-head">
+                        <th scope="col">image</th>
+                        <th scope="col">product name</th>
+                        <th scope="col">price</th>
+                        <th scope="col">availability</th>
+                        <th scope="col">action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a [routerLink]="['/shop/product/left/sidebar/trim-dress']">
+                                    <img src="assets/images/product/fashion/1.jpg" alt="fashion">
+                                </a>
+                            </td>
+                            <td><a [routerLink]="['/shop/product/left/sidebar/trim-dress']">cotton shirt</a>
+                                <div class="mobile-cart-content row">
+                                    <div class="col-xs-3">
+                                        <p>in stock</p>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h2 class="td-color">$63.00</h2>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <h2 class="td-color">
+                                            <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon mr-1">
+                                                <i class="ti-close"></i>
+                                            </a>
+                                            <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="cart">
+                                                <i class="ti-shopping-cart"></i>
+                                            </a>
+                                        </h2>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><h2>$63.00</h2></td>
+                            <td >
+                                <p>in stock</p>
+                            </td>
+                            <td>
+                                <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="icon mr-3">
+                                    <i class="ti-close"></i>
+                                </a>
+                                <a [routerLink]="['/shop/product/left/sidebar/trim-dress']" class="cart">
+                                    <i class="ti-shopping-cart"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row wishlist-buttons">
+            <div class="col-12">
+                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
+                <a [routerLink]="['/shop/checkout']" class="btn btn-solid">check out</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!--section end-->

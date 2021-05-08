@@ -1,0 +1,31 @@
+// Animation css
+@import '~animate.css/animate.min.css';
+
+// Bootstrap Layout scss
+@import '~bootstrap/scss/bootstrap';
+
+// Owl Carousel
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import '~ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
+// Themify icon scss
+@import 'themify';
+
+// Theme Scss
+@import 'theme/variables';
+:root {
+  --theme-deafult: #ff4c3b;
+  // This gradient color only for gym and marijuana layout
+  --theme-gradient1: #01effc;
+  --theme-gradient2: #485ff2;
+}
+@import 'theme/style';
+@import 'theme/theme-dark';
+@import 'theme/menu';
+@import 'theme/responsive';
+
+// Toastr Css
+@import '~ngx-toastr/toastr.css';
+
+// Rating Scss
+@import '~ngx-bar-rating/themes/br-default-theme';

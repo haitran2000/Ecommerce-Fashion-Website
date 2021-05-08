@@ -1,0 +1,109 @@
+<app-header-three></app-header-three>
+
+<!-- Home slider start-->
+<section class="p-0">
+  <app-slider 
+    [sliders]="sliders" 
+    [textClass]="'text-center'"
+    [category]="'fashion'"
+    [buttonText]="'shop now'"> 
+  </app-slider>
+</section>
+<!-- Home slider End -->
+
+<div class="container box-layout bg-image"
+    [ngStyle]="{'background-image': 'url(assets/images/bg-image.jpg)'}">
+    <!-- Product slider start-->
+    <section class="section-b-space">
+        <div class="container">
+            <div class="title1">
+                <h4>special offer</h4>
+                <h2 class="title-inner1">top collection</h2>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 offset-xl-3">
+                    <div class="product-para">
+                        <p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                            standard dummy text ever since the 1500s,</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <owl-carousel-o class="product-m no-arrow" [options]="ProductSliderConfig">
+                      <ng-container *ngFor="let product of products | slice:0:16">
+                          <ng-template carouselSlide>
+                          <div class="product-box">
+                            <app-product-box-one 
+                              [product]="product" 
+                              [currency]="productService?.Currency"
+                              [onHowerChangeImage]="true"
+                              [cartModal]="true">
+                            </app-product-box-one>
+                          </div>
+                          </ng-template>
+                      </ng-container>
+                    </owl-carousel-o>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product slider End -->
+
+    <!-- Parallax banner start-->
+    <section class="p-0">
+      <div class="full-banner parallax-banner1 parallax text-center p-left"
+          [ngStyle]="{'background-image': 'url(assets/images/parallax/3.jpg)'}">
+          <div class="container">
+            <div class="row">
+                <div class="col">
+                  <div class="banner-contain">
+                      <h2>2018</h2>
+                      <h3>fashion trends</h3>
+                      <h4>special offer</h4>
+                  </div>
+                </div>
+            </div>
+          </div>
+      </div>
+    </section>
+    <!-- Parallax banner End -->
+
+    <!-- Tab product start-->
+    <div class="title1 section-t-space">
+      <h4>exclusive products</h4>
+      <h2 class="title-inner1">special products</h2>
+    </div>
+    <section class="section-b-space p-t-0">
+      <div class="container">
+          <div class="row">
+            <div class="col theme-tab">
+                <ngb-tabset [justify]="'center'" [type]="'pills'" class="tabs tab-title">
+                  <ngb-tab *ngFor="let collection of productCollections">
+                    <ng-template ngbTabTitle>{{collection}}</ng-template>
+                    <ng-template ngbTabContent>
+                      <div class="no-slider row">
+                        <ng-container *ngFor="let product of getCollectionProducts(collection) | slice:0:8">
+                          <div class="product-box">
+                            <app-product-box-one 
+                              [product]="product" 
+                              [currency]="productService?.Currency"
+                              [thumbnail]="true"
+                              [cartModal]="true"
+                              [loader]="false">
+                            </app-product-box-one>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+                </ngb-tabset>
+            </div>
+          </div>
+      </div>
+    </section>
+    <!-- Tab product End -->
+</div>    
+
+<app-newsletter></app-newsletter>
+<app-footer-one></app-footer-one>

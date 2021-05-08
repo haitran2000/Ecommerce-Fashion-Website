@@ -23,10 +23,13 @@ namespace Web_API_e_Fashion.UploadFileModels
         public string? CreatedDate { get; set; }
         public int? UpdateBy { get; set; }
         public bool? TrangThaiHoatDong { get; set; }
-        public string? BrandId { get; set; }
-        public string? CategoryId { get; set; }
-        public List<IFormFile>? TileImage { get; set; }
+        public int? BrandId { get; set; }
+        public int? CategoryId { get; set; }
+        public List<IFormFile>? ListImage { get; set; }
         public DateTime? UpdatedDate { get; set; }
+        public int? GiaSanPhams { get; set; }
+        public int? SanPhamThietKes { get; set; }
+        public int? SanPham_SanPhamThietKes { get; set; }
 
 
     }

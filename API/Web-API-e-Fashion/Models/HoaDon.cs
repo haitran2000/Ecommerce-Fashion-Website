@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,7 +22,8 @@ namespace Web_API_e_Fashion.Models
 
        
         public virtual ICollection<ChiTietHoaDon> BillInfos { get; set; }
-        public int? UserID { get; set; }
-        public virtual User User { get; set; }
+        public string? UserId { get; set; }
+        [ForeignKey("UserId")]
+        public virtual AppUser User { get; set; }
     }
 }

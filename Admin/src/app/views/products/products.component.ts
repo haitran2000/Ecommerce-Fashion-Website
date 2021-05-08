@@ -11,30 +11,58 @@ import {MatDialog} from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit,AfterViewInit {
 
-
-  paginator: MatPaginator | undefined;
-  sort: MatSort | undefined;
-
+  @ViewChild(MatSort) sort: MatSort;
+ 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(public service:ProductService,
               private breakpointObserver: BreakpointObserver, 
-              public dialog: MatDialog,
-              public router : Router) { }
+              public router : Router,
+              public http: HttpClient) { }
+public dataSource = new MatTableDataSource<Product>();
 
-  ngOnInit(): void {
-    this.service.getAllProducts()
-  }
-  onSelected(){
-    this.router.navigate(['product']);
+readonly url="https://localhost:44302/api/sanphams"
+get(){
+  return this.http.get(this.url)
 }
-  displayedColumns: string[] = ['id', 'ten', 'imagePath',
+
+delete(id:number){
+  return this.http.delete(`${this.url}/${id}`)
+}
+getAllProducts(){
+  return this.get().subscribe(res=>{
+    this.dataSource.data = res as Product[];
+    })
+  }
+  ngOnInit() {
+    this.getAllProducts();
+  }
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
+  public doFilter = (value: string) => {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+  onSelectedAdd(){
+    this.router.navigate(['product/add']);
+  }
+  onselectedDetail(){
+    this.router.navigate(['product/detail/'+this.service.product.id]);
+  }
+  onSelectedEdit(){
+    this.router.navigate(['product/edit/'+this.service.product.id]);
+  }
+  displayedColumns: string[] = ['id', 'ten',
    'trangThaiSanPham',
    'brandId','categoryId',
   'actions'];
@@ -43,16 +71,18 @@ export class ProductsComponent implements OnInit {
  
   populateForm(selectedRecord:Product){
     this.service.product = Object.assign({},selectedRecord)
-    this.onSelected();
+    this.onSelectedEdit();
   }
   clickDelete(id){
   if(confirm('Bạn có chắc chắn xóa bản ghi này không ??'))
   {
     this.service.delete(id).subscribe(
       res=>{
-        this.service.getAllProducts()
+        this.getAllProducts()
         }
       )
     }
   }
+
+  
 }

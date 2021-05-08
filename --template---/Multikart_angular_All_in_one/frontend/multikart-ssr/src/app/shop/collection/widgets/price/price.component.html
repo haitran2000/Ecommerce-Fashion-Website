@@ -1,0 +1,17 @@
+<!-- price filter start here -->
+<div class="collection-collapse-block border-0" [class.open]="collapse">
+    <h3 class="collapse-block-title" (click)="collapse = !collapse">price</h3>
+    <div class="collection-collapse-block-content">
+        <div class="collection-brand-filter">
+            <div class="mt-2">
+                <ng5-slider 
+                    [(value)]="min" 
+                    [(highValue)]="max" 
+                    [options]="options" 
+                    (userChangeEnd)="appliedFilter($event)"
+                    *ngIf="isBrowser">
+                </ng5-slider>
+            </div>
+        </div>
+    </div>
+</div>

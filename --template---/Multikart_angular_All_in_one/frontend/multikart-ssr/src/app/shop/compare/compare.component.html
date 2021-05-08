@@ -1,0 +1,64 @@
+<app-breadcrumb [title]="'Compare'" [breadcrumb]="'Compare'"></app-breadcrumb>
+<!-- section start -->
+<section class="compare-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="compare-page">
+                     <div class="col-sm-12 empty-cart-cls text-center" *ngIf="!products.length">
+                        <img src="assets/images/empty-compare.png" class="img-fluid mb-4" >
+                          <h3><strong>Compare List is Empty</strong></h3>
+                          <h4>Explore more shortlist some items.</h4>
+                    </div>
+                    <div class="table-wrapper table-responsive" *ngIf="products.length">
+                        <table class="table">
+                            
+                            <thead>
+                            <tr class="th-compare">
+                                <td>Action</td>
+                                <th class="item-row" *ngFor="let product of products">
+                                  <button type="button" (click)="removeItem(product)" class="remove-compare"> Remove </button>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody id="table-compare">
+                            <!-- Product Name -->
+                            <tr>
+                                <th class="product-name">Product Name</th>
+                                <td class="grid-link__title" *ngFor="let product of products">{{ product.title | titlecase }}</td>
+                            </tr>
+                            <!-- Product Image -->
+                            <tr>
+                                <th class="product-name ">Product Image</th>
+                                <td class="item-row" *ngFor="let product of products">
+                                    <img [src]="product.images[0].src" [alt]="product.images[0].alt" width="185" class="featured-image">
+                                    <div class="product-price product_price"> 
+                                    <strong>On Sale: </strong><span> {{ (product.price | discount:product) * productService?.Currency.price | currency:productService?.Currency.currency:'symbol' }}</span></div>
+                                    <form class="variants clearfix">
+                                      <button title="Add to Cart" (click)="addToCart(product)" class="add-to-cart btn btn-solid">Add to Cart</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <!-- Product Description -->
+                            <tr>
+                                <th class="product-name">Product Description</th>
+                                <td class="item-row" *ngFor="let product of products">
+                                    <p class="description-compare">{{ product.description.substring(0, 200)+'...' }}</p>
+                                </td>
+                            </tr>
+                            <!-- Product Availability -->
+                            <tr>
+                                <th class="product-name"> Availability </th>
+                                <td class="available-stock" *ngFor="let product of products">
+                                    <p> {{ product.stock > 0 ? 'In stock' : 'Out of stock' }} </p>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section ends -->

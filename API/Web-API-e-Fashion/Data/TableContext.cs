@@ -10,7 +10,8 @@ namespace Web_API_e_Fashion.Data
     public partial class DPContext
     {
         public DbSet<ImageSanPham> imageSanPhams { get; set; }
-
+        public DbSet<JobSeeker> JobSeekers { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
         public DbSet<HoaDon> HoaDons { get; set; }
         public DbSet<ThuongHieu> ThuongHieus { get; set; }
@@ -23,14 +24,11 @@ namespace Web_API_e_Fashion.Data
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<SanPhamThietKe> SanPhamThietKes { get; set; }
         public DbSet<Size> Sizes { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<TaiKhoan> TaiKhoans { get; set; }
+        public DbSet<AuthHistory> AuthHistories { get; set; }
         protected void TableBuilder(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<User>(entity =>
-            {
-            });
+        
             modelBuilder
             .Entity<SanPham>()
             .HasMany(p => p.SanPhamThietKes)

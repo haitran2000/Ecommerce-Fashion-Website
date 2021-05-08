@@ -1,0 +1,58 @@
+<!-- side-bar single product slider start -->
+<div class="theme-card">
+    <h5 class="title-border">{{ title }}</h5>
+    <owl-carousel-o [options]="NewProductSliderConfig" class="offer-slider">
+        <ng-container *ngFor="let product of products | slice:0:3 ">  
+            <ng-template carouselSlide>
+                <div>
+                  <div class="media" *ngFor="let product of products | slice:0:3 ">
+                    <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
+                      <img class="img-fluid w-auto"
+                           [defaultImage]="'assets/images/product/placeholder.jpg'" 
+                           [lazyLoad]="product.images[0].src" alt="">
+                    </a>
+                    <div class="media-body align-self-center">
+                      <!-- <bar-rating [rate]="5" [readOnly]="true"></bar-rating> -->
+                      <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
+                      <h6>{{ product.title | titlecase }}</h6></a>
+                      <h4>
+                        {{ product?.price * productService.Currency?.price | discount:product | currency:productService.Currency?.currency:'symbol' }}
+                        <del *ngIf="product?.discount">
+                          <span class="money"> 
+                            {{ product?.price * productService.Currency?.price | currency:productService.Currency?.currency:'symbol' }}
+                          </span>
+                        </del>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+            </ng-template>
+            <ng-template carouselSlide>
+                <div>
+                  <div class="media" *ngFor="let product of products | slice:3:6 ">
+                    <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
+                      <img class="img-fluid w-auto" 
+                           [defaultImage]="'assets/images/product/placeholder.jpg'" 
+                           [lazyLoad]="product.images[0].src" alt="">
+                    </a>
+                    <div class="media-body align-self-center">
+                      <!-- <bar-rating [rate]="5" [readOnly]="true"></bar-rating> -->
+                      <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]">
+                      <h6>{{ product.title | titlecase }}</h6></a>
+                      <h4>
+                        {{ product?.price * productService.Currency?.price | discount:product | currency:productService.Currency?.currency:'symbol' }}
+                        <del *ngIf="product?.discount">
+                          <span class="money"> 
+                            {{ product?.price * productService.Currency?.price | currency:productService.Currency?.currency:'symbol' }}
+                          </span>
+                        </del>
+                      </h4>
+                    </div>
+                  </div>
+                </div>
+            </ng-template>
+        </ng-container>
+    </owl-carousel-o>
+</div>
+<!-- side-bar single product slider end -->
+  

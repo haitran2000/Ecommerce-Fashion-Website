@@ -1,0 +1,25 @@
+<owl-carousel-o [options]="HomeSliderConfig" class="home-slider" [ngClass]="class">
+	<ng-container *ngFor="let slider of sliders">
+	  <ng-template carouselSlide>
+	    <div class="home" [ngClass]="textClass" [ngStyle]="{'background-image': 'url('+slider.image+')'}">
+	      <div class="container">
+	        <div class="row">
+	          <div class="col">
+	            <div class="slider-contain">
+	              <div>
+	                <h4>{{slider.title}}</h4>
+	                <h1>{{slider.subTitle}}</h1>
+	                <a [routerLink]="['/shop/collection/left/sidebar']" 
+	                   [queryParams]="{ category: category}" 
+	                   class="btn btn-solid" [ngClass]="buttonClass">
+	                   {{buttonText}}
+	                </a>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </ng-template>
+	</ng-container>
+</owl-carousel-o>

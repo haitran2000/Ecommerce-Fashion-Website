@@ -1,0 +1,216 @@
+<app-breadcrumb [title]="product?.title" [breadcrumb]="'Product'"></app-breadcrumb>
+<!-- section start -->
+<section class="section-b-space">
+  <div class="collection-wrapper productdetail">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <owl-carousel-o [options]="ProductDetailsMainSliderConfig" #owlCar  class="product-slick">
+                    <ng-container *ngFor="let image of product.images; index as i">
+                        <ng-template carouselSlide [id]="i">
+                            <div>
+                                <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
+                                     [lazyLoad]="image.src" 
+                                     [alt]="image.alt" class="img-fluid">
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                </owl-carousel-o>
+                <div class="row">
+                    <div class="col-12 p-0">
+                        <div class="slider-nav">
+                            <owl-carousel-o [options]="ProductDetailsThumbConfig" class="product-slick">
+                                <ng-container *ngFor="let image of product.images; index as i">
+                                    <ng-template carouselSlide [id]="i">
+                                        <div class="owl-thumb" [class.active]="i == activeSlide">
+                                        <img [defaultImage]="'assets/images/product/placeholder.jpg'" 
+                                           [lazyLoad]="image.src" 
+                                           [alt]="image.alt" class="img-fluid" 
+                                           (click)="owlCar.to(activeSlide = i.toString())">
+                                        </div>
+                                    </ng-template>
+                                </ng-container>
+                            </owl-carousel-o>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 rtl-text">
+                <div class="product-right">
+                    <h2>{{ product?.title }}</h2>
+                    <h4>
+                        <del *ngIf="product?.discount">
+                            {{ product?.price * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
+                        </del>
+                        <span>{{ product?.discount }}% off</span>
+                    </h4>
+                    <h3>
+                        {{ (product?.price | discount:product) * productService.Currency?.price | currency: productService.Currency?.currency:'symbol' }}
+                    </h3>
+                    <ul class="color-variant" *ngIf="Color(product?.variants).length">
+                        <li [class]="color" [class.active]="activeSlide == i.toString()" *ngFor="let color of Color(product?.variants); index as i" 
+                            [ngStyle]="{'background-color': color}"
+                            (click)="owlCar.to(activeSlide = i.toString())">
+                        </li>
+                    </ul>
+                    <app-stock-inventory [stock]="product.stock"></app-stock-inventory>
+                    <div class="product-description border-product">
+                        <h6 class="product-title size-text" *ngIf="Size(product.variants).length">
+                            select size
+                            <span>
+                              <a href="javascrip:void(0)" (click)="SizeChart.openModal()">size chart</a>
+                            </span>
+                        </h6>
+                        <div class="size-box" *ngIf="Size(product.variants).length">
+                            <ul>
+                                <li [class.active]="selectedSize == size" *ngFor="let size of Size(product.variants)">
+                                    <a href="javascript:void(0)" (click)="selectSize(size)">{{ size | titlecase }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <h5 class="avalibility" *ngIf="counter <= product.stock"><span>In Stock</span></h5>
+                        <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5>
+                        <h6 class="product-title">quantity</h6>
+                        <div class="qty-box">
+                            <div class="input-group">
+                            <span class="input-group-prepend">
+                                <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement()">
+                                    <i class="ti-angle-left"></i>
+                                </button>
+                            </span>
+                            <input type="text" name="quantity" class="form-control input-number" [value]="counter" disabled/>
+                            <span class="input-group-prepend">
+                                <button type="button" class="btn quantity-right-plus" data-type="plus" (click)="increment()">
+                                    <i class="ti-angle-right"></i>
+                                </button>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-buttons">
+                        <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">add to cart</a>
+                        <a href="javascrip:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="buyNow(product)">buy now</a>
+                    </div>
+                    <div class="border-product">
+                        <h6 class="product-title">product details</h6>
+                        <p>{{ product.description.substring(0, 200)+'...' }}</p>
+                    </div>
+                    <div class="border-product">
+                        <h6 class="product-title">share it</h6>
+                        <div class="product-icon">
+                            <app-social></app-social>
+                            <form class="d-inline-block">
+                                <button class="wishlist-btn" (click)="addToWishlist(product)">
+                                    <i class="fa fa-heart"></i>
+                                    <span class="title-font">Add To WishList</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="border-product">
+                        <h6 class="product-title">Frequently bought together</h6>
+                        <div class="bundle">
+                            <div class="bundle_img">
+                                <div class="img-box">
+                                    <a href="javascript:void(0)"><img src="assets/images/product/fashion/39.jpg" alt="Bundle Product" class="img-fluid"></a>
+                                </div>
+                                <span class="plus">+</span>
+                                <div class="img-box">
+                                    <a href="javascript:void(0)"><img :src="assets/images/product/fashion/6.jpg" alt="Bundle Product" class="img-fluid"></a>
+                                </div>
+                                <span class="plus">+</span>
+                                <div class="img-box">
+                                    <a href="javascript:void(0)"><img src="assets/images/product/fashion/25.jpg" alt="Bundle Product" class="img-fluid"></a>
+                                </div>
+                            </div>
+                            <div class="bundle_detail">
+                                <div class="theme_checkbox">
+                                    <label>this product: WOMEN PINK SHIRT <span class="price_product">$55</span>
+                                        <input type="checkbox" checked="checked">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label>black long skirt <span class="price_product">$20</span>
+                                        <input type="checkbox" checked="checked">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <label>women heeled boots <span class="price_product">$15</span>
+                                        <input type="checkbox" checked="checked">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                    <a href="javascript:void(0)" class="btn btn-solid btn-xs">buy this bundle</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="tab-product m-0">
+            <div class="row">
+                <div class="col-sm-12 col-lg-12">
+                <ngb-tabset [type]="'tabs'" class="nav-material">
+                    <ngb-tab>
+                        <ng-template ngbTabTitle>Description</ng-template>
+                        <ng-template ngbTabContent>
+                            <p>{{ product.description }}</p>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab>
+                        <ng-template ngbTabTitle>Video</ng-template>
+                        <ng-template ngbTabContent>
+                            <div class="mt-3 text-center">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/BUWzX78Ye_8" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                            </div>
+                        </ng-template>
+                    </ngb-tab>
+                    <ngb-tab>
+                        <ng-template ngbTabTitle>Write Review</ng-template>
+                        <ng-template ngbTabContent>
+                            <form class="theme-form">
+                            <div class="form-row">
+                                <div class="col-md-12 ">
+                                <div class="media">
+                                    <label>Rating</label>
+                                    <div class="media-body ml-3">
+                                    <div class="rating three-star">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" placeholder="Enter Your name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" placeholder="Email" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="review">Review Title</label>
+                                    <input type="text" class="form-control" id="review" placeholder="Enter your Review Subjects" required>
+                                </div>
+                                <div class="col-md-12">
+                                    <label for="review">Review Title</label>
+                                    <textarea class="form-control" placeholder="Wrire Your Testimonial Here" id="exampleFormControlTextarea1" rows="6"></textarea>
+                                </div>
+                                <div class="col-md-12">
+                                <button class="btn btn-solid" type="submit">Submit YOur Review</button>
+                                </div>
+                            </div>
+                            </form>
+                        </ng-template>
+                    </ngb-tab>
+                </ngb-tabset>
+                </div>
+            </div>
+        </section>
+    </div>
+  </div>
+</section>
+<app-size-modal #sizeChart [product]="product"></app-size-modal>
+<!-- Section ends -->

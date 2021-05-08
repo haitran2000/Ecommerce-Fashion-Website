@@ -648,3 +648,15 @@ D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\n
 D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\ref\Web-API-e-Fashion.dll
 D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.pdb
 D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.genruntimeconfig.cache
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\bin\Debug\net5.0\FluentValidation.dll
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\bin\Debug\net5.0\AutoMapper.dll
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\bin\Debug\net5.0\FluentValidation.ValidatorAttribute.dll
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\bin\Debug\net5.0\Microsoft.DotNet.PlatformAbstractions.dll
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll

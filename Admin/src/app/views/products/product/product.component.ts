@@ -4,6 +4,7 @@ import {FormControl, FormGroup} from '@angular/forms'
 import { ProductService } from '../product.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Router } from '@angular/router';
+import { Product } from '../product.model';
 
 @Component({
   selector: 'app-product',
@@ -12,8 +13,11 @@ import { Router } from '@angular/router';
 })
 export class ProductComponent implements OnInit {
 
+  public product: Product
+  public imageproductList : ImageProduct[]
   //Begin Review multile file before upload
   urls = new Array<string>();
+  public newForm: FormGroup;
   gopHam(event){
     this.detectFiles(event)
     this.onSelectFile(event)
@@ -32,46 +36,58 @@ export class ProductComponent implements OnInit {
   //End Review multile file before upload
   public Editor = ClassicEditor;
   selectedFile: FileList;
-  public newForm: FormGroup;
+ 
   onSelectFile(fileInput: any) {
     this.selectedFile = <FileList>fileInput.target.files;
   }
   constructor(public service : ProductService,
               public http: HttpClient,
               public router : Router) { }
-              onSelected(){
+              onSelectedList(){
                 this.router.navigate(['products']);
             }
   ngOnInit(): void {
-    this.newForm = new FormGroup({
-      Ten : new FormControl(''),
-      KhuyenMai : new FormControl(0),
-      MoTa : new FormControl(''),
-      SoLuong : new FormControl(0),
-      TrangThaiSanPham : new FormControl(0),
-      KhoiLuong : new FormControl(0),
-      HuongDan : new FormControl(''),
-      MauSac : new FormControl(''),
-      ThanhPhan : new FormControl(''),
-      ChatLieu : new FormControl(''),
-      CreateBy : new FormControl(0),
-      CreateDate : new FormControl(null),
-      UpdateBy : new FormControl(0),
-      UpdateDate : new FormControl(null),
-      TrangThaiHoatDong : new FormControl("True"),
-      BrandId  : new FormControl(null),
-      CategoryId  : new FormControl(null),
-      BillInfor  : new FormControl(null),
-      TileImage : new FormControl(null),
-      GiaSanPhams : new FormControl(null),
-      SanPhamThietKes : new FormControl(null),
-      SanPham_SanPhamThietKes : new FormControl(null),
-    });
-    } 
+    this.http.get("https://localhost:44302/api/ImageSanPhams/"+this.service.product.id).subscribe(
+      res=>{
+        this.imageproductList = res as ImageProduct[]
+        console.log( this.imageproductList)
+      },
+      error=>{
+        
+      }
+    )
+              this.newForm = new FormGroup({
+                Ten : new FormControl(null),
+                KhuyenMai : new FormControl(null),
+                MoTa : new FormControl(null),
+                SoLuong : new FormControl(null),
+                TrangThaiSanPham : new FormControl(null),
+                KhoiLuong : new FormControl(null),
+                HuongDan : new FormControl(null),
+                MauSac : new FormControl(null),
+                ThanhPhan : new FormControl(null),
+                ChatLieu : new FormControl(null),
+                CreateBy : new FormControl(null),
+                CreateDate : new FormControl(null),
+                UpdateBy : new FormControl(null),
+                UpdateDate : new FormControl(null),
+                TrangThaiHoatDong : new FormControl(null),
+                BrandId  : new FormControl(null),
+                CategoryId  : new FormControl(null),
+                BillInfor  : new FormControl(null),
+                TileImage : new FormControl(null),
+                GiaSanPhams : new FormControl(null),
+                SanPhamThietKes : new FormControl(null),
+                SanPham_SanPhamThietKes : new FormControl(null),
+              });
+  } 
+   
     clearForm() {
       this.newForm.reset();
      }
-    onSubmit=(data) =>{
+
+
+     onSubmit=(data) =>{
       if(this.service.product.id==0){
         let form = new FormData();
         form.append('Ten', data.Ten);
@@ -87,41 +103,30 @@ export class ProductComponent implements OnInit {
         form.append('UpdateBy', '0');
         form.append('CreateDate', data.CreateDate);
         form.append('UpdateDate', data.UpdateDate);
-        form.append('BrandId', data.BrandId);
-        form.append('CategoryId', data.CategoryId);
-        try{
-          if(this.onSelectFile!=null){
-            for(let i = 0 ;i<this.selectedFile.length;i++){
-              form.append('TileImage',this.selectedFile[i]);
-            }
-          }
-         else{
-              form.append('TileImage',null)
-         }
+        form.append('BrandId', '');
+        form.append('CategoryId', '');
+        for(let i = 0 ;i<this.selectedFile.length;i++){
+          form.append('ListImage',this.selectedFile[i]);
         }
-        catch(Ex){
-          console.log(Ex)
-        }
-        
         form.append('TrangThaiHoatDong', 'True');
         form.append('CreateBy', '0');
-        form.append('GiaSanPhams',null)
-        form.append('SanPhamThietKes',null)
-        form.append('SanPham_SanPhamThietKes',null)
+        form.append('GiaSanPhams','')
+        form.append('SanPhamThietKes','')
+        form.append('SanPham_SanPhamThietKes','') 
        var json_arr = JSON.stringify(data);
        console.log(json_arr)
         this.http.post('https://localhost:44302/api/sanphams', form)
         .subscribe(res => {
          this.service.getAllProducts();
          this.service.product.id=0;
-         this.onSelected();
+         this.onSelectedList();
          this.clearForm();
         });
       }
       else
       {
         const formData = new FormData();
-        formData.append('Name', data.Name);
+        formData.append('Ten', data.Ten);
         formData.append('KhuyenMai', data.KhuyenMai);
         formData.append('MoTa', data.MoTa);
         formData.append('SoLuong', data.SoLuong);
@@ -131,24 +136,33 @@ export class ProductComponent implements OnInit {
         formData.append('MauSac', data.MauSac);
         formData.append('ThanhPhan', data.ThanhPhan);
         formData.append('ChatLieu', data.ChatLieu);
-        formData.append('CreateBy', data.CreateBy);
-        formData.append('UpdateBy', data.UpdateBy);
+        formData.append('CreateBy', '');
+        formData.append('UpdateBy', '');
         formData.append('CreateDate', data.CreateDate);
         formData.append('UpdateDate', data.UpdateDate);
-        formData.append('TrangThaiHoatDong', data.TrangThaiHoatDong);
-        formData.append('BrandId', data.BrandId);
-        formData.append('CategoryId', data.CategoryId);
+        formData.append('TrangThaiHoatDong', '');
+        formData.append('BrandId', '');
+        formData.append('CategoryId', '');
         for(let i = 0 ;i<this.selectedFile.length;i++){
-          formData.append('TileImage',this.selectedFile[i]);
+          formData.append('ListImage',this.selectedFile[i]);
         }
+        formData.append('TrangThaiHoatDong', 'True');
+        formData.append('CreateBy', '0');
+        formData.append('GiaSanPhams','')
+        formData.append('SanPhamThietKes','')
+        formData.append('SanPham_SanPhamThietKes','') 
         this.http.put('https://localhost:44302/api/sanphams/'+`${this.service.product.id}`, formData)
         .subscribe(res=>{
           this.service.getAllProducts();
           this.service.product.id=0;
-          this.onSelected();
+          this.onSelectedList();
           this.clearForm();
         });
     
       }
     }
+  }
+  export class ImageProduct{
+    imagePath : string
+    SanPhamId : number
   }

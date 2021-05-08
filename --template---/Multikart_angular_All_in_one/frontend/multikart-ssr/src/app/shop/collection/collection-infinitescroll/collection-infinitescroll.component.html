@@ -1,0 +1,142 @@
+<app-breadcrumb [title]="'Collection'" [breadcrumb]="'Collection'"></app-breadcrumb>
+<!-- section start -->
+<section class="section-b-space">
+    <div class="collection-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="collection-filter" [class.openFilterbar]="mobileSidebar">
+                        <!-- side-bar colleps block stat -->
+                        <div class="collection-filter-block">
+                            <div class="collection-mobile-back" (click)="toggleMobileSidebar()">
+                                <span class="filter-back">
+                                    <i class="fa fa-angle-left" aria-hidden="true"></i> back
+                                </span>
+                            </div>
+                            <!-- Category filter start -->
+                            <app-categories></app-categories>
+                        </div>
+                        <!-- silde-bar colleps block end here -->
+                        <!-- side-bar colleps block stat -->
+                        <div class="collection-filter-block">
+                            <!-- brand filter start -->
+                            <app-brands [products]="products" [brands]="brands" (brandsFilter)="updateFilter($event)">
+                            </app-brands>
+                            <!-- color filter start here -->
+                            <app-colors [products]="products" [colors]="colors" (colorsFilter)="updateFilter($event)">
+                            </app-colors>
+                            <!-- size filter start here -->
+                            <app-size [products]="products" [size]="size" (sizeFilter)="updateFilter($event)">
+                            </app-size>
+                            <!-- price filter start here -->
+                            <app-price [min]="minPrice" [max]="maxPrice" (priceFilter)="updateFilter($event)">
+                            </app-price>
+                        </div>
+                        <!-- silde-bar colleps block end here -->
+                        <!-- side-bar single product slider start -->
+                        <app-product-box-vertical-slider [title]="'New Products'">
+                        </app-product-box-vertical-slider>
+                        <!-- side-bar single product slider end -->
+                        <!-- side-bar banner start here -->
+                        <div class="collection-sidebar-banner">
+                            <a [routerLink]="['/shop/collection/left/sidebar']">
+                                <img src="assets/images/collection-sidebar-banner.png" class="img-fluid" alt="banner">
+                            </a>
+                        </div>
+                        <!-- side-bar banner end here -->
+                    </div>
+                </div>
+                <div class="collection-content col">
+                    <div class="page-main-content">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="top-banner-wrapper">
+                                    <a [routerLink]="['/shop/collection/left/sidebar']">
+                                        <img src="assets/images/collection-banner.jpg" class="img-fluid " alt="">
+                                    </a>
+                                    <div class="top-banner-content small-section">
+                                        <h4>fashion</h4>
+                                        <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                        </h5>
+                                        <p>
+                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has
+                                            survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+                                            and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="filter-main-btn" (click)="toggleMobileSidebar()">
+                                            <span class="filter-btn btn btn-theme">
+                                                <i class="fa fa-filter" aria-hidden="true"></i> Filter
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <ul class="product-filter-tags">
+                                    <li class="mr-1" *ngFor="let tag of tags">
+                                        <a href="javascript:void(0)" class="filter_tag">
+                                            {{tag}} <i class="ti-close" (click)="removeTag(tag)"></i>
+                                        </a>
+                                    </li>
+                                    <li class="clear_filter" *ngIf="tags.length > 0">
+                                        <a href="javascript:void(0)" class="clear_filter" (click)="removeAllTags()">
+                                            Clear all
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="collection-product-wrapper" id="products">
+                                    <app-grid [products]="products" [paginate]="paginate" [layoutView]="layoutView" [sortBy]="sortBy" (setGrid)="updateGridLayout($event)" (setLayout)="updateLayoutView($event)" (sortedBy)="sortByFilter($event)">
+                                    </app-grid>
+                                    <div class="product-wrapper-grid" [ngClass]="layoutView">
+                                        <div class="row">
+                                            <div class="col-grid-box" [ngClass]="grid" *ngFor="let product of products">
+                                                <div class="product-box">
+                                                    <app-product-box-one 
+                                                        [product]="product"
+                                                        [currency]="productService?.Currency"
+                                                        [thumbnail]="false"
+                                                        [cartModal]="true">
+                                                    </app-product-box-one>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 text-center section-b-space mt-5 no-found" *ngIf="!products.length">
+                                                <img src="assets/images/empty-search.jpg" class="img-fluid mb-4">
+                                                <h3>Sorry! Couldn't find the product you were looking For!!! </h3>
+                                                <p>Please check if you have misspelt something or try searching with other words.</p>
+                                                <a [routerLink]="['/shop/collection/left/sidebar']" class="btn btn-solid">continue shopping</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Infinite Scroll -->
+                                    <div infiniteScroll 
+                                        [infiniteScrollDistance]="2"
+                                        [infiniteScrollThrottle]="1000" 
+                                        (scrolled)="onScroll()" 
+                                        *ngIf="products.length">
+                                    </div>
+                                    <div class="product-infinitescroll">
+                                        <div class="theme-paggination-block">
+                                            <div class="container-fluid p-0">
+                                                <div class="row">
+                                                    <div class="text-center col-sm-12">
+                                                        <div class="infinite-scrolling mt-3 mb-3 d-inline-block">
+                                                            <img src="assets/images/loader.gif" *ngIf="!finished && products.length">
+                                                            <div class="loading-more active" *ngIf="finished && products.length">No More Products</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- section End -->

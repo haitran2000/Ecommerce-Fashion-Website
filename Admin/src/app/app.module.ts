@@ -11,7 +11,7 @@ import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 // Import containers
 import { DefaultLayoutComponent } from './containers';
@@ -43,7 +43,10 @@ import { ProductsModule } from './views/products/products.module';
 import { OrdersTableComponent } from './orders-table/orders-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { RegistrationFormComponent } from './views/account/registration-form/registration-form.component';
+import { UserService } from './views/account/user.service';
+import { UserdetailComponent } from './containers/userdetail/userdetail.component';
+
 
 
 
@@ -68,7 +71,8 @@ import { MatSortModule } from '@angular/material/sort';
     ProductsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule,
+    FormsModule,
+    ReactiveFormsModule ,
   ],
   declarations: [
     AppComponent,
@@ -78,11 +82,12 @@ import { MatSortModule } from '@angular/material/sort';
     LoginComponent,
     RegisterComponent,
     OrdersTableComponent,
-   
-  
+    UserdetailComponent,
+
   ],
   providers: [
     IconSetService,
+    UserService
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [ AppComponent ]

@@ -1,0 +1,157 @@
+<app-header-one [class]="'header-gym'" [themeLogo]="themeLogo"></app-header-one>
+
+<!-- Home slider start-->
+<section class="p-0 gym-slider">
+  <app-slider 
+    [sliders]="sliders" 
+    [textClass]="'text-right p-right'"
+    [category]="'gym'"
+    [buttonText]="'shop now'"> 
+  </app-slider>
+</section>
+<!-- Home slider End -->
+
+<!-- Banner start-->
+<section class="banner-padding banner-furniture gym-banner">
+    <div class="container-fluid">
+        <div class="row partition2">
+            <div class="col-md-4">
+                <a [routerLink]="['/shop/collection/left/sidebar']"
+                   [queryParams]="{ category: 'gym'}">
+                    <div class="collection-banner p-left text-left">
+                        <img src="assets/images/banner/4.jpg" class="img-fluid" alt="">
+                        <div class="contain-banner">
+                            <div>
+                                <h4>save 30%</h4>
+                                <h2>Gym</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-8">
+                <a [routerLink]="['/shop/collection/left/sidebar']"
+                   [queryParams]="{ category: 'gym'}">
+                    <div class="collection-banner p-left text-left">
+                        <img src="assets/images/banner/5.jpg" class="img-fluid" alt="">
+                        <div class="contain-banner">
+                            <div>
+                                <h4>save 30%</h4>
+                                <h2>Protien Powder</h2>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Banner End-->
+
+<!-- Product Box Start-->
+<div class="title1 title-gradient section-t-space">
+    <h4>special offer</h4>
+    <h2 class="title-inner1">top collection</h2>
+</div>
+<section class="p-t-0 section-b-space gym-product">
+    <div class="container">
+        <div class="row partition-cls">
+            <div class="col-xl-3 col-sm-6" *ngFor="let product of products | slice:0:8">
+                <div class="product-box ">
+                    <app-product-box-one 
+                      [product]="product" 
+                      [currency]="productService?.Currency"
+                      [cartModal]="true">
+                    </app-product-box-one>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Product Box End -->
+
+<!-- Product slider -->
+<div class="full-banner gym-parallax parallax-banner25 parallax p-0" 
+    [ngStyle]="{'background-image': 'url(assets/images/gym-bg.jpg)'}">
+    <div class="section-t-space section-b-space gym-product">
+        <div class="container">
+            <div class="title1 title-gradient">
+                <h4>special offer</h4>
+                <h2 class="title-inner1">top collection</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="product-para">
+                        <p class="text-center">
+                          Lorem Ipsum is simply dummy text of the printing 
+                          and typesetting industry. Lorem Ipsum has been 
+                          the industry's standard dummy text ever since the 1500s,
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row part-cls">
+                <div class="col-xl-3 col-sm-6" *ngFor="let product of products | slice:0:4">
+                    <div class="product-box">
+                        <app-product-box-one 
+                          [product]="product" 
+                          [currency]="productService?.Currency"
+                          [cartModal]="true">
+                        </app-product-box-one>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Product slider end -->
+
+<!-- blog section start-->
+<section class="blog p-t-0 section-b-space gym-blog">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="title1  title-gradient section-t-space">
+          <h4>Recent Story</h4>
+          <h2 class="title-inner1">from the blog</h2>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <app-blog [blogs]="blogs"></app-blog>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- blog section End -->
+
+<!-- instagram section -->
+<div class="section-t-space full-banner gym-parallax parallax-banner26 parallax p-0"
+    [ngStyle]="{'background-image': 'url(assets/images/parallax/7.jpg)'}">
+    <div class="instagram section-t-space section-b-space">
+      <div class="container ">
+        <div class="row">
+          <div class="col-md-12 ">
+            <h2 class="title-borderless text-white"># instagram</h2>
+             <app-instagram></app-instagram>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- instagram section end -->
+
+<!--  logo section start-->
+<section class="section-b-space">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <app-logo [logos]="logos"></app-logo>
+      </div>
+    </div>
+  </div>
+</section>
+<!--  logo section End-->
+
+<app-footer-two [class]="'bg-img-gym bg-size'" [themeLogo]="themeLogo" ></app-footer-two>

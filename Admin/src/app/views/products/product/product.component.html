@@ -90,12 +90,10 @@
       <div>
         <img *ngFor="let url of urls" [src]="url" class="rounded mb-3" width="180">
       </div>
-    
+      <div>
+        <img *ngFor="let url of this.imageproductList" src="https://localhost:44302/Resources/Images/list-image-product/{{url.imagePath}}" class="rounded mb-3" width="180">
+      </div>
     </mat-tab>
-
-
-
-
     <mat-tab label="Ràng buộc">
       <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent"
         style="width: 100%;margin-top: 2rem;">

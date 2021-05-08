@@ -9,9 +9,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ProductComponent } from './product/product.component';
 import {MatTabsModule} from '@angular/material/tabs';
-
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatRippleModule } from '@angular/material/core';
@@ -24,6 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatStepperModule} from '@angular/material/stepper';
 import { MatSortModule } from '@angular/material/sort';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RegistrationFormComponent } from '../account/registration-form/registration-form.component';
+import { ProductdetailComponent } from './productdetail/productdetail.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -42,10 +42,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
+    MatSortModule,
   ],
-  
+  exports: [
+    MatSortModule,
+  ],
   declarations: [ProductsComponent,
-                ProductComponent
+                ProductComponent,
+                RegistrationFormComponent,
+                ProductdetailComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

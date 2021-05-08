@@ -1,0 +1,64 @@
+Theme Version 2.3 (25 nov 2020) 
+-- Upgrade To angular 11
+
+Theme Version 2.2 (12 nov 2020) 
+-- Added Infinitescroll in collection page
+-- fixed minor bugs bakend and frontend
+
+Theme Version 2.2 (3 oct 2020) 
+-- Fixd SSR Bugs
+
+Theme Version 2.1 (2 jul 2020) 
+-- Upgrade with angular 10
+-- Upgrade dependencies
+-- Fixd Minor bugs
+
+Theme Version 2.0 Major Updates(16 may 2020) 
+-- Update No jquery template
+-- Add sever side rendering
+-- Included maore feature  
+
+Theme Version 1.7 Updates(19 sep 2019)
+-- Ugrage to angular 9
+-- Ugrage dependencies
+-- Fixed minor bugs
+
+Theme Version 1.6 Updates(19 sep 2019)
+-- RTL integrated to backend.
+-- Fixed all backend bugs
+
+Theme Version 1.5 Updates(03 sep 2019)
+-- backend added foldername : "backend", & frontend putted in "frontend" folder
+
+Theme Version 1.4 Updates(11 Jun 2019)
+--upgraded to angular 8 version
+
+Theme Version 1.3 Updates(08 MARch 2019)
+
+-- add newsletter popup
+-- add age verification popup
+-- add success (add to cart ) Popup
+-- add exit popup
+-- add 6 new demo
+-- add portfolio pages
+-- add email templates
+-- configure catelog mode
+-- upgrade package.json and other some libraries 
+-- bug fix (ngx-toastr libraries issue)
+
+
+Theme Version 1.2 Updates(22 FEB 2019)
+
+-- Added local storage 
+-- Added catalog Mode
+-- Added Exit Popup
+-- Fix issue in Product Detail page
+-- upgrade libraries
+
+
+Theme Version 1.1 Updates(25 dec 2018) :
+
+-- Fixed issue in product page (mobile version)
+-- fixed issue in cart page (mobile version)
+-- fixed issue left name (added script in script.js)
+-- update css file
