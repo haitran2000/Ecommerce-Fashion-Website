@@ -105,16 +105,21 @@
         <mat-label>BillInfor</mat-label>
         <input matInput placeholder="BillInfor" formControlName="BillInfor" type="text">
       </mat-form-field>
-      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent"
-        style="width: 100%;margin-top: 2rem;">
-        <mat-label>BrandId</mat-label>
-        <input matInput placeholder="BrandId" formControlName="BrandId" type="text" [(ngModel)]="service.product.brandId">
-      </mat-form-field>
-      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent"
-        style="width: 100%;margin-top: 2rem;">
-        <mat-label>CategoryId</mat-label>
-        <input matInput placeholder="CategoryId" formControlName="CategoryId" type="text" [(ngModel)]="service.product.categoryId">
-      </mat-form-field>
+    
+      <div class="form-group">
+        <span class="label label-default">categoryId</span>
+        <select class="form-control" [(ngModel)]="service.product.categoryId" formControlName="CategoryId">
+            <option  *ngFor="let category of this.categories"
+                [value]="category.id">{{category.ten}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+      <span class="label label-default">BrandId</span>
+      <select class="form-control" [(ngModel)]="service.product.brandId" formControlName="BrandId">
+          <option  *ngFor="let brand of this.brands"
+              [value]="brand.id">{{brand.ten}}</option>
+      </select>
+  </div>
       <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent"
         style="width: 100%;margin-top: 2rem;">
         <mat-label>Gía sản phẩm</mat-label>

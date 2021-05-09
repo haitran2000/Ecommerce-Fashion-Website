@@ -13,58 +13,86 @@ export const navItems: INavData[] = [
   {
     name: 'Products',
     url: '/products',
-    icon: 'icon-drop'
+  
   },
   {
-    name: 'Pages',
-    url: '/pages',
-    icon: 'icon-star',
-   /*  children: [
-      {
-        name: 'Login',
-        url: '/login',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Register',
-        url: '/register',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Error 404',
-        url: '/404',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Error 500',
-        url: '/500',
-        icon: 'icon-star'
-      }
-    ] */
+    name: 'Categories',
+    url: '/categories',
+  
   },
   {
-    name: 'Disabled',
-    url: '/dashboard',
-    icon: 'icon-ban',
-    badge: {
-      variant: 'secondary',
-      text: 'NEW'
-    },
-    attributes: { disabled: true },
+    name: 'Brands',
+    url: '/brands',
+  
   },
   {
-    name: 'Download CoreUI',
-    url: 'http://coreui.io/angular/',
-    icon: 'icon-cloud-download',
-    class: 'mt-auto',
-    variant: 'success',
-    attributes: { target: '_blank', rel: 'noopener' }
+    name: 'SPThietKes',
+    url: '/sanphamthietkes',
+  
   },
   {
-    name: 'Try CoreUI PRO',
-    url: 'http://coreui.io/pro/angular/',
-    icon: 'icon-layers',
-    variant: 'danger',
-    attributes: { target: '_blank', rel: 'noopener' }
-  }
+    name: 'SP_SPThietKe',
+    url: '/sanpham_sanphamthietke',
+  
+  },
+  {
+    name: 'Sizes',
+    url: '/sizes',
+  
+  },
+  {
+    name: 'MauSacs',
+    url: '/mausacs',
+  
+  },
+  {
+    name: 'Items',
+    url: '/items',
+  },
+  {
+    name: 'Item_SPThietKe',
+    url: '/item_sanphamthietke',
+  
+  },
+  {
+    name: 'ChiTietHoaDons',
+    url: '/chitiethoadons',
+  },
+  {
+    name: 'HoaDons',
+    url: '/hoadons',
+  },
+  {
+    name: 'JobSeekes',
+    url: '/jobseekes',
+  },
+  {
+    name: 'AspNetUsers',
+    url: '/aspnetusers',
+  
+  },
+  {
+    name: 'AspNetUserClaims',
+    url: '/aspnetuserclaims',
+  
+  },
+  {
+    name: 'AspNetUserRoles',
+    url: '/aspnetuserroles',
+  },
+  {
+    name: 'AspNetUserLogins',
+    url: '/aspnetuserlogins',
+  
+  },
+  {
+    name: 'AspNetUserTokens',
+    url: '/aspnetusertokens',
+  
+  },
+  {
+    name: 'AuthHistories',
+    url: '/authhistories',
+  
+  },
 ];

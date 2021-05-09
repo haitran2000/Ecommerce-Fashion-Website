@@ -21,11 +21,10 @@ namespace Web_API_e_Fashion.Models
         public int? KhuyenMai { get; set; }
         public string? MoTa { get; set; }
         public int? SoLuong { get; set; }
-        public int? TrangThaiSanPham { get; set; }
+        public bool? TrangThaiSanPhamThietKe { get; set; }
       
         public int? KhoiLuong { get; set; }
         public string? HuongDan { get; set; }
-        public string? MauSac { get; set; }
         public string? ThanhPhan { get; set; }
         public string? ChatLieu { get; set; }
         public int? CreateBy { get; set; }
@@ -34,7 +33,7 @@ namespace Web_API_e_Fashion.Models
         public System.DateTime? UpdatedDate { get; set; }
 
 
-        public bool? TrangThaiHoatDong { get; set; }       
+        public bool? TrangThaiHienThi { get; set; }       
         public virtual ICollection<ChiTietHoaDon> BillInfos { get; set; }
         public int? BrandId { get; set; }
         [ForeignKey("BrandId")]

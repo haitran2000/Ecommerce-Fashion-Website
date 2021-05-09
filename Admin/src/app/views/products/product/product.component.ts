@@ -5,6 +5,8 @@ import { ProductService } from '../product.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Router } from '@angular/router';
 import { Product } from '../product.model';
+import { CategoryService } from '../../categories/category.service';
+import { BrandService } from '../../brands/brand.service';
 
 @Component({
   selector: 'app-product',
@@ -35,18 +37,37 @@ export class ProductComponent implements OnInit {
   }
   //End Review multile file before upload
   public Editor = ClassicEditor;
-  selectedFile: FileList;
+  selectedFile: FileList ;
  
   onSelectFile(fileInput: any) {
     this.selectedFile = <FileList>fileInput.target.files;
   }
+  categories: any[] = [];
+  brands: any[]=[];
   constructor(public service : ProductService,
               public http: HttpClient,
-              public router : Router) { }
+              public router : Router,
+              public serviceCategory : CategoryService,
+              public serviceBrand : BrandService) {
+
+                
+               }
               onSelectedList(){
                 this.router.navigate(['products']);
+              
             }
   ngOnInit(): void {
+    this.serviceCategory.get().subscribe(
+      data=>{
+        Object.assign(this.categories,data)
+      }
+      )
+
+      this.serviceBrand.get().subscribe(
+        data=>{
+          Object.assign(this.brands,data)
+        }
+      )
     this.http.get("https://localhost:44302/api/ImageSanPhams/"+this.service.product.id).subscribe(
       res=>{
         this.imageproductList = res as ImageProduct[]
@@ -94,8 +115,8 @@ export class ProductComponent implements OnInit {
         form.append('KhuyenMai','0');
         form.append('MoTa', data.MoTa);
         form.append('SoLuong', '10');
-        form.append('TrangThaiSanPham','1');
         form.append('KhoiLuong', '10');
+        form.append('TrangThaiSanPham', 'True');
         form.append('HuongDan', data.HuongDan);
         form.append('MauSac', data.MauSac);
         form.append('ThanhPhan', data.ThanhPhan);
@@ -103,11 +124,19 @@ export class ProductComponent implements OnInit {
         form.append('UpdateBy', '0');
         form.append('CreateDate', data.CreateDate);
         form.append('UpdateDate', data.UpdateDate);
-        form.append('BrandId', '');
-        form.append('CategoryId', '');
-        for(let i = 0 ;i<this.selectedFile.length;i++){
-          form.append('ListImage',this.selectedFile[i]);
+        form.append('BrandId', data.BrandId);
+        form.append('CategoryId', data.CategoryId);
+        try{
+       
+            for(let i = 0 ;i<this.selectedFile.length;i++){
+              form.append('ListImage',this.selectedFile[i]);
+            }
+
         }
+        catch(Ex){
+          form.append('ListImage',null);
+        }
+      
         form.append('TrangThaiHoatDong', 'True');
         form.append('CreateBy', '0');
         form.append('GiaSanPhams','')
@@ -130,7 +159,7 @@ export class ProductComponent implements OnInit {
         formData.append('KhuyenMai', data.KhuyenMai);
         formData.append('MoTa', data.MoTa);
         formData.append('SoLuong', data.SoLuong);
-        formData.append('TrangThaiSanPham', data.TrangThaiSanPham);
+        formData.append('TrangThaiSanPham', 'True');
         formData.append('KhoiLuong', data.KhoiLuong);
         formData.append('HuongDan', data. HuongDan);
         formData.append('MauSac', data.MauSac);
@@ -141,11 +170,18 @@ export class ProductComponent implements OnInit {
         formData.append('CreateDate', data.CreateDate);
         formData.append('UpdateDate', data.UpdateDate);
         formData.append('TrangThaiHoatDong', '');
-        formData.append('BrandId', '');
-        formData.append('CategoryId', '');
-        for(let i = 0 ;i<this.selectedFile.length;i++){
-          formData.append('ListImage',this.selectedFile[i]);
-        }
+        formData.append('BrandId', data.BrandId);
+        formData.append('CategoryId', data.CategoryId);
+        try{
+       
+          for(let i = 0 ;i<this.selectedFile.length;i++){
+            formData.append('ListImage',this.selectedFile[i]);
+          }
+
+      }
+      catch(Ex){
+        formData.append('ListImage',null);
+      }
         formData.append('TrangThaiHoatDong', 'True');
         formData.append('CreateBy', '0');
         formData.append('GiaSanPhams','')

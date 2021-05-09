@@ -1,3 +1,30 @@
+//
+
+
+import { CommonModule } from '@angular/common';
+
+
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+import {MatTabsModule} from '@angular/material/tabs';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
+import { MatChipsModule } from '@angular/material/chips';
+import { MatRippleModule } from '@angular/material/core';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+import { MatInputModule } from '@angular/material/input';
+
+import { MatSelectModule } from '@angular/material/select';
+import {MatStepperModule} from '@angular/material/stepper';
+import { MatSortModule } from '@angular/material/sort';
+
+//
+
+
 
 import { LayoutModule } from '@angular/cdk/layout';
 import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
@@ -19,6 +46,7 @@ import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
+import {MatDialogModule} from '@angular/material/dialog';
 const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
@@ -39,13 +67,44 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
-import { ProductsModule } from './views/products/products.module';
 import { OrdersTableComponent } from './orders-table/orders-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { RegistrationFormComponent } from './views/account/registration-form/registration-form.component';
 import { UserService } from './views/account/user.service';
 import { UserdetailComponent } from './containers/userdetail/userdetail.component';
+
+
+import { BrandsComponent } from './views/brands/brands.component';
+import { UsersComponent } from './views/users/users.component';
+
+import { ItemSanPhamThietKeComponent } from './views/item-san-pham-thiet-ke/item-san-pham-thiet-ke.component';
+import { ItemsComponent } from './views/items/items.component';
+import { MauSacsComponent } from './views/mau-sacs/mau-sacs.component';
+
+import { SanPhamThietKesComponent } from './views/san-pham-thiet-kes/san-pham-thiet-kes.component';
+import { SizesComponent } from './views/sizes/sizes.component';
+import { SanPhamSanPhamThietKeComponent } from './views/san-pham-san-pham-thiet-ke/san-pham-san-pham-thiet-ke.component';
+import { GiaSanPhamsComponent } from './views/gia-san-phams/gia-san-phams.component';
+import { CategoryService } from './views/categories/category.service';
+import { CategoryComponent } from './views/categories/category/category.component';
+import { ProductInCategoryComponent } from './views/categories/product-in-category/product-in-category.component';
+import { HoaDonsComponent } from './views/hoa-dons/hoa-dons.component';
+import { ChiTietHoaDonsComponent } from './views/chi-tiet-hoa-dons/chi-tiet-hoa-dons.component';
+import { JobSeekesComponent } from './views/job-seekes/job-seekes.component';
+import { AspNetUsersComponent } from './views/asp-net-users/asp-net-users.component';
+import { AspNetUserClaimsComponent } from './views/asp-net-user-claims/asp-net-user-claims.component';
+import { AspNetUserRolesComponent } from './views/asp-net-user-roles/asp-net-user-roles.component';
+import { AspNetUserLoginsComponent } from './views/asp-net-user-logins/asp-net-user-logins.component';
+import { AspNetUserTokensComponent } from './views/asp-net-user-tokens/asp-net-user-tokens.component';
+import { AuthHistoriesComponent } from './views/auth-histories/auth-histories.component';
+import { BrandComponent } from './views/brands/brand/brand.component';
+import { ProductsComponent } from './views/products/products.component';
+import { ProductComponent } from './views/products/product/product.component';
+import { ImagesmodelComponent } from './views/products/imagesmodel/imagesmodel.component';
+import { CategoriesComponent } from './views/categories/categories.component';
+import { SizeComponent } from './views/sizes/size/size.component';
+import { MauSacComponent } from './views/mau-sacs/mau-sac/mau-sac.component';
 
 
 
@@ -68,11 +127,33 @@ import { UserdetailComponent } from './containers/userdetail/userdetail.componen
     ChartsModule,
     IconModule,
     IconSetModule.forRoot(),
-    ProductsModule,
     MatTableModule,
     MatPaginatorModule,
     FormsModule,
     ReactiveFormsModule ,
+    MatDialogModule,
+
+
+    //
+
+    CommonModule,
+    MatDialogModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    MatTabsModule,
+    MatFormFieldModule,
+    MatInputModule ,
+    MatPaginatorModule,
+    MatSelectModule ,
+    CKEditorModule,
+    MatStepperModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSortModule,
+
+    //
   ],
   declarations: [
     AppComponent,
@@ -83,11 +164,42 @@ import { UserdetailComponent } from './containers/userdetail/userdetail.componen
     RegisterComponent,
     OrdersTableComponent,
     UserdetailComponent,
+    BrandsComponent,
+    UsersComponent,
+    ItemSanPhamThietKeComponent,
+    ItemsComponent,
+    MauSacsComponent,
+    MauSacComponent,
+    SanPhamThietKesComponent,
+    SizesComponent,
+    SanPhamSanPhamThietKeComponent,
+    GiaSanPhamsComponent,
+    CategoryComponent,
+    ProductInCategoryComponent,
+    HoaDonsComponent,
+    ChiTietHoaDonsComponent,
+    JobSeekesComponent,
+    AspNetUsersComponent,
+    AspNetUserClaimsComponent,
+    AspNetUserRolesComponent,
+    AspNetUserLoginsComponent,
+    AspNetUserTokensComponent,
+    AuthHistoriesComponent,
+    BrandComponent,
 
+
+    ProductsComponent,
+    ProductComponent,
+   RegistrationFormComponent,
+   ImagesmodelComponent,
+   CategoriesComponent,
+   SizeComponent,
+   MauSacComponent
   ],
   providers: [
     IconSetService,
-    UserService
+    UserService,
+  
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [ AppComponent ]

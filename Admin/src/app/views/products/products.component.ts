@@ -4,7 +4,7 @@ import {ProductService} from './product.service'
 import {Product} from './product.model'
 import {AfterViewInit,ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
-import {ProductComponent} from './product/product.component'
+import {ImageProduct, ProductComponent} from './product/product.component'
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import {MatDialog} from '@angular/material/dialog';
@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ImagesmodelComponent } from './imagesmodel/imagesmodel.component';
 
 @Component({
   selector: 'app-products',
@@ -21,13 +22,16 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 })
 export class ProductsComponent implements OnInit,AfterViewInit {
 
+  public productcom : ProductComponent
   @ViewChild(MatSort) sort: MatSort;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  imageproductList: any[];
   constructor(public service:ProductService,
               private breakpointObserver: BreakpointObserver, 
               public router : Router,
-              public http: HttpClient) { }
+              public http: HttpClient,
+              public dialog: MatDialog,) { }
 public dataSource = new MatTableDataSource<Product>();
 
 readonly url="https://localhost:44302/api/sanphams"
@@ -46,9 +50,24 @@ getAllProducts(){
   ngOnInit() {
     this.getAllProducts();
   }
+  populateImageProduct(selectedRecord:Product){
+    this.service.product = Object.assign({},selectedRecord)
+    this.http.get("https://localhost:44302/api/ImageSanPhams/"+this.service.product.id).subscribe(
+      res=>{
+        this.imageproductList = res as ImageProduct[]
+        console.log( this.imageproductList)
+        this.onModal()
+      },
+      error=>{
+      })
+      
+  }
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+  }
+  onModal(){
+    this.dialog.open(ImagesmodelComponent)
   }
   public doFilter = (value: string) => {
     this.dataSource.filter = value.trim().toLocaleLowerCase();
@@ -62,7 +81,7 @@ getAllProducts(){
   onSelectedEdit(){
     this.router.navigate(['product/edit/'+this.service.product.id]);
   }
-  displayedColumns: string[] = ['id', 'ten',
+  displayedColumns: string[] = ['id', 'ten','hinh',
    'trangThaiSanPham',
    'brandId','categoryId',
   'actions'];

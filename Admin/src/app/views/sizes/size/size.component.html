@@ -1,0 +1,21 @@
+<form [formGroup]="newBlogForm" (ngSubmit)="onSubmit(newBlogForm.value)">
+    <div class="container" style="width: 30vw;">
+        <div class="form-group">
+            <label for="form-control">Id</label>
+            <input class="form-control" [value]="service.category.id" readonly>
+        </div>
+        <div class="form-group">
+            <label for="Name">Name</label>
+            <input class="form-control" formControlName="Ten" [(ngModel)]="service.category.ten">
+        </div>
+        <div class="form-group">
+            <label for="TileImage">
+                Image
+            </label>
+            <input type="file" class="form-control"formControlName="Size" onchange="loadFile(event)" (change)="onSelectFile($event)">
+        </div>
+        <div class="form-group" style="justify-content:center;display: flex;">
+            <button type="submit" class="btn btn-primary" [mat-dialog-close]="true">Create or Edit</button>
+        </div>
+    </div>
+</form>

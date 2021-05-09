@@ -13,7 +13,7 @@ namespace Web_API_e_Fashion.UploadFileModels
         public int? KhuyenMai { get; set; }
         public string? MoTa { get; set; }
         public int? SoLuong { get; set; }
-        public int? TrangThaiSanPham { get; set; }
+        public bool? TrangThaiSanPham { get; set; }
         public int? KhoiLuong { get; set; }
         public string? HuongDan { get; set; }
         public string? MauSac { get; set; }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,10 +16,10 @@ namespace Web_API_e_Fashion.Models
         [Key]
         public int Id { get; set; }
         public string MaMau { get; set; }
-        public int? IdLoai { get; set; }
+        public int? LoaiId { get; set; }
+        [ForeignKey("LoaiId")]
+        public virtual Loai Loai { get; set; }
 
-        public virtual Loai Category { get; set; }
-  
         public virtual ICollection<GiaSanPham> GiaSanPhams { get; set; }
     }
 }

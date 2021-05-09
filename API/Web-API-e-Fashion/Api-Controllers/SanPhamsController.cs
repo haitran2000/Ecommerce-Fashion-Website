@@ -58,11 +58,11 @@ namespace Web_API_e_Fashion.Api_Controllers
             sanpham.HuongDan = upload.HuongDan;
             sanpham.KhoiLuong = upload.KhoiLuong;
             sanpham.MoTa = upload.MoTa;
-            sanpham.MauSac = upload.MauSac;
+          
             sanpham.ThanhPhan = upload.ThanhPhan;
             sanpham.SoLuong = upload.SoLuong;
-            sanpham.TrangThaiHoatDong = upload.TrangThaiHoatDong;
-            sanpham.TrangThaiSanPham = upload.TrangThaiSanPham;
+            sanpham.TrangThaiHienThi= upload.TrangThaiHoatDong;
+            sanpham.TrangThaiSanPhamThietKe = upload.TrangThaiSanPham;
             sanpham.UpdateBy = upload.UpdateBy;
             sanpham.UpdatedDate = null;
             sanpham.CategoryId = null;
@@ -84,6 +84,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                         }
                         image.ImagePath = formFile.FileName;
                         image.SanPhamId = id;
+                        _context.imageSanPhams.Update(image);
                     }
                 }
             }
@@ -91,7 +92,6 @@ namespace Web_API_e_Fashion.Api_Controllers
             {
                       
             }
-            _context.imageSanPhams.Update(image);
             _context.SanPhams.Update(sanpham);
             await _context.SaveChangesAsync();
             return NoContent();
@@ -113,11 +113,11 @@ namespace Web_API_e_Fashion.Api_Controllers
                 HuongDan = upload.HuongDan,
                 KhoiLuong = upload.KhoiLuong,
                 MoTa = upload.MoTa,
-                MauSac = upload.MauSac,
+            
                 ThanhPhan = upload.ThanhPhan,
                 SoLuong = upload.SoLuong,
-                TrangThaiHoatDong = upload.TrangThaiHoatDong,
-                TrangThaiSanPham = upload.TrangThaiSanPham,
+                TrangThaiHienThi = true,
+                TrangThaiSanPhamThietKe = true,
                 UpdateBy = upload.UpdateBy,
                 KhuyenMai = upload.KhuyenMai,
                 UpdatedDate = null,
@@ -125,8 +125,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                 SanPhamThietKes = null,
                 SanPham_SanPhamThietKes = null,
                 GiaSanPhams = null,
-                CategoryId = null,
-                BrandId = null,
+                CategoryId = upload.CategoryId,
+                BrandId = upload.BrandId,
             };
             _context.SanPhams.Add(sanpham);
             await _context.SaveChangesAsync();

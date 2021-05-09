@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.UploadFileModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
@@ -45,14 +48,31 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/Loais/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLoai(int id, Loai loai)
+        public async Task<IActionResult> PutLoai(int id, [FromForm] UploadCategory upload)
         {
-            if (id != loai.Id)
+            Loai loai = new Loai();
+            loai = await _context.Loais.FirstOrDefaultAsync(c => c.Id == id);
+            loai.Ten = upload.Name;
+            if (upload.TileImage != null)
             {
-                return BadRequest();
+                var folderName = Path.Combine("Resources", "Images", "category");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                var fileName = ContentDispositionHeaderValue.Parse(upload.TileImage.ContentDisposition).FileName.Trim('"');
+                var fullPath = Path.Combine(pathToSave, fileName);
+                loai.ImagePath = fullPath;
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await upload.TileImage.CopyToAsync(stream);
+                }
+                loai.ImagePath = upload.TileImage.FileName;
+            }
+            else
+            {
+                loai.ImagePath = "noimage.jpg";
             }
 
-            _context.Entry(loai).State = EntityState.Modified;
+            loai.DateCreate = DateTime.Now;
+            _context.Loais.Update(loai);
 
             try
             {
@@ -76,26 +96,53 @@ namespace Web_API_e_Fashion.Api_Controllers
         // POST: api/Loais
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Loai>> PostLoai(Loai loai)
+        public async Task<ActionResult<Loai>> PostLoai([FromForm] UploadCategory upload)
         {
+            Loai loai = new Loai();
+            loai.Ten = upload.Name;
+            if (upload.TileImage != null)
+            {
+                var folderName = Path.Combine("Resources", "Images", "category");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                var fileName = ContentDispositionHeaderValue.Parse(upload.TileImage.ContentDisposition).FileName.Trim('"');
+                var fullPath = Path.Combine(pathToSave, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await upload.TileImage.CopyToAsync(stream);
+                }
+                loai.ImagePath = upload.TileImage.FileName;
+            }
+            else
+            {
+                loai.ImagePath = "noimage.jpg";
+            }
+            loai.DateCreate = DateTime.Now;
             _context.Loais.Add(loai);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetLoai", new { id = loai.Id }, loai);
+            return Ok();
         }
 
         // DELETE: api/Loais/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLoai(int id)
         {
-            var loai = await _context.Loais.FindAsync(id);
-            if (loai == null)
+            SanPham product = new SanPham();
+            product = await _context.SanPhams.FirstOrDefaultAsync(s => s.CategoryId == id);
+            var category = await _context.Loais.FindAsync(id);
+            if (product == null)
             {
-                return NotFound();
+                _context.Loais.Remove(category);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                _context.SanPhams.Remove(product);
+                await _context.SaveChangesAsync();
+                _context.Loais.Remove(category);
+                _context.SaveChanges();
             }
 
-            _context.Loais.Remove(loai);
-            await _context.SaveChangesAsync();
+
 
             return NoContent();
         }

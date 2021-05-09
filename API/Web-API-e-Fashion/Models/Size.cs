@@ -16,9 +16,9 @@ namespace Web_API_e_Fashion.Models
         [Key]
         public int Id { get; set; }
         public string Size1 { get; set; }
-        public int? IdLoai { get; set; }
-        [ForeignKey("IdLoai")]
-        public virtual Loai Category { get; set; }
+        public int? LoaiId { get; set; }
+        [ForeignKey("LoaiId")]
+        public virtual Loai Loai { get; set; }
      
         public virtual ICollection<GiaSanPham> GiaSanPhams { get; set; }
     }

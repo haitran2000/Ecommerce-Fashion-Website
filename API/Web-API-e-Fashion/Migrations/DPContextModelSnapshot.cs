@@ -279,16 +279,7 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<string>("Gia")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("IDMau")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdSanPham")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdSize")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MauSacId")
+                    b.Property<int?>("MauId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SanPhamId")
@@ -299,7 +290,7 @@ namespace Web_API_e_Fashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MauSacId");
+                    b.HasIndex("MauId");
 
                     b.HasIndex("SanPhamId");
 
@@ -446,10 +437,7 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("IdLoai")
+                    b.Property<int?>("LoaiId")
                         .HasColumnType("int");
 
                     b.Property<string>("MaMau")
@@ -457,7 +445,7 @@ namespace Web_API_e_Fashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("LoaiId");
 
                     b.ToTable("MauSacs");
                 });
@@ -496,9 +484,6 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<int?>("KhuyenMai")
                         .HasColumnType("int");
 
-                    b.Property<string>("MauSac")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("MoTa")
                         .HasColumnType("nvarchar(max)");
 
@@ -511,11 +496,11 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<string>("ThanhPhan")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("TrangThaiHoatDong")
+                    b.Property<bool?>("TrangThaiHienThi")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("TrangThaiSanPham")
-                        .HasColumnType("int");
+                    b.Property<bool?>("TrangThaiSanPhamThietKe")
+                        .HasColumnType("bit");
 
                     b.Property<int?>("UpdateBy")
                         .HasColumnType("int");
@@ -595,7 +580,7 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("IdLoai")
+                    b.Property<int?>("LoaiId")
                         .HasColumnType("int");
 
                     b.Property<string>("Size1")
@@ -603,7 +588,7 @@ namespace Web_API_e_Fashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdLoai");
+                    b.HasIndex("LoaiId");
 
                     b.ToTable("Sizes");
                 });
@@ -724,7 +709,7 @@ namespace Web_API_e_Fashion.Migrations
                 {
                     b.HasOne("Web_API_e_Fashion.Models.MauSac", "MauSac")
                         .WithMany("GiaSanPhams")
-                        .HasForeignKey("MauSacId");
+                        .HasForeignKey("MauId");
 
                     b.HasOne("Web_API_e_Fashion.Models.SanPham", "SanPham")
                         .WithMany("GiaSanPhams")
@@ -789,11 +774,11 @@ namespace Web_API_e_Fashion.Migrations
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.MauSac", b =>
                 {
-                    b.HasOne("Web_API_e_Fashion.Models.Loai", "Category")
+                    b.HasOne("Web_API_e_Fashion.Models.Loai", "Loai")
                         .WithMany("MauSacs")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("LoaiId");
 
-                    b.Navigation("Category");
+                    b.Navigation("Loai");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPham", b =>
@@ -832,11 +817,11 @@ namespace Web_API_e_Fashion.Migrations
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.Size", b =>
                 {
-                    b.HasOne("Web_API_e_Fashion.Models.Loai", "Category")
+                    b.HasOne("Web_API_e_Fashion.Models.Loai", "Loai")
                         .WithMany("Sizes")
-                        .HasForeignKey("IdLoai");
+                        .HasForeignKey("LoaiId");
 
-                    b.Navigation("Category");
+                    b.Navigation("Loai");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.HoaDon", b =>

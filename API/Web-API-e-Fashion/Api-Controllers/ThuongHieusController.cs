@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.UploadFileModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
@@ -45,14 +48,31 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/ThuongHieus/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutThuongHieu(int id, ThuongHieu thuongHieu)
+        public async Task<IActionResult> PutThuongHieu(int id, [FromForm] UploadBrand upload)
         {
-            if (id != thuongHieu.Id)
+            ThuongHieu thuonghieu = new ThuongHieu();
+            thuonghieu = await _context.ThuongHieus.FirstOrDefaultAsync(c => c.Id == id);
+            thuonghieu.Ten = upload.Name;
+            if (upload.TileImage != null)
             {
-                return BadRequest();
+                var folderName = Path.Combine("Resources", "Images", "brand");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                var fileName = ContentDispositionHeaderValue.Parse(upload.TileImage.ContentDisposition).FileName.Trim('"');
+                var fullPath = Path.Combine(pathToSave, fileName);
+                thuonghieu.ImagePath = fullPath;
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await upload.TileImage.CopyToAsync(stream);
+                }
+                thuonghieu.ImagePath = upload.TileImage.FileName;
+            }
+            else
+            {
+                thuonghieu.ImagePath = "noimage.jpg";
             }
 
-            _context.Entry(thuongHieu).State = EntityState.Modified;
+            thuonghieu.DateCreate = DateTime.Now;
+            _context.ThuongHieus.Update(thuonghieu);
 
             try
             {
@@ -76,27 +96,51 @@ namespace Web_API_e_Fashion.Api_Controllers
         // POST: api/ThuongHieus
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ThuongHieu>> PostThuongHieu(ThuongHieu thuongHieu)
+        public async Task<ActionResult<ThuongHieu>> PostThuongHieu([FromForm] UploadBrand upload)
         {
-            _context.ThuongHieus.Add(thuongHieu);
+            ThuongHieu thuonghieu = new ThuongHieu();
+            thuonghieu.Ten = upload.Name;
+            if (upload.TileImage != null)
+            {
+                var folderName = Path.Combine("Resources", "Images", "brand");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                var fileName = ContentDispositionHeaderValue.Parse(upload.TileImage.ContentDisposition).FileName.Trim('"');
+                var fullPath = Path.Combine(pathToSave, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await upload.TileImage.CopyToAsync(stream);
+                }
+                thuonghieu.ImagePath = upload.TileImage.FileName;
+            }
+            else
+            {
+                thuonghieu.ImagePath = "noimage.jpg";
+            }
+           thuonghieu.DateCreate = DateTime.Now;
+            _context.ThuongHieus.Add(thuonghieu);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetThuongHieu", new { id = thuongHieu.Id }, thuongHieu);
+            return Ok();
         }
 
         // DELETE: api/ThuongHieus/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteThuongHieu(int id)
         {
-            var thuongHieu = await _context.ThuongHieus.FindAsync(id);
-            if (thuongHieu == null)
+            SanPham product = new SanPham();
+            product = await _context.SanPhams.FirstOrDefaultAsync(b => b.BrandId == id);
+            var brand = await _context.ThuongHieus.FindAsync(id);
+            if (product == null)
             {
-                return NotFound();
+                _context.ThuongHieus.Remove(brand);
+                await _context.SaveChangesAsync();
             }
-
-            _context.ThuongHieus.Remove(thuongHieu);
-            await _context.SaveChangesAsync();
-
+            else
+            {
+                _context.SanPhams.Remove(product);
+                await _context.SaveChangesAsync();
+                _context.ThuongHieus.Remove(brand);
+                _context.SaveChanges();
+            }
             return NoContent();
         }
 
