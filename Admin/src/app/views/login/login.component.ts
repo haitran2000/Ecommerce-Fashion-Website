@@ -18,6 +18,8 @@ export class LoginComponent  implements OnInit{
   constructor( public router : Router,private activatedRoute: ActivatedRoute , public http : HttpClient){
     
   }
+  private loggedIn = false;
+  
   public newForm: FormGroup;
   ngOnInit(){
     this.newForm = new FormGroup({

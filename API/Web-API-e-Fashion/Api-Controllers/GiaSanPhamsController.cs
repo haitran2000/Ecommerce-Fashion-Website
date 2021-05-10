@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.UploadDataFormClientModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
@@ -45,15 +46,15 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/GiaSanPhams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGiaSanPham(int id, GiaSanPham giaSanPham)
+        public async Task<IActionResult> PutGiaSanPham(int id, [FromForm]UploadGiaSanPham upload)
         {
-            if (id != giaSanPham.Id)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(giaSanPham).State = EntityState.Modified;
-
+            GiaSanPham giaSP;
+            giaSP = await _context.GiaSanPhams.FindAsync(id);
+            giaSP.Gia = upload.Gia;
+            giaSP.MauId = upload.MauId;
+            giaSP.SanPhamId = upload.SanPhamId;
+            _context.GiaSanPhams.Update(giaSP);
             try
             {
                 await _context.SaveChangesAsync();
@@ -76,12 +77,20 @@ namespace Web_API_e_Fashion.Api_Controllers
         // POST: api/GiaSanPhams
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<GiaSanPham>> PostGiaSanPham(GiaSanPham giaSanPham)
+        public async Task<ActionResult<GiaSanPham>> PostGiaSanPham([FromForm] UploadGiaSanPham upload)
         {
-            _context.GiaSanPhams.Add(giaSanPham);
+            GiaSanPham giaSP = new GiaSanPham()
+            {
+                Gia = upload.Gia,
+                SanPhamId = upload.SanPhamId,
+                SizeId = upload.SizeId,
+                MauId = upload.MauId,
+            };
+
+            _context.GiaSanPhams.Add(giaSP);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetGiaSanPham", new { id = giaSanPham.Id }, giaSanPham);
+            return Ok();
         }
 
         // DELETE: api/GiaSanPhams/5

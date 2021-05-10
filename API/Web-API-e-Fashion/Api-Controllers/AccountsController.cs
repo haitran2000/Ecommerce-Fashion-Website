@@ -47,18 +47,27 @@ namespace Web_API_e_Fashion.Api_Controllers
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
                 var fileName = ContentDispositionHeaderValue.Parse(model.file.ContentDisposition).FileName.Trim('"');
                 var fullPath = Path.Combine(pathToSave, fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    await model.file.CopyToAsync(stream);
-                }
-
-            
-
             var result = await _userManager.CreateAsync(userIdentity, model.Password);
 
             AppUser user = new AppUser();
             user = await _context.AppUsers.FirstOrDefaultAsync(s => s.Id == userIdentity.Id);
-            user.ImagePath = fileName;
+            
+            if (model.file != null)
+            {
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await model.file.CopyToAsync(stream);
+                }
+                user.ImagePath = fileName;
+            }
+            else
+            {
+                user.ImagePath = "noimage.jpg";
+            }
+
+            
+
+        
 
             _context.AppUsers.Update(user);
             if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));

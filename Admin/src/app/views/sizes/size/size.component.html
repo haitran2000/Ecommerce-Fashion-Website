@@ -2,17 +2,18 @@
     <div class="container" style="width: 30vw;">
         <div class="form-group">
             <label for="form-control">Id</label>
-            <input class="form-control" [value]="service.category.id" readonly>
+            <input class="form-control" [value]="service.size.id" readonly>
         </div>
         <div class="form-group">
-            <label for="Name">Name</label>
-            <input class="form-control" formControlName="Ten" [(ngModel)]="service.category.ten">
+            <label for="Size1">Size1</label>
+            <input class="form-control" formControlName="Size1" [(ngModel)]="service.size.size1">
         </div>
         <div class="form-group">
-            <label for="TileImage">
-                Image
-            </label>
-            <input type="file" class="form-control"formControlName="Size" onchange="loadFile(event)" (change)="onSelectFile($event)">
+            <span class="label label-default">LoaiId</span>
+            <select class="form-control" [(ngModel)]="service.size.loaiId" formControlName="LoaiId">
+                <option  *ngFor="let category of this.categories"
+                    [value]="category.id">{{category.ten}}</option>
+            </select>
         </div>
         <div class="form-group" style="justify-content:center;display: flex;">
             <button type="submit" class="btn btn-primary" [mat-dialog-close]="true">Create or Edit</button>

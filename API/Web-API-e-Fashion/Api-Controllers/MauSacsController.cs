@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.UploadDataFormClientModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
@@ -45,15 +46,13 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/MauSacs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMauSac(int id, MauSac mauSac)
+        public async Task<IActionResult> PutMauSac(int id, [FromForm]UploadMauSac upload)
         {
-            if (id != mauSac.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(mauSac).State = EntityState.Modified;
-
+            MauSac mausac;
+            mausac = await _context.MauSacs.FindAsync(id);
+            mausac.MaMau = upload.MaMau;
+            mausac.LoaiId = upload.LoaiId;
+            _context.MauSacs.Update(mausac);
             try
             {
                 await _context.SaveChangesAsync();
@@ -76,12 +75,17 @@ namespace Web_API_e_Fashion.Api_Controllers
         // POST: api/MauSacs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<MauSac>> PostMauSac(MauSac mauSac)
+        public async Task<ActionResult<MauSac>> PostMauSac([FromForm] UploadMauSac upload)
         {
-            _context.MauSacs.Add(mauSac);
+            MauSac mausac = new MauSac()
+            {
+                MaMau = upload.MaMau,
+                LoaiId = upload.LoaiId,
+            };
+            _context.MauSacs.Add(mausac);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMauSac", new { id = mauSac.Id }, mauSac);
+            return Ok();
         }
 
         // DELETE: api/MauSacs/5

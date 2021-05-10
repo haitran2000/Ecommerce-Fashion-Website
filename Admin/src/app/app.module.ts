@@ -105,6 +105,8 @@ import { ImagesmodelComponent } from './views/products/imagesmodel/imagesmodel.c
 import { CategoriesComponent } from './views/categories/categories.component';
 import { SizeComponent } from './views/sizes/size/size.component';
 import { MauSacComponent } from './views/mau-sacs/mau-sac/mau-sac.component';
+import { GiaSanPhamComponent } from './views/gia-san-phams/gia-san-pham/gia-san-pham.component';
+import { AuthGuard } from './views/auth.guard';
 
 
 
@@ -173,7 +175,6 @@ import { MauSacComponent } from './views/mau-sacs/mau-sac/mau-sac.component';
     SanPhamThietKesComponent,
     SizesComponent,
     SanPhamSanPhamThietKeComponent,
-    GiaSanPhamsComponent,
     CategoryComponent,
     ProductInCategoryComponent,
     HoaDonsComponent,
@@ -194,12 +195,14 @@ import { MauSacComponent } from './views/mau-sacs/mau-sac/mau-sac.component';
    ImagesmodelComponent,
    CategoriesComponent,
    SizeComponent,
-   MauSacComponent
+   MauSacComponent,
+   GiaSanPhamComponent,
+   GiaSanPhamsComponent
   ],
   providers: [
     IconSetService,
     UserService,
-  
+    [AuthGuard]
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [ AppComponent ]

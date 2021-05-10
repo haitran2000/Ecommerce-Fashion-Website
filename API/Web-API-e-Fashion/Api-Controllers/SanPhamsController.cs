@@ -49,6 +49,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSanPham(int id,[FromForm]UploadSanpham upload, string search)
         {
+            var listImage = new List<ImageSanPham>();
             SanPham sanpham = new SanPham();
             sanpham = await _context.SanPhams.FirstOrDefaultAsync(s => s.Id == id);
            sanpham.Ten = upload.Ten;
@@ -61,12 +62,31 @@ namespace Web_API_e_Fashion.Api_Controllers
           
             sanpham.ThanhPhan = upload.ThanhPhan;
             sanpham.SoLuong = upload.SoLuong;
-            sanpham.TrangThaiHienThi= upload.TrangThaiHoatDong;
+            sanpham.TrangThaiHienThi = true;
             sanpham.TrangThaiSanPhamThietKe = upload.TrangThaiSanPham;
             sanpham.UpdateBy = upload.UpdateBy;
+            SanPham sp;
+            sp = _context.SanPhams.Find(id);
+            
             sanpham.UpdatedDate = null;
-            sanpham.CategoryId = null;
-            sanpham.BrandId = null;
+            if (upload.BrandId == null)
+            {
+                sanpham.BrandId = sp.BrandId;
+            }
+            else
+            {
+                sanpham.BrandId = upload.BrandId;
+            }
+
+            if (upload.CategoryId == null)
+            {
+                sanpham.CategoryId = sp.CategoryId;
+            }
+            else
+            {
+                sanpham.CategoryId = upload.CategoryId;
+            }
+
             ImageSanPham image = new ImageSanPham();
             if (upload.ListImage != null)
             {
@@ -82,19 +102,29 @@ namespace Web_API_e_Fashion.Api_Controllers
                         {
                             await formFile.CopyToAsync(stream);
                         }
-                        image.ImagePath = formFile.FileName;
-                        image.SanPhamId = id;
-                        _context.imageSanPhams.Update(image);
+                        listImage.Add(new ImageSanPham()
+                        {
+                            ImagePath = formFile.FileName,
+                            SanPhamId = sanpham.Id,
+                        });
                     }
                 }
             }
             else
             {
-                      
-            }
+                List<ImageSanPham> ListimageSanPham1;
+                ListimageSanPham1 = _context.imageSanPhams.Where(s=>s.SanPhamId==id).ToList();
+                foreach(ImageSanPham img in ListimageSanPham1)
+                listImage.Add(new ImageSanPham()
+                {
+                   ImagePath = img.ImagePath,
+                   SanPhamId = sanpham.Id,
+                });;
+            };
+            sanpham.ImageSanPhams = listImage;
             _context.SanPhams.Update(sanpham);
             await _context.SaveChangesAsync();
-            return NoContent();
+            return Ok();
         }
 
         // POST: api/SanPhams

@@ -30,7 +30,7 @@ displayedColumns: string[] = ['id', 'ten','hinh',
   'actions'];
 
 
-  public category :  Brand
+  public brand :  Brand
   ngOnInit(): void {
     this.service.getAllBrands();
   }
@@ -41,6 +41,7 @@ displayedColumns: string[] = ['id', 'ten','hinh',
   }
 
   onModalDialog(){
+    this.service.brand.id ==0
     this.dialog.open(BrandComponent)
   }
 
@@ -49,7 +50,7 @@ displayedColumns: string[] = ['id', 'ten','hinh',
 }
 
   populateForm(selectedRecord:Brand){
-    this.service.category = Object.assign({},selectedRecord)
+    this.service.brand = Object.assign({},selectedRecord)
     this.dialog.open(BrandComponent)
 }
   clickDelete(id){

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.UploadDataFormClientModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
@@ -45,14 +46,14 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/Sizes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSize(int id, Size size)
+        public async Task<IActionResult> PutSize(int id, [FromForm] UploadSize upload)
         {
-            if (id != size.Id)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(size).State = EntityState.Modified;
+            Size size;
+            size = await _context.Sizes.FindAsync(id);
+            size.Size1 = upload.Size1;
+            size.LoaiId = upload.LoaiId;
+            _context.Sizes.Update(size);
 
             try
             {
@@ -76,8 +77,14 @@ namespace Web_API_e_Fashion.Api_Controllers
         // POST: api/Sizes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Size>> PostSize(Size size)
+        public async Task<ActionResult<Size>> PostSize([FromForm]UploadSize upload)
         {
+            Size size = new Size()
+            {
+                Size1 = upload.Size1,
+                LoaiId = upload.LoaiId,
+            };
+
             _context.Sizes.Add(size);
             await _context.SaveChangesAsync();
 

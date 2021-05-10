@@ -68,6 +68,7 @@ export class ProductComponent implements OnInit {
           Object.assign(this.brands,data)
         }
       )
+      
     this.http.get("https://localhost:44302/api/ImageSanPhams/"+this.service.product.id).subscribe(
       res=>{
         this.imageproductList = res as ImageProduct[]
@@ -146,6 +147,7 @@ export class ProductComponent implements OnInit {
        console.log(json_arr)
         this.http.post('https://localhost:44302/api/sanphams', form)
         .subscribe(res => {
+          this.newForm.reset();
          this.service.getAllProducts();
          this.service.product.id=0;
          this.onSelectedList();
@@ -189,6 +191,7 @@ export class ProductComponent implements OnInit {
         formData.append('SanPham_SanPhamThietKes','') 
         this.http.put('https://localhost:44302/api/sanphams/'+`${this.service.product.id}`, formData)
         .subscribe(res=>{
+          this.newForm.reset();
           this.service.getAllProducts();
           this.service.product.id=0;
           this.onSelectedList();

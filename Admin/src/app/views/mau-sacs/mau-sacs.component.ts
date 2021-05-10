@@ -41,6 +41,7 @@ displayedColumns: string[] = ['id', 'maMau','loaiId',
   }
 
   onModalDialog(){
+    this.service.mausac.id ==0
     this.dialog.open(MauSacComponent)
   }
 
@@ -63,7 +64,7 @@ displayedColumns: string[] = ['id', 'maMau','loaiId',
 }
 }}
 export class MauSac{
-  id: number
+  id: number = 0
   maMau : string
   loaiId : number
 }

@@ -10,12 +10,14 @@ import { AspNetUserRolesComponent } from './views/asp-net-user-roles/asp-net-use
 import { AspNetUserTokensComponent } from './views/asp-net-user-tokens/asp-net-user-tokens.component';
 import { AspNetUsersComponent } from './views/asp-net-users/asp-net-users.component';
 import { AuthHistoriesComponent } from './views/auth-histories/auth-histories.component';
+import { AuthGuard } from './views/auth.guard';
 import { BrandsComponent } from './views/brands/brands.component';
 import { CategoriesComponent } from './views/categories/categories.component';
 import { ChiTietHoaDonsComponent } from './views/chi-tiet-hoa-dons/chi-tiet-hoa-dons.component';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
+import { GiaSanPhamsComponent } from './views/gia-san-phams/gia-san-phams.component';
 import { HoaDonsComponent } from './views/hoa-dons/hoa-dons.component';
 import { ItemSanPhamThietKeComponent } from './views/item-san-pham-thiet-ke/item-san-pham-thiet-ke.component';
 import { ItemsComponent } from './views/items/items.component';
@@ -64,139 +66,116 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: DefaultLayoutComponent,
+    component: DefaultLayoutComponent, canActivate: [AuthGuard],
     data: {
       title: 'Home'
     },
     children: [
-      {
-        path: 'base',
-        loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule)
-      },
-      {
-        path: 'buttons',
-        loadChildren: () => import('./views/buttons/buttons.module').then(m => m.ButtonsModule)
-      },
-      {
-        path: 'charts',
-        loadChildren: () => import('./views/chartjs/chartjs.module').then(m => m.ChartJSModule)
-      },
      
       {
         path: 'dashboard',
-        loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
+        loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule),canActivate: [AuthGuard],
       },
-      {
-        path: 'icons',
-        loadChildren: () => import('./views/icons/icons.module').then(m => m.IconsModule)
-      },
-      {
-        path: 'notifications',
-        loadChildren: () => import('./views/notifications/notifications.module').then(m => m.NotificationsModule)
-      },
-      {
-        path: 'theme',
-        loadChildren: () => import('./views/theme/theme.module').then(m => m.ThemeModule)
-      },
-      {
-        path: 'widgets',
-        loadChildren: () => import('./views/widgets/widgets.module').then(m => m.WidgetsModule)
-      },
+    
       {
         path: 'product/add',
-        loadChildren: () => import('./views/products/product/product.module').then(m => m.ProductModule)
+        loadChildren: () => import('./views/products/product/product.module').then(m => m.ProductModule),canActivate: [AuthGuard],
       },
       {
         path: 'product/edit/:id',
-        loadChildren: () => import('./views/products/product/product.module').then(m => m.ProductModule)
+        loadChildren: () => import('./views/products/product/product.module').then(m => m.ProductModule),canActivate: [AuthGuard],
       },
       {
         path: 'products',
-        component: ProductsComponent,
+        component: ProductsComponent,canActivate: [AuthGuard],
       },
       {
         path: 'categories',
-        component: CategoriesComponent,
+        component: CategoriesComponent,canActivate: [AuthGuard],
+      },
+      {
+        path: 'giasanphams',
+        component: GiaSanPhamsComponent,canActivate: [AuthGuard],
       },
       {
         path: 'brands',
-        component: BrandsComponent,
+        component: BrandsComponent,canActivate: [AuthGuard],
       },
       {
         path: 'sanphamthietkes',
-        component: SanPhamThietKesComponent,
+        component: SanPhamThietKesComponent,canActivate: [AuthGuard],
       },
       {
         path: 'sanphamthietkes',
-        component: SanPhamThietKesComponent,
+        component: SanPhamThietKesComponent,canActivate: [AuthGuard],
       },
       {
         path: 'sanpham_sanphamthietkes',
-        component: SanPhamSanPhamThietKeComponent,
+        component: SanPhamSanPhamThietKeComponent,canActivate: [AuthGuard],
       },
       {
         path: 'sizes',
-        component: SizesComponent,
+        component: SizesComponent,canActivate: [AuthGuard],
       },
       {
         path: 'mausacs',
-        component: MauSacsComponent,
+        component: MauSacsComponent,canActivate: [AuthGuard],
       },
       {
         path: 'items',
-        component: ItemsComponent,
+        component: ItemsComponent,canActivate: [AuthGuard],
       },
       {
         path: 'item_sanphamthietke',
-        component: ItemSanPhamThietKeComponent,
+        component: ItemSanPhamThietKeComponent,canActivate: [AuthGuard],
       },
       {
         path: 'jobseekes',
-        component: JobSeekesComponent,
+        component: JobSeekesComponent,canActivate: [AuthGuard],
       },
       {
         path: 'hoadons',
-        component: HoaDonsComponent,
+        component: HoaDonsComponent,canActivate: [AuthGuard],
       },
       {
         path: 'chitiethoadons',
-        component: ChiTietHoaDonsComponent,
+        component: ChiTietHoaDonsComponent,canActivate: [AuthGuard],
       },
       {
         path: 'aspnetusertokens',
-        component: AspNetUserTokensComponent,
+        component: AspNetUserTokensComponent,canActivate: [AuthGuard],
       },
       {
         path: 'authhistories',
-        component: AuthHistoriesComponent,
+        component: AuthHistoriesComponent,canActivate: [AuthGuard],
       },
       {
         path: 'aspnetusertokens',
-        component: AspNetUserTokensComponent,
+        component: AspNetUserTokensComponent,canActivate: [AuthGuard],
       },
       {
         path: 'aspnetusers',
-        component: AspNetUsersComponent,
+        component: AspNetUsersComponent,canActivate: [AuthGuard],
       },
       {
         path: 'aspnetuserroles',
-        component: AspNetUserRolesComponent,
+        component: AspNetUserRolesComponent,canActivate: [AuthGuard],
       },
       {
         path: 'aspnetuserlogins',
-        component: AspNetUserLoginsComponent,
+        component: AspNetUserLoginsComponent,canActivate: [AuthGuard],
       },
       {
         path: 'aspnetusertokens',
-        component: AspNetUserTokensComponent,
+        component: AspNetUserTokensComponent,canActivate: [AuthGuard],
       },
       {
         path: 'aspnetuserclaims',
-        component: AspNetUserClaimsComponent,
+        component: AspNetUserClaimsComponent,canActivate: [AuthGuard],
       },
       {
         path: 'sanpham_sanphamthietke',
-        component: SanPhamSanPhamThietKeComponent,
+        component: SanPhamSanPhamThietKeComponent,canActivate: [AuthGuard],
       },
     ]
   },

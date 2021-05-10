@@ -66,7 +66,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             };
 
             var json = JsonConvert.SerializeObject(response, _serializerSettings);
-            return Ok(json);
+            return new OkObjectResult(json);
         }
 
         private async Task<ClaimsIdentity> GetClaimsIdentity(string userName, string password)

@@ -41,7 +41,9 @@ displayedColumns: string[] = ['id', 'size1','loaiId',
   }
 
   onModalDialog(){
+    this.service.size.id ==0
     this.dialog.open(SizeComponent)
+    
   }
 
  doFilter = (value: string) => {

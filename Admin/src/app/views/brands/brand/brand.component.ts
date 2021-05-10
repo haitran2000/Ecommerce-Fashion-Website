@@ -10,7 +10,7 @@ import { BrandService } from '../brand.service';
   styleUrls: ['./brand.component.scss']
 })
 export class BrandComponent implements OnInit {
-  public categorysComponent : BrandsComponent
+  public BrandsComponent : BrandsComponent
   constructor(public service : BrandService,
     public http :HttpClient ,
   ) {
@@ -30,14 +30,14 @@ onSelectFile(fileInput: any) {
 this.selectedFile = <File>fileInput.target.files[0];
 }
 onSubmit=(data) =>{
-if(this.service.category.id==0){
+if(this.service.brand.id==0){
 const formData = new FormData();
 formData.append('Name', data.Name);
 formData.append('TileImage', this.selectedFile);
 this.http.post('https://localhost:44302/api/thuonghieus', formData)
 .subscribe(res => {
 this.service.getAllBrands();
-this.service.category.id=0;
+this.service.brand.id=0;
 });
 this.newBlogForm.reset();
 }
@@ -46,10 +46,10 @@ else
 const formData = new FormData();
 formData.append('Name', data.Name);
 formData.append('TileImage', this.selectedFile);
-this.http.put('https://localhost:44302/api/thuonghieus/'+`${this.service.category.id}`, formData)
+this.http.put('https://localhost:44302/api/thuonghieus/'+`${this.service.brand.id}`, formData)
 .subscribe(res=>{
   this.service.getAllBrands();
-this.service.category.id=0;
+this.service.brand.id=0;
 });
 }
 }

@@ -12,7 +12,7 @@ export class BrandService{
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public dataSource = new MatTableDataSource<Brand>();
-    category:Brand = new Brand()
+    brand:Brand = new Brand()
     readonly url="https://localhost:44302/api/thuonghieus"
     constructor(public http:HttpClient) { }
     get(){

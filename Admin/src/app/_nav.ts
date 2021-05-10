@@ -46,6 +46,11 @@ export const navItems: INavData[] = [
   
   },
   {
+    name: 'GiaSanPhams',
+    url: '/giasanphams',
+  
+  },
+  {
     name: 'Items',
     url: '/items',
   },
