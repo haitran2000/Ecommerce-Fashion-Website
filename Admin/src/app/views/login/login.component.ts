@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup } from '@angular/forms';
+import { UserService } from '../account/user.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'login.component.html'
 })
-
+@Injectable()
 export class LoginComponent  implements OnInit{
   private subscription: Subscription;
   brandNew: boolean;
@@ -15,11 +16,13 @@ export class LoginComponent  implements OnInit{
   isRequesting: boolean;
   submitted: boolean = false;
   credentials: Credentials = { email: '', password: '' };
-  constructor( public router : Router,private activatedRoute: ActivatedRoute , public http : HttpClient){
+  constructor( public router : Router,private activatedRoute: ActivatedRoute , public http : HttpClient, public userService : UserService){
     
   }
   private loggedIn = false;
-  
+  isLoggedIn() {
+    return this.loggedIn;
+  }  
   public newForm: FormGroup;
   ngOnInit(){
     this.newForm = new FormGroup({
@@ -32,6 +35,10 @@ export class LoginComponent  implements OnInit{
          this.credentials.email = param['email'];         
       });      
   }
+  onLogOut(){
+    localStorage.removeItem('auth_token');
+    this.loggedIn = false
+  }
   onLogin(){
     this.router.navigate(['/register']);
   }
@@ -42,16 +49,9 @@ onSubmit = (data) =>{
     this.submitted = true;
     this.isRequesting = true;
     this.errors='';
-      this.http.post("https://localhost:44302/api/auth/login",form).subscribe(
-        res=>{
-          this.router.navigate(['/dashboard']);             
-        },
-        error=>{
-
-        }
-      )
-
+    this.userService.login(data.userName,data.passWord)
     }
+  
   }
 
  export interface Credentials {

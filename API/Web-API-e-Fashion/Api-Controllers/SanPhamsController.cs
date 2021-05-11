@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.ResModels;
 using Web_API_e_Fashion.UploadFileModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
@@ -25,9 +26,29 @@ namespace Web_API_e_Fashion.Api_Controllers
 
         // GET: api/SanPhams
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SanPham>>> GetSanPhams()
+        public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> GetSanPhams()
         {
-            return await _context.SanPhams.ToListAsync();
+            var kb =  from l in _context.Loais
+                     join s in _context.SanPhams
+                     on l.Id equals s.CategoryId
+                     join th in _context.ThuongHieus
+                     on s.Id equals th.Id
+                     select new SanPhamLoaiThuongHieu()
+                     {
+                        Id = s.Id,
+                        Ten = s.Ten,
+                        KhuyenMai = s.KhuyenMai,
+                        MoTa = s.MoTa,
+                        SoLuong = s.SoLuong,
+                        TrangThaiHienThi = s.TrangThaiHienThi,
+                        KhoiLuong = s.KhoiLuong,
+                        HuongDan = s.HuongDan,
+                        ThanhPhan = s.ThanhPhan,
+                        ChatLieu = s.ChatLieu,
+                        TenLoai = l.Ten,
+                        TenThuongHieu = th.Ten,
+                     };
+            return await kb.ToListAsync();
         }
 
         // GET: api/SanPhams/5
@@ -86,7 +107,8 @@ namespace Web_API_e_Fashion.Api_Controllers
             {
                 sanpham.CategoryId = upload.CategoryId;
             }
-
+            ImageSanPham[] images = _context.imageSanPhams.Where(s => s.SanPhamId == id).ToArray();
+            _context.imageSanPhams.RemoveRange(images);
             ImageSanPham image = new ImageSanPham();
             if (upload.ListImage != null)
             {
@@ -102,6 +124,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                         {
                             await formFile.CopyToAsync(stream);
                         }
+                    
                         listImage.Add(new ImageSanPham()
                         {
                             ImagePath = formFile.FileName,

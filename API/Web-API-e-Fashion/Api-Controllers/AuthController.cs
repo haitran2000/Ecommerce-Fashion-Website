@@ -40,7 +40,7 @@ namespace Web_API_e_Fashion.Api_Controllers
   
         // POST api/auth/login
         [HttpPost("login")]
-        public async Task<IActionResult> Post([FromForm] CredentialsViewModel credentials)
+        public async Task<IActionResult> Post([FromBody] CredentialsViewModel credentials)
         {
             if (!ModelState.IsValid)
             {

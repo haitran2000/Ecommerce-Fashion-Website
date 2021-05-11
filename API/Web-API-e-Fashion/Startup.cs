@@ -119,12 +119,13 @@ namespace Web_API_e_Fashion
             app.UseAuthentication();
             app.UseRouting();
             app.UseCors(options =>
-            options.WithOrigins("http://localhost:4200")
+            options.AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader());
             app.UseAuthorization();
 
             app.UseCors(x => x
+                .AllowAnyOrigin()
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import {  HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { BaseService } from './base.service';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
 
 //import * as _ from 'lodash';
 
@@ -21,7 +23,7 @@ export class UserService extends BaseService  {
 
   private loggedIn = false;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,public router: Router) {
     super();
     this.loggedIn = !!localStorage.getItem('auth_token');
     // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
@@ -29,23 +31,16 @@ export class UserService extends BaseService  {
     this._authNavStatusSource.next(this.loggedIn);
     this.baseUrl = "https://localhost:44302/api/"
   }
-
-    register(email: string, password: string, firstName: string, lastName: string,location: string) {
-    let body = JSON.stringify({ email, password, firstName, lastName,location });
-        return this.http.post('https://localhost:44302/api/sanphams',body);
-    }  
-
-
    login(userName, password) {
-    
     return this.http
 .post(
-      this.baseUrl + '/auth/login',
+      this.baseUrl + 'auth/login',
       JSON.stringify({ userName, password }),
       { headers: new HttpHeaders({'Content-Type':'application/json'}
       )}).subscribe(
         (res : any)=> {
           localStorage.setItem('auth_token', res.auth_token);
+          this.router.navigate(['/dashboard']);
           console.log(res.auth_token);
           this.loggedIn = true;
           this._authNavStatusSource.next(true);
@@ -55,6 +50,7 @@ export class UserService extends BaseService  {
 
   logout() {
     localStorage.removeItem('auth_token');
+    this.router.navigate(['/login']);
     this.loggedIn = false;
     this._authNavStatusSource.next(false);
   }

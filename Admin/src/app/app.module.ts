@@ -154,8 +154,6 @@ import { AuthGuard } from './views/auth.guard';
     FormsModule,
     ReactiveFormsModule,
     MatSortModule,
-
-    //
   ],
   declarations: [
     AppComponent,
@@ -187,8 +185,6 @@ import { AuthGuard } from './views/auth.guard';
     AspNetUserTokensComponent,
     AuthHistoriesComponent,
     BrandComponent,
-
-
     ProductsComponent,
     ProductComponent,
    RegistrationFormComponent,
@@ -202,7 +198,8 @@ import { AuthGuard } from './views/auth.guard';
   providers: [
     IconSetService,
     UserService,
-    [AuthGuard]
+    [AuthGuard],
+    LoginComponent,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [ AppComponent ]

@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.ResModels;
 using Web_API_e_Fashion.UploadFileModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
@@ -30,7 +31,45 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             return await _context.Loais.ToListAsync();
         }
-
+        public int getCountSP(List<SanPham> sps, int LoaiId)
+        {
+            sps = _context.SanPhams.ToList();
+            int count = 0;
+            foreach(SanPham sp in sps)
+            {
+                if(sp.CategoryId == LoaiId)
+                {
+                    count++;
+                }
+            }
+            return count;
+        }
+        [HttpGet("{id}/products")]
+        public async Task<ActionResult<IEnumerable<SanPhamLoai>>> GetLoaiIdProducts(int id)
+        {
+            var listSP = _context.SanPhams.ToList();
+            var kb = from l in _context.Loais.Where(l=>l.Id==id)
+                     join s in _context.SanPhams
+                     on l.Id equals s.CategoryId    
+             
+                     select new SanPhamLoai()
+                     {
+                         SoLuongSanPham = getCountSP(listSP, id),
+                         Id = s.Id,
+                         Ten = s.Ten,
+                         KhuyenMai = s.KhuyenMai,
+                         MoTa = s.MoTa,
+                         SoLuong = s.SoLuong,
+                         TrangThaiHienThi = s.TrangThaiHienThi,
+                         KhoiLuong = s.KhoiLuong,
+                         HuongDan = s.HuongDan,
+                         ThanhPhan = s.ThanhPhan,
+                         ChatLieu = s.ChatLieu,
+                         TenLoai = l.Ten,
+                        
+                     };
+            return await kb.ToListAsync();
+        }
         // GET: api/Loais/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Loai>> GetLoai(int id)
@@ -126,8 +165,8 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLoai(int id)
         {
-            SanPham product = new SanPham();
-            product = await _context.SanPhams.FirstOrDefaultAsync(s => s.CategoryId == id);
+            SanPham[] product;
+            product = _context.SanPhams.Where(s => s.CategoryId == id).ToArray();
             var category = await _context.Loais.FindAsync(id);
             if (product == null)
             {
@@ -136,15 +175,14 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
             else
             {
-                _context.SanPhams.Remove(product);
-                await _context.SaveChangesAsync();
+                _context.SanPhams.RemoveRange(product);
                 _context.Loais.Remove(category);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
 
 
 
-            return NoContent();
+            return Ok();
         }
 
         private bool LoaiExists(int id)

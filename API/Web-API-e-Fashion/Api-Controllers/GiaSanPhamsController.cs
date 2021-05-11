@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.ResModels;
 using Web_API_e_Fashion.UploadDataFormClientModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
@@ -24,9 +25,24 @@ namespace Web_API_e_Fashion.Api_Controllers
 
         // GET: api/GiaSanPhams
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GiaSanPham>>> GetGiaSanPhams()
+        public async Task<ActionResult<IEnumerable<GiaSanPham_MauSac_SanPham_Size>>> GetGiaSanPhams()
         {
-            return await _context.GiaSanPhams.ToListAsync();
+            var kb = from g in _context.GiaSanPhams
+                     join m in _context.MauSacs
+                     on g.MauId equals m.Id
+                     join sp in _context.SanPhams
+                     on g.SanPhamId equals sp.Id
+                     join s in _context.Sizes
+                     on g.SizeId equals s.Id
+                     select new GiaSanPham_MauSac_SanPham_Size()
+                     {
+                        Id = g.Id,
+                        Gia  = g.Gia,
+                        MaMau = m.MaMau,
+                        TenSanPham = sp.Ten,
+                        Size1 = s.Size1,
+    };
+            return await kb.ToListAsync();
         }
 
         // GET: api/GiaSanPhams/5

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.ResModels;
 using Web_API_e_Fashion.UploadDataFormClientModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
@@ -24,9 +25,18 @@ namespace Web_API_e_Fashion.Api_Controllers
 
         // GET: api/Sizes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Size>>> GetSizes()
+        public async Task<ActionResult<IEnumerable<SizeLoai>>> GetSizes()
         {
-            return await _context.Sizes.ToListAsync();
+            var kb = from l in _context.Loais
+                     join s in _context.Sizes
+                     on l.Id equals s.LoaiId
+                     select new SizeLoai()
+                     {
+                         Id = s.Id,
+                         TenLoai = l.Ten,
+                         Size1 = s.Size1
+                     };
+            return await kb.ToListAsync();
         }
 
         // GET: api/Sizes/5
