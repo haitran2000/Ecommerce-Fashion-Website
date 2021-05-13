@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import {ProductService} from './product.service'
-
+import * as signalR from '@microsoft/signalr';  
 import {Product} from './product.model'
 import {AfterViewInit,ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
@@ -49,6 +49,20 @@ getAllProducts(){
   }
   ngOnInit() {
     this.getAllProducts();
+    const connection = new signalR.HubConnectionBuilder()  
+    .configureLogging(signalR.LogLevel.Information)  
+    .withUrl('https://localhost:44302/notify')  
+    .build();  
+
+  connection.start().then(function () {  
+    console.log('SignalR Connected!');  
+  }).catch(function (err) {  
+    return console.error(err.toString());  
+  });  
+
+  connection.on("BroadcastMessage", () => {  
+    this.getAllProducts(); 
+  });  
   }
   populateImageProduct(selectedRecord:Product){
     this.service.product = Object.assign({},selectedRecord)
@@ -83,7 +97,7 @@ getAllProducts(){
   }
   displayedColumns: string[] = ['id', 'ten','hinh',
    'trangThaiSanPham',
-   'brandId','categoryId',
+   'tenThuongHieu','tenLoai',
   'actions'];
   product = new Product()
   prducts : Product[]

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Web_API_e_Fashion.Data;
 
 namespace Web_API_e_Fashion.Migrations
 {
     [DbContext(typeof(DPContext))]
-    partial class DPContextModelSnapshot : ModelSnapshot
+    [Migration("20210513030741_v28")]
+    partial class v28
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -457,13 +459,15 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("TenSanPham")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TranType")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("Notifications");
                 });
@@ -797,6 +801,15 @@ namespace Web_API_e_Fashion.Migrations
                         .HasForeignKey("LoaiId");
 
                     b.Navigation("Loai");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.Notification", b =>
+                {
+                    b.HasOne("Web_API_e_Fashion.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId");
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPham", b =>

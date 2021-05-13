@@ -25,6 +25,7 @@ namespace Web_API_e_Fashion.Data
         public DbSet<SanPhamThietKe> SanPhamThietKes { get; set; }
         public DbSet<Size> Sizes { get; set; }
         public DbSet<AuthHistory> AuthHistories { get; set; }
+        public DbSet<Notification>  Notifications { get; set; }
         protected void TableBuilder(ModelBuilder modelBuilder)
         {
 

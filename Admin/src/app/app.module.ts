@@ -107,6 +107,7 @@ import { SizeComponent } from './views/sizes/size/size.component';
 import { MauSacComponent } from './views/mau-sacs/mau-sac/mau-sac.component';
 import { GiaSanPhamComponent } from './views/gia-san-phams/gia-san-pham/gia-san-pham.component';
 import { AuthGuard } from './views/auth.guard';
+import { ModalComponent } from './modal/modal.component';
 
 
 
@@ -193,7 +194,8 @@ import { AuthGuard } from './views/auth.guard';
    SizeComponent,
    MauSacComponent,
    GiaSanPhamComponent,
-   GiaSanPhamsComponent
+   GiaSanPhamsComponent,
+   ModalComponent
   ],
   providers: [
     IconSetService,

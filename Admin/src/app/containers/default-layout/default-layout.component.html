@@ -18,7 +18,11 @@
   </ul>
   <ul class="nav navbar-nav ml-auto">
     <li class="nav-item d-md-down-none">
-      <a class="nav-link" href="#"><i class="icon-bell"></i><span class="badge badge-pill badge-danger">5</span></a>
+      <i class="fa fa-bell  has-badge" style="cursor: pointer;" (click)="openModal()"></i>  
+      <div class="numberCircle" *ngIf="notification && notification?.count>0" style="cursor: pointer;"  
+        (click)="openModal()">  
+        {{this.notification.count}}</div>  
+      
     </li>
     <li class="nav-item d-md-down-none">
       <a class="nav-link" href="#"><i class="icon-list"></i></a>
@@ -314,3 +318,14 @@
   <span><a href="https://coreui.io">CoreUI</a> &copy; 2021 creativeLabs.</span>
   <span class="ml-auto">Powered by <a href="https://coreui.io/angular">CoreUI for Angular</a></span>
 </app-footer>
+
+<app-modal id="custom-modal">  
+  <button class="btn btn-primary" (click)="deleteNotifications();" style="margin-right: 10px;" [disabled]="notification?.count==0">Delete all Notifications</button>  
+  <button class="btn btn-secondary" (click)="closeModal();">Close</button>  
+  <div style="margin-bottom: 10px;"></div>  
+  <div *ngFor="let msg of messages" [ngSwitch]="msg.tranType">  
+    <h6 *ngSwitchCase="'Add'"><span class="badge badge-success">New product '{{msg.tenSanPham}}' added</span></h6>  
+    <h6 *ngSwitchCase="'Edit'"><span class="badge badge-info">Product '{{msg.tenSanPham}}' edited</span></h6>  
+    <h6 *ngSwitchCase="'Delete'"><span class="badge badge-warning">Product '{{msg.tenSanPham}}' deleted</span></h6>  
+  </div>  
+</app-modal>  

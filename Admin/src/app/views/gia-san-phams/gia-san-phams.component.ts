@@ -24,7 +24,7 @@ export class GiaSanPhamsComponent implements OnInit, AfterViewInit {
               public dialog: MatDialog,) { }
 
 
-              displayedColumns: string[] = ['id', 'gia','mauId','sanPhamId','sizeId',
+              displayedColumns: string[] = ['id', 'gia','maMau','tenSanPham','size1',
   'actions'];
 
 

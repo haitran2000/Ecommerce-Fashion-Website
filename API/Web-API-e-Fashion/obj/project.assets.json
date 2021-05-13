@@ -78,6 +78,9 @@
           "lib/netstandard2.0/Humanizer.dll": {}
         }
       },
+      "Microsoft.AspNet.SignalR/2.4.2": {
+        "type": "package"
+      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/5.0.5": {
         "type": "package",
         "dependencies": {
@@ -2349,6 +2352,18 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "Microsoft.AspNet.SignalR/2.4.2": {
+      "sha512": "8NAm5wmNP+NkqnKqFKWcj7F2JMaQSsqDq5Nx3LnaMmJgHsHYiCx3hAXzXo+047AcJCtYyAvVRUyjWS4NIpEn2A==",
+      "type": "package",
+      "path": "microsoft.aspnet.signalr/2.4.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "microsoft.aspnet.signalr.2.4.2.nupkg.sha512",
+        "microsoft.aspnet.signalr.nuspec",
+        "packageIcon.png"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/5.0.5": {
@@ -7804,6 +7819,7 @@
       "AutoMapper >= 6.0.2",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 2.0.1",
       "FluentValidation.ValidatorAttribute >= 8.6.1",
+      "Microsoft.AspNet.SignalR >= 2.4.2",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 5.0.5",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 5.0.4",
       "Microsoft.EntityFrameworkCore >= 5.0.4",
@@ -7871,6 +7887,10 @@
             "target": "Package",
             "version": "[8.6.1, )"
           },
+          "Microsoft.AspNet.SignalR": {
+            "target": "Package",
+            "version": "[2.4.2, )"
+          },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[5.0.5, )"
@@ -7930,7 +7950,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }

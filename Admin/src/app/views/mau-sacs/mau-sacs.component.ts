@@ -26,7 +26,7 @@ export class MauSacsComponent implements OnInit, AfterViewInit {
               public http: HttpClient,
               public dialog: MatDialog,) { }
 public dataSource = new MatTableDataSource<MauSac>();
-displayedColumns: string[] = ['id', 'maMau','loaiId',
+displayedColumns: string[] = ['id', 'maMau','tenLoai',
   'actions'];
 
 

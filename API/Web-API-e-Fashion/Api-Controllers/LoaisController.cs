@@ -92,6 +92,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             Loai loai = new Loai();
             loai = await _context.Loais.FirstOrDefaultAsync(c => c.Id == id);
             loai.Ten = upload.Name;
+           
             if (upload.TileImage != null)
             {
                 var folderName = Path.Combine("Resources", "Images", "category");
@@ -179,8 +180,6 @@ namespace Web_API_e_Fashion.Api_Controllers
                 _context.Loais.Remove(category);
                 await _context.SaveChangesAsync();
             }
-
-
 
             return Ok();
         }

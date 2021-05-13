@@ -26,7 +26,7 @@ export class SizesComponent implements OnInit, AfterViewInit {
               public http: HttpClient,
               public dialog: MatDialog,) { }
 public dataSource = new MatTableDataSource<Size>();
-displayedColumns: string[] = ['id', 'size1','loaiId',
+displayedColumns: string[] = ['id', 'size1','tenLoai',
   'actions'];
 
 

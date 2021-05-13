@@ -18,6 +18,7 @@ using System;
 using Microsoft.Extensions.Logging;
 using Web_API_e_Fashion.Auth;
 using Web_API_e_Fashion.Helpers;
+using Web_API_e_Fashion.SignalRModels;
 
 namespace Web_API_e_Fashion
 {
@@ -45,11 +46,17 @@ namespace Web_API_e_Fashion
                 options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
                 options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
             });
-
+            services.AddSignalR();
 
             services.AddControllersWithViews();
             services.AddDbContext<DPContext>(op => op.UseSqlServer(Configuration.GetConnectionString("db")));
-            services.AddCors();
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
+                builder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .WithOrigins("http://localhost:4200");
+            }));
             services.Configure<FormOptions>(o => {
                 o.ValueLengthLimit = int.MaxValue;
                 o.MultipartBodyLengthLimit = int.MaxValue;
@@ -124,17 +131,17 @@ namespace Web_API_e_Fashion
             .AllowAnyHeader());
             app.UseAuthorization();
 
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
+            app.UseCors("CorsPolicy");
+
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<BroadcastHub>("/notify");
+            });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
             });
         }
     }

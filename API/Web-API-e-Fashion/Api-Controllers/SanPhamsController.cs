@@ -6,10 +6,12 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
 using Web_API_e_Fashion.ResModels;
+using Web_API_e_Fashion.SignalRModels;
 using Web_API_e_Fashion.UploadFileModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
@@ -19,20 +21,27 @@ namespace Web_API_e_Fashion.Api_Controllers
     public class SanPhamsController : ControllerBase
     {
         private readonly DPContext _context;
-        public SanPhamsController(DPContext context)
+        private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
+        public SanPhamsController(DPContext context, IHubContext<BroadcastHub, IHubClient> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         // GET: api/SanPhams
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> GetSanPhams()
         {
-            var kb =  from l in _context.Loais
-                     join s in _context.SanPhams
-                     on l.Id equals s.CategoryId
+
+            var kb = from s in _context.SanPhams
+                     join l in _context.Loais
+                     on s.CategoryId equals l.Id
+                     into f
+                     from l in f.DefaultIfEmpty()
                      join th in _context.ThuongHieus
-                     on s.Id equals th.Id
+                     on s.BrandId equals th.Id
+                     into j
+                     from th in j.DefaultIfEmpty()
                      select new SanPhamLoaiThuongHieu()
                      {
                         Id = s.Id,
@@ -107,6 +116,12 @@ namespace Web_API_e_Fashion.Api_Controllers
             {
                 sanpham.CategoryId = upload.CategoryId;
             }
+            Notification notification = new Notification()
+            {
+                TenSanPham = upload.Ten,
+                TranType = "Edit"
+            };
+            _context.Notifications.Add(notification);
             ImageSanPham[] images = _context.imageSanPhams.Where(s => s.SanPhamId == id).ToArray();
             _context.imageSanPhams.RemoveRange(images);
             ImageSanPham image = new ImageSanPham();
@@ -147,6 +162,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             sanpham.ImageSanPhams = listImage;
             _context.SanPhams.Update(sanpham);
             await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
         }
 
@@ -181,6 +197,12 @@ namespace Web_API_e_Fashion.Api_Controllers
                 CategoryId = upload.CategoryId,
                 BrandId = upload.BrandId,
             };
+            Notification notification = new Notification()
+            {
+                TenSanPham = upload.Ten,
+                TranType = "Add"
+            };
+            _context.Notifications.Add(notification);
             _context.SanPhams.Add(sanpham);
             await _context.SaveChangesAsync();
             if (upload.ListImage != null)
@@ -212,9 +234,9 @@ namespace Web_API_e_Fashion.Api_Controllers
             SanPham sanpham2 = await _context.SanPhams.FindAsync(sanpham.Id);
             sanpham2.ImageSanPhams = listImage;
             _context.SanPhams.Update(sanpham2);
-            _context.SaveChanges();
-
-            return NoContent();
+            await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
+            return Ok();
         }
         // DELETE: api/SanPhams/5
         [HttpDelete("{id}")]
@@ -247,8 +269,13 @@ namespace Web_API_e_Fashion.Api_Controllers
             {
                 _context.SanPhams.Remove(sanPham);
             }
+            Notification notification = new Notification()
+            {
+                TenSanPham = sanPham.Ten,
+                TranType = "Delete"
+            };
             await _context.SaveChangesAsync();
-
+            await _hubContext.Clients.All.BroadcastMessage();
             return NoContent();
         }
         private bool SanPhamExists(int id)
