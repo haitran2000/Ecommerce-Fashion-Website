@@ -9,7 +9,7 @@ namespace Web_API_e_Fashion.Models
 {
     public class Item_SanPhamThietKe
     {
-      
+    
         public int ItemId { get; set; }
      
         public virtual Item Item { get; set; }

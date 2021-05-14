@@ -4,33 +4,33 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { GiaSanPhamService } from './gia-san-pham.service';
-import { GiaSanPhamComponent } from './gia-san-pham/gia-san-pham.component';
+import { SanPhamBienTheService } from './san-pham-bien-the.service';
+import { SanPhamBienTheComponent } from './san-pham-bien-the/san-pham-bien-thecomponent';
 
 @Component({
-  selector: 'app-gia-san-phams',
-  templateUrl: './gia-san-phams.component.html',
-  styleUrls: ['./gia-san-phams.component.scss']
+  selector: 'app-san-pham-bien-thes',
+  templateUrl: './san-pham-bien-thes.component.html',
+  styleUrls: ['./san-pham-bien-thes.component.scss']
 })
-export class GiaSanPhamsComponent implements OnInit, AfterViewInit {
+export class SanPhamBienThesComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort: MatSort;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   productList: any[];
-  constructor(public service:GiaSanPhamService,
+  constructor(public service:SanPhamBienTheService,
               public router : Router,
               public http: HttpClient,
               public dialog: MatDialog,) { }
 
 
-              displayedColumns: string[] = ['id', 'gia','maMau','tenSanPham','size1',
+              displayedColumns: string[] = ['id', 'imagePath','maMau','tenSanPham','tenSize',
   'actions'];
 
 
-  public giasanpham :  GiaSanPham
+  public sanphambienthe :  SanPhamBienThe
   ngOnInit(): void {
-    this.service.getAllGiaSanPhams();
+    this.service.getAllSanPhamBienThes();
   }
   
   ngAfterViewInit(): void {
@@ -39,32 +39,31 @@ export class GiaSanPhamsComponent implements OnInit, AfterViewInit {
   }
 
   onModalDialog(){
-    this.service.giasanpham.id==0
-    this.dialog.open(GiaSanPhamComponent)
+    this.service.sanphambienthe = new SanPhamBienThe()
+    this.dialog.open(SanPhamBienTheComponent)
   }
 
  doFilter = (value: string) => {
   this.service.dataSource.filter = value.trim().toLocaleLowerCase();
 }
 
-  populateForm(selectedRecord:GiaSanPham){
+  populateForm(selectedRecord:SanPhamBienThe){
     
-    this.service.giasanpham = Object.assign({},selectedRecord)
-    this.dialog.open(GiaSanPhamComponent)
+    this.service.sanphambienthe = Object.assign({},selectedRecord)
+    this.dialog.open(SanPhamBienTheComponent)
 }
   clickDelete(id){
   if(confirm('Bạn có chắc chắn xóa bản ghi này không ??'))
   {
     this.service.delete(id).subscribe(
       res=>{
-        this.service.getAllGiaSanPhams()
+        this.service.getAllSanPhamBienThes()
       }
     )
 }
 }}
-export class GiaSanPham{
+export class SanPhamBienThe{
   id : number = 0
-  gia : string
   mauId : number 
   sanPhamId : number
   sizeId : number

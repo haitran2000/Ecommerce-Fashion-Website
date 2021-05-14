@@ -8,12 +8,7 @@ namespace Web_API_e_Fashion.Models
 {
     public class Loai
     {
-        public Loai()
-        {
-            this.MauSacs = new HashSet<MauSac>();
-            this.SanPhams = new HashSet<SanPham>();
-            this.Sizes = new HashSet<Size>();
-        }
+
         [Key]
         public int Id { get; set; }
         public string Ten { get; set; }

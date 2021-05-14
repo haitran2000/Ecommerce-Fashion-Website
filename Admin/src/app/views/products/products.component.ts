@@ -66,7 +66,7 @@ getAllProducts(){
   }
   populateImageProduct(selectedRecord:Product){
     this.service.product = Object.assign({},selectedRecord)
-    this.http.get("https://localhost:44302/api/ImageSanPhams/"+this.service.product.id).subscribe(
+    this.http.get("https://localhost:44302/api/SanPhamBienThes/spbt/"+this.service.product.id).subscribe(
       res=>{
         this.imageproductList = res as ImageProduct[]
         console.log( this.imageproductList)
@@ -87,6 +87,7 @@ getAllProducts(){
     this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
   onSelectedAdd(){
+    this.service.product = new Product();
     this.router.navigate(['product/add']);
   }
   onselectedDetail(){
@@ -97,8 +98,11 @@ getAllProducts(){
   }
   displayedColumns: string[] = ['id', 'ten','hinh',
    'trangThaiSanPham',
-   'tenThuongHieu','tenLoai',
-  'actions'];
+   'trangThaiSanPhamThietKe',
+   'trangThaiHoatDong',
+   'tenNhanHieu',
+   'tenLoai',
+   'actions'];
   product = new Product()
   prducts : Product[]
  

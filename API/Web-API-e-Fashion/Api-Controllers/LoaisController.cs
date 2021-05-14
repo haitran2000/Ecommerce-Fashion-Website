@@ -30,6 +30,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         public async Task<ActionResult<IEnumerable<Loai>>> GetLoais()
         {
             return await _context.Loais.ToListAsync();
+        
         }
         public int getCountSP(List<SanPham> sps, int LoaiId)
         {
@@ -37,7 +38,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             int count = 0;
             foreach(SanPham sp in sps)
             {
-                if(sp.CategoryId == LoaiId)
+                if(sp.Id_Loai == LoaiId)
                 {
                     count++;
                 }
@@ -50,7 +51,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             var listSP = _context.SanPhams.ToList();
             var kb = from l in _context.Loais.Where(l=>l.Id==id)
                      join s in _context.SanPhams
-                     on l.Id equals s.CategoryId    
+                     on l.Id equals s.Id_Loai  
              
                      select new SanPhamLoai()
                      {
@@ -58,13 +59,11 @@ namespace Web_API_e_Fashion.Api_Controllers
                          Id = s.Id,
                          Ten = s.Ten,
                          KhuyenMai = s.KhuyenMai,
-                         MoTa = s.MoTa,
-                         SoLuong = s.SoLuong,
-                         TrangThaiHienThi = s.TrangThaiHienThi,
-                         KhoiLuong = s.KhoiLuong,
+                         MoTa = s.MoTa,                 
+                         TrangThaiHoatDong = s.TrangThaiHoatDong,
+                         TrangThaiSanPham = "san pham thuong",
                          HuongDan = s.HuongDan,
                          ThanhPhan = s.ThanhPhan,
-                         ChatLieu = s.ChatLieu,
                          TenLoai = l.Ten,
                         
                      };
@@ -167,7 +166,11 @@ namespace Web_API_e_Fashion.Api_Controllers
         public async Task<IActionResult> DeleteLoai(int id)
         {
             SanPham[] product;
-            product = _context.SanPhams.Where(s => s.CategoryId == id).ToArray();
+            product = await _context.SanPhams.Where(s => s.Id_Loai == id).ToArrayAsync();
+            Size[] sizes;
+            sizes = await _context.Sizes.Where(s => s.Id_Loai == id).ToArrayAsync();
+            MauSac[] mausacs;
+            mausacs = await _context.MauSacs.Where(s => s.Id_Loai == id).ToArrayAsync();
             var category = await _context.Loais.FindAsync(id);
             if (product == null)
             {
@@ -176,9 +179,12 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
             else
             {
+                _context.Sizes.RemoveRange(sizes);
                 _context.SanPhams.RemoveRange(product);
-                _context.Loais.Remove(category);
+                _context.MauSacs.RemoveRange(mausacs);
                 await _context.SaveChangesAsync();
+                _context.Loais.Remove(category);
+                 _context.SaveChanges();
             }
 
             return Ok();

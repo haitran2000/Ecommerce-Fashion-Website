@@ -28,7 +28,7 @@ export class MauSacComponent implements OnInit {
 ngOnInit(): void {
 this.newBlogForm = new FormGroup({
 MaMau: new FormControl(null),
-LoaiId : new FormControl(null)
+Id_Loai : new FormControl(null)
 });
 }
 
@@ -39,7 +39,7 @@ onSubmit=(data) =>{
 if(this.service.mausac.id==0){
 const formData = new FormData();
 formData.append('MaMau',data.MaMau);
-formData.append('LoaiId',data.LoaiId);
+formData.append('Id_Loai', data.Id_Loai);
 this.http.post('https://localhost:44302/api/mausacs', formData)
 .subscribe(res => {
 this.service.getAllMauSacs();
@@ -51,7 +51,7 @@ else
 {
 const formData = new FormData();
 formData.append('MaMau',data.MaMau);
-formData.append('LoaiId',data.LoaiId);
+formData.append('Id_Loai', data.Id_Loai);
 this.http.put('https://localhost:44302/api/mausacs/'+`${this.service.mausac.id}`, formData)
 .subscribe(res=>{
   this.service.getAllMauSacs();

@@ -12,9 +12,11 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
-    <ng-container matColumnDef="gia">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Giá </th>
-        <td mat-cell *matCellDef="let element"> {{element.gia}} </td>
+    <ng-container matColumnDef="imagePath">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Hinh </th>
+        <td mat-cell *matCellDef="let element">
+          <img src="https://localhost:44302/Resources/Images/san-pham-bien-the/{{element.imagePath}}" alt="" width="100px"> 
+        </td>
     </ng-container>
     <ng-container matColumnDef="maMau">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Màu  </th>
@@ -24,9 +26,9 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Sản Phẩm  </th>
         <td mat-cell *matCellDef="let element"> {{element.tenSanPham}} </td>
     </ng-container>
-    <ng-container matColumnDef="size1">
+    <ng-container matColumnDef="tenSize">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Size  </th>
-        <td mat-cell *matCellDef="let element"> {{element.size1}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.tenSize}} </td>
     </ng-container>
     <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>

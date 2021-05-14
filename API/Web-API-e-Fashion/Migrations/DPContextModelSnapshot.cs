@@ -231,9 +231,6 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<string>("IdentityId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<DateTime>("dateTime")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("IdentityId");
@@ -248,10 +245,10 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("HoaDonId")
+                    b.Property<int?>("Id_HoaDon")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SanPhamId")
+                    b.Property<int?>("Id_SanPham")
                         .HasColumnType("int");
 
                     b.Property<int>("Soluong")
@@ -262,41 +259,11 @@ namespace Web_API_e_Fashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HoaDonId");
+                    b.HasIndex("Id_HoaDon");
 
-                    b.HasIndex("SanPhamId");
+                    b.HasIndex("Id_SanPham");
 
                     b.ToTable("ChiTietHoaDons");
-                });
-
-            modelBuilder.Entity("Web_API_e_Fashion.Models.GiaSanPham", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Gia")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("MauId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SanPhamId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SizeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MauId");
-
-                    b.HasIndex("SanPhamId");
-
-                    b.HasIndex("SizeId");
-
-                    b.ToTable("GiaSanPhams");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.HoaDon", b =>
@@ -309,40 +276,20 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<string>("GhiChi")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Id_User")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<DateTime>("NgayTao")
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("TongTien")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("Id_User");
 
                     b.ToTable("HoaDons");
-                });
-
-            modelBuilder.Entity("Web_API_e_Fashion.Models.ImageSanPham", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SanPhamId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SanPhamId");
-
-                    b.ToTable("imageSanPhams");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.Item", b =>
@@ -361,8 +308,8 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<string>("HinhAnh")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TrangThai")
-                        .HasColumnType("int");
+                    b.Property<string>("TrangThai")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -396,7 +343,7 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("IdentityId")
+                    b.Property<string>("Id_Identity")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Location")
@@ -404,7 +351,7 @@ namespace Web_API_e_Fashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdentityId");
+                    b.HasIndex("Id_Identity");
 
                     b.ToTable("JobSeekers");
                 });
@@ -437,7 +384,7 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("LoaiId")
+                    b.Property<int?>("Id_Loai")
                         .HasColumnType("int");
 
                     b.Property<string>("MaMau")
@@ -445,9 +392,33 @@ namespace Web_API_e_Fashion.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LoaiId");
+                    b.HasIndex("Id_Loai");
 
                     b.ToTable("MauSacs");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.NhanHieu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("DateCreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ten")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThongTin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NhanHieus");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.Notification", b =>
@@ -475,38 +446,32 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("BrandId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ChatLieu")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CreateBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<decimal?>("Gia")
+                        .HasColumnType("decimal(18,0)");
 
                     b.Property<string>("HuongDan")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("KhoiLuong")
+                    b.Property<int?>("Id_Loai")
                         .HasColumnType("int");
 
-                    b.Property<int?>("KhuyenMai")
+                    b.Property<int?>("Id_NhanHieu")
                         .HasColumnType("int");
+
+                    b.Property<decimal?>("KhuyenMai")
+                        .HasColumnType("decimal(18,0)");
 
                     b.Property<string>("MoTa")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("SoLuong")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("NgayCapNhat")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Tag")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ten")
                         .HasColumnType("nvarchar(max)");
@@ -514,25 +479,52 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<string>("ThanhPhan")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("TrangThaiHienThi")
-                        .HasColumnType("bit");
+                    b.Property<string>("TrangThaiHoatDong")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("TrangThaiSanPhamThietKe")
-                        .HasColumnType("bit");
+                    b.Property<string>("TrangThaiSanPham")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UpdateBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("TrangThaiSanPhamThietKe")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandId");
+                    b.HasIndex("Id_Loai");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("Id_NhanHieu");
 
                     b.ToTable("SanPhams");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.SanPhamBienThe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("Id_Mau")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Id_SanPham")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SizeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id_Mau");
+
+                    b.HasIndex("Id_SanPham");
+
+                    b.HasIndex("SizeId");
+
+                    b.ToTable("SanPhamBienThes");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPhamThietKe", b =>
@@ -598,38 +590,17 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("LoaiId")
+                    b.Property<int?>("Id_Loai")
                         .HasColumnType("int");
 
-                    b.Property<string>("Size1")
+                    b.Property<string>("TenSize")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LoaiId");
+                    b.HasIndex("Id_Loai");
 
                     b.ToTable("Sizes");
-                });
-
-            modelBuilder.Entity("Web_API_e_Fashion.Models.ThuongHieu", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime?>("DateCreate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Ten")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ThuongHieus");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.AppUser", b =>
@@ -711,55 +682,25 @@ namespace Web_API_e_Fashion.Migrations
             modelBuilder.Entity("Web_API_e_Fashion.Models.ChiTietHoaDon", b =>
                 {
                     b.HasOne("Web_API_e_Fashion.Models.HoaDon", "HoaDon")
-                        .WithMany("BillInfos")
-                        .HasForeignKey("HoaDonId");
+                        .WithMany("ChiTietHoaDons")
+                        .HasForeignKey("Id_HoaDon");
 
                     b.HasOne("Web_API_e_Fashion.Models.SanPham", "SanPham")
-                        .WithMany("BillInfos")
-                        .HasForeignKey("SanPhamId");
+                        .WithMany("ChiTietHoaDon")
+                        .HasForeignKey("Id_SanPham");
 
                     b.Navigation("HoaDon");
 
                     b.Navigation("SanPham");
                 });
 
-            modelBuilder.Entity("Web_API_e_Fashion.Models.GiaSanPham", b =>
-                {
-                    b.HasOne("Web_API_e_Fashion.Models.MauSac", "MauSac")
-                        .WithMany("GiaSanPhams")
-                        .HasForeignKey("MauId");
-
-                    b.HasOne("Web_API_e_Fashion.Models.SanPham", "SanPham")
-                        .WithMany("GiaSanPhams")
-                        .HasForeignKey("SanPhamId");
-
-                    b.HasOne("Web_API_e_Fashion.Models.Size", "Size")
-                        .WithMany("GiaSanPhams")
-                        .HasForeignKey("SizeId");
-
-                    b.Navigation("MauSac");
-
-                    b.Navigation("SanPham");
-
-                    b.Navigation("Size");
-                });
-
             modelBuilder.Entity("Web_API_e_Fashion.Models.HoaDon", b =>
                 {
                     b.HasOne("Web_API_e_Fashion.Models.AppUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("Id_User");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Web_API_e_Fashion.Models.ImageSanPham", b =>
-                {
-                    b.HasOne("Web_API_e_Fashion.Models.SanPham", "sanPham")
-                        .WithMany("ImageSanPhams")
-                        .HasForeignKey("SanPhamId");
-
-                    b.Navigation("sanPham");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.Item_SanPhamThietKe", b =>
@@ -785,7 +726,7 @@ namespace Web_API_e_Fashion.Migrations
                 {
                     b.HasOne("Web_API_e_Fashion.Models.AppUser", "Identity")
                         .WithMany()
-                        .HasForeignKey("IdentityId");
+                        .HasForeignKey("Id_Identity");
 
                     b.Navigation("Identity");
                 });
@@ -794,24 +735,45 @@ namespace Web_API_e_Fashion.Migrations
                 {
                     b.HasOne("Web_API_e_Fashion.Models.Loai", "Loai")
                         .WithMany("MauSacs")
-                        .HasForeignKey("LoaiId");
+                        .HasForeignKey("Id_Loai");
 
                     b.Navigation("Loai");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPham", b =>
                 {
-                    b.HasOne("Web_API_e_Fashion.Models.ThuongHieu", "Brand")
+                    b.HasOne("Web_API_e_Fashion.Models.Loai", "Loai")
                         .WithMany("SanPhams")
-                        .HasForeignKey("BrandId");
+                        .HasForeignKey("Id_Loai");
 
-                    b.HasOne("Web_API_e_Fashion.Models.Loai", "Category")
+                    b.HasOne("Web_API_e_Fashion.Models.NhanHieu", "NhanHieu")
                         .WithMany("SanPhams")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("Id_NhanHieu");
 
-                    b.Navigation("Brand");
+                    b.Navigation("Loai");
 
-                    b.Navigation("Category");
+                    b.Navigation("NhanHieu");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.SanPhamBienThe", b =>
+                {
+                    b.HasOne("Web_API_e_Fashion.Models.MauSac", "MauSac")
+                        .WithMany("SanPhamBienThes")
+                        .HasForeignKey("Id_Mau");
+
+                    b.HasOne("Web_API_e_Fashion.Models.SanPham", "SanPham")
+                        .WithMany("SanPhamBienThes")
+                        .HasForeignKey("Id_SanPham");
+
+                    b.HasOne("Web_API_e_Fashion.Models.Size", "Size")
+                        .WithMany("SanPhamBienThes")
+                        .HasForeignKey("SizeId");
+
+                    b.Navigation("MauSac");
+
+                    b.Navigation("SanPham");
+
+                    b.Navigation("Size");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPham_SanPhamThietKe", b =>
@@ -837,14 +799,14 @@ namespace Web_API_e_Fashion.Migrations
                 {
                     b.HasOne("Web_API_e_Fashion.Models.Loai", "Loai")
                         .WithMany("Sizes")
-                        .HasForeignKey("LoaiId");
+                        .HasForeignKey("Id_Loai");
 
                     b.Navigation("Loai");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.HoaDon", b =>
                 {
-                    b.Navigation("BillInfos");
+                    b.Navigation("ChiTietHoaDons");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.Item", b =>
@@ -863,18 +825,21 @@ namespace Web_API_e_Fashion.Migrations
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.MauSac", b =>
                 {
-                    b.Navigation("GiaSanPhams");
+                    b.Navigation("SanPhamBienThes");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.NhanHieu", b =>
+                {
+                    b.Navigation("SanPhams");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPham", b =>
                 {
-                    b.Navigation("BillInfos");
-
-                    b.Navigation("GiaSanPhams");
-
-                    b.Navigation("ImageSanPhams");
+                    b.Navigation("ChiTietHoaDon");
 
                     b.Navigation("SanPham_SanPhamThietKes");
+
+                    b.Navigation("SanPhamBienThes");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPhamThietKe", b =>
@@ -886,12 +851,7 @@ namespace Web_API_e_Fashion.Migrations
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.Size", b =>
                 {
-                    b.Navigation("GiaSanPhams");
-                });
-
-            modelBuilder.Entity("Web_API_e_Fashion.Models.ThuongHieu", b =>
-                {
-                    b.Navigation("SanPhams");
+                    b.Navigation("SanPhamBienThes");
                 });
 #pragma warning restore 612, 618
         }

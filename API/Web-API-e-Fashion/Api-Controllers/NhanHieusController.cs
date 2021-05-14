@@ -15,27 +15,27 @@ namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ThuongHieusController : ControllerBase
+    public class NhanHieusController : ControllerBase
     {
         private readonly DPContext _context;
 
-        public ThuongHieusController(DPContext context)
+        public NhanHieusController(DPContext context)
         {
             _context = context;
         }
 
         // GET: api/ThuongHieus
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ThuongHieu>>> GetThuongHieus()
+        public async Task<ActionResult<IEnumerable<NhanHieu>>> GetThuongHieus()
         {
-            return await _context.ThuongHieus.ToListAsync();
+            return await _context.NhanHieus.ToListAsync();
         }
 
         // GET: api/ThuongHieus/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ThuongHieu>> GetThuongHieu(int id)
+        public async Task<ActionResult<NhanHieu>> GetThuongHieu(int id)
         {
-            var thuongHieu = await _context.ThuongHieus.FindAsync(id);
+            var thuongHieu = await _context.NhanHieus.FindAsync(id);
 
             if (thuongHieu == null)
             {
@@ -48,11 +48,12 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/ThuongHieus/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutThuongHieu(int id, [FromForm] UploadBrand upload)
+        public async Task<IActionResult> PutNhanHieu(int id, [FromForm] UploadBrand upload)
         {
-            ThuongHieu thuonghieu = new ThuongHieu();
-            thuonghieu = await _context.ThuongHieus.FirstOrDefaultAsync(c => c.Id == id);
+            NhanHieu thuonghieu = new NhanHieu();
+            thuonghieu = await _context.NhanHieus.FirstOrDefaultAsync(c => c.Id == id);
             thuonghieu.Ten = upload.Name;
+            thuonghieu.ThongTin = upload.ThongTin;
             if (upload.TileImage != null)
             {
                 var folderName = Path.Combine("Resources", "Images", "brand");
@@ -72,7 +73,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
 
             thuonghieu.DateCreate = DateTime.Now;
-            _context.ThuongHieus.Update(thuonghieu);
+            _context.NhanHieus.Update(thuonghieu);
 
             try
             {
@@ -96,10 +97,11 @@ namespace Web_API_e_Fashion.Api_Controllers
         // POST: api/ThuongHieus
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ThuongHieu>> PostThuongHieu([FromForm] UploadBrand upload)
+        public async Task<ActionResult<NhanHieu>> PostNhanHieu([FromForm] UploadBrand upload)
         {
-            ThuongHieu thuonghieu = new ThuongHieu();
-            thuonghieu.Ten = upload.Name;
+            NhanHieu nhanhieu = new NhanHieu();
+            nhanhieu.Ten = upload.Name;
+            nhanhieu.ThongTin = upload.ThongTin;
             if (upload.TileImage != null)
             {
                 var folderName = Path.Combine("Resources", "Images", "brand");
@@ -110,14 +112,14 @@ namespace Web_API_e_Fashion.Api_Controllers
                 {
                     await upload.TileImage.CopyToAsync(stream);
                 }
-                thuonghieu.ImagePath = upload.TileImage.FileName;
+                nhanhieu.ImagePath = upload.TileImage.FileName;
             }
             else
             {
-                thuonghieu.ImagePath = "noimage.jpg";
+                nhanhieu.ImagePath = "noimage.jpg";
             }
-           thuonghieu.DateCreate = DateTime.Now;
-            _context.ThuongHieus.Add(thuonghieu);
+           nhanhieu.DateCreate = DateTime.Now;
+            _context.NhanHieus.Add(nhanhieu);
             await _context.SaveChangesAsync();
             return Ok();
         }
@@ -126,27 +128,26 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteThuongHieu(int id)
         {
-            SanPham product = new SanPham();
-            product = await _context.SanPhams.FirstOrDefaultAsync(b => b.BrandId == id);
-            var brand = await _context.ThuongHieus.FindAsync(id);
+            SanPham[] product;
+            product = await _context.SanPhams.Where(b => b.Id_NhanHieu == id).ToArrayAsync();
+            var brand = await _context.NhanHieus.FindAsync(id);
             if (product == null)
             {
-                _context.ThuongHieus.Remove(brand);
+                _context.NhanHieus.Remove(brand);
                 await _context.SaveChangesAsync();
             }
             else
             {
-                _context.SanPhams.Remove(product);
+                _context.SanPhams.RemoveRange(product);
                 await _context.SaveChangesAsync();
-                _context.ThuongHieus.Remove(brand);
+                _context.NhanHieus.Remove(brand);
                 _context.SaveChanges();
             }
-            return NoContent();
+            return Ok();
         }
-
         private bool ThuongHieuExists(int id)
         {
-            return _context.ThuongHieus.Any(e => e.Id == id);
+            return _context.NhanHieus.Any(e => e.Id == id);
         }
     }
 }

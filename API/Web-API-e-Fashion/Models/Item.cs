@@ -8,16 +8,12 @@ namespace Web_API_e_Fashion.Models
 {
     public class Item
     {
-        public Item()
-        {
-         
-        }
         [Key]
         public int Id { get; set; }
         public string HinhAnh { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int CreateBy { get; set; }
-        public int TrangThai { get; set; }
+        public string TrangThai { get; set; }
         public ICollection<SanPhamThietKe> SanPhamThietKes { get; set; }
         public List<Item_SanPhamThietKe> Item_SanPhamThietKes { get; set; }
     }

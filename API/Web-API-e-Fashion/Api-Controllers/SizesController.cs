@@ -29,12 +29,12 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             var kb = from l in _context.Loais
                      join s in _context.Sizes
-                     on l.Id equals s.LoaiId
+                     on l.Id equals s.Id_Loai
                      select new SizeLoai()
                      {
                          Id = s.Id,
                          TenLoai = l.Ten,
-                         Size1 = s.Size1
+                         TenSize = s.TenSize
                      };
             return await kb.ToListAsync();
         }
@@ -61,8 +61,8 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             Size size;
             size = await _context.Sizes.FindAsync(id);
-            size.Size1 = upload.Size1;
-            size.LoaiId = upload.LoaiId;
+            size.TenSize = upload.TenSize;
+            size.Id_Loai = upload.Id_Loai;
             _context.Sizes.Update(size);
 
             try
@@ -91,8 +91,8 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             Size size = new Size()
             {
-                Size1 = upload.Size1,
-                LoaiId = upload.LoaiId,
+                TenSize = upload.TenSize,
+                Id_Loai = upload.Id_Loai,
             };
 
             _context.Sizes.Add(size);

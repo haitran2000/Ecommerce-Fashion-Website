@@ -26,7 +26,7 @@ export class BrandsComponent implements OnInit, AfterViewInit {
               public http: HttpClient,
               public dialog: MatDialog,) { }
 public dataSource = new MatTableDataSource<Brand>();
-displayedColumns: string[] = ['id', 'ten','hinh',
+displayedColumns: string[] = ['id', 'ten','hinh','thongTin',
   'actions'];
 
 
@@ -41,7 +41,7 @@ displayedColumns: string[] = ['id', 'ten','hinh',
   }
 
   onModalDialog(){
-    this.service.brand.id ==0
+    this.service.brand = new Brand()
     this.dialog.open(BrandComponent)
   }
 
@@ -66,5 +66,6 @@ displayedColumns: string[] = ['id', 'ten','hinh',
 export class Brand{
   id : number = 0
   ten : string
+  thongTin : string 
   imagePath : string 
 }

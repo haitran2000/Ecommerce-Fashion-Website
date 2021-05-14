@@ -41,7 +41,7 @@ displayedColumns: string[] = ['id', 'ten','hinh',
   }
 
   onModalDialog(){
-    this.service.category.id ==0
+    this.service.category = new Category()
     this.dialog.open(CategoryComponent)
   }
 

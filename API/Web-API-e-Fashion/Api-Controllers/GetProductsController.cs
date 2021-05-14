@@ -26,13 +26,13 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<SanPham>>> GetCategory(int id)
         { 
-           return await _context.SanPhams.Where(s=>s.CategoryId == id).ToListAsync();
+           return await _context.SanPhams.Where(s=>s.Id_Loai == id).ToListAsync();
         }
     
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<SanPham>>> GetBrand(int id)
         {
-            return await _context.SanPhams.Where(s => s.BrandId == id).ToListAsync();
+            return await _context.SanPhams.Where(s => s.Id_NhanHieu == id).ToListAsync();
         }
 
     }

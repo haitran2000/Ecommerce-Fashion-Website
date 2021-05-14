@@ -11,30 +11,48 @@ import { BrandService } from '../brand.service';
 })
 export class BrandComponent implements OnInit {
   public BrandsComponent : BrandsComponent
-  constructor(public service : BrandService,
-    public http :HttpClient ,
-  ) {
-  
-   }
+  constructor(  public service : BrandService,
+                public http :HttpClient ,
+              ) {
+                }
   
 ngOnInit(): void {
 this.newBlogForm = new FormGroup({
 Name: new FormControl(null),
+ThongTin: new FormControl(null),
 TileImage : new FormControl(null)
 });
 }
 
-selectedFile: File = null;
 public newBlogForm: FormGroup;
+selectedFile: FileList ;
+urls = new Array<string>();
+gopHam(event){
+  this.detectFiles(event)
+  this.onSelectFile(event)
+}
+detectFiles(event) {
+  this.urls = [];
+  let files = event.target.files;
+    for (let file of files) {
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.urls.push(e.target.result);
+      }
+      reader.readAsDataURL(file);
+    }
+}
 onSelectFile(fileInput: any) {
-this.selectedFile = <File>fileInput.target.files[0];
+  this.selectedFile = <FileList>fileInput.target.files;
 }
 onSubmit=(data) =>{
 if(this.service.brand.id==0){
 const formData = new FormData();
 formData.append('Name', data.Name);
-formData.append('TileImage', this.selectedFile);
-this.http.post('https://localhost:44302/api/thuonghieus', formData)
+formData.append('ThongTin', data.ThongTin);
+formData.append('TileImage', this.selectedFile.item(0));
+console.log(data)
+this.http.post('https://localhost:44302/api/nhanhieus', formData)
 .subscribe(res => {
 this.service.getAllBrands();
 this.service.brand.id=0;
@@ -45,8 +63,9 @@ else
 {
 const formData = new FormData();
 formData.append('Name', data.Name);
-formData.append('TileImage', this.selectedFile);
-this.http.put('https://localhost:44302/api/thuonghieus/'+`${this.service.brand.id}`, formData)
+formData.append('ThongTin', data.ThongTin);
+formData.append('TileImage', this.selectedFile.item(0));
+this.http.put('https://localhost:44302/api/nhanhieus/'+`${this.service.brand.id}`, formData)
 .subscribe(res=>{
   this.service.getAllBrands();
 this.service.brand.id=0;

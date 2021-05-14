@@ -9,14 +9,14 @@ namespace Web_API_e_Fashion.Data
 {
     public partial class DPContext
     {
-        public DbSet<ImageSanPham> imageSanPhams { get; set; }
+
         public DbSet<JobSeeker> JobSeekers { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
         public DbSet<HoaDon> HoaDons { get; set; }
-        public DbSet<ThuongHieu> ThuongHieus { get; set; }
+        public DbSet<NhanHieu> NhanHieus { get; set; }
         public DbSet<Loai> Loais { get; set; }
-        public DbSet<GiaSanPham> GiaSanPhams { get; set; }
+        public DbSet<SanPhamBienThe> SanPhamBienThes { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Item_SanPhamThietKe> Item_SanPhamThietKe { get; set; }
         public DbSet<MauSac> MauSacs { get; set; }

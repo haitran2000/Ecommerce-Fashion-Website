@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Web_API_e_Fashion.SignalRModels
 {
-    public interface 
+    public interface IHubClient
     {
         Task BroadcastMessage();
     }

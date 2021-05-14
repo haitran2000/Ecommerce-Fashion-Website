@@ -18,8 +18,8 @@
   </ul>
   <ul class="nav navbar-nav ml-auto">
     <li class="nav-item d-md-down-none">
-      <i class="fa fa-bell  has-badge" style="cursor: pointer;" (click)="openModal()"></i>  
-      <div class="numberCircle" *ngIf="notification && notification?.count>0" style="cursor: pointer;"  
+      <i class="fa fa-bell has-badge" style="cursor: pointer;color: red; width: 90px;" (click)="openModal()"></i>  
+      <div class="numberCircle" *ngIf="notification && notification?.count>0" style="cursor: pointer;color: black;"  
         (click)="openModal()">  
         {{this.notification.count}}</div>  
       
@@ -324,8 +324,8 @@
   <button class="btn btn-secondary" (click)="closeModal();">Close</button>  
   <div style="margin-bottom: 10px;"></div>  
   <div *ngFor="let msg of messages" [ngSwitch]="msg.tranType">  
-    <h6 *ngSwitchCase="'Add'"><span class="badge badge-success">New product '{{msg.tenSanPham}}' added</span></h6>  
-    <h6 *ngSwitchCase="'Edit'"><span class="badge badge-info">Product '{{msg.tenSanPham}}' edited</span></h6>  
-    <h6 *ngSwitchCase="'Delete'"><span class="badge badge-warning">Product '{{msg.tenSanPham}}' deleted</span></h6>  
+    <h3 *ngSwitchCase="'Add'"><span class="badge badge-success">New product '{{msg.tenSanPham}}' added</span></h3>  
+    <h3 *ngSwitchCase="'Edit'"><span class="badge badge-info">Product '{{msg.tenSanPham}}' edited</span></h3>  
+    <h3 *ngSwitchCase="'Delete'"><span class="badge badge-warning">Product '{{msg.tenSanPham}}' deleted</span></h3>  
   </div>  
 </app-modal>  

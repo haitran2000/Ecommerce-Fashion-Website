@@ -27,7 +27,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             _context = context;
             _hubContext = hubContext;
         }
-
+        
         // GET: api/SanPhams
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> GetSanPhams()
@@ -35,11 +35,11 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             var kb = from s in _context.SanPhams
                      join l in _context.Loais
-                     on s.CategoryId equals l.Id
+                     on s.Id_Loai equals l.Id
                      into f
                      from l in f.DefaultIfEmpty()
-                     join th in _context.ThuongHieus
-                     on s.BrandId equals th.Id
+                     join th in _context.NhanHieus
+                     on s.Id_NhanHieu equals th.Id
                      into j
                      from th in j.DefaultIfEmpty()
                      select new SanPhamLoaiThuongHieu()
@@ -48,14 +48,13 @@ namespace Web_API_e_Fashion.Api_Controllers
                         Ten = s.Ten,
                         KhuyenMai = s.KhuyenMai,
                         MoTa = s.MoTa,
-                        SoLuong = s.SoLuong,
-                        TrangThaiHienThi = s.TrangThaiHienThi,
-                        KhoiLuong = s.KhoiLuong,
                         HuongDan = s.HuongDan,
                         ThanhPhan = s.ThanhPhan,
-                        ChatLieu = s.ChatLieu,
+                        TrangThaiSanPham = s.TrangThaiSanPham,
+                        TrangThaiHoatDong = s.TrangThaiHoatDong,
+                        TrangThaiSanPhamThietKe = s.TrangThaiSanPhamThietKe,
                         TenLoai = l.Ten,
-                        TenThuongHieu = th.Ten,
+                        TenNhanHieu = th.Ten,
                      };
             return await kb.ToListAsync();
         }
@@ -79,42 +78,40 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSanPham(int id,[FromForm]UploadSanpham upload, string search)
         {
-            var listImage = new List<ImageSanPham>();
+            //var listImage = new List<ImageSanPhamBienThe>();
             SanPham sanpham = new SanPham();
             sanpham = await _context.SanPhams.FirstOrDefaultAsync(s => s.Id == id);
-           sanpham.Ten = upload.Ten;
-            sanpham.ChatLieu = upload.ChatLieu;
-            sanpham.CreateBy = upload.CreateBy;
-            sanpham.CreatedDate = DateTime.Now;
+            sanpham.Ten = upload.Ten;  
+            sanpham.NgayCapNhat = DateTime.Now;
             sanpham.HuongDan = upload.HuongDan;
-            sanpham.KhoiLuong = upload.KhoiLuong;
             sanpham.MoTa = upload.MoTa;
-          
+            sanpham.Gia = upload.Gia;
+            sanpham.Tag = upload.Tag;
+            sanpham.KhuyenMai = upload.KhuyenMai;
             sanpham.ThanhPhan = upload.ThanhPhan;
-            sanpham.SoLuong = upload.SoLuong;
-            sanpham.TrangThaiHienThi = true;
+            sanpham.TrangThaiHoatDong = upload.TrangThaiHoatDong;
             sanpham.TrangThaiSanPhamThietKe = upload.TrangThaiSanPham;
-            sanpham.UpdateBy = upload.UpdateBy;
+            sanpham.TrangThaiSanPham = upload.TrangThaiSanPham;
             SanPham sp;
             sp = _context.SanPhams.Find(id);
-            
-            sanpham.UpdatedDate = null;
-            if (upload.BrandId == null)
+ 
+          
+            if (upload.Id_NhanHieu == null)
             {
-                sanpham.BrandId = sp.BrandId;
+                sanpham.Id_NhanHieu = sp.Id_NhanHieu;
             }
             else
             {
-                sanpham.BrandId = upload.BrandId;
+                sanpham.Id_NhanHieu = upload.Id_NhanHieu;
             }
 
-            if (upload.CategoryId == null)
+            if (upload.Id_Loai == null)
             {
-                sanpham.CategoryId = sp.CategoryId;
+                sanpham.Id_Loai = sp.Id_Loai;
             }
             else
             {
-                sanpham.CategoryId = upload.CategoryId;
+                sanpham.Id_Loai = upload.Id_Loai;
             }
             Notification notification = new Notification()
             {
@@ -122,44 +119,44 @@ namespace Web_API_e_Fashion.Api_Controllers
                 TranType = "Edit"
             };
             _context.Notifications.Add(notification);
-            ImageSanPham[] images = _context.imageSanPhams.Where(s => s.SanPhamId == id).ToArray();
-            _context.imageSanPhams.RemoveRange(images);
-            ImageSanPham image = new ImageSanPham();
-            if (upload.ListImage != null)
-            {
-                foreach (var formFile in upload.ListImage)
-                {
-                    if (formFile.Length > 0)
-                    {
-                        var folderName = Path.Combine("Resources", "Images", "list-image-product");
-                        var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                        var fileName = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim('"');
-                        var fullPath = Path.Combine(pathToSave, fileName);
-                        using (var stream = new FileStream(fullPath, FileMode.Create))
-                        {
-                            await formFile.CopyToAsync(stream);
-                        }
+            //ImageSanPham[] images = _context.imageSanPhams.Where(s => s.SanPhamId == id).ToArray();
+            /*context.imageSanPhams.RemoveRange(images);*/
+            //ImageSanPham image = new ImageSanPham();
+            //if (upload.ListImage != null)
+            //{
+            //    foreach (var formFile in upload.ListImage)
+            //    {
+            //        if (formFile.Length > 0)
+            //        {
+            //            var folderName = Path.Combine("Resources", "Images", "list-image-product");
+            //            var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            //            var fileName = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim('"');
+            //            var fullPath = Path.Combine(pathToSave, fileName);
+            //            using (var stream = new FileStream(fullPath, FileMode.Create))
+            //            {
+            //                await formFile.CopyToAsync(stream);
+            //            }
                     
-                        listImage.Add(new ImageSanPham()
-                        {
-                            ImagePath = formFile.FileName,
-                            SanPhamId = sanpham.Id,
-                        });
-                    }
-                }
-            }
-            else
-            {
-                List<ImageSanPham> ListimageSanPham1;
-                ListimageSanPham1 = _context.imageSanPhams.Where(s=>s.SanPhamId==id).ToList();
-                foreach(ImageSanPham img in ListimageSanPham1)
-                listImage.Add(new ImageSanPham()
-                {
-                   ImagePath = img.ImagePath,
-                   SanPhamId = sanpham.Id,
-                });;
-            };
-            sanpham.ImageSanPhams = listImage;
+            //            //listImage.Add(new ImageSanPhamBienThe()
+            //            //{
+            //            //    ImagePath = formFile.FileName,
+            //                //SanPhamId = sanpham.Id,
+            //            });
+            //        }
+            //    }
+            //}
+            //else
+            //{
+            //    //List<ImageSanPhamBienThe> ListimageSanPham1;
+            //    //ListimageSanPham1 = _context.imageSanPhams.Where(s=>s.SanPhamId==id).ToList();
+            //    //foreach(ImageSanPham img in ListimageSanPham1)
+            //    //listImage.Add(new ImageSanPhamBienThe()
+            //    //{
+            //       //ImagePath = img.ImagePath,
+            //       //SanPhamId = sanpham.Id,
+            ////    });;
+            ////};
+            //sanpham.ImageSanPhams = listImage;
             _context.SanPhams.Update(sanpham);
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
@@ -172,30 +169,22 @@ namespace Web_API_e_Fashion.Api_Controllers
         public async Task<ActionResult<SanPham>> PostSanPham([FromForm] UploadSanpham upload)
         {
            
-            var listImage = new List<ImageSanPham>();
+            //var listImage = new List<ImageSanPhamBienThe>();
             SanPham sanpham = new SanPham()
             {
                 Ten = upload.Ten,
-                ChatLieu = upload.ChatLieu,
-                CreateBy = upload.CreateBy,
-                CreatedDate = DateTime.Now,
+                NgayTao = DateTime.Now,
                 HuongDan = upload.HuongDan,
-                KhoiLuong = upload.KhoiLuong,
                 MoTa = upload.MoTa,
-            
                 ThanhPhan = upload.ThanhPhan,
-                SoLuong = upload.SoLuong,
-                TrangThaiHienThi = true,
-                TrangThaiSanPhamThietKe = true,
-                UpdateBy = upload.UpdateBy,
+                TrangThaiHoatDong = upload.TrangThaiHoatDong,
+                TrangThaiSanPhamThietKe = upload.TrangThaiSanPhamThietKe,
+                TrangThaiSanPham = upload.TrangThaiSanPham,
+                Gia = upload.Gia,
+                Tag = upload.Tag,
                 KhuyenMai = upload.KhuyenMai,
-                UpdatedDate = null,
-                ImageSanPhams = listImage,
-                SanPhamThietKes = null,
-                SanPham_SanPhamThietKes = null,
-                GiaSanPhams = null,
-                CategoryId = upload.CategoryId,
-                BrandId = upload.BrandId,
+                Id_Loai = upload.Id_Loai,
+                Id_NhanHieu = upload.Id_NhanHieu,
             };
             Notification notification = new Notification()
             {
@@ -205,35 +194,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             _context.Notifications.Add(notification);
             _context.SanPhams.Add(sanpham);
             await _context.SaveChangesAsync();
-            if (upload.ListImage != null)
-            {
-                foreach (var formFile in upload.ListImage)
-                {
-                    if (formFile.Length > 0)
-                    {
-                        var folderName = Path.Combine("Resources", "Images", "list-image-product");
-                        var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                        var fileName = ContentDispositionHeaderValue.Parse(formFile.ContentDisposition).FileName.Trim('"');
-                        var fullPath = Path.Combine(pathToSave, fileName);
-                        using (var stream = new FileStream(fullPath, FileMode.Create))
-                        {
-                            await formFile.CopyToAsync(stream);
-                        }
-                        listImage.Add(new ImageSanPham()
-                        {
-                            ImagePath= formFile.FileName,
-                            SanPhamId = sanpham.Id,
-                        });
-                    }
-                }
-            }
-            else
-            {
-              
-            }
-            SanPham sanpham2 = await _context.SanPhams.FindAsync(sanpham.Id);
-            sanpham2.ImageSanPhams = listImage;
-            _context.SanPhams.Update(sanpham2);
+         
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
@@ -242,24 +203,20 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSanPham(int id)
         {
-
+            SanPhamBienThe[] spbts;
+            spbts = _context.SanPhamBienThes.Where(s => s.Id_SanPham == id).ToArray();
+            _context.SanPhamBienThes.RemoveRange(spbts);
+            await _context.SaveChangesAsync();
             var sanPham = await _context.SanPhams.FindAsync(id);
             if (sanPham == null)
             {
                 return NotFound();
             }
-            List<ImageSanPham> listImage = new List<ImageSanPham>();
-             listImage = await _context.imageSanPhams.Where(s=>s.SanPhamId==id).ToListAsync();
+          
             var CategoryConstraint = _context.Loais.Where(s => s.Id == id);
-            var BrandConstraint = _context.ThuongHieus.SingleOrDefaultAsync(s => s.Id == id);
+            var BrandConstraint = _context.NhanHieus.SingleOrDefaultAsync(s => s.Id == id);
            
-            foreach (var image in listImage)
-            {
-                if (image != null)
-                {
-                    _context.imageSanPhams.Remove(image);
-                }
-            }
+          
           
             if (CategoryConstraint != null)
             {
@@ -276,7 +233,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             };
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
-            return NoContent();
+            return Ok();
         }
         private bool SanPhamExists(int id)
         {

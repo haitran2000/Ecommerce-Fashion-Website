@@ -26,11 +26,19 @@
     </ng-container>
     <ng-container matColumnDef="trangThaiSanPham">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Trạng thái sản phẩm </th>
-        <td mat-cell *matCellDef="let element"> {{element.trangThaiHienThi}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.trangThaiSanPham}} </td>
     </ng-container>
-    <ng-container matColumnDef="tenThuongHieu">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Brand </th>
-        <td mat-cell *matCellDef="let element"> {{element.tenThuongHieu}} </td>
+    <ng-container matColumnDef="trangThaiSanPhamThietKe">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Trạng thái sản phẩm thiết kế</th>
+        <td mat-cell *matCellDef="let element"> {{element.trangThaiSanPhamThietKe}} </td>
+    </ng-container>
+    <ng-container matColumnDef="trangThaiHoatDong">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Trạng thái hoạt động </th>
+        <td mat-cell *matCellDef="let element"> {{element.trangThaiHoatDong}} </td>
+    </ng-container>
+    <ng-container matColumnDef="tenNhanHieu">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nhãn hiệu </th>
+        <td mat-cell *matCellDef="let element"> {{element.tenNhanHieu}} </td>
     </ng-container>
     <ng-container matColumnDef="tenLoai">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Loại </th>

@@ -30,7 +30,7 @@ displayedColumns: string[] = ['id', 'maMau','tenLoai',
   'actions'];
 
 
-  public category :  MauSac
+
   ngOnInit(): void {
     this.service.getAllMauSacs();
   }
@@ -41,7 +41,7 @@ displayedColumns: string[] = ['id', 'maMau','tenLoai',
   }
 
   onModalDialog(){
-    this.service.mausac.id ==0
+    this.service.mausac = new MauSac()
     this.dialog.open(MauSacComponent)
   }
 
@@ -66,5 +66,5 @@ displayedColumns: string[] = ['id', 'maMau','tenLoai',
 export class MauSac{
   id: number = 0
   maMau : string
-  loaiId : number
+  id_Loai : number
 }

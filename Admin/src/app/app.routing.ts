@@ -17,7 +17,8 @@ import { ChiTietHoaDonsComponent } from './views/chi-tiet-hoa-dons/chi-tiet-hoa-
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
-import { GiaSanPhamsComponent } from './views/gia-san-phams/gia-san-phams.component';
+import { SanPhamBienThesComponent } from './views/gia-san-phams/san-pham-bien-thes.component';
+
 import { HoaDonsComponent } from './views/hoa-dons/hoa-dons.component';
 import { ItemSanPhamThietKeComponent } from './views/item-san-pham-thiet-ke/item-san-pham-thiet-ke.component';
 import { ItemsComponent } from './views/items/items.component';
@@ -33,7 +34,7 @@ import { SizesComponent } from './views/sizes/sizes.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -94,8 +95,8 @@ export const routes: Routes = [
         component: CategoriesComponent,canActivate: [AuthGuard],
       },
       {
-        path: 'giasanphams',
-        component: GiaSanPhamsComponent,canActivate: [AuthGuard],
+        path: 'sanphambienthes',
+        component: SanPhamBienThesComponent,canActivate: [AuthGuard],
       },
       {
         path: 'brands',

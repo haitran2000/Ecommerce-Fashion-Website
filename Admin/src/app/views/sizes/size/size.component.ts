@@ -26,8 +26,8 @@ export class SizeComponent implements OnInit {
   
 ngOnInit(): void {
 this.newBlogForm = new FormGroup({
-LoaiId: new FormControl(null),
-Size1 : new FormControl(null)
+Id_Loai: new FormControl(null),
+TenSize : new FormControl(null)
 });
 }
 
@@ -39,8 +39,9 @@ this.selectedFile = <File>fileInput.target.files[0];
 onSubmit=(data) =>{
 if(this.service.size.id==0){
 const formData = new FormData();
-formData.append('LoaiId', data.LoaiId);
-formData.append('Size1',data.Size1);
+formData.append('Id_Loai', data.Id_Loai);
+formData.append('TenSize',data.TenSize);
+console.log(data)
 this.http.post('https://localhost:44302/api/sizes', formData)
 .subscribe(res => {
 this.service.getAllSizes();
@@ -51,8 +52,8 @@ this.newBlogForm.reset();
 else
 {
 const formData = new FormData();
-formData.append('LoaiId', data.LoaiId);
-formData.append('Size1',data.Size1);
+formData.append('Id_Loai', data.Id_Loai);
+formData.append('TenSize',data.TenSize);
 this.http.put('https://localhost:44302/api/sizes/'+`${this.service.size.id}`, formData)
 .subscribe(res=>{
   this.service.getAllSizes();

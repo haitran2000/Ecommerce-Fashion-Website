@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.UploadDataFormClientModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
@@ -45,15 +48,29 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/Items/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutItem(int id, Item item)
+        public async Task<IActionResult> PutItem(int id, [FromForm] UploadItem upload)
         {
-            if (id != item.Id)
+
+            Item item = new Item();
+            item = await _context.Items.FirstOrDefaultAsync(c => c.Id == id);
+            item.TrangThai = upload.TrangThai;
+            if (upload.TileImage != null)
             {
-                return BadRequest();
+                var folderName = Path.Combine("Resources", "Images", "item");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                var fileName = ContentDispositionHeaderValue.Parse(upload.TileImage.ContentDisposition).FileName.Trim('"');
+                var fullPath = Path.Combine(pathToSave, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await upload.TileImage.CopyToAsync(stream);
+                }
+                item.HinhAnh = upload.TileImage.FileName;
             }
-
-            _context.Entry(item).State = EntityState.Modified;
-
+            else
+            {
+                item.HinhAnh = "noimage.jpg";
+            }
+            _context.Items.Update(item);
             try
             {
                 await _context.SaveChangesAsync();
@@ -76,12 +93,30 @@ namespace Web_API_e_Fashion.Api_Controllers
         // POST: api/Items
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Item>> PostItem(Item item)
+        public async Task<ActionResult<Item>> PostItem([FromForm] UploadItem upload)
         {
+            Item item = new Item();
+            item.TrangThai = upload.TrangThai;
+            if (upload.TileImage != null)
+            {
+                var folderName = Path.Combine("Resources", "Images", "item");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+                var fileName = ContentDispositionHeaderValue.Parse(upload.TileImage.ContentDisposition).FileName.Trim('"');
+                var fullPath = Path.Combine(pathToSave, fileName);
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await upload.TileImage.CopyToAsync(stream);
+                }
+                item.HinhAnh = upload.TileImage.FileName;
+            }
+            else
+            {
+                item.HinhAnh = "noimage.jpg";
+            }
             _context.Items.Add(item);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetItem", new { id = item.Id }, item);
+            return Ok();
         }
 
         // DELETE: api/Items/5

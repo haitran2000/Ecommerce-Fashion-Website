@@ -26,7 +26,7 @@ export class SizesComponent implements OnInit, AfterViewInit {
               public http: HttpClient,
               public dialog: MatDialog,) { }
 public dataSource = new MatTableDataSource<Size>();
-displayedColumns: string[] = ['id', 'size1','tenLoai',
+displayedColumns: string[] = ['id', 'tenSize','tenLoai',
   'actions'];
 
 
@@ -41,7 +41,7 @@ displayedColumns: string[] = ['id', 'size1','tenLoai',
   }
 
   onModalDialog(){
-    this.service.size.id ==0
+    this.service.size = new Size()
     this.dialog.open(SizeComponent)
     
   }
@@ -66,6 +66,6 @@ displayedColumns: string[] = ['id', 'size1','tenLoai',
 }}
 export class Size{
   id : number = 0
-  size1 : string
-  loaiId : string 
+  tenSize : string
+  id_Loai : string 
 }

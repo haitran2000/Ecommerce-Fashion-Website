@@ -11,8 +11,8 @@ namespace Web_API_e_Fashion.Models
     {
         [Key]
         public int Id { get; set; }
-        public string IdentityId { get; set; }
-        [ForeignKey("IdentityId")]
+        public string Id_Identity { get; set; }
+        [ForeignKey("Id_Identity")]
         public virtual AppUser Identity { get; set; }  // navigation property
         public string Location { get; set; }
     }

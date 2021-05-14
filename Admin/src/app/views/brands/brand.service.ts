@@ -13,7 +13,7 @@ export class BrandService{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public dataSource = new MatTableDataSource<Brand>();
     brand:Brand = new Brand()
-    readonly url="https://localhost:44302/api/thuonghieus"
+    readonly url="https://localhost:44302/api/nhanhieus"
     constructor(public http:HttpClient) { }
     get(){
       return this.http.get(this.url)
@@ -22,7 +22,7 @@ export class BrandService{
       return this.http.delete(`${this.url}/${id}`)
     }
     getAllBrands(){
-      this.http.get("https://localhost:44302/api/thuonghieus").subscribe(
+      this.http.get("https://localhost:44302/api/nhanhieus").subscribe(
         res=>{
           this.dataSource.data = res as Brand[];
         }

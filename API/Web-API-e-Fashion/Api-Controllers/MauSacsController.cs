@@ -29,7 +29,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             var kb = from l in _context.Loais
                      join s in _context.MauSacs
-                     on l.Id equals s.LoaiId
+                     on l.Id equals s.Id_Loai
                      select new MauSacLoai()
                      {
                          Id = s.Id,
@@ -61,7 +61,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             MauSac mausac;
             mausac = await _context.MauSacs.FindAsync(id);
             mausac.MaMau = upload.MaMau;
-            mausac.LoaiId = upload.LoaiId;
+           mausac.Id_Loai = upload.Id_Loai;
             _context.MauSacs.Update(mausac);
             try
             {
@@ -90,7 +90,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             MauSac mausac = new MauSac()
             {
                 MaMau = upload.MaMau,
-                LoaiId = upload.LoaiId,
+                Id_Loai = upload.Id_Loai,
             };
             _context.MauSacs.Add(mausac);
             await _context.SaveChangesAsync();

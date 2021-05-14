@@ -84,7 +84,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                   
                         AuthHistory auth = new AuthHistory();
                         auth.IdentityId = userToVerify.Id;
-                        auth.dateTime = DateTime.Now;
+                        auth.Datetime = DateTime.Now;
                         _context.AuthHistories.Add(auth);
                         await _context.SaveChangesAsync();
                         id = userToVerify.Id;

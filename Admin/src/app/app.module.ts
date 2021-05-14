@@ -85,7 +85,7 @@ import { MauSacsComponent } from './views/mau-sacs/mau-sacs.component';
 import { SanPhamThietKesComponent } from './views/san-pham-thiet-kes/san-pham-thiet-kes.component';
 import { SizesComponent } from './views/sizes/sizes.component';
 import { SanPhamSanPhamThietKeComponent } from './views/san-pham-san-pham-thiet-ke/san-pham-san-pham-thiet-ke.component';
-import { GiaSanPhamsComponent } from './views/gia-san-phams/gia-san-phams.component';
+
 import { CategoryService } from './views/categories/category.service';
 import { CategoryComponent } from './views/categories/category/category.component';
 import { ProductInCategoryComponent } from './views/categories/product-in-category/product-in-category.component';
@@ -105,9 +105,12 @@ import { ImagesmodelComponent } from './views/products/imagesmodel/imagesmodel.c
 import { CategoriesComponent } from './views/categories/categories.component';
 import { SizeComponent } from './views/sizes/size/size.component';
 import { MauSacComponent } from './views/mau-sacs/mau-sac/mau-sac.component';
-import { GiaSanPhamComponent } from './views/gia-san-phams/gia-san-pham/gia-san-pham.component';
+
 import { AuthGuard } from './views/auth.guard';
 import { ModalComponent } from './modal/modal.component';
+import { SanPhamBienTheComponent } from './views/gia-san-phams/san-pham-bien-the/san-pham-bien-thecomponent';
+import { SanPhamBienThesComponent } from './views/gia-san-phams/san-pham-bien-thes.component';
+import { ItemComponent } from './views/items/item/item.component';
 
 
 
@@ -193,9 +196,10 @@ import { ModalComponent } from './modal/modal.component';
    CategoriesComponent,
    SizeComponent,
    MauSacComponent,
-   GiaSanPhamComponent,
-   GiaSanPhamsComponent,
-   ModalComponent
+    SanPhamBienTheComponent,
+    SanPhamBienThesComponent,
+   ModalComponent,
+   ItemComponent
   ],
   providers: [
     IconSetService,

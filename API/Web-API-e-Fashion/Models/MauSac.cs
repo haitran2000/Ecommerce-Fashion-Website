@@ -9,17 +9,13 @@ namespace Web_API_e_Fashion.Models
 {
     public class MauSac
     {
-        public MauSac()
-        {
-            this.GiaSanPhams = new HashSet<GiaSanPham>();
-        }
         [Key]
         public int Id { get; set; }
         public string MaMau { get; set; }
-        public int? LoaiId { get; set; }
-        [ForeignKey("LoaiId")]
+        public int? Id_Loai { get; set; }
+        [ForeignKey("Id_Loai")]
         public virtual Loai Loai { get; set; }
 
-        public virtual ICollection<GiaSanPham> GiaSanPhams { get; set; }
+        public virtual ICollection<SanPhamBienThe> SanPhamBienThes { get; set; }
     }
 }

@@ -11,47 +11,42 @@ export const navItems: INavData[] = [
     }
   },
   {
-    name: 'Products',
+    name: 'DS sản phẩm',
     url: '/products',
   
   },
   {
-    name: 'Categories',
+    name: 'DS loại',
     url: '/categories',
   
   },
   {
-    name: 'Brands',
+    name: 'DS nhãn hiệu',
     url: '/brands',
   
   },
   {
-    name: 'SPThietKes',
+    name: 'DS sản phẩm thiết kế',
     url: '/sanphamthietkes',
   
   },
   {
-    name: 'SP_SPThietKe',
-    url: '/sanpham_sanphamthietke',
-  
-  },
-  {
-    name: 'Sizes',
+    name: 'DS size',
     url: '/sizes',
   
   },
   {
-    name: 'MauSacs',
+    name: 'DS màu sắc',
     url: '/mausacs',
   
   },
   {
-    name: 'GiaSanPhams',
-    url: '/giasanphams',
+    name: 'DS sản phẩm biến thể',
+    url: '/sanphambienthes',
   
   },
   {
-    name: 'Items',
+    name: 'DS item',
     url: '/items',
   },
   {

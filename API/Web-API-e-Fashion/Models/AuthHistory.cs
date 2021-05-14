@@ -11,17 +11,10 @@ namespace Web_API_e_Fashion.Models
     {
         [Key]
         public int Id { get; set; }
-        public string IdentityId { get; set; }
+        public string? IdentityId { get; set; }
         [ForeignKey("IdentityId")]
         public virtual AppUser Identity { get; set; }
 
-        private DateTime datetime;
-
-        public DateTime dateTime
-        {
-            get { return datetime; }
-            set { datetime = value; }
-        }
-
+       public DateTime Datetime;
     }
 }

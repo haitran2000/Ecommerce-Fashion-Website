@@ -8,13 +8,9 @@
 
   <ItemGroup>
     <Compile Remove="Resources\Images\designproduct\**" />
-    <Compile Remove="Resources\Images\item\**" />
     <Content Remove="Resources\Images\designproduct\**" />
-    <Content Remove="Resources\Images\item\**" />
     <EmbeddedResource Remove="Resources\Images\designproduct\**" />
-    <EmbeddedResource Remove="Resources\Images\item\**" />
     <None Remove="Resources\Images\designproduct\**" />
-    <None Remove="Resources\Images\item\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +33,11 @@
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.11.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Images\item\" />
+    <Folder Include="Resources\Images\san-pham-bien-the\" />
   </ItemGroup>
 
 </Project>

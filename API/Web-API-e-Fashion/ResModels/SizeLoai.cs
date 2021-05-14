@@ -9,6 +9,6 @@ namespace Web_API_e_Fashion.ResModels
     {
         public string TenLoai { get; set; }
         public int Id { get; set; }
-        public string Size1 { get; set; }
+        public string TenSize { get; set; }
     }
 }

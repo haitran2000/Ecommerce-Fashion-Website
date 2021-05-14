@@ -9,10 +9,6 @@ namespace Web_API_e_Fashion.Models
 {
     public class SanPhamThietKe
     {
-        public SanPhamThietKe()
-        {
-       
-        }
         [Key]
         public int Id { get; set; }
         public long Gia { get; set; }

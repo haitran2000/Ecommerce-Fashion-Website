@@ -46,10 +46,11 @@ namespace Web_API_e_Fashion
                 options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
                 options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
             });
-            services.AddSignalR();
+           
 
             services.AddControllersWithViews();
             services.AddDbContext<DPContext>(op => op.UseSqlServer(Configuration.GetConnectionString("db")));
+
             services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
                 builder
                 .AllowAnyMethod()
@@ -57,6 +58,7 @@ namespace Web_API_e_Fashion
                 .AllowCredentials()
                 .WithOrigins("http://localhost:4200");
             }));
+            services.AddSignalR();
             services.Configure<FormOptions>(o => {
                 o.ValueLengthLimit = int.MaxValue;
                 o.MultipartBodyLengthLimit = int.MaxValue;
@@ -125,10 +127,7 @@ namespace Web_API_e_Fashion
            
             app.UseAuthentication();
             app.UseRouting();
-            app.UseCors(options =>
-            options.AllowAnyOrigin()
-            .AllowAnyMethod()
-            .AllowAnyHeader());
+          
             app.UseAuthorization();
 
             app.UseCors("CorsPolicy");

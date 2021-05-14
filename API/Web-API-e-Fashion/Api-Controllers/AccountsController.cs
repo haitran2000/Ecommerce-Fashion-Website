@@ -72,7 +72,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             _context.AppUsers.Update(user);
             if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
 
-            await _context.JobSeekers.AddAsync(new JobSeeker { IdentityId = userIdentity.Id, Location = model.Location });
+            await _context.JobSeekers.AddAsync(new JobSeeker { Id_Identity = userIdentity.Id, Location = model.Location });
             await _context.SaveChangesAsync();
 
             return Ok();

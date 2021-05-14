@@ -8,6 +8,6 @@ namespace Web_API_e_Fashion.UploadDataFormClientModels
     public class UploadMauSac
     {
         public string MaMau { get; set; }
-        public int LoaiId { get; set; }
+        public int Id_Loai { get; set; }
     }
 }
