@@ -27,7 +27,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             _context = context;
             _hubContext = hubContext;
         }
-        
+
         // GET: api/SanPhams
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> GetSanPhams()
@@ -44,17 +44,17 @@ namespace Web_API_e_Fashion.Api_Controllers
                      from th in j.DefaultIfEmpty()
                      select new SanPhamLoaiThuongHieu()
                      {
-                        Id = s.Id,
-                        Ten = s.Ten,
-                        KhuyenMai = s.KhuyenMai,
-                        MoTa = s.MoTa,
-                        HuongDan = s.HuongDan,
-                        ThanhPhan = s.ThanhPhan,
-                        TrangThaiSanPham = s.TrangThaiSanPham,
-                        TrangThaiHoatDong = s.TrangThaiHoatDong,
-                        TrangThaiSanPhamThietKe = s.TrangThaiSanPhamThietKe,
-                        TenLoai = l.Ten,
-                        TenNhanHieu = th.Ten,
+                         Id = s.Id,
+                         Ten = s.Ten,
+                         KhuyenMai = s.KhuyenMai,
+                         MoTa = s.MoTa,
+                         HuongDan = s.HuongDan,
+                         ThanhPhan = s.ThanhPhan,
+                         TrangThaiSanPham = s.TrangThaiSanPham,
+                         TrangThaiHoatDong = s.TrangThaiHoatDong,
+                         TrangThaiSanPhamThietKe = s.TrangThaiSanPhamThietKe,
+                         TenLoai = l.Ten,
+                         TenNhanHieu = th.Ten,
                      };
             return await kb.ToListAsync();
         }
@@ -76,12 +76,12 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/SanPhams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSanPham(int id,[FromForm]UploadSanpham upload, string search)
+        public async Task<IActionResult> PutSanPham(int id, [FromForm] UploadSanpham upload, string search)
         {
             //var listImage = new List<ImageSanPhamBienThe>();
             SanPham sanpham = new SanPham();
             sanpham = await _context.SanPhams.FirstOrDefaultAsync(s => s.Id == id);
-            sanpham.Ten = upload.Ten;  
+            sanpham.Ten = upload.Ten;
             sanpham.NgayCapNhat = DateTime.Now;
             sanpham.HuongDan = upload.HuongDan;
             sanpham.MoTa = upload.MoTa;
@@ -94,8 +94,8 @@ namespace Web_API_e_Fashion.Api_Controllers
             sanpham.TrangThaiSanPham = upload.TrangThaiSanPham;
             SanPham sp;
             sp = _context.SanPhams.Find(id);
- 
-          
+
+
             if (upload.Id_NhanHieu == null)
             {
                 sanpham.Id_NhanHieu = sp.Id_NhanHieu;
@@ -136,7 +136,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             //            {
             //                await formFile.CopyToAsync(stream);
             //            }
-                    
+
             //            //listImage.Add(new ImageSanPhamBienThe()
             //            //{
             //            //    ImagePath = formFile.FileName,
@@ -168,7 +168,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPost]
         public async Task<ActionResult<SanPham>> PostSanPham([FromForm] UploadSanpham upload)
         {
-           
+
             //var listImage = new List<ImageSanPhamBienThe>();
             SanPham sanpham = new SanPham()
             {
@@ -193,8 +193,8 @@ namespace Web_API_e_Fashion.Api_Controllers
             };
             _context.Notifications.Add(notification);
             _context.SanPhams.Add(sanpham);
-            await _context.SaveChangesAsync();
-         
+       
+
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
@@ -212,12 +212,12 @@ namespace Web_API_e_Fashion.Api_Controllers
             {
                 return NotFound();
             }
-          
+
             var CategoryConstraint = _context.Loais.Where(s => s.Id == id);
             var BrandConstraint = _context.NhanHieus.SingleOrDefaultAsync(s => s.Id == id);
-           
-          
-          
+
+
+
             if (CategoryConstraint != null)
             {
                 _context.SanPhams.Remove(sanPham);
@@ -231,6 +231,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 TenSanPham = sanPham.Ten,
                 TranType = "Delete"
             };
+            _context.Notifications.Add(notification);
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();

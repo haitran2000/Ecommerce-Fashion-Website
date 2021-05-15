@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BrandsComponent } from '../brands.component';
 import { BrandService } from '../brand.service';
 
@@ -15,12 +15,26 @@ export class BrandComponent implements OnInit {
                 public http :HttpClient ,
               ) {
                 }
-  
+get name() { return this.newBlogForm.get('Name'); }
+get ThongTin() { return this.newBlogForm.get('ThongTin'); }
+
 ngOnInit(): void {
 this.newBlogForm = new FormGroup({
-Name: new FormControl(null),
-ThongTin: new FormControl(null),
-TileImage : new FormControl(null)
+Name: new FormControl(null,
+  [
+    Validators.required,
+    Validators.minLength(2),
+  ]),
+ThongTin: new FormControl(null,
+  [
+    Validators.required,
+    Validators.minLength(5),
+  ]),
+TileImage : new FormControl(null,
+  [
+    Validators.required,
+  ]
+  )
 });
 }
 
@@ -41,6 +55,12 @@ detectFiles(event) {
       }
       reader.readAsDataURL(file);
     }
+}
+checkFileSize(){
+  if(this.selectedFile.item(0).size < 5000 ){
+    return true
+  }
+  return false
 }
 onSelectFile(fileInput: any) {
   this.selectedFile = <FileList>fileInput.target.files;

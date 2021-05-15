@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SizesComponent } from '../sizes.component';
 import { SizeService } from '../size.service';
 import { CategoryService } from '../../categories/category.service';
@@ -23,11 +23,19 @@ export class SizeComponent implements OnInit {
       }
       )
    }
-  
+get TenSize() { return this.newBlogForm.get('TenSize'); }
+get Id_Loai() { return this.newBlogForm.get('Id_Loai'); }
 ngOnInit(): void {
 this.newBlogForm = new FormGroup({
-Id_Loai: new FormControl(null),
-TenSize : new FormControl(null)
+  Id_Loai : new FormControl(null,
+    [
+      Validators.required,
+    ]),
+TenSize: new FormControl(null,
+  [
+    Validators.required,
+    Validators.minLength(1),
+  ]),
 });
 }
 

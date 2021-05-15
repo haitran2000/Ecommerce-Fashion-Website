@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MauSacsComponent } from '../mau-sacs.component';
 import { MauSacService } from '../mau-sac.service';
 import { CategoryService } from '../../categories/category.service';
@@ -24,11 +24,20 @@ export class MauSacComponent implements OnInit {
                   )
       
                 }
-  
+get MaMau() { return this.newBlogForm.get('MaMau'); }
+get Id_Loai() { return this.newBlogForm.get('Id_Loai'); }
+
 ngOnInit(): void {
 this.newBlogForm = new FormGroup({
-MaMau: new FormControl(null),
-Id_Loai : new FormControl(null)
+MaMau: new FormControl(null,
+  [
+    Validators.required,
+    Validators.minLength(2),
+  ]),
+Id_Loai : new FormControl(null,
+  [
+    Validators.required,
+  ])
 });
 }
 

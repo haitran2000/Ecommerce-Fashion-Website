@@ -6,9 +6,11 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.SignalRModels;
 using Web_API_e_Fashion.UploadDataFormClientModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
@@ -18,11 +20,13 @@ namespace Web_API_e_Fashion.Api_Controllers
     public class ItemsController : ControllerBase
     {
         private readonly DPContext _context;
-
-        public ItemsController(DPContext context)
+        private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
+        public ItemsController(DPContext context, IHubContext<BroadcastHub, IHubClient> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
+
 
         // GET: api/Items
         [HttpGet]
@@ -50,6 +54,12 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutItem(int id, [FromForm] UploadItem upload)
         {
+            Notification notification = new Notification()
+            {
+                TenSanPham = upload.TileImage.FileName,
+                TranType = "Edit"
+            };
+            _context.Notifications.Add(notification);
 
             Item item = new Item();
             item = await _context.Items.FirstOrDefaultAsync(c => c.Id == id);
@@ -86,8 +96,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                     throw;
                 }
             }
-
-            return NoContent();
+            await _hubContext.Clients.All.BroadcastMessage();
+            return Ok();
         }
 
         // POST: api/Items
@@ -95,6 +105,12 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPost]
         public async Task<ActionResult<Item>> PostItem([FromForm] UploadItem upload)
         {
+            Notification notification = new Notification()
+            {
+                TenSanPham = upload.TileImage.FileName,
+                TranType = "Add"
+            };
+            _context.Notifications.Add(notification);
             Item item = new Item();
             item.TrangThai = upload.TrangThai;
             if (upload.TileImage != null)
@@ -115,7 +131,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
             _context.Items.Add(item);
             await _context.SaveChangesAsync();
-
+            await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
         }
 
@@ -124,6 +140,12 @@ namespace Web_API_e_Fashion.Api_Controllers
         public async Task<IActionResult> DeleteItem(int id)
         {
             var item = await _context.Items.FindAsync(id);
+            Notification notification = new Notification()
+            {
+                TenSanPham = item.HinhAnh,
+                TranType = "Delete"
+            };
+            _context.Notifications.Add(notification);
             if (item == null)
             {
                 return NotFound();
@@ -131,7 +153,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             _context.Items.Remove(item);
             await _context.SaveChangesAsync();
-
+            await _hubContext.Clients.All.BroadcastMessage();
             return NoContent();
         }
 

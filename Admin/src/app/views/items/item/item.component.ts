@@ -14,7 +14,7 @@ export class ItemComponent implements OnInit {
     public http :HttpClient ,
   ) {
     }
-
+    get TrangThai() { return this.newBlogForm.get('TrangThai'); }
     ngOnInit(): void {
       this.newBlogForm = new FormGroup({
       TrangThai: new FormControl(null),

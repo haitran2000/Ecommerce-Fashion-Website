@@ -61,6 +61,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             var response = new
             {
                 id = identity.Claims.Single(c => c.Type == "id").Value,
+                quyen = _context.AppUsers.FirstOrDefault(s=>s.Id==id).Quyen,
                 auth_token = await _jwtFactory.GenerateEncodedToken(credentials.UserName, identity),
                 expires_in = (int)_jwtOptions.ValidFor.TotalSeconds
             };

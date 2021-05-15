@@ -6,10 +6,12 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
 using Web_API_e_Fashion.ResModels;
+using Web_API_e_Fashion.SignalRModels;
 using Web_API_e_Fashion.UploadFileModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
@@ -19,11 +21,13 @@ namespace Web_API_e_Fashion.Api_Controllers
     public class LoaisController : ControllerBase
     {
         private readonly DPContext _context;
-
-        public LoaisController(DPContext context)
+        private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
+        public LoaisController(DPContext context, IHubContext<BroadcastHub, IHubClient> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
+
 
         // GET: api/Loais
         [HttpGet]
@@ -88,6 +92,12 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLoai(int id, [FromForm] UploadCategory upload)
         {
+            Notification notification = new Notification()
+            {
+                TenSanPham = upload.Name,
+                TranType = "Edit"
+            };
+            _context.Notifications.Add(notification);
             Loai loai = new Loai();
             loai = await _context.Loais.FirstOrDefaultAsync(c => c.Id == id);
             loai.Ten = upload.Name;
@@ -129,7 +139,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                 }
             }
 
-            return NoContent();
+            await _hubContext.Clients.All.BroadcastMessage();
+            return Ok();
         }
 
         // POST: api/Loais
@@ -137,6 +148,12 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPost]
         public async Task<ActionResult<Loai>> PostLoai([FromForm] UploadCategory upload)
         {
+            Notification notification = new Notification()
+            {
+                TenSanPham = upload.Name,
+                TranType = "Add"
+            };
+            _context.Notifications.Add(notification);
             Loai loai = new Loai();
             loai.Ten = upload.Name;
             if (upload.TileImage != null)
@@ -158,6 +175,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             loai.DateCreate = DateTime.Now;
             _context.Loais.Add(loai);
             await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
         }
 
@@ -165,6 +183,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLoai(int id)
         {
+          
             SanPham[] product;
             product = await _context.SanPhams.Where(s => s.Id_Loai == id).ToArrayAsync();
             Size[] sizes;
@@ -172,9 +191,16 @@ namespace Web_API_e_Fashion.Api_Controllers
             MauSac[] mausacs;
             mausacs = await _context.MauSacs.Where(s => s.Id_Loai == id).ToArrayAsync();
             var category = await _context.Loais.FindAsync(id);
+            Notification notification = new Notification()
+            {
+                TenSanPham = category.Ten,
+                TranType = "Delete"
+            };
+            _context.Notifications.Add(notification);
             if (product == null)
             {
                 _context.Loais.Remove(category);
+
                 await _context.SaveChangesAsync();
             }
             else
@@ -184,9 +210,10 @@ namespace Web_API_e_Fashion.Api_Controllers
                 _context.MauSacs.RemoveRange(mausacs);
                 await _context.SaveChangesAsync();
                 _context.Loais.Remove(category);
-                 _context.SaveChanges();
+             
+                _context.SaveChanges();
             }
-
+            await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
         }
 

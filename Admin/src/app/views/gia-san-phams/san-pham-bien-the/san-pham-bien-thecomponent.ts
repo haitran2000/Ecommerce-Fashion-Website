@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../categories/category.service';
 import { MauSacService } from '../../mau-sacs/mau-sac.service';
 import { ProductService } from '../../products/product.service';
@@ -46,13 +46,23 @@ export class SanPhamBienTheComponent implements OnInit {
     public http :HttpClient ) {
                             
                               }
-  
+  get Id_Mau() { return this.newBlogForm.get('Id_Mau'); }
+  get Id_SanPham() { return this.newBlogForm.get('Id_SanPham'); }
+  get Id_Size() { return this.newBlogForm.get('Id_Size'); }
+
+
 ngOnInit(): void {
 this.newBlogForm = new FormGroup({
 ImagePath : new FormControl(null), 
-Id_Mau : new FormControl(null),
-Id_SanPham : new FormControl(null),
-Id_Size : new FormControl(null),
+Id_Mau : new FormControl(null,[
+  Validators.required,
+]),
+Id_SanPham : new FormControl(null,[
+  Validators.required,
+]),
+Id_Size : new FormControl(null,[
+  Validators.required,
+]),
 });
 
 

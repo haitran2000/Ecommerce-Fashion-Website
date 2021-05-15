@@ -616,6 +616,9 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Quyen")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasDiscriminator().HasValue("AppUser");
                 });
 

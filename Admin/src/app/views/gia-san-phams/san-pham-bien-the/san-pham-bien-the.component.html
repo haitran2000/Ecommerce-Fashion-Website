@@ -1,5 +1,7 @@
 <form [formGroup]="newBlogForm" (ngSubmit)="onSubmit(newBlogForm.value)">
     <div class="container" style="width: 30vw;">
+        <button class="btn-dialog-close" mat-stroked-button [mat-dialog-close]="true" tabIndex="-1" style="float: right;"><mat-icon>clear</mat-icon></button>
+        <br>
         <div class="form-group">
             <label for="form-control">Id</label>
             <input class="form-control" [value]="service.sanphambienthe.id" readonly>
@@ -19,6 +21,12 @@
                 <option  *ngFor="let mau of this.mausacs"
                     [value]="mau.id">{{mau.maMau}}</option>
             </select>
+            <div *ngIf="Id_Mau.invalid && (Id_Mau.dirty || Id_Mau.touched)" class="alert alert-danger">
+
+                <div *ngIf="Id_Mau.errors.required">
+                 Màu không được bỏ trống
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <span class="label label-default">Sản phẩm Id</span>
@@ -26,6 +34,12 @@
                 <option  *ngFor="let sanpham of this.sanphams"
                     [value]="sanpham.id">{{sanpham.ten}}</option>
             </select>
+            <div *ngIf="Id_SanPham.invalid && (Id_SanPham.dirty || Id_SanPham.touched)" class="alert alert-danger">
+
+                <div *ngIf="Id_SanPham.errors.required">
+                 Tên sản phẩm không được bỏ trống
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <span class="label label-default">Size Id</span>
@@ -33,9 +47,15 @@
                 <option  *ngFor="let size of sizes"
                  [value]="size.id">{{size.tenSize}}</option>
             </select>
+            <div *ngIf="Id_Size.invalid && (Id_Size.dirty || Id_Size.touched)" class="alert alert-danger">
+
+                <div *ngIf="Id_Size.errors.required">
+                 Size không được bỏ trống
+                </div>
+            </div>
         </div>
         <div class="form-group" style="justify-content:center;display: flex;">
-            <button type="submit" class="btn btn-primary" [mat-dialog-close]="true">Create or Edit</button>
+            <button type="submit" class="btn btn-primary" [mat-dialog-close]="true" [disabled]="this.newBlogForm.invalid">Submit</button>
         </div>
     </div>
 </form>

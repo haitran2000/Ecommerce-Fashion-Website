@@ -18,5 +18,6 @@ namespace Web_API_e_Fashion.ViewModels
             public string FirstName { get; set; }
             public string LastName { get; set; }
             public string Location { get; set; }
+            public string Quyen { get; set; }
         }
 }

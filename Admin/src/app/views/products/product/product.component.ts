@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms'
+import {FormControl, FormGroup, Validators} from '@angular/forms'
 import { ProductService } from '../product.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Router } from '@angular/router';
@@ -55,6 +55,21 @@ export class ProductComponent implements OnInit {
                 this.router.navigate(['products']);
               
             }
+            get Ten() { return this.newForm.get('Ten'); }
+            get Gia() {return this.newForm.get('Gia'); }
+            get KhuyenMai() { return this.newForm.get('KhuyenMai'); }
+            get MoTa() { return this.newForm.get('MoTa'); }
+            get Tag() { return this.newForm.get('Tag'); }
+            get HuongDan() { return this.newForm.get('HuongDan'); }
+            get ThanhPhan() { return this.newForm.get('ThanhPhan'); }
+
+            get Id_Loai () { return this.newForm.get('Id_Loai'); }
+            get Id_NhanHieu () { return this.newForm.get('Id_NhanHieu'); }
+            get TrangThaiSanPhamThietKe() {return this.newForm.get('TrangThaiSanPhamThietKe'); }
+            get TrangThaiSanPham() {return this.newForm.get('TrangThaiSanPham'); }
+            get TrangThaiHoatDong() {return this.newForm.get('TrangThaiHoatDong'); }
+          
+          
   ngOnInit(): void {
     this.serviceCategory.get().subscribe(
       data=>{
@@ -68,7 +83,7 @@ export class ProductComponent implements OnInit {
         }
       )
       
-    this.http.get("https://localhost:44302/api/ImageSanPhams/"+this.service.product.id).subscribe(
+   /*  this.http.get("https://localhost:44302/api/ImageSanPhams/"+this.service.product.id).subscribe(
       res=>{
         this.imageproductList = res as ImageProduct[]
         console.log( this.imageproductList)
@@ -76,25 +91,79 @@ export class ProductComponent implements OnInit {
       error=>{
         
       }
-    )
+    ) */
               this.newForm = new FormGroup({
-                Ten : new FormControl(null),
-                KhuyenMai : new FormControl(null),
-                MoTa : new FormControl(null),
-                HuongDan : new FormControl(null),
-                ThanhPhan : new FormControl(null),
-                Tag : new FormControl(null),
-                Id_Loai  : new FormControl(null),
-                Id_NhanHieu  : new FormControl(null),
-                TrangThaiSanPhamThietKe : new FormControl(null),
-                TrangThaiSanPham : new FormControl(null),
-                TrangThaiHoatDong : new FormControl(null),
-                KhoiLuong : new FormControl(null),
-                Gia : new FormControl(null),
+                Ten : new FormControl(null,[
+                  Validators.required,
+                  Validators.minLength(2),
+                  Validators.maxLength(15),
+             
+
+                ]),
+                Gia : new FormControl(null,[
+                  Validators.required,
+                  Validators.min(3),
+                  Validators.max(100000000000),
+              
+                ]),
+                KhuyenMai : new FormControl(null,[
+                  Validators.required,
+                  Validators.min(1),
+                  Validators.max(50000000000),
+                  
+                ]),
+                MoTa : new FormControl(null,[
+                  Validators.required,
+                  Validators.minLength(10),
+                  Validators.maxLength(100),
+                 
+                  
+                ]),
+                HuongDan : new FormControl(null,[
+                  Validators.required,
+                  Validators.minLength(10),
+                  Validators.maxLength(100),
+              
+                  
+                ]),
+                ThanhPhan : new FormControl(null,[
+                  Validators.required,
+                  Validators.minLength(3),
+                  Validators.maxLength(50),
+             
+                ]),
+                Tag : new FormControl(null,[
+                  Validators.required,
+                  Validators.minLength(2),
+                  Validators.maxLength(15),
+             
+                  
+                ]),
+                Id_Loai  : new FormControl(null,[
+                  Validators.required,             
+                  
+                ]),
+                Id_NhanHieu  : new FormControl(null,[
+                  Validators.required,           
+                  
+                ]),
+                TrangThaiSanPhamThietKe : new FormControl(null,[
+                  Validators.required,                             
+                ]),
+                TrangThaiSanPham : new FormControl(null,[
+                  Validators.required,
+                ]),
+                TrangThaiHoatDong : new FormControl(null,[
+                  Validators.required,
+                  
+                ]),
+             
               });
   } 
    
-   
+
+
+
     clearForm() {
       this.newForm.reset();
      }

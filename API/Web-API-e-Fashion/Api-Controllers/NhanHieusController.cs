@@ -6,9 +6,11 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.SignalRModels;
 using Web_API_e_Fashion.UploadFileModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
@@ -18,10 +20,11 @@ namespace Web_API_e_Fashion.Api_Controllers
     public class NhanHieusController : ControllerBase
     {
         private readonly DPContext _context;
-
-        public NhanHieusController(DPContext context)
+        private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
+        public NhanHieusController(DPContext context, IHubContext<BroadcastHub, IHubClient> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         // GET: api/ThuongHieus
@@ -77,7 +80,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             try
             {
-                await _context.SaveChangesAsync();
+               
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -90,7 +93,14 @@ namespace Web_API_e_Fashion.Api_Controllers
                     throw;
                 }
             }
-
+              Notification notification = new Notification()
+            {
+                TenSanPham = upload.Name,
+                TranType = "Edit"
+            };
+            _context.Notifications.Add(notification);
+            await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
             return NoContent();
         }
 
@@ -120,7 +130,14 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
            nhanhieu.DateCreate = DateTime.Now;
             _context.NhanHieus.Add(nhanhieu);
+            Notification notification = new Notification()
+            {
+                TenSanPham = upload.Name,
+                TranType = "Add"
+            };
+            _context.Notifications.Add(notification);
             await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
         }
 
@@ -134,6 +151,12 @@ namespace Web_API_e_Fashion.Api_Controllers
             if (product == null)
             {
                 _context.NhanHieus.Remove(brand);
+                Notification notification = new Notification()
+                {
+                    TenSanPham = brand.Ten,
+                    TranType = "Delete"
+                };
+                _context.Notifications.Add(notification);
                 await _context.SaveChangesAsync();
             }
             else
@@ -141,7 +164,14 @@ namespace Web_API_e_Fashion.Api_Controllers
                 _context.SanPhams.RemoveRange(product);
                 await _context.SaveChangesAsync();
                 _context.NhanHieus.Remove(brand);
-                _context.SaveChanges();
+                Notification notification = new Notification()
+                {
+                    TenSanPham = brand.Ten,
+                    TranType = "Delete"
+                };
+                _context.Notifications.Add(notification);
+                await _hubContext.Clients.All.BroadcastMessage();
+                await _context.SaveChangesAsync();
             }
             return Ok();
         }

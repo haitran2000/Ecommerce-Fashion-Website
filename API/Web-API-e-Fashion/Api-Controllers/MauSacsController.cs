@@ -4,10 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
 using Web_API_e_Fashion.ResModels;
+using Web_API_e_Fashion.SignalRModels;
 using Web_API_e_Fashion.UploadDataFormClientModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
@@ -17,10 +19,11 @@ namespace Web_API_e_Fashion.Api_Controllers
     public class MauSacsController : ControllerBase
     {
         private readonly DPContext _context;
-
-        public MauSacsController(DPContext context)
+        private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
+        public MauSacsController(DPContext context, IHubContext<BroadcastHub, IHubClient> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         // GET: api/MauSacs
@@ -63,6 +66,12 @@ namespace Web_API_e_Fashion.Api_Controllers
             mausac.MaMau = upload.MaMau;
            mausac.Id_Loai = upload.Id_Loai;
             _context.MauSacs.Update(mausac);
+            Notification notification = new Notification()
+            {
+                TenSanPham = upload.MaMau,
+                TranType = "Edit"
+            };
+            _context.Notifications.Add(notification);
             try
             {
                 await _context.SaveChangesAsync();
@@ -78,15 +87,21 @@ namespace Web_API_e_Fashion.Api_Controllers
                     throw;
                 }
             }
-
-            return NoContent();
+            await _hubContext.Clients.All.BroadcastMessage();
+            return Ok();
         }
 
         // POST: api/MauSacs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<MauSac>> PostMauSac([FromForm] UploadMauSac upload)
-        {
+        { 
+            Notification notification = new Notification()
+            {
+                TenSanPham = upload.MaMau,
+                TranType = "Add"
+            };
+            _context.Notifications.Add(notification);
             MauSac mausac = new MauSac()
             {
                 MaMau = upload.MaMau,
@@ -94,7 +109,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             };
             _context.MauSacs.Add(mausac);
             await _context.SaveChangesAsync();
-
+            await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
         }
 
@@ -102,7 +117,14 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMauSac(int id)
         {
+          
             var mauSac = await _context.MauSacs.FindAsync(id);
+            Notification notification = new Notification()
+            {
+                TenSanPham = mauSac.MaMau,
+                TranType = "Delete"
+            };
+            _context.Notifications.Add(notification);
             if (mauSac == null)
             {
                 return NotFound();
@@ -110,8 +132,8 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             _context.MauSacs.Remove(mauSac);
             await _context.SaveChangesAsync();
-
-            return NoContent();
+            await _hubContext.Clients.All.BroadcastMessage();
+            return Ok();
         }
 
         private bool MauSacExists(int id)

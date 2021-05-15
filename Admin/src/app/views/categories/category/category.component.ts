@@ -22,7 +22,7 @@ this.newBlogForm = new FormGroup({
 Name: new FormControl("",
   [
     Validators.required,
-    Validators.minLength(4),
+    Validators.minLength(2),
   ]),
 TileImage : new FormControl(null)
 });

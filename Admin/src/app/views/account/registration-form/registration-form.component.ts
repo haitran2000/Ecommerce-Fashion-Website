@@ -60,6 +60,7 @@ export class RegistrationFormComponent implements OnInit {
     form.append('FirstName', data.firstName);
     form.append('LastName', data.lastName);
     form.append('Location',data.location);
+    form.append('Quyen','Admin');
     for(let i = 0 ;i<this.selectedFile.length;i++){
       form.append('file',this.selectedFile[0]);
     }

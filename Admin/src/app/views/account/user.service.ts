@@ -40,7 +40,10 @@ export class UserService extends BaseService  {
       )}).subscribe(
         (res : any)=> {
           localStorage.setItem('auth_token', res.auth_token);
-          this.router.navigate(['/dashboard']);
+          if(res.quyen =='Admin'){
+            this.router.navigate(['/dashboard']);
+            console.log(res.quyen)
+          }
           console.log(res.auth_token);
           this.loggedIn = true;
           this._authNavStatusSource.next(true);
