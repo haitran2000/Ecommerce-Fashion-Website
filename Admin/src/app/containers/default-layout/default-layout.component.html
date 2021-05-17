@@ -47,7 +47,7 @@
         <a class="dropdown-item" href="#"><i class="fa fa-file"></i> Projects<span class="badge badge-primary">42</span></a>
         <div class="divider"></div>
         <a class="dropdown-item" href="#"><i class="fa fa-shield"></i> Lock account</a>
-        <a class="dropdown-item" (click)="onSelectedLogout()"><i class="fa fa-lock"></i> Logout</a>
+        <a class="dropdown-item" (click)="onSelectedLogout()" style="cursor: pointer"><i class="fa fa-lock"></i> Logout</a>
       </div>
     </li>
   </ul>
@@ -324,8 +324,8 @@
   <button class="btn btn-secondary" (click)="closeModal();">Close</button>  
   <div style="margin-bottom: 10px;"></div>  
   <div *ngFor="let msg of messages" [ngSwitch]="msg.tranType">  
-    <h3 *ngSwitchCase="'Add'"><span class="badge badge-success">New product '{{msg.tenSanPham}}' added</span></h3>  
-    <h3 *ngSwitchCase="'Edit'"><span class="badge badge-info">Product '{{msg.tenSanPham}}' edited</span></h3>  
-    <h3 *ngSwitchCase="'Delete'"><span class="badge badge-warning">Product '{{msg.tenSanPham}}' deleted</span></h3>  
+    <h3 *ngSwitchCase="'Add'"><span class="badge badge-success">New  '{{msg.tenSanPham}}' added</span></h3>  
+    <h3 *ngSwitchCase="'Edit'"><span class="badge badge-info"> '{{msg.tenSanPham}}' edited</span></h3>  
+    <h3 *ngSwitchCase="'Delete'"><span class="badge badge-warning"> '{{msg.tenSanPham}}' deleted</span></h3>  
   </div>  
 </app-modal>  

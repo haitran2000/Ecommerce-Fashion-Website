@@ -3,7 +3,7 @@ import { ActivatedRoute, Route, Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup } from '@angular/forms';
-import { UserService } from '../account/user.service';
+import { UserService } from '../user.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'login.component.html'

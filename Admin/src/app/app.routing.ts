@@ -23,13 +23,14 @@ import { HoaDonsComponent } from './views/hoa-dons/hoa-dons.component';
 import { ItemSanPhamThietKeComponent } from './views/item-san-pham-thiet-ke/item-san-pham-thiet-ke.component';
 import { ItemsComponent } from './views/items/items.component';
 import { JobSeekesComponent } from './views/job-seekes/job-seekes.component';
-import { LoginComponent } from './views/login/login.component';
+import { LoginComponent } from './views/account/login/login.component';
 import { MauSacsComponent } from './views/mau-sacs/mau-sacs.component';
 import { ProductsComponent } from './views/products/products.component';
 import { RegisterComponent } from './views/register/register.component';
 import { SanPhamSanPhamThietKeComponent } from './views/san-pham-san-pham-thiet-ke/san-pham-san-pham-thiet-ke.component';
 import { SanPhamThietKesComponent } from './views/san-pham-thiet-kes/san-pham-thiet-kes.component';
 import { SizesComponent } from './views/sizes/sizes.component';
+import { ProductdetailComponent } from './views/products/productdetail/productdetail.component';
 
 export const routes: Routes = [
   {
@@ -85,6 +86,10 @@ export const routes: Routes = [
       {
         path: 'product/edit/:id',
         loadChildren: () => import('./views/products/product/product.module').then(m => m.ProductModule),canActivate: [AuthGuard],
+      },
+      {
+        path:'product/detail/:id',
+        component: ProductdetailComponent,canActivate: [AuthGuard],
       },
       {
         path: 'products',

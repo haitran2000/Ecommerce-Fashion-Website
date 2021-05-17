@@ -44,7 +44,7 @@ import { AppComponent } from './app.component';
 import { DefaultLayoutComponent } from './containers';
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
-import { LoginComponent } from './views/login/login.component';
+import { LoginComponent } from './views/account/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 import {MatDialogModule} from '@angular/material/dialog';
 const APP_CONTAINERS = [
@@ -111,6 +111,7 @@ import { ModalComponent } from './modal/modal.component';
 import { SanPhamBienTheComponent } from './views/gia-san-phams/san-pham-bien-the/san-pham-bien-thecomponent';
 import { SanPhamBienThesComponent } from './views/gia-san-phams/san-pham-bien-thes.component';
 import { ItemComponent } from './views/items/item/item.component';
+import { ProfileComponent } from './views/account/profile/profile.component';
 
 
 
@@ -138,7 +139,7 @@ import { ItemComponent } from './views/items/item/item.component';
     FormsModule,
     ReactiveFormsModule ,
     MatDialogModule,
-
+    MatExpansionModule,
 
     //
 
@@ -199,7 +200,8 @@ import { ItemComponent } from './views/items/item/item.component';
     SanPhamBienTheComponent,
     SanPhamBienThesComponent,
    ModalComponent,
-   ItemComponent
+   ItemComponent,
+   ProfileComponent
   ],
   providers: [
     IconSetService,

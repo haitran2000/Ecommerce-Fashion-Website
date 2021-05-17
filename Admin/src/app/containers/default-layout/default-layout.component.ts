@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { navItems } from '../../_nav';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { LoginComponent } from '../../views/login/login.component';
+import { LoginComponent } from '../../views/account/login/login.component';
 import { UserService } from '../../views/account/user.service';
 import { ModalService } from '../../modal/modal.service';  
 import * as signalR from '@microsoft/signalr';  

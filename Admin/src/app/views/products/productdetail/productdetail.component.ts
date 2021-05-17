@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../product.model';
 import { ProductService } from '../product.service';
-
+import { Image } from '@ks89/angular-modal-gallery';
 @Component({
   selector: 'app-productdetail',
   templateUrl: './productdetail.component.html',

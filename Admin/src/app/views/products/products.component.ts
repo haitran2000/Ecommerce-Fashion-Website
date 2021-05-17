@@ -14,7 +14,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ImagesmodelComponent } from './imagesmodel/imagesmodel.component';
-
+import {MatAccordion} from '@angular/material/expansion';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -91,12 +91,15 @@ getAllProducts(){
     this.router.navigate(['product/add']);
   }
   onselectedDetail(){
+    
     this.router.navigate(['product/detail/'+this.service.product.id]);
   }
   onSelectedEdit(){
     this.router.navigate(['product/edit/'+this.service.product.id]);
   }
   displayedColumns: string[] = ['id', 'ten','hinh',
+    'gia',
+    'khuyenMai',
    'trangThaiSanPham',
    'trangThaiSanPhamThietKe',
    'trangThaiHoatDong',
@@ -106,6 +109,10 @@ getAllProducts(){
   product = new Product()
   prducts : Product[]
  
+  detail(selectedRecord:Product){
+    this.service.product = Object.assign({},selectedRecord)
+    this.onselectedDetail()
+  }
   populateForm(selectedRecord:Product){
     this.service.product = Object.assign({},selectedRecord)
     this.onSelectedEdit();

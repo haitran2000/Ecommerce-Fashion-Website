@@ -5,7 +5,7 @@ export class Product {
     moTa:string
     khoiLuong:number
     gia:number
-    tag:number
+    tag:string
     huongDan:string
     thanhPhan:string
     trangThaiSanPham:string
@@ -16,4 +16,6 @@ export class Product {
     giaSanPhams : number
     sanPhamThietKes  : number
     sanPham_SanPhamThietKe : number 
+    tenNhanHieu : string
+    tenLoai : string
 }

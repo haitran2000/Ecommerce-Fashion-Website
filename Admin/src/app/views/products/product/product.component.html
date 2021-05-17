@@ -75,7 +75,7 @@
     <mat-tab label="Thuộc tính cơ bản 2">
      <br>
       <mat-label>Mô tả</mat-label>
-      <ckeditor formControlName="MoTa" [editor]="Editor" required></ckeditor>
+      <ckeditor formControlName="MoTa" [editor]="Editor" [(ngModel)]="service.product.moTa" required></ckeditor>
  
       
       <div *ngIf="MoTa.invalid && (MoTa.dirty || MoTa.touched)" class="alert alert-danger">
@@ -165,7 +165,7 @@
       
       <div class="form-group">
         <span class="label label-default">Loại</span>
-        <select class="form-control" [(ngModel)]="service.product.id_Loai" formControlName="Id_Loai" required>
+        <select class="form-control" [(ngModel)]="service.product.tenLoai" formControlName="Id_Loai" required>
             <option  *ngFor="let category of this.categories"
                 [value]="category.id">{{category.ten}}</option>
         </select>
@@ -178,7 +178,7 @@
     </div>
     <div class="form-group">
       <span class="label label-default">Nhãn hiệu</span>
-      <select class="form-control" [(ngModel)]="service.product.id_NhanHieu" formControlName="Id_NhanHieu" required>
+      <select class="form-control" [(ngModel)]="service.product.tenNhanHieu" formControlName="Id_NhanHieu" required>
           <option  *ngFor="let brand of this.brands"
               [value]="brand.id">{{brand.ten}}</option>
       </select>

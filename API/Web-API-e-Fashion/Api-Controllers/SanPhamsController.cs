@@ -46,6 +46,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                      {
                          Id = s.Id,
                          Ten = s.Ten,
+                         Gia = s.Gia,
+                         Tag = s.Tag,
                          KhuyenMai = s.KhuyenMai,
                          MoTa = s.MoTa,
                          HuongDan = s.HuongDan,
