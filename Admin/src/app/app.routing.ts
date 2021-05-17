@@ -31,6 +31,7 @@ import { SanPhamSanPhamThietKeComponent } from './views/san-pham-san-pham-thiet-
 import { SanPhamThietKesComponent } from './views/san-pham-thiet-kes/san-pham-thiet-kes.component';
 import { SizesComponent } from './views/sizes/sizes.component';
 import { ProductdetailComponent } from './views/products/productdetail/productdetail.component';
+import { ProductComponent } from './views/products/product/product.component';
 
 export const routes: Routes = [
   {
@@ -81,11 +82,11 @@ export const routes: Routes = [
     
       {
         path: 'product/add',
-        loadChildren: () => import('./views/products/product/product.module').then(m => m.ProductModule),canActivate: [AuthGuard],
+      component: ProductComponent, canActivate: [AuthGuard],
       },
       {
         path: 'product/edit/:id',
-        loadChildren: () => import('./views/products/product/product.module').then(m => m.ProductModule),canActivate: [AuthGuard],
+        component: ProductComponent,canActivate: [AuthGuard],
       },
       {
         path:'product/detail/:id',
