@@ -1,0 +1,64 @@
+<ng-template class="theme-modal" #quickView let-modal>
+    <div class="modal-content quick-view-modal">
+        <div class="modal-body">
+            <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="row">
+                <div class="col-lg-6  col-xs-12">
+                    <div class="quick-view-img">
+                        <img [src]="ImageSrc ? ImageSrc : product.images[0].src" [alt]="product.images[0].alt" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-lg-6 rtl-text">
+                    <div class="product-right">
+                        <h2>{{ product.title | titlecase }}</h2>
+                        <h3>{{ product.price * currency?.price | discount:product | currency:currency?.currency:'symbol' }}
+                            <del *ngIf="product?.discount"><span class="money">{{ product.price * currency?.price | currency:currency?.currency:'symbol' }}</span></del>
+                        </h3>
+                        <ul class="color-variant" *ngIf="Color(product.variants).length">
+                            <li [class]="color" *ngFor="let color of Color(product.variants)"
+                                [ngStyle]="{'background-color': color}" (click)="ChangeVariants(color, product)">
+                            </li>
+                        </ul>
+                        <div class="border-product">
+                            <h6 class="product-title">product details</h6>
+                            <p>{{ product.description.substring(0, 200)+'...' }}</p>
+                        </div>
+                        <div class="product-description border-product">
+                            <div class="size-box" *ngIf="Size(product.variants).length">
+                                <ul>
+                                    <li *ngFor="let size of Size(product.variants)">
+                                        <a href="javascript:void(0)">{{ size | titlecase }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <h5 class="avalibility" *ngIf="counter <= product.stock"><span>In Stock</span></h5>
+                            <h5 class="avalibility" *ngIf="counter > product.stock"><span>Out of Stock</span></h5>
+                            <h6 class="product-title">quantity</h6>
+                            <div class="qty-box">
+                                <div class="input-group">
+                                    <span class="input-group-prepend">
+                                        <button type="button" class="btn quantity-left-minus" data-type="minus" (click)="decrement()">
+                                            <i class="ti-angle-left"></i>
+                                        </button>
+                                    </span>
+                                    <input type="text" name="quantity" class="form-control input-number"  [value]="counter" disabled>
+                                    <span class="input-group-prepend">
+                                        <button type="button" class="btn quantity-right-plus" data-type="plus" (click)="increment()">
+                                            <i class="ti-angle-right"></i>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-buttons">
+                            <a href="javascript:void(0)" class="btn btn-solid" [class.disabled]="counter > product.stock" (click)="addToCart(product)">add to cart</a>
+                            <a [routerLink]="['/shop/product/left/sidebar/', product.title.replace(' ', '-')]" class="btn btn-solid">view detail</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

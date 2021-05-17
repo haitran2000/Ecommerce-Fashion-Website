@@ -1,0 +1,62 @@
+<!-- product slider -->
+<section class="section-b-space">
+  <div class="container">
+      <div class="row multiple-slider">
+          <div class="col-lg-3 col-sm-6">
+            <app-product-box-vertical-slider [title]="'New product'"></app-product-box-vertical-slider>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <app-product-box-vertical-slider [title]="'Sell product'"></app-product-box-vertical-slider>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <app-product-box-vertical-slider [title]="'Feature Product'"></app-product-box-vertical-slider>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+            <app-product-box-vertical-slider [title]="'Best Product'"></app-product-box-vertical-slider>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- product slider end -->
+
+<section class="section-b-space">
+  <div class="container">
+      <div class="row partition3 partition_3">
+          <div class="col-lg-4">
+            <div class="theme-card card-border">
+              <app-product-box-vertical-slider [title]="'New product'" [type]="'bags'"></app-product-box-vertical-slider>
+            </div>
+          </div>
+          <div class="col-lg-4 center-slider border-0">
+            <div>
+                <div class="title2">
+                    <h4>on sale</h4>
+                    <h2 class="title-inner2">season sale</h2>
+                </div>
+                <owl-carousel-o class="offer-slider slide-1" [options]="ProductSliderOneConfig">
+                  <ng-container *ngFor="let product of products | slice:0:8">
+                    <ng-template carouselSlide>
+                      <div>
+                        <div class="product-box product-wrap">
+                          <app-product-box-five 
+                            [product]="product" 
+                            [currency]="productService?.Currency"
+                            [thumbnail]="false"
+                            [onHowerChangeImage]="false"
+                            [cartModal]="true">
+                          </app-product-box-five>
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-container>
+                </owl-carousel-o>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="theme-card card-border">
+              <app-product-box-vertical-slider [title]="'Feature product'" [type]="'bags'"></app-product-box-vertical-slider>
+            </div>
+          </div>
+      </div>
+  </div>
+</section>

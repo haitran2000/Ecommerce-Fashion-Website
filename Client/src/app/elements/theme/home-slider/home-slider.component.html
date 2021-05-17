@@ -1,0 +1,59 @@
+<app-breadcrumb [title]="'Elements'" [breadcrumb]="'Home Slider'"></app-breadcrumb>
+
+<div class="container">
+<!-- Home slider start-->
+  <section class="section-b-space">
+    <owl-carousel-o [options]="HomeSliderConfig" class="home-slider">
+      <ng-template carouselSlide>
+        <div class="home text-center" [ngStyle]="{'background-image': 'url(assets/images/slider/1.jpg)'}">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <div class="slider-contain">
+                  <div>
+                    <h4>welcome to fashion</h4>
+                    <h1>Men fashion</h1>
+                    <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}" class="btn btn-solid">shop now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template carouselSlide>
+        <div class="home text-center" [ngStyle]="{'background-image': 'url(assets/images/slider/2.jpg)'}">
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                <div class="slider-contain">
+                  <div>
+                    <h4>welcome to fashion</h4>
+                    <h1>Women fashion</h1>
+                    <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}" class="btn btn-solid">shop now</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </owl-carousel-o>
+  </section>
+<!-- Home slider End -->
+</div>
+
+<div class="container section-b-space">
+  <div class="row">
+      <div class="col">
+          <div class="card">
+              <h5 class="card-header">Classes</h5>
+              <div class="card-body">
+                  <h5 class="card-title">For Parallax Image - .parallax</h5>
+                  <h5>contain-align - .text-left, .text-center, .text-right</h5>
+                  <h5>contain-position - .p-left, .p-center, .p-right</h5>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

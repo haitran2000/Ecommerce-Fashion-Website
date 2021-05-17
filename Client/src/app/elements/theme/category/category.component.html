@@ -1,0 +1,292 @@
+<app-breadcrumb [title]="'Elements'" [breadcrumb]="'Category'"></app-breadcrumb>
+<!-- category 1 -->
+<div class="container">
+    <section class="section-b-space">
+        <div class="row">
+            <div class="col">
+                <div class="slide-6 no-arrow">
+                    <owl-carousel-o [options]="CategorySliderConfig">
+                        <ng-template carouselSlide>
+                            <div class="category-block">
+                                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                    <div class="category-image">
+                                        <img src="assets/images/icon/cat1.png" alt="" class="w-auto">
+                                    </div>
+                                </a>
+                                <div class="category-details">
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                        <h5>sport shoes</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template carouselSlide>
+                            <div class="category-block">
+                                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                    <div class="category-image">
+                                        <img src="assets/images/icon/cat2.png" alt="" class="w-auto">
+                                    </div>
+                                </a>
+                                <div class="category-details">
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                        <h5>casual shoes</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template carouselSlide>
+                            <div class="category-block">
+                                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                    <div class="category-image">
+                                        <img src="assets/images/icon/cat3.png" alt="" class="w-auto">
+                                    </div>
+                                </a>
+                                <div class="category-details">
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                        <h5>formal shoes</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template carouselSlide>
+                            <div class="category-block">
+                                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                    <div class="category-image">
+                                        <img src="assets/images/icon/cat4.png" alt="" class="w-auto">
+                                    </div>
+                                </a>
+                                <div class="category-details">
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                        <h5>flat</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template carouselSlide>
+                            <div class="category-block">
+                                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                    <div class="category-image">
+                                        <img src="assets/images/icon/cat5.png" alt="" class="w-auto">
+                                    </div>
+                                </a>
+                                <div class="category-details">
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                        <h5>heels</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template carouselSlide>
+                            <div class="category-block">
+                                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                    <div class="category-image">
+                                        <img src="assets/images/icon/cat6.png" alt="" class="w-auto">
+                                    </div>
+                                </a>
+                                <div class="category-details">
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                        <h5>boots</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template carouselSlide>
+                            <div class="category-block">
+                                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                    <div class="category-image">
+                                        <img src="assets/images/icon/cat2.png" alt="" class="w-auto">
+                                    </div>
+                                </a>
+                                <div class="category-details">
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                        <h5>casual shoes</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template carouselSlide>
+                            <div class="category-block">
+                                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                    <div class="category-image">
+                                        <img src="assets/images/icon/cat3.png" alt="" class="w-auto">
+                                    </div>
+                                </a>
+                                <div class="category-details">
+                                    <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                                        <h5>casual shoes</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </owl-carousel-o>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- category 2 -->
+<section class="p-0">
+    <div class="container-fluid">
+        <div class="row category-border">
+            <div class="col-sm-4 border-padding">
+                <div class="category-banner">
+                    <div>
+                        <img src="assets/images/categories/14.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="category-box">
+                        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
+                            <h2>men</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 border-padding">
+                <div class="category-banner">
+                    <div>
+                        <img src="assets/images/categories/15.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="category-box">
+                        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
+                            <h2>women</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 border-padding">
+                <div class="category-banner">
+                    <div>
+                        <img src="assets/images/categories/16.png" class="img-fluid" alt="">
+                    </div>
+                    <div class="category-box">
+                        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'fashion'}">
+                            <h2>kids</h2>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- category 3 -->
+<div class="container category-button">
+    <section class="section-b-space">
+        <div class="row partition1">
+            <div class="col"><a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}" class="btn btn-outline btn-block">airbag</a></div>
+            <div class="col"><a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}" class="btn btn-outline btn-block">burn bag</a></div>
+            <div class="col"><a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}" class="btn btn-outline btn-block">briefcase</a></div>
+            <div class="col"><a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}" class="btn btn-outline btn-block">carpet</a></div>
+            <div class="col"><a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}" class="btn btn-outline btn-block">money bag</a></div>
+            <div class="col"><a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}" class="btn btn-outline btn-block">tucker</a></div>
+        </div>
+    </section>
+</div>
+
+<!-- category 4 -->
+<div class="category-bg">
+    <div class="container-fluid p-0">
+        <div class="row order-section">
+            <div class="col-sm-4 p-0">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}" class="image-block">
+                    <img alt="" src="assets/images/categories/11.jpg" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-sm-4 p-0">
+                <div class="contain-block even">
+                    <div>
+                        <h6>new products</h6>
+                        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}">
+                            <h2>zipper storage bag</h2>
+                        </a>
+                        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}" class="btn btn-solid category-btn">-80% off</a>
+                        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}">
+                            <h6><span>shop now</span></h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 p-0">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}" class="image-block">
+                    <img alt="" src="assets/images/categories/12.jpg" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-sm-4 p-0">
+                <div class="contain-block">
+                    <div>
+                        <h6>on sale</h6>
+                        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}">
+                            <h2>tucker bag</h2>
+                        </a> 
+                        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}" class="btn btn-solid category-btn">save 30% off</a>
+                        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}">
+                            <h6><span>shop now</span></h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 p-0">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}" class="image-block even">
+                    <img alt="" src="assets/images/categories/13.jpg" class="img-fluid">
+                </a>
+            </div>
+            <div class="col-sm-4 p-0">
+                <div class="contain-block">
+                    <div>
+                        <h6>summer sale</h6>
+                        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}">
+                            <h2>gate check bag</h2>
+                        </a> 
+                        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}" class="btn btn-solid category-btn">minimum 50% off</a>
+                        <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'bags'}">
+                            <h6><span>shop now</span></h6>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- category 5 -->
+<section class="section-b-space">
+    <div class="container">
+        <div class="row background">
+            <div class="col">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                    <div class="contain-bg">
+                        <h4 data-hover="size 06">size 06</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                    <div class="contain-bg">
+                        <h4>size 07</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                    <div class="contain-bg">
+                        <h4>size 08</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                    <div class="contain-bg">
+                        <h4>size 09</h4>
+                    </div>
+                </a>
+            </div>
+            <div class="col">
+                <a [routerLink]="['/shop/collection/left/sidebar']" [queryParams]="{ category: 'shoes'}">
+                    <div class="contain-bg">
+                        <h4>size 10</h4>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

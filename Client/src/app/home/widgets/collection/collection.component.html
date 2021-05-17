@@ -1,0 +1,20 @@
+<owl-carousel-o [options]="CollectionSliderConfig" class="category-m no-arrow">
+  <ng-container *ngFor="let cats of categories">
+    <ng-template carouselSlide>
+      <div>
+        <div class="category-wrapper" [ngClass]="class">
+          <div>
+            <img [src]="cats.image" class="img-fluid w-auto" alt="">
+            <h4>{{cats.title}}</h4>
+            <ul class="category-link" [innerHTML]="cats.text"></ul>
+            <a [routerLink]="['/shop/collection/left/sidebar']"
+               [queryParams]="{ category: category}"
+               class="btn btn-outline">
+               view more
+            </a>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+</owl-carousel-o>
