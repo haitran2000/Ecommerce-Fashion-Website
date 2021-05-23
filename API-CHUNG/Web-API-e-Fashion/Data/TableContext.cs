@@ -9,7 +9,7 @@ namespace Web_API_e_Fashion.Data
 {
     public partial class DPContext
     {
-
+        public DbSet<NotificationCheckout> NotificationCheckouts { get; set; }
         public DbSet<JobSeeker> JobSeekers { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }

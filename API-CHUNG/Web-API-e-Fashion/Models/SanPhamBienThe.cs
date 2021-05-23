@@ -18,6 +18,7 @@ namespace Web_API_e_Fashion.Models
         public int? Id_Mau { get; set; }
         [ForeignKey("Id_Mau")]
         public virtual MauSac MauSac { get; set; }
+        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDon { get; set; }
         public int? SizeId { get; set; }
         [ForeignKey("SizeId")]
         public virtual Size Size { get; set; }

@@ -248,7 +248,7 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<int?>("Id_HoaDon")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Id_SanPham")
+                    b.Property<int?>("Id_SanPhamBienThe")
                         .HasColumnType("int");
 
                     b.Property<int>("Soluong")
@@ -261,7 +261,7 @@ namespace Web_API_e_Fashion.Migrations
 
                     b.HasIndex("Id_HoaDon");
 
-                    b.HasIndex("Id_SanPham");
+                    b.HasIndex("Id_SanPhamBienThe");
 
                     b.ToTable("ChiTietHoaDons");
                 });
@@ -439,6 +439,21 @@ namespace Web_API_e_Fashion.Migrations
                     b.ToTable("Notifications");
                 });
 
+            modelBuilder.Entity("Web_API_e_Fashion.Models.NotificationCheckout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ThongBaoMaDonHang")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NotificationCheckouts");
+                });
+
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPham", b =>
                 {
                     b.Property<int>("Id")
@@ -607,6 +622,9 @@ namespace Web_API_e_Fashion.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("DiaChi")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -617,6 +635,9 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Quyen")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SDT")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("AppUser");
@@ -688,13 +709,13 @@ namespace Web_API_e_Fashion.Migrations
                         .WithMany("ChiTietHoaDons")
                         .HasForeignKey("Id_HoaDon");
 
-                    b.HasOne("Web_API_e_Fashion.Models.SanPham", "SanPham")
+                    b.HasOne("Web_API_e_Fashion.Models.SanPhamBienThe", "SanPhamBienThe")
                         .WithMany("ChiTietHoaDon")
-                        .HasForeignKey("Id_SanPham");
+                        .HasForeignKey("Id_SanPhamBienThe");
 
                     b.Navigation("HoaDon");
 
-                    b.Navigation("SanPham");
+                    b.Navigation("SanPhamBienThe");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.HoaDon", b =>
@@ -838,11 +859,14 @@ namespace Web_API_e_Fashion.Migrations
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPham", b =>
                 {
-                    b.Navigation("ChiTietHoaDon");
-
                     b.Navigation("SanPham_SanPhamThietKes");
 
                     b.Navigation("SanPhamBienThes");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.SanPhamBienThe", b =>
+                {
+                    b.Navigation("ChiTietHoaDon");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPhamThietKe", b =>

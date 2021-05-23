@@ -26,7 +26,6 @@ namespace Web_API_e_Fashion.Models
         public string? TrangThaiSanPham { get; set; }
         public string? TrangThaiSanPhamThietKe { get; set; }
         public string? TrangThaiHoatDong { get; set; }
-        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDon { get; set; }
         public int? Id_NhanHieu { get; set; }
         [ForeignKey("Id_NhanHieu")]
         public virtual NhanHieu NhanHieu { get; set; }

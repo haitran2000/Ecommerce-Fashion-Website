@@ -8,6 +8,8 @@ namespace Web_API_e_Fashion.Models
 {
     public class AppUser : IdentityUser
     {
+        public string DiaChi { get;set; }
+        public string SDT { get; set; }
         public string ImagePath { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
