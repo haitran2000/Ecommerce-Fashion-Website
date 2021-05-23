@@ -23,16 +23,22 @@
         (click)="openModal()">  
         {{this.notification.count}}</div>  
       
+
+       
     </li>
     <li class="nav-item d-md-down-none">
-      <a class="nav-link" href="#"><i class="icon-list"></i></a>
+      <i class="fa fa-bell has-badge" style="cursor: pointer;color: rgb(43, 241, 16); width: 90px;" (click)="openModalCheckOut()"></i>  
+      <div class="numberCircle" *ngIf="notificationCheckOut && notificationCheckOut?.count>0" style="cursor: pointer;color: black;"  
+        (click)="openModalCheckOut()">  
+      {{this.notificationCheckOut.count}}
+    </div>  
     </li>
     <li class="nav-item d-md-down-none">
       <a class="nav-link" href="#"><i class="icon-location-pin"></i></a>
     </li>
     <li class="nav-item dropdown" dropdown placement="bottom right">
       <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
-        <strong>Hello : {{this.user.email}}</strong><img src="https://localhost:44302/Resources/Images/user/{{user.imagePath}}" class="img-avatar" alt="admin@bootstrapmaster.com"/>
+       <!--  <strong>Hello : {{this.user.email}}</strong><img src="https://localhost:44302/Resources/Images/user/{{user.imagePath}}" class="img-avatar" alt="admin@bootstrapmaster.com"/> -->
       </a>
       <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
         <div class="dropdown-header text-center"><strong>Account</strong></div>
@@ -327,5 +333,14 @@
     <h3 *ngSwitchCase="'Add'"><span class="badge badge-success">New  '{{msg.tenSanPham}}' added</span></h3>  
     <h3 *ngSwitchCase="'Edit'"><span class="badge badge-info"> '{{msg.tenSanPham}}' edited</span></h3>  
     <h3 *ngSwitchCase="'Delete'"><span class="badge badge-warning"> '{{msg.tenSanPham}}' deleted</span></h3>  
+  </div>  
+</app-modal>  
+
+
+<app-modal id="custom-modal-checkout">  
+  <button class="btn btn-secondary" (click)="closeModalCheckOut();">Close</button>  
+  <div style="margin-bottom: 10px;"></div>  
+  <div *ngFor="let msg of messagesCheckOut" [ngSwitch]="msg.tranType">  
+    <h3 ><span class="badge badge-success">New  '{{msg.thoangBaoMaDonHang}}' added</span></h3> <button mat-button (click)="routeCheckOut()">Xem</button>
   </div>  
 </app-modal>  

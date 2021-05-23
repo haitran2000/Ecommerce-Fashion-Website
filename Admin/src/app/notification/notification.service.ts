@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';  
 import { catchError } from 'rxjs/operators';  
 
-import { NotificationCountResult, NotificationResult } from './notification';  
+import { NotificationCheckOutCountResult, NotificationCountResult, NotificationResult,NotificationCheckOutResult } from './notification';  
   
 @Injectable({  
   providedIn: 'root'  
@@ -48,5 +48,20 @@ export class NotificationService {
     }  
     console.error(err);  
     return throwError(errorMessage);  
+  }  
+
+  getNotificationCheckOutCount(): Observable<NotificationCheckOutCountResult> {  
+    const url = 'https://localhost:44302/api/notificationcheckout/notificationcheckoutcount';  
+    return this.http.get<NotificationCheckOutCountResult>(url)  
+      .pipe(  
+        catchError(this.handleError)  
+      );  
+  }  
+  getNotificationCheckOutMessage(): Observable<Array<NotificationCheckOutResult>> {  
+    const url = 'https://localhost:44302/api/notificationcheckout/notificationcheckoutresult';
+    return this.http.get<Array<NotificationCheckOutResult>>(url)  
+      .pipe(  
+        catchError(this.handleError)  
+      );  
   }  
 }  

@@ -1,5 +1,5 @@
-//
 
+ 
 
 import { CommonModule } from '@angular/common';
 
@@ -66,7 +66,7 @@ import { AppRoutingModule } from './app.routing';
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ChartsModule } from 'ng2-charts';
+
 import { OrdersTableComponent } from './orders-table/orders-table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -76,7 +76,7 @@ import { UserdetailComponent } from './containers/userdetail/userdetail.componen
 
 
 import { BrandsComponent } from './views/brands/brands.component';
-import { UsersComponent } from './views/users/users.component';
+
 
 import { ItemSanPhamThietKeComponent } from './views/item-san-pham-thiet-ke/item-san-pham-thiet-ke.component';
 import { ItemsComponent } from './views/items/items.component';
@@ -113,12 +113,19 @@ import { SanPhamBienThesComponent } from './views/gia-san-phams/san-pham-bien-th
 import { ItemComponent } from './views/items/item/item.component';
 import { ProfileComponent } from './views/account/profile/profile.component';
 
+import { HoaDonComponent } from './views/hoa-dons/hoa-don/hoa-don.component';
+import { ChiTietHoaDonComponent } from './views/chi-tiet-hoa-dons/chi-tiet-hoa-don/chi-tiet-hoa-don.component';
+import { ChartsModule } from 'ng2-charts';
+
+
+
 
 
 
 
 @NgModule({
   imports: [
+    ChartsModule,
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
@@ -131,7 +138,7 @@ import { ProfileComponent } from './views/account/profile/profile.component';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule,
+
     IconModule,
     IconSetModule.forRoot(),
     MatTableModule,
@@ -170,7 +177,6 @@ import { ProfileComponent } from './views/account/profile/profile.component';
     OrdersTableComponent,
     UserdetailComponent,
     BrandsComponent,
-    UsersComponent,
     ItemSanPhamThietKeComponent,
     ItemsComponent,
     MauSacsComponent,
@@ -201,7 +207,11 @@ import { ProfileComponent } from './views/account/profile/profile.component';
     SanPhamBienThesComponent,
    ModalComponent,
    ItemComponent,
-   ProfileComponent
+   ProfileComponent,
+
+   HoaDonComponent,
+     ChiTietHoaDonComponent,
+ 
   ],
   providers: [
     IconSetService,

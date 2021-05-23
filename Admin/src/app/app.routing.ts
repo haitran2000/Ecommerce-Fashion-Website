@@ -32,6 +32,10 @@ import { SanPhamThietKesComponent } from './views/san-pham-thiet-kes/san-pham-th
 import { SizesComponent } from './views/sizes/sizes.component';
 import { ProductdetailComponent } from './views/products/productdetail/productdetail.component';
 import { ProductComponent } from './views/products/product/product.component';
+import { HoaDonComponent } from './views/hoa-dons/hoa-don/hoa-don.component';
+
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { ChartJSComponent } from './views/chartjs/chartjs.component';
 
 export const routes: Routes = [
   {
@@ -39,6 +43,7 @@ export const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full',
   },
+  
   {
     path: '404',
     component: P404Component,
@@ -77,7 +82,11 @@ export const routes: Routes = [
      
       {
         path: 'dashboard',
-        loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule),canActivate: [AuthGuard],
+       component: DashboardComponent,canActivate: [AuthGuard],
+      },
+      {
+        path: 'chartjs',
+       component: ChartJSComponent,canActivate: [AuthGuard],
       },
     
       {
@@ -183,6 +192,10 @@ export const routes: Routes = [
       {
         path: 'sanpham_sanphamthietke',
         component: SanPhamSanPhamThietKeComponent,canActivate: [AuthGuard],
+      },
+      {
+        path: 'hoadon/detail/:id',
+        component: HoaDonComponent,canActivate: [AuthGuard],
       },
     ]
   },

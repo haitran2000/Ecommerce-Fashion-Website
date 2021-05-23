@@ -6,7 +6,7 @@ import { LoginComponent } from '../../views/account/login/login.component';
 import { UserService } from '../../views/account/user.service';
 import { ModalService } from '../../modal/modal.service';  
 import * as signalR from '@microsoft/signalr';  
-import { NotificationCountResult, NotificationResult } from '../../Notification/notification';  
+import { NotificationCheckOutCountResult, NotificationCheckOutResult, NotificationCountResult, NotificationResult } from '../../Notification/notification';  
 import { NotificationService } from '../../Notification/notification.service';  
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +18,11 @@ export class DefaultLayoutComponent implements OnInit{
   messages: Array<NotificationResult>;  
   errorMessage = '';  
   
+
+  notificationCheckOut: NotificationCheckOutCountResult;  
+  messagesCheckOut: Array<NotificationCheckOutResult>;  
+
+
   constructor(
     private notificationService: NotificationService, 
     private modalService: ModalService,
@@ -40,6 +45,7 @@ export class DefaultLayoutComponent implements OnInit{
       
     }
   );
+  this.getNotificationCheckOutCount();
   this.getNotificationCount();  
   const connection = new signalR.HubConnectionBuilder()  
     .configureLogging(signalR.LogLevel.Information)  
@@ -55,8 +61,10 @@ export class DefaultLayoutComponent implements OnInit{
   connection.on("BroadcastMessage", () => {  
     this.getNotificationCount();  
   });  
+  connection.on("BroadcastMessage", () => {  
+    this.getNotificationCheckOutCount();  
+  });  
   }
-
   collapse() {  
     this.isExpanded = false;  
   }  
@@ -65,6 +73,28 @@ export class DefaultLayoutComponent implements OnInit{
     this.isExpanded = !this.isExpanded;  
   }  
   
+
+
+  getNotificationCheckOutCount() {  
+    this.notificationService.getNotificationCheckOutCount().subscribe(  
+      notification => {  
+        this.notificationCheckOut = notification;  
+      },  
+      error => this.errorMessage = <any>error  
+    );  
+  }  
+  
+  getNotificationCheckOutMessage() {  
+    this.notificationService.getNotificationCheckOutMessage().subscribe(  
+      messages => {  
+        this.messagesCheckOut = messages;  
+      },  
+      error => this.errorMessage = <any>error  
+    );  
+  }  
+
+
+
   getNotificationCount() {  
     this.notificationService.getNotificationCount().subscribe(  
       notification => {  
@@ -103,11 +133,28 @@ export class DefaultLayoutComponent implements OnInit{
     this.modalService.close('custom-modal');  
   }  
 
+
+  openModalCheckOut() {  
+    this.getNotificationCheckOutMessage();  
+    this.modalService.open('custom-modal-checkout');  
+  }  
+  
+  closeModalCheckOut() {  
+    this.modalService.close('custom-modal-checkout');  
+  }  
+
   public sidebarMinimized = false;
   public navItems = navItems;
 
   toggleMinimize(e) {
     this.sidebarMinimized = e;
+  }
+
+  routeCheckOut(){
+    this.modalService.close('custom-modal-checkout');
+    this.modalService.close('custom-modal');  
+    this.router.navigate(['/hoadons']);
+  
   }
 }
 export class UserIdenity {

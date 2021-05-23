@@ -2,13 +2,17 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
-    name: 'Dashboard',
+    name: 'Tổng quan',
     url: '/dashboard',
     icon: 'icon-speedometer',
     badge: {
       variant: 'info',
       text: 'NEW'
     }
+  },
+  {
+    name: 'chartjs',
+    url: 'chartjs',
   },
   {
     name: 'DS sản phẩm',
@@ -50,16 +54,16 @@ export const navItems: INavData[] = [
     url: '/items',
   },
   {
-    name: 'Item_SPThietKe',
+    name: 'DS item Sản phẩm thiết kế',
     url: '/item_sanphamthietke',
   
   },
   {
-    name: 'ChiTietHoaDons',
+    name: 'DS chi tiết hóa đơn',
     url: '/chitiethoadons',
   },
   {
-    name: 'HoaDons',
+    name: 'DS hóa đơn',
     url: '/hoadons',
   },
   {

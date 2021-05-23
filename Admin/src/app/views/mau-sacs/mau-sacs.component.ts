@@ -68,3 +68,13 @@ export class MauSac{
   maMau : string
   id_Loai : number
 }
+
+export class User{
+  id : string
+  ImagePath:string
+  imagePath: string
+  userName:string
+  lastName:string
+  firstName:string
+  quyen:string
+}
