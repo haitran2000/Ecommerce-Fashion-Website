@@ -71,7 +71,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "ng:build:production"
+              "browserTarget": "ng:build:production",
+              "proxyConfig": "./proxy.conf.json"
             }
           }
         },

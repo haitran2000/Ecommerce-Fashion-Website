@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
-import {ProductService} from './product.service'
+import {Product, ProductService} from './product.service'
 import * as signalR from '@microsoft/signalr';  
-import {Product} from './product.model'
+
 import {AfterViewInit,ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {ImageProduct, ProductComponent} from './product/product.component'
@@ -15,6 +15,9 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ImagesmodelComponent } from './imagesmodel/imagesmodel.component';
 import {MatAccordion} from '@angular/material/expansion';
+import { ToastServiceService } from '../../shared/toast-service.service';
+import { SanPhamBienTheService } from '../gia-san-phams/san-pham-bien-the.service';
+import { SanPhamBienThe } from '../gia-san-phams/san-pham-bien-thes.component';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -27,14 +30,16 @@ export class ProductsComponent implements OnInit,AfterViewInit {
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   imageproductList: any[];
-  constructor(public service:ProductService,
+  constructor(public servicespbt:SanPhamBienTheService,
+              public service:ProductService,
               private breakpointObserver: BreakpointObserver, 
               public router : Router,
               public http: HttpClient,
-              public dialog: MatDialog,) { }
+              public dialog: MatDialog,
+              public serviceToast : ToastServiceService,) { }
 public dataSource = new MatTableDataSource<Product>();
 
-readonly url="https://localhost:44302/api/sanphams"
+readonly url="https://localhost:5001/api/sanphams"
 get(){
   return this.http.get(this.url)
 }
@@ -51,7 +56,7 @@ getAllProducts(){
     this.getAllProducts();
     const connection = new signalR.HubConnectionBuilder()  
     .configureLogging(signalR.LogLevel.Information)  
-    .withUrl('https://localhost:44302/notify')  
+    .withUrl('https://localhost:5001/notify')  
     .build();  
 
   connection.start().then(function () {  
@@ -66,7 +71,7 @@ getAllProducts(){
   }
   populateImageProduct(selectedRecord:Product){
     this.service.product = Object.assign({},selectedRecord)
-    this.http.get("https://localhost:44302/api/SanPhamBienThes/spbt/"+this.service.product.id).subscribe(
+    this.http.get("https://localhost:5001/api/SanPhamBienThes/spbt/"+this.service.product.id).subscribe(
       res=>{
         this.imageproductList = res as ImageProduct[]
         console.log( this.imageproductList)
@@ -94,6 +99,9 @@ getAllProducts(){
     
     this.router.navigate(['product/detail/'+this.service.product.id]);
   }
+  onSelectedThietKe(a: SanPhamBienThe){
+    this.servicespbt.sanphambienthe = a
+  } 
   onSelectedEdit(){
     this.router.navigate(['product/edit/'+this.service.product.id]);
   }
@@ -123,6 +131,10 @@ getAllProducts(){
     this.service.delete(id).subscribe(
       res=>{
         this.getAllProducts()
+        this.serviceToast.showToastXoaThanhCong()
+        }
+        ,err=>{
+          this.serviceToast.showToastXoaThatBai()
         }
       )
     }

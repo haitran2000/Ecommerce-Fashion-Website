@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="IIS Web Application Name" description="" value="dethaytien" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^D:\\DO-AN-TOT-NGHIEP\\Web-API-e-Fashion\\Web-API-e-Fashion\\obj\\Release\\net5\.0\\PubTmp\\Out\\$" />
-  </parameter>
-</parameters>

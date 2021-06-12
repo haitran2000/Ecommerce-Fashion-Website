@@ -36,7 +36,7 @@ export class DefaultLayoutComponent implements OnInit{
     this.userService.logout()
   }
   ngOnInit(): void {
-  this.http.get("https://localhost:44302/api/Auth/AuthHistory").subscribe(
+  this.http.get("https://localhost:5001/api/Auth/AuthHistory").subscribe(
     res=>{
       this.user = res as UserIdenity
       console.log(this.user)
@@ -49,7 +49,7 @@ export class DefaultLayoutComponent implements OnInit{
   this.getNotificationCount();  
   const connection = new signalR.HubConnectionBuilder()  
     .configureLogging(signalR.LogLevel.Information)  
-    .withUrl('https://localhost:44302/notify')  
+    .withUrl('https://localhost:5001/notify')  
     .build();  
 
   connection.start().then(function () {  

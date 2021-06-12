@@ -6,9 +6,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { BrandService } from './brand.service';
+import { Brand, BrandService } from './brand.service';
 import { BrandComponent } from './brand/brand.component';
-
+import { NotifierService } from 'angular-notifier';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-brands',
   templateUrl: './brands.component.html',
@@ -16,7 +17,7 @@ import { BrandComponent } from './brand/brand.component';
 })
 export class BrandsComponent implements OnInit, AfterViewInit {
 
-  
+  private readonly notifier: NotifierService;
   @ViewChild(MatSort) sort: MatSort;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -24,8 +25,10 @@ export class BrandsComponent implements OnInit, AfterViewInit {
   constructor(public service:BrandService,
               public router : Router,
               public http: HttpClient,
-              public dialog: MatDialog,) { }
-public dataSource = new MatTableDataSource<Brand>();
+              public dialog: MatDialog,
+              public toastr: ToastrService,
+              notifierService: NotifierService) {  this.notifier = notifierService; }
+
 displayedColumns: string[] = ['id', 'ten','hinh','thongTin',
   'actions'];
 
@@ -33,6 +36,8 @@ displayedColumns: string[] = ['id', 'ten','hinh','thongTin',
   public brand :  Brand
   ngOnInit(): void {
     this.service.getAllBrands();
+
+
   }
   
   ngAfterViewInit(): void {
@@ -41,14 +46,21 @@ displayedColumns: string[] = ['id', 'ten','hinh','thongTin',
   }
 
   onModalDialog(){
+ 
     this.service.brand = new Brand()
+  
     this.dialog.open(BrandComponent)
   }
 
  doFilter = (value: string) => {
   this.service.dataSource.filter = value.trim().toLocaleLowerCase();
 }
-
+showToastXoaThanhCong(){
+  this.toastr.success("Xóa thành công")
+}
+showToastXoaThatBai(){
+  this.toastr.error("Xóa thất bại")
+}
   populateForm(selectedRecord:Brand){
     this.service.brand = Object.assign({},selectedRecord)
     this.dialog.open(BrandComponent)
@@ -59,13 +71,11 @@ displayedColumns: string[] = ['id', 'ten','hinh','thongTin',
     this.service.delete(id).subscribe(
       res=>{
         this.service.getAllBrands()
+        this.showToastXoaThanhCong()
+      }
+      ,err=>{
+        this.showToastXoaThatBai()
       }
     )
 }
 }}
-export class Brand{
-  id : number = 0
-  ten : string
-  thongTin : string 
-  imagePath : string 
-}

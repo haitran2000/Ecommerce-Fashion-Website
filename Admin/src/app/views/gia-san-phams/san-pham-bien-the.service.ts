@@ -12,7 +12,8 @@ export class SanPhamBienTheService{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public dataSource = new MatTableDataSource<SanPhamBienThe>();
     sanphambienthe:SanPhamBienThe = new SanPhamBienThe()
-    readonly url="https://localhost:44302/api/sanphambienthes"
+    spbts: SanPhamBienThe[]
+    readonly url="https://localhost:5001/api/sanphambienthes"
     constructor(public http:HttpClient) { }
     get(){
       return this.http.get(this.url)
@@ -21,9 +22,10 @@ export class SanPhamBienTheService{
       return this.http.delete(`${this.url}/${id}`)
     }
     getAllSanPhamBienThes(){
-      this.http.get("https://localhost:44302/api/sanphambienthes").subscribe(
+      this.http.get("https://localhost:5001/api/sanphambienthes").subscribe(
         res=>{
           this.dataSource.data = res as SanPhamBienThe[];
+          this.spbts = res as SanPhamBienThe[];
         }
       )
     }

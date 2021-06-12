@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SizesComponent } from '../sizes.component';
 import { SizeService } from '../size.service';
 import { CategoryService } from '../../categories/category.service';
+import { ToastServiceService } from '../../../shared/toast-service.service';
 
 @Component({
   selector: 'app-size',
@@ -14,14 +15,15 @@ export class SizeComponent implements OnInit {
   categories: any[] = [];
   public categorysComponent : SizesComponent
   constructor(public service : SizeService,
-    public http :HttpClient ,
-    public serviceCategory : CategoryService,
-  )  {
-    this.serviceCategory.get().subscribe(
-      data=>{
-        Object.assign(this.categories,data)
-      }
-      )
+              public http :HttpClient ,
+              public serviceToast : ToastServiceService,
+              public serviceCategory : CategoryService,
+              ) {
+                this.serviceCategory.get().subscribe(
+                  data=>{
+                  Object.assign(this.categories,data)
+              }
+              )
    }
 get TenSize() { return this.newBlogForm.get('TenSize'); }
 get Id_Loai() { return this.newBlogForm.get('Id_Loai'); }
@@ -50,10 +52,13 @@ const formData = new FormData();
 formData.append('Id_Loai', data.Id_Loai);
 formData.append('TenSize',data.TenSize);
 console.log(data)
-this.http.post('https://localhost:44302/api/sizes', formData)
+this.http.post('https://localhost:5001/api/sizes', formData)
 .subscribe(res => {
+this.serviceToast.showToastThemThanhCong()
 this.service.getAllSizes();
 this.service.size.id=0;
+},err=>{
+  this.serviceToast.showToastThemThatBai()
 });
 this.newBlogForm.reset();
 }
@@ -62,10 +67,13 @@ else
 const formData = new FormData();
 formData.append('Id_Loai', data.Id_Loai);
 formData.append('TenSize',data.TenSize);
-this.http.put('https://localhost:44302/api/sizes/'+`${this.service.size.id}`, formData)
+this.http.put('https://localhost:5001/api/sizes/'+`${this.service.size.id}`, formData)
 .subscribe(res=>{
+  this.serviceToast.showToastSuaThanhCong()
   this.service.getAllSizes();
 this.service.size.id=0;
+},err=>{
+  this.serviceToast.showToastSuaThatBai()
 });
 }
 }

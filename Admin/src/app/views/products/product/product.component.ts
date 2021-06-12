@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms'
-import { ProductService } from '../product.service';
+import { Product, ProductService } from '../product.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Router } from '@angular/router';
-import { Product } from '../product.model';
+
 import { CategoryService } from '../../categories/category.service';
 import { BrandService } from '../../brands/brand.service';
+import { ToastServiceService } from '../../../shared/toast-service.service';
 
 @Component({
   selector: 'app-product',
@@ -48,6 +49,7 @@ export class ProductComponent implements OnInit {
   constructor(public service : ProductService,
               public http: HttpClient,
               public router : Router,
+              public serviceToast : ToastServiceService,
               public serviceCategory : CategoryService,
               public serviceBrand : BrandService) {   
                }
@@ -83,7 +85,7 @@ export class ProductComponent implements OnInit {
         }
       )
       
-   /*  this.http.get("https://localhost:44302/api/ImageSanPhams/"+this.service.product.id).subscribe(
+   /*  this.http.get("https://localhost:5001/api/ImageSanPhams/"+this.service.product.id).subscribe(
       res=>{
         this.imageproductList = res as ImageProduct[]
         console.log( this.imageproductList)
@@ -186,14 +188,18 @@ export class ProductComponent implements OnInit {
         form.append('TrangThaiHoatDong',data.TrangThaiHoatDong);
        var json_arr = JSON.stringify(data);
        console.log(json_arr)
-        this.http.post('https://localhost:44302/api/sanphams', form)
+        this.http.post('https://localhost:5001/api/sanphams', form)
         .subscribe(res => {
+          this.serviceToast.showToastThemThanhCong()
           this.resetForm()
          this.service.getAllProducts();
          this.service.product.id=0;
          this.onSelectedList();
          this.clearForm();
-        });
+        },err=>{
+          this.serviceToast.showToastXoaThatBai()
+        }
+        );
       }
       else
       {
@@ -210,13 +216,16 @@ export class ProductComponent implements OnInit {
         form.append('TrangThaiSanPham',data.TrangThaiSanPham);
         form.append('TrangThaiSanPhamThietKe',data.TrangThaiSanPhamThietKe);
         form.append('TrangThaiHoatDong',data.TrangThaiHoatDong);
-        this.http.put('https://localhost:44302/api/sanphams/'+`${this.service.product.id}`, form)
+        this.http.put('https://localhost:5001/api/sanphams/'+`${this.service.product.id}`, form)
         .subscribe(res=>{
+          this.serviceToast.showToastSuaThanhCong()
          this.resetForm()
           this.service.getAllProducts();
           this.service.product.id=0;
           this.onSelectedList();
           this.clearForm();
+        },err=>{
+          this.serviceToast.showToastSuaThatBai()
         });
     
       }
@@ -225,7 +234,6 @@ export class ProductComponent implements OnInit {
       this.newForm.reset();
       this.service.product = new Product();
     }
-  
   }
   export class ImageProduct{
     imagePath : string

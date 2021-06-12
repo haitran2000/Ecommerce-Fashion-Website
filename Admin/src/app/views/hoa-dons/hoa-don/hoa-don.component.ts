@@ -32,12 +32,12 @@ export class HoaDonComponent implements OnInit {
     this.service.getHoaDon(this.service.hoadon.id);
   }
   ngAfterViewInit(): void {
-    this.service.dataSource.sort = this.sort;
-    this.service.dataSource.paginator = this.paginator;
+    this.service.dataSource2.sort = this.sort;
+    this.service.dataSource2.paginator = this.paginator;
   }
 
 getExportFile(){
-  this.http.get("https://localhost:44302/api/hoadons/exportExcel/"+this.service.hoadon.id);
+  this.http.get("https://localhost:5001/api/hoadons/exportExcel/"+this.service.hoadon.id);
 }
 
 getIdThisHoaDon(){
@@ -47,7 +47,7 @@ getTongTienThisHoaDon(){
   return this.service.hoadon.tongTien
 }
  doFilter = (value: string) => {
-  this.service.dataSource.filter = value.trim().toLocaleLowerCase();
+  this.service.dataSource2.filter = value.trim().toLocaleLowerCase();
 }
 
   

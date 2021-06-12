@@ -6,7 +6,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { MauSacService } from './mau-sac.service';
+import { ToastServiceService } from '../../shared/toast-service.service';
+import { MauSac, MauSacService } from './mau-sac.service';
 import { MauSacComponent } from './mau-sac/mau-sac.component';
 
 @Component({
@@ -24,8 +25,9 @@ export class MauSacsComponent implements OnInit, AfterViewInit {
   constructor(public service:MauSacService,
               public router : Router,
               public http: HttpClient,
-              public dialog: MatDialog,) { }
-public dataSource = new MatTableDataSource<MauSac>();
+              public dialog: MatDialog,
+              public serviceToast : ToastServiceService,) { }
+
 displayedColumns: string[] = ['id', 'maMau','tenLoai',
   'actions'];
 
@@ -59,22 +61,10 @@ displayedColumns: string[] = ['id', 'maMau','tenLoai',
     this.service.delete(id).subscribe(
       res=>{
         this.service.getAllMauSacs()
+        this.serviceToast.showToastXoaThanhCong()
+      },err=>{
+        this.serviceToast.showToastXoaThatBai()
       }
     )
 }
 }}
-export class MauSac{
-  id: number = 0
-  maMau : string
-  id_Loai : number
-}
-
-export class User{
-  id : string
-  ImagePath:string
-  imagePath: string
-  userName:string
-  lastName:string
-  firstName:string
-  quyen:string
-}

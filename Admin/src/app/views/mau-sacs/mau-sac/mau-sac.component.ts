@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MauSacsComponent } from '../mau-sacs.component';
 import { MauSacService } from '../mau-sac.service';
 import { CategoryService } from '../../categories/category.service';
+import { ToastServiceService } from '../../../shared/toast-service.service';
 
 @Component({
   selector: 'app-mau-sac',
@@ -16,6 +17,7 @@ export class MauSacComponent implements OnInit {
   constructor ( public service : MauSacService,
                 public serviceCategory : CategoryService,
                 public http :HttpClient ,
+                public serviceToast : ToastServiceService,
               ) {
                   this.serviceCategory.get().subscribe(
                   data=>{
@@ -49,10 +51,13 @@ if(this.service.mausac.id==0){
 const formData = new FormData();
 formData.append('MaMau',data.MaMau);
 formData.append('Id_Loai', data.Id_Loai);
-this.http.post('https://localhost:44302/api/mausacs', formData)
+this.http.post('https://localhost:5001/api/mausacs', formData)
 .subscribe(res => {
 this.service.getAllMauSacs();
 this.service.mausac.id=0;
+this.serviceToast.showToastThemThanhCong()
+},err=>{
+  this.serviceToast.showToastThemThatBai()
 });
 this.newBlogForm.reset();
 }
@@ -61,10 +66,14 @@ else
 const formData = new FormData();
 formData.append('MaMau',data.MaMau);
 formData.append('Id_Loai', data.Id_Loai);
-this.http.put('https://localhost:44302/api/mausacs/'+`${this.service.mausac.id}`, formData)
-.subscribe(res=>{
+this.http.put('https://localhost:5001/api/mausacs/'+`${this.service.mausac.id}`, formData)
+.subscribe(res=>{this.serviceToast.showToastSuaThanhCong()
+  
+  
   this.service.getAllMauSacs();
-this.service.mausac.id=0;
+  this.service.mausac.id=0;
+},err=>{
+  this.serviceToast.showToastSuaThatBai()
 });
 }
 }

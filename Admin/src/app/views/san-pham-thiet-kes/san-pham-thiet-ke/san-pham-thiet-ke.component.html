@@ -1,0 +1,162 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="row">
+                <div class="col-xl-12 text-right">
+                    <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-primary" (click)="fakeClick();">
+                        <i class="fa fa-download" aria-hidden="true"></i> dsadsadsa</button>
+                    <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-primary" (click)="saveToGioHang();">
+                        <i class="fa fa-download" aria-hidden="true"></i> Thêm vào Giỏ hàng</button>
+                    <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-primary" (click)="giohang();">
+                        <i class="fa fa-download" aria-hidden="true"></i> Giỏ hàng</button>
+                    <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-primary" (click)="rasterize();">
+                        <i class="fa fa-download" aria-hidden="true"></i> Export to image</button>
+                    <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-primary" (click)="submit2()">
+                        <i class="fa fa-download" aria-hidden="true"></i> Save2 </button>
+                    <button data-toggle="tooltip" data-placement="bottom" title="Export to image" type="button" class="btn btn-primary" (click)="submit()">
+                        <i class="fa fa-download" aria-hidden="true"></i> Save </button>
+                    <button data-toggle="tooltip" data-placement="bottom" title="Export to SVG" type="button" class="btn btn-primary" (click)="rasterizeSVG();">
+                        <i class="fa fa-download" aria-hidden="true"></i> Export to SVG</button>
+                    <button data-toggle="tooltip" data-placement="bottom" title="Clean Canvas" type="button" class="btn btn-danger" (click)="confirmClear();">
+                        <i class="fa fa-ban" aria-hidden="true"></i> Clean</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <button (click)="newMessage()">New Message</button>
+    <div class="row">
+        <div class="col-xl-3">
+            <div class="card">
+                <div class="card-header">Add text</div>
+                <div class="card-body">
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="canvas.textString">
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <button id="add-text" data-toggle="tooltip" data-placement="bottom" title="Add text" class="btn btn-primary" (click)="addText()">
+                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="card">
+                <div class="card-header">Add images</div>
+                
+            <div class="card" style=" display: grid;
+            grid-template-columns: 1fr 1fr;">
+                <div class="card-body max-height" *ngFor="let item of spbts | paginate: { id: 'first',itemsPerPage: 5, currentPage: p1 }" style="display: flex; justify-content: space-between;">
+                    <img id="sp+{{item.idSP}}" class="images-item"  (click)="addImage($event,item.idSP);"[src]="item.hinh" title="Giá: {{item.gia}} VNĐ">
+                </div>
+            </div>
+            <pagination-controls  (pageChange)="p1 = $event" id="first"></pagination-controls>
+      
+          
+         
+            </div>
+            <br/>
+          
+            <br/>
+            <div class="card">
+                <div class="card-header">Add figure</div>
+                <div class="card-body text-center max-height">
+                    <div class="btn-group btn-group-vertical" role="group" aria-label="...">
+                        <button type="button" class="btn btn-primary" (click)="addFigure('rectangle');">Rectangle</button>
+                        <button type="button" class="btn btn-primary" (click)="addFigure('square');">Square</button>
+                        <button type="button" class="btn btn-primary" (click)="addFigure('triangle');">Triangle</button>
+                        <button type="button" class="btn btn-primary" (click)="addFigure('circle');">Circle</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <angular-editor-fabric-js #canvas></angular-editor-fabric-js>
+            <!-- <div class="card">
+                dsadsa
+                <div class="card-body max-height" *ngFor="let item of this.spbts" style="display: flex; justify-content: space-between;">
+                      <p>{{item.id}}</p>
+                    <img class="images-item"  (click)="addImage($event);"[src]="item.dataHinhAnh" >
+                </div>
+            </div> -->
+        </div>
+        <div class="col-xl-3">
+            <div class="card">
+                <div class="card-header">Options</div>
+                <div class="card-body text-center">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button data-toggle="tooltip" data-placement="bottom" title="Delete element" type="button" class="btn btn-outline-danger"
+                         (click)="removeSelected(elemet)">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                        <button data-toggle="tooltip" data-placement="bottom" title="Send to back" type="button" class="btn btn-outline-primary"
+                            (click)="sendToBack()">
+                            <i class="fa fa-level-down" aria-hidden="true"></i>
+                        </button>
+                        <button data-toggle="tooltip" data-placement="bottom" title="Send to front" type="button" class="btn btn-outline-primary"
+                            (click)="bringToFront()">
+                            <i class="fa fa-level-up" aria-hidden="true"></i>
+                        </button>
+                        <button data-toggle="tooltip" data-placement="bottom" title="Clone" type="button" class="btn btn-outline-primary" 
+                            (click)="clone()">
+                            <i class="fa fa-clone" aria-hidden="true"></i>
+                        </button>
+                        <button data-toggle="tooltip" data-placement="bottom" title="Unselect" type="button" class="btn btn-outline-primary"
+                            (click)="cleanSelect()">
+                            <i class="fa fa-remove" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="card">
+                <div class="card-header">Add item</div>
+                <div class="card" style=" display: grid;
+                grid-template-columns: 1fr 1fr;">
+                    <div class="card-body max-height" *ngFor="let item of serviceItem.items  | paginate: {id: 'second', itemsPerPage: 5, currentPage: p2 }" >
+                        <img id="item+{{item.id}}" class="images-item" (click)="addImage($event,item.id);"[src]="item.dataHinhAnh" title="Giá: 10 VNĐ">
+                    </div>
+                   
+                </div>
+                <pagination-controls (pageChange)="p2 = $event" id="second"></pagination-controls>
+                <div class="card">
+                    <div class="card-header">Upload image</div>
+                    <div class="card-body text-center">
+                        <img id="testImage" *ngIf="canvas.url" class="images-item-upload" [src]="canvas.url" (click)="addImageOnCanvas(canvas.url);">
+                        <input type="file" (change)="readUrl($event);">
+                        <br/>
+                        <br/>
+                        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeWhite(canvas.url);">
+                                    <i class="fa fa-times" aria-hidden="true"></i> Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <br/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <br/>
+            <div class="card">
+                <div class="card-header">
+                    <button type="button" class="btn btn-primary btn-sm" (click)="rasterizeJSON()">
+                        <i class="fa fa-refresh" aria-hidden="true"></i> Render to json</button>
+                </div>
+                <div class="card-body">
+                    <pre>{{canvas.json}}</pre>
+                </div>
+           
+          
+        </div>
+    </div>
+    <br>
+    <br>
+  </div>
+
+ 

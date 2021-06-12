@@ -5,7 +5,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { ItemService } from './item.service';
+import { FileToUploadService } from '../../shared/file-to-upload.service';
+import { ToastServiceService } from '../../shared/toast-service.service';
+import { Item, ItemService } from './item.service';
 import { ItemComponent } from './item/item.component';
 
 @Component({
@@ -20,8 +22,10 @@ export class ItemsComponent implements OnInit {
   constructor(public service:ItemService,
     public router : Router,
     public http: HttpClient,
-    public dialog: MatDialog,) { }
-public dataSource = new MatTableDataSource<Item>();
+    public dialog: MatDialog,
+    public serviceToast : ToastServiceService,
+   ) { }
+
 displayedColumns: string[] = ['id', 'trangThai','hinh',
 'actions'];
 
@@ -54,13 +58,11 @@ if(confirm('Bạn có chắc chắn xóa bản ghi này không ??'))
 {
 this.service.delete(id).subscribe(
 res=>{
+  this.serviceToast.showToastXoaThanhCong()
 this.service.getAllItems()
+},err=>{
+  this.serviceToast.showToastXoaThatBai()
 }
 )
 }
 }}
-export class Item{
- id : number = 0
- hinhAnh : string
- trangThai : string
-}

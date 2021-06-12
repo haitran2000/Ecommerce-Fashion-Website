@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { ToastServiceService } from '../../shared/toast-service.service';
 import { SizeService } from './size.service';
 import { SizeComponent } from './size/size.component';
 
@@ -24,13 +25,14 @@ export class SizesComponent implements OnInit, AfterViewInit {
   constructor(public service:SizeService,
               public router : Router,
               public http: HttpClient,
-              public dialog: MatDialog,) { }
-public dataSource = new MatTableDataSource<Size>();
+              public dialog: MatDialog,
+              public serviceToast : ToastServiceService,) { }
+
 displayedColumns: string[] = ['id', 'tenSize','tenLoai',
   'actions'];
 
 
-  public size :  Size
+
   ngOnInit(): void {
     this.service.getAllSizes();
   }
@@ -59,7 +61,10 @@ displayedColumns: string[] = ['id', 'tenSize','tenLoai',
   {
     this.service.delete(id).subscribe(
       res=>{
+        this.serviceToast.showToastXoaThanhCong()
         this.service.getAllSizes()
+      },err=>{
+        this.serviceToast.showToastXoaThatBai()
       }
     )
 }

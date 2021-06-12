@@ -31,9 +31,6 @@
     <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef></mat-header-cell>
         <mat-cell *matCellDef="let element">
-            <button mat-icon-button (click)="routeChiTiet(element)" color="primary">
-                <mat-icon>visibility</mat-icon>
-            </button>
             <button mat-icon-button (click)="populateForm(element)" color="primary">
                 <mat-icon>edit</mat-icon>
             </button>

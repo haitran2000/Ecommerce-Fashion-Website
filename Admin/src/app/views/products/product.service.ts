@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http'
 import {MatTableDataSource} from '@angular/material/table';
-import { Product } from './product.model';
+
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
@@ -15,7 +15,7 @@ export class ProductService {
   constructor( public http : HttpClient) { }
     listData : MatTableDataSource<any>;
     product: Product = new Product();
-    readonly url="https://localhost:44302/api/sanphams"
+    readonly url="https://localhost:5001/api/sanphams"
     get(){
       return this.http.get(this.url)
     }
@@ -50,3 +50,25 @@ export class ProductService {
       return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
     }   
 
+    export class Product {
+      id:number=0
+      ten:string
+      khuyenMai:number
+      moTa:string
+      khoiLuong:number
+      gia:number
+      tag:string
+      huongDan:string
+      thanhPhan:string
+      trangThaiSanPham:string
+      trangThaiHoatDong:string
+      trangThaiSanPhamThietKe:string
+      id_NhanHieu : number
+      id_Loai: number
+      giaSanPhams : number
+      sanPhamThietKes  : number
+      sanPham_SanPhamThietKe : number 
+      tenNhanHieu : string
+      tenLoai : string
+  }
+  

@@ -14,7 +14,7 @@ export class UserService{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public dataSource = new MatTableDataSource<User>();
     user:User = new User()
-    readonly url="https://localhost:44302/api/usermanagers"
+    readonly url="https://localhost:5001/api/usermanagers"
     constructor(public http:HttpClient) { }
     get(){
       return this.http.get(this.url)
@@ -23,7 +23,7 @@ export class UserService{
       return this.http.delete(`${this.url}/${id}`)
     }
     getAllUsers(){
-      this.http.get("https://localhost:44302/api/usermanagers").subscribe(
+      this.http.get("https://localhost:5001/api/usermanagers").subscribe(
         res=>{
           this.dataSource.data = res as User[];
         }

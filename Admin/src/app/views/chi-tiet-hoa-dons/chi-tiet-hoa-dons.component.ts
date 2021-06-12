@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { ChiTietHoaDonService } from './chi-tiet-hoa-don.service';
+import { ChiTietHoaDon, ChiTietHoaDonService } from './chi-tiet-hoa-don.service';
 import { ChiTietHoaDonComponent } from './chi-tiet-hoa-don/chi-tiet-hoa-don.component';
 
 @Component({
@@ -61,11 +61,4 @@ export class ChiTietHoaDonsComponent implements OnInit {
     )
 }
 }
-}
-export class ChiTietHoaDon{
-  id: number
-  soLuong: number
-  thanhTien:number
-  id_SanPhamBienThe: number
-  id_HoaDon :number
 }

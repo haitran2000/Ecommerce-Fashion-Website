@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { BaseService } from './base.service';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
+import { ToastServiceService } from '../../shared/toast-service.service';
 
 //import * as _ from 'lodash';
 
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 @Injectable()
 
 export class UserService extends BaseService  {
-
+ 
   baseUrl: string = '';
 
   // Observable navItem source
@@ -23,13 +24,13 @@ export class UserService extends BaseService  {
 
   private loggedIn = false;
 
-  constructor(private http: HttpClient,public router: Router) {
+  constructor( public toast : ToastServiceService,private http: HttpClient,public router: Router) {
     super();
     this.loggedIn = !!localStorage.getItem('auth_token');
     // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
     // header component resulting in authed user nav links disappearing despite the fact user is still logged in
     this._authNavStatusSource.next(this.loggedIn);
-    this.baseUrl = "https://localhost:44302/api/"
+    this.baseUrl = "https://localhost:5001/api/"
   }
    login(userName, password) {
     return this.http
@@ -42,6 +43,7 @@ export class UserService extends BaseService  {
           localStorage.setItem('auth_token', res.auth_token);
           if(res.quyen =='Admin'){
             this.router.navigate(['/dashboard']);
+            this.toast.showToastDangNhapThanhCong()
             console.log(res.quyen)
           }
           console.log(res.auth_token);

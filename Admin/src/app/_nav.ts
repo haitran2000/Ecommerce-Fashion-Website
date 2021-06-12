@@ -30,6 +30,10 @@ export const navItems: INavData[] = [
   
   },
   {
+  name:'Sản phẩm thiết kế',
+  url:'/sanphamthietke'
+  },
+  {
     name: 'DS sản phẩm thiết kế',
     url: '/sanphamthietkes',
   
@@ -56,6 +60,11 @@ export const navItems: INavData[] = [
   {
     name: 'DS item Sản phẩm thiết kế',
     url: '/item_sanphamthietke',
+  
+  },
+  {
+    name: 'DS SP Sản phẩm thiết kế',
+    url: '/sanpham_sanphamthietkes',
   
   },
   {

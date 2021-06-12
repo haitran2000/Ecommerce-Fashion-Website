@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FileToUploadService } from '../../../shared/file-to-upload.service';
+import { ToastServiceService } from '../../../shared/toast-service.service';
 import { CategoryService } from '../../categories/category.service';
 import { MauSacService } from '../../mau-sacs/mau-sac.service';
 import { ProductService } from '../../products/product.service';
@@ -14,10 +16,30 @@ import { SanPhamBienTheService } from '../san-pham-bien-the.service';
   styleUrls: ['./san-pham-bien-the.component.scss']
 })
 export class SanPhamBienTheComponent implements OnInit {
+ 
+  public imgsrc : string= "./assets/Resources/Images/san-pham-bien-the/blog-02.jpg";
+  public imgsrc1 : string= "./assets/Resources/Images/item/pin.png";
+  fileChange(event) {
+    var reader = new FileReader()
+    reader.readAsDataURL(event.target.files[0])
+    reader.onload = (event:any)=>{
+      this.imgsrc = event.target.result
+    }
+
+  }
+  fileChange1(event) {
+    
+    var reader = new FileReader()
+    reader.readAsDataURL(event.target.files[0])
+    reader.onload = (event:any)=>{
+      this.imgsrc1 =event.target.result
+    }
+
+
+  }
   urls = new Array<string>();
   selectedFile: File = null;
   detectFiles(event) {
-  
     let files = event.target.files;
       for (let file of files) {
         let reader = new FileReader();
@@ -33,28 +55,30 @@ export class SanPhamBienTheComponent implements OnInit {
   gopHam(event){
     this.detectFiles(event)
     this.onSelectFile(event)
+    this.fileChange(event)
   }
   categorys: any[] = [];
   mausacs: any[] = [];
   sanphams: any[] = [];
   sizes: any[] = [];
   constructor(public service : SanPhamBienTheService,
-    
+    public upfile:FileToUploadService,
+    public serviceToast : ToastServiceService,
     public serviceCategory : CategoryService,
     public serviceSanPham : ProductService,
     
     public http :HttpClient ) {
                             
                               }
-  get Id_Mau() { return this.newBlogForm.get('Id_Mau'); }
-  get Id_SanPham() { return this.newBlogForm.get('Id_SanPham'); }
-  get Id_Size() { return this.newBlogForm.get('Id_Size'); }
+    get Id_Mau() { return this.newBlogForm.get('Id_Mau'); }
+    get Id_SanPham() { return this.newBlogForm.get('Id_SanPham'); }
+    get Id_Size() { return this.newBlogForm.get('Id_Size'); }
 
 
-ngOnInit(): void {
-this.newBlogForm = new FormGroup({
-ImagePath : new FormControl(null), 
-Id_Mau : new FormControl(null,[
+  ngOnInit(): void {
+  this.newBlogForm = new FormGroup({
+  ImagePath : new FormControl(null), 
+  Id_Mau : new FormControl(null,[
   Validators.required,
 ]),
 Id_SanPham : new FormControl(null,[
@@ -66,7 +90,7 @@ Id_Size : new FormControl(null,[
 });
 
 
-this.http.get("https://localhost:44302/api/mausacs").subscribe(
+this.http.get("https://localhost:5001/api/mausacs").subscribe(
   data=>{
         Object.assign(this.mausacs,data)
         }
@@ -82,7 +106,7 @@ this.http.get("https://localhost:44302/api/mausacs").subscribe(
   Object.assign(this.sanphams,data)
         }
     )
-  this.http.get("https://localhost:44302/api/sizes").subscribe(
+  this.http.get("https://localhost:5001/api/sizes").subscribe(
   data=>{
           this.sizes = data as Size[]
         }
@@ -100,10 +124,13 @@ formData.append('SizeId',data.Id_Size);
 formData.append('file', this.selectedFile);
 console.log(data);
 
-this.http.post('https://localhost:44302/api/sanphambienthes',formData)
+this.http.post('https://localhost:5001/api/sanphambienthes',formData)
 .subscribe(res => {
+  this.serviceToast.showToastThemThanhCong()
 this.service.getAllSanPhamBienThes();
 this.service.sanphambienthe.id=0;
+},err=>{
+  this.serviceToast.showToastThemThatBai()
 });
 this.newBlogForm.reset();
 }
@@ -114,10 +141,13 @@ formData.append('MauId',data.Id_Mau);
 formData.append('SanPhamId',data.Id_SanPham);
 formData.append('SizeId',data.Id_Size);
 formData.append('file', this.selectedFile);
-this.http.put('https://localhost:44302/api/sanphambienthes/'+`${this.service.sanphambienthe.id}`, formData)
+this.http.put('https://localhost:5001/api/sanphambienthes/'+`${this.service.sanphambienthe.id}`, formData)
 .subscribe(res=>{
+  this.serviceToast.showToastSuaThanhCong()
   this.service.getAllSanPhamBienThes();
   this.service.sanphambienthe.id=0;
+},err=>{
+  this.serviceToast.showToastSuaThatBai()
 });
 }
 }

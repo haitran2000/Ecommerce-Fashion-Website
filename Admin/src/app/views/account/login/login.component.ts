@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserService } from '../user.service';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard',
   templateUrl: 'login.component.html'
@@ -16,7 +17,7 @@ export class LoginComponent  implements OnInit{
   isRequesting: boolean;
   submitted: boolean = false;
   credentials: Credentials = { email: '', password: '' };
-  constructor( public router : Router,private activatedRoute: ActivatedRoute , public http : HttpClient, public userService : UserService){
+  constructor( public toast : ToastrService,public router : Router,private activatedRoute: ActivatedRoute , public http : HttpClient, public userService : UserService){
     
   }
   private loggedIn = false;

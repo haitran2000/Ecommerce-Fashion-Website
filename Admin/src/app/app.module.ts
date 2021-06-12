@@ -1,13 +1,11 @@
 
- 
-
 import { CommonModule } from '@angular/common';
-
-
+import { NotifierModule } from 'angular-notifier';
+import { KonvaModule } from 'ng2-konva';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 import {MatTabsModule} from '@angular/material/tabs';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
@@ -45,7 +43,7 @@ import { DefaultLayoutComponent } from './containers';
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/account/login/login.component';
-import { RegisterComponent } from './views/register/register.component';
+
 import {MatDialogModule} from '@angular/material/dialog';
 const APP_CONTAINERS = [
   DefaultLayoutComponent
@@ -76,7 +74,7 @@ import { UserdetailComponent } from './containers/userdetail/userdetail.componen
 
 
 import { BrandsComponent } from './views/brands/brands.component';
-
+import { ColorPickerModule } from 'ngx-color-picker';
 
 import { ItemSanPhamThietKeComponent } from './views/item-san-pham-thiet-ke/item-san-pham-thiet-ke.component';
 import { ItemsComponent } from './views/items/items.component';
@@ -116,6 +114,12 @@ import { ProfileComponent } from './views/account/profile/profile.component';
 import { HoaDonComponent } from './views/hoa-dons/hoa-don/hoa-don.component';
 import { ChiTietHoaDonComponent } from './views/chi-tiet-hoa-dons/chi-tiet-hoa-don/chi-tiet-hoa-don.component';
 import { ChartsModule } from 'ng2-charts';
+import { SanPhamThietKeComponent } from './views/san-pham-thiet-kes/san-pham-thiet-ke/san-pham-thiet-ke.component';
+import { FabricjsEditorModule } from '../../projects/angular-editor-fabric-js/src/public-api';
+import { ModaSaveComponent } from './views/san-pham-thiet-kes/san-pham-thiet-ke/moda-save/moda-save.component';
+import { ToastrModule } from 'ngx-toastr';
+
+
 
 
 
@@ -125,6 +129,7 @@ import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   imports: [
+    KonvaModule,
     ChartsModule,
     HttpClientModule,
     BrowserModule,
@@ -135,10 +140,11 @@ import { ChartsModule } from 'ng2-charts';
     AppFooterModule,
     AppHeaderModule,
     AppSidebarModule,
+    NgxPaginationModule,
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-
+    FabricjsEditorModule,
     IconModule,
     IconSetModule.forRoot(),
     MatTableModule,
@@ -147,9 +153,17 @@ import { ChartsModule } from 'ng2-charts';
     ReactiveFormsModule ,
     MatDialogModule,
     MatExpansionModule,
-
+    ColorPickerModule,
+    ToastrModule.forRoot({
+      timeOut:1000,
+      progressBar:true,
+      progressAnimation:'increasing'
+    }
+   
+    ),
+    BrowserAnimationsModule,
     //
-
+    NotifierModule,
     CommonModule,
     MatDialogModule,
     MatTableModule,
@@ -173,7 +187,7 @@ import { ChartsModule } from 'ng2-charts';
     P404Component,
     P500Component,
     LoginComponent,
-    RegisterComponent,
+
     OrdersTableComponent,
     UserdetailComponent,
     BrandsComponent,
@@ -211,6 +225,8 @@ import { ChartsModule } from 'ng2-charts';
 
    HoaDonComponent,
      ChiTietHoaDonComponent,
+     SanPhamThietKeComponent,
+     ModaSaveComponent,
  
   ],
   providers: [

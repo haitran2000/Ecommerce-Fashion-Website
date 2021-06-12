@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Product } from '../product.model';
-import { ProductService } from '../product.service';
-import { Image } from '@ks89/angular-modal-gallery';
+
+import { Product, ProductService } from '../product.service';
+
 @Component({
   selector: 'app-productdetail',
   templateUrl: './productdetail.component.html',
@@ -18,7 +18,7 @@ export class ProductdetailComponent implements OnInit {
             ) { }
 
   ngOnInit(): void {
-    this.http.get("https://localhost:44302/api/sanphams/"+this.service.product.id).subscribe(
+    this.http.get("https://localhost:5001/api/sanphams/"+this.service.product.id).subscribe(
       res=>{
         this.product = res as Product
         console.log(this.product)

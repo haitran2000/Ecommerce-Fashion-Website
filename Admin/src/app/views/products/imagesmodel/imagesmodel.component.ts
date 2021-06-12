@@ -13,7 +13,7 @@ export class ImagesmodelComponent implements OnInit {
             public service : ProductService) { }
   public imageproductList : ImageProduct[]
   ngOnInit(): void {
-    this.http.get("https://localhost:44302/api/SanPhamBienThes/spbt/"+this.service.product.id).subscribe(
+    this.http.get("https://localhost:5001/api/SanPhamBienThes/spbt/"+this.service.product.id).subscribe(
       res=>{
         this.imageproductList = res as ImageProduct[]
         console.log( this.imageproductList)

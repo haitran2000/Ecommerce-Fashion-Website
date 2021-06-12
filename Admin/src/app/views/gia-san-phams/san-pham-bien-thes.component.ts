@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { ToastServiceService } from '../../shared/toast-service.service';
 import { SanPhamBienTheService } from './san-pham-bien-the.service';
 import { SanPhamBienTheComponent } from './san-pham-bien-the/san-pham-bien-thecomponent';
 
@@ -21,7 +22,8 @@ export class SanPhamBienThesComponent implements OnInit, AfterViewInit {
   constructor(public service:SanPhamBienTheService,
               public router : Router,
               public http: HttpClient,
-              public dialog: MatDialog,) { }
+              public dialog: MatDialog,
+              public serviceToast : ToastServiceService,) { }
 
 
               displayedColumns: string[] = ['id', 'imagePath','maMau','tenSanPham','tenSize',
@@ -32,7 +34,9 @@ export class SanPhamBienThesComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.service.getAllSanPhamBienThes();
   }
-  
+  onSelectedSPTK(a: SanPhamBienThe):void{
+    this.service.sanphambienthe = a
+  }
   ngAfterViewInit(): void {
     this.service.dataSource.sort = this.sort;
     this.service.dataSource.paginator = this.paginator;
@@ -57,7 +61,11 @@ export class SanPhamBienThesComponent implements OnInit, AfterViewInit {
   {
     this.service.delete(id).subscribe(
       res=>{
+        this.serviceToast.showToastXoaThanhCong()
         this.service.getAllSanPhamBienThes()
+      },
+      err=>{
+        this.serviceToast.showToastXoaThatBai()
       }
     )
 }

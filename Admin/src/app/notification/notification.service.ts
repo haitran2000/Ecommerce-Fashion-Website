@@ -10,12 +10,12 @@ import { NotificationCheckOutCountResult, NotificationCountResult, NotificationR
 })  
 export class NotificationService {  
   
-  private notificationsUrl = 'https://localhost:44302/api/notifications';  
+  private notificationsUrl = 'https://localhost:5001/api/notifications';  
   
   constructor(private http: HttpClient) { }  
   
   getNotificationCount(): Observable<NotificationCountResult> {  
-    const url = 'https://localhost:44302/api/notifications/notificationcount';  
+    const url = 'https://localhost:5001/api/notifications/notificationcount';  
     return this.http.get<NotificationCountResult>(url)  
       .pipe(  
         catchError(this.handleError)  
@@ -51,14 +51,14 @@ export class NotificationService {
   }  
 
   getNotificationCheckOutCount(): Observable<NotificationCheckOutCountResult> {  
-    const url = 'https://localhost:44302/api/notificationcheckout/notificationcheckoutcount';  
+    const url = 'https://localhost:5001/api/notificationcheckout/notificationcheckoutcount';  
     return this.http.get<NotificationCheckOutCountResult>(url)  
       .pipe(  
         catchError(this.handleError)  
       );  
   }  
   getNotificationCheckOutMessage(): Observable<Array<NotificationCheckOutResult>> {  
-    const url = 'https://localhost:44302/api/notificationcheckout/notificationcheckoutresult';
+    const url = 'https://localhost:5001/api/notificationcheckout/notificationcheckoutresult';
     return this.http.get<Array<NotificationCheckOutResult>>(url)  
       .pipe(  
         catchError(this.handleError)  

@@ -26,7 +26,7 @@ import { JobSeekesComponent } from './views/job-seekes/job-seekes.component';
 import { LoginComponent } from './views/account/login/login.component';
 import { MauSacsComponent } from './views/mau-sacs/mau-sacs.component';
 import { ProductsComponent } from './views/products/products.component';
-import { RegisterComponent } from './views/register/register.component';
+
 import { SanPhamSanPhamThietKeComponent } from './views/san-pham-san-pham-thiet-ke/san-pham-san-pham-thiet-ke.component';
 import { SanPhamThietKesComponent } from './views/san-pham-thiet-kes/san-pham-thiet-kes.component';
 import { SizesComponent } from './views/sizes/sizes.component';
@@ -36,6 +36,7 @@ import { HoaDonComponent } from './views/hoa-dons/hoa-don/hoa-don.component';
 
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { ChartJSComponent } from './views/chartjs/chartjs.component';
+import { SanPhamThietKeComponent } from './views/san-pham-thiet-kes/san-pham-thiet-ke/san-pham-thiet-ke.component';
 
 export const routes: Routes = [
   {
@@ -72,6 +73,7 @@ export const routes: Routes = [
       title: 'Register Page'
     }
   },
+
   {
     path: '',
     component: DefaultLayoutComponent, canActivate: [AuthGuard],
@@ -122,8 +124,8 @@ export const routes: Routes = [
         component: SanPhamThietKesComponent,canActivate: [AuthGuard],
       },
       {
-        path: 'sanphamthietkes',
-        component: SanPhamThietKesComponent,canActivate: [AuthGuard],
+        path: 'sanphamthietke',
+        component: SanPhamThietKeComponent,canActivate: [AuthGuard],
       },
       {
         path: 'sanpham_sanphamthietkes',

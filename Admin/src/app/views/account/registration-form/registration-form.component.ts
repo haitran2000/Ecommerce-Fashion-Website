@@ -64,7 +64,7 @@ export class RegistrationFormComponent implements OnInit {
     for(let i = 0 ;i<this.selectedFile.length;i++){
       form.append('file',this.selectedFile[0]);
     }
-    this.http.post('https://localhost:44302/api/accounts',form).subscribe
+    this.http.post('https://localhost:5001/api/accounts',form).subscribe
     (result  => {
       this.router.navigate(['/login'],{queryParams: {brandNew: true,email:data.email}});                     
     },

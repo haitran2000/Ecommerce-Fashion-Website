@@ -6,7 +6,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { CategoryService } from './category.service';
+import { ToastrService } from 'ngx-toastr';
+import { ToastServiceService } from '../../shared/toast-service.service';
+import { Category, CategoryService } from './category.service';
 import { CategoryComponent } from './category/category.component';
 
 @Component({
@@ -24,8 +26,9 @@ export class CategoriesComponent implements OnInit, AfterViewInit {
   constructor(public service:CategoryService,
               public router : Router,
               public http: HttpClient,
-              public dialog: MatDialog,) { }
-public dataSource = new MatTableDataSource<Category>();
+              public dialog: MatDialog,
+              public toastService: ToastServiceService) { }
+
 displayedColumns: string[] = ['id', 'ten','hinh',
   'actions'];
 
@@ -58,13 +61,12 @@ displayedColumns: string[] = ['id', 'ten','hinh',
   {
     this.service.delete(id).subscribe(
       res=>{
+        this.toastService.showToastXoaThanhCong()
         this.service.getAllCategories()
+      },
+      err=>{
+        this.toastService.showToastXoaThanhCong()
       }
     )
 }
 }}
-export class Category{
-  id : number = 0
-  ten : string
-  imagePath : string 
-}

@@ -16,7 +16,7 @@ export class HoaDonService{
 
     hoadon:HoaDon = new HoaDon()
     cthdViewModel:  CTHDViewModel= new CTHDViewModel()
-    readonly url="https://localhost:44302/api/hoadons"
+    readonly url="https://localhost:5001/api/hoadons"
     constructor(public http:HttpClient) { }
     get(){
       return this.http.get(this.url)
@@ -25,14 +25,14 @@ export class HoaDonService{
       return this.http.delete(`${this.url}/${id}`)
     }
     getHoaDon(id:number){
-      this.http.get("https://localhost:44302/api/hoadons/"+id).subscribe(
+      this.http.get("https://localhost:5001/api/hoadons/"+id).subscribe(
         res=>{
           this.dataSource2.data = res as CTHDViewModel[];
         }
       )
     }
     getAllHoaDons(){
-      this.http.get("https://localhost:44302/api/hoadons").subscribe(
+      this.http.get("https://localhost:5001/api/hoadons").subscribe(
         res=>{
           this.dataSource.data = res as HoaDon[];
        
