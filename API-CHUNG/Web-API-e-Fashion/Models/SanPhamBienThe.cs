@@ -12,6 +12,7 @@ namespace Web_API_e_Fashion.Models
         [Key]
         public int Id { get; set; }
         public string? ImagePath { get; set; }
+        public string DataHinhAnh { get; set; }
         public int? Id_SanPham { get; set; }
         [ForeignKey("Id_SanPham")]
         public virtual SanPham SanPham { get; set; }

@@ -13,6 +13,7 @@ namespace Web_API_e_Fashion.Models
         public int Id { get; set; }
         public long Gia { get; set; }
         public string HinhAnh { get; set; }
+        public string DataHinhAnh { get; set; }
         public System.DateTime? CreatedDate { get; set; }
         public System.DateTime? UpdatedDate { get; set; }
         public int? CreateBy { get; set; }

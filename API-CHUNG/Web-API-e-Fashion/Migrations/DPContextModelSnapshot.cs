@@ -305,6 +305,9 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DataHinhAnh")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("HinhAnh")
                         .HasColumnType("nvarchar(max)");
 
@@ -519,6 +522,9 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("DataHinhAnh")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int?>("Id_Mau")
                         .HasColumnType("int");
 
@@ -554,6 +560,9 @@ namespace Web_API_e_Fashion.Migrations
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("DataHinhAnh")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("Gia")
                         .HasColumnType("bigint");
@@ -616,6 +625,24 @@ namespace Web_API_e_Fashion.Migrations
                     b.HasIndex("Id_Loai");
 
                     b.ToTable("Sizes");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.TestImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("file")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TestImages");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.AppUser", b =>

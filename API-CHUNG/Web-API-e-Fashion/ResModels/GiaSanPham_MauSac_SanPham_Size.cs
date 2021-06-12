@@ -7,6 +7,7 @@ namespace Web_API_e_Fashion.ResModels
 {
     public class GiaSanPham_MauSac_SanPham_Size
     {
+        public string DataHinhAnh { get; set; }
         public string ImagePath { get; set; }
         public int Id { get; set; }
         public string MaMau { get; set; }

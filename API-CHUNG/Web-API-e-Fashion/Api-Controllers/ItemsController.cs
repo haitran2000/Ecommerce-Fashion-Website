@@ -30,6 +30,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
         // GET: api/Items
         [HttpGet]
+
         public async Task<ActionResult<IEnumerable<Item>>> GetItems()
         {
             return await _context.Items.ToListAsync();
@@ -105,13 +106,23 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPost]
         public async Task<ActionResult<Item>> PostItem([FromForm] UploadItem upload)
         {
+            byte[] a;
             Notification notification = new Notification()
             {
                 TenSanPham = upload.TileImage.FileName,
                 TranType = "Add"
             };
+       
             _context.Notifications.Add(notification);
             Item item = new Item();
+            using (var stream = new MemoryStream())
+            {
+                await upload.TileImage.CopyToAsync(stream);
+                a = stream.ToArray();
+                var base64 = Convert.ToBase64String(a);
+                item.DataHinhAnh = string.Format("data:image/png;base64,{0}", base64);
+
+            }
             item.TrangThai = upload.TrangThai;
             if (upload.TileImage != null)
             {

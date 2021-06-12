@@ -11,6 +11,7 @@ namespace Web_API_e_Fashion.Models
         [Key]
         public int Id { get; set; }
         public string HinhAnh { get; set; }
+        public string DataHinhAnh { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int CreateBy { get; set; }
         public string TrangThai { get; set; }

@@ -46,6 +46,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                      on g.SizeId equals s.Id
                      select new GiaSanPham_MauSac_SanPham_Size()
                      {
+                         DataHinhAnh = g.DataHinhAnh,
                          ImagePath = g.ImagePath,
                          Id = g.Id,
                          MaMau = m.MaMau,
@@ -129,6 +130,15 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPost]
         public async Task<ActionResult<SanPhamBienThe>> PostSanPhamBienThe([FromForm] UploadSanPhamBienThe upload)
         {
+            byte[] a;
+
+            Notification notification = new Notification()
+            {
+                TenSanPham = upload.file.FileName,
+                TranType = "Add"
+            };
+
+            _context.Notifications.Add(notification);
             SanPhamBienThe spbt = new SanPhamBienThe()
             {
                 Id_SanPham = upload.SanPhamId,
@@ -136,6 +146,14 @@ namespace Web_API_e_Fashion.Api_Controllers
                 Id_Mau = upload.MauId,
                 
             };
+            using (var stream = new MemoryStream())
+            {
+                await upload.file.CopyToAsync(stream);
+                a = stream.ToArray();
+                var base64 = Convert.ToBase64String(a);
+                spbt.DataHinhAnh = string.Format("data:image/jpg;base64,{0}", base64);
+               
+            }
             if (upload.file != null)
             {
                 var folderName = Path.Combine("Resources", "Images", "san-pham-bien-the");
@@ -153,14 +171,9 @@ namespace Web_API_e_Fashion.Api_Controllers
                 spbt.ImagePath = "noimage.jpg";
             }
             _context.SanPhamBienThes.Add(spbt);
-            await _context.SaveChangesAsync();
+        
 
-            Notification notification = new Notification()
-            {
-                TenSanPham = upload.file.FileName,
-                TranType = "Add"
-            };
-            _context.Notifications.Add(notification);
+     
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
