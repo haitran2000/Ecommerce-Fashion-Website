@@ -1,80 +1,54 @@
-<div class="container-fluid">
+<div class="container">
     <div class="card">
-        <div class="row product-page-main card-body">
-            <div class="col-xl-4">
-                <section>
-                    <ks-carousel [id]="100" [images]="imagesRect" [dotsConfig]="{visible: false}"
-                        [carouselConfig]="{maxHeight: '600px', keyboardEnable: true}"
-                        [previewConfig]="{maxHeight: '125px'}">
-                    </ks-carousel>
-                </section>
-            </div>
-            <div class="col-xl-8">
-                <div class="product-page-details product-right mb-0">
-                    <h2>WOMEN PINK SHIRT</h2>
-                    <ngb-rating [rate]="3" class="rating-size-product"></ngb-rating>
-                    <hr>
-                    <h6 class="product-title">product details</h6>
-                    <p class="mb-0">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium
-                        doloremque
-                        laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto
-                        beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem,</p>
-                    <div class="product-price digits mt-2">
-                        <h3>$26.00 <del>$350.00</del></h3>
+        <div class="container-fliud">
+            <div class="wrapper row">
+                <div class="preview col-md-6">
+                    
+                    <div class="preview-pic tab-content">
+                      <div class="tab-pane active" id="pic-1"><img src="http://placekitten.com/400/252" /></div>
+                      <div class="tab-pane" id="pic-2"><img src="http://placekitten.com/400/252" /></div>
+                      <div class="tab-pane" id="pic-3"><img src="http://placekitten.com/400/252" /></div>
+                      <div class="tab-pane" id="pic-4"><img src="http://placekitten.com/400/252" /></div>
+                      <div class="tab-pane" id="pic-5"><img src="http://placekitten.com/400/252" /></div>
                     </div>
-                    <ul class="color-variant">
-                        <li class="bg-light0"></li>
-                        <li class="bg-light1"></li>
-                        <li class="bg-light2"></li>
+                    <ul class="preview-thumbnail nav nav-tabs">
+                      <li class="active"><a data-target="#pic-1" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+                      <li><a data-target="#pic-2" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+                      <li><a data-target="#pic-3" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+                      <li><a data-target="#pic-4" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
+                      <li><a data-target="#pic-5" data-toggle="tab"><img src="http://placekitten.com/200/126" /></a></li>
                     </ul>
-                    <hr>
-                    <h6 class="product-title size-text">select size
-                        <span class="pull-right">
-                            <a data-toggle="modal" (click)="open(content)" class="font-primary">size chart</a>
-                        </span>
-                    </h6>
-                    <ng-template #content let-modal>
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Sheer Straight Kurta</h5>
-                            <button type="button" class="close" aria-label="Close"
-                                (click)="modal.dismiss('Cross click')">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                    
+                </div>
+                <div class="details col-md-6">
+                    <h3 class="product-title">men's shoes fashion</h3>
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
                         </div>
-                        <div class="modal-body">
-                            <img src="assets/images/size-chart.jpg" alt="" class="img-fluid blur-up lazyloaded">
-                        </div>
-                    </ng-template>
-                    <div class="size-box">
-                        <ul>
-                            <li class="active"><a href="javascript:void(0)">s</a></li>
-                            <li><a href="javascript:void(0)">m</a></li>
-                            <li><a href="javascript:void(0)">l</a></li>
-                            <li><a href="javascript:void(0)">xl</a></li>
-                        </ul>
+                        <span class="review-no">41 reviews</span>
                     </div>
-                    <div class="add-product-form">
-                        <h6 class="product-title">quantity</h6>
-                        <div class="qty-box1">
-                            <div class="input-group">
-                                <i class="fa fa-minus btnGtr1" (click)=decrement()></i>
-                                <input class="touchspin1 text-center" name="counter" [value]="counter" type="text">
-                                <i class="fa fa-plus btnLess1" (click)=increment()></i>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <h6 class="product-title">Time Reminder</h6>
-                    <div class="timer">
-                        <p id="demo"><span>25 <span class="padding-l">:</span> <span class="timer-cal">Days</span>
-                            </span><span>22 <span class="padding-l">:</span> <span class="timer-cal">Hrs</span>
-                            </span><span>13 <span class="padding-l">:</span> <span class="timer-cal">Min</span>
-                            </span><span>57 <span class="timer-cal">Sec</span></span>
-                        </p>
-                    </div>
-                    <div class="m-t-15">
-                        <button class="btn btn-primary m-r-10" type="button">Add To Cart</button>
-                        <button class="btn btn-secondary" type="button">Buy Now</button>
+                    <p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
+                    <h4 class="price">current price: <span>$180</span></h4>
+                    <p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
+                    <h5 class="sizes">sizes:
+                        <span class="size" data-toggle="tooltip" title="small">s</span>
+                        <span class="size" data-toggle="tooltip" title="medium">m</span>
+                        <span class="size" data-toggle="tooltip" title="large">l</span>
+                        <span class="size" data-toggle="tooltip" title="xtra large">xl</span>
+                    </h5>
+                    <h5 class="colors">colors:
+                        <span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
+                        <span class="color green"></span>
+                        <span class="color blue"></span>
+                    </h5>
+                    <div class="action">
+                        <button class="add-to-cart btn btn-default" type="button">add to cart</button>
+                        <button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
                     </div>
                 </div>
             </div>

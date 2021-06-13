@@ -37,6 +37,7 @@ import { HoaDonComponent } from './views/hoa-dons/hoa-don/hoa-don.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { ChartJSComponent } from './views/chartjs/chartjs.component';
 import { SanPhamThietKeComponent } from './views/san-pham-thiet-kes/san-pham-thiet-ke/san-pham-thiet-ke.component';
+import { UserdetailComponent } from './containers/userdetail/userdetail.component';
 
 export const routes: Routes = [
   {
@@ -81,7 +82,10 @@ export const routes: Routes = [
       title: 'Home'
     },
     children: [
-     
+      {
+        path: 'profile',
+       component: UserdetailComponent,canActivate: [AuthGuard],
+      },
       {
         path: 'dashboard',
        component: DashboardComponent,canActivate: [AuthGuard],

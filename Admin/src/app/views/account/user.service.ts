@@ -41,6 +41,7 @@ export class UserService extends BaseService  {
       )}).subscribe(
         (res : any)=> {
           localStorage.setItem('auth_token', res.auth_token);
+          localStorage.setItem('idUser',res.id);
           if(res.quyen =='Admin'){
             this.router.navigate(['/dashboard']);
             this.toast.showToastDangNhapThanhCong()

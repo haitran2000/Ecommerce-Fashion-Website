@@ -11,10 +11,6 @@ export const navItems: INavData[] = [
     }
   },
   {
-    name: 'chartjs',
-    url: 'chartjs',
-  },
-  {
     name: 'DS sản phẩm',
     url: '/products',
   
