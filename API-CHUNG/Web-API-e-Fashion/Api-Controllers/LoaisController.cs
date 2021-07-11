@@ -101,26 +101,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             Loai loai = new Loai();
             loai = await _context.Loais.FirstOrDefaultAsync(c => c.Id == id);
             loai.Ten = upload.Name;
-           
-            if (upload.TileImage != null)
-            {
-                var folderName = Path.Combine("Resources", "Images", "category");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                var fileName = ContentDispositionHeaderValue.Parse(upload.TileImage.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(pathToSave, fileName);
-                loai.ImagePath = fullPath;
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    await upload.TileImage.CopyToAsync(stream);
-                }
-                loai.ImagePath = upload.TileImage.FileName;
-            }
-            else
-            {
-                loai.ImagePath = "noimage.jpg";
-            }
-
-            loai.DateCreate = DateTime.Now;
+         
             _context.Loais.Update(loai);
 
             try
@@ -156,23 +137,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             _context.Notifications.Add(notification);
             Loai loai = new Loai();
             loai.Ten = upload.Name;
-            if (upload.TileImage != null)
-            {
-                var folderName = Path.Combine("Resources", "Images", "category");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                var fileName = ContentDispositionHeaderValue.Parse(upload.TileImage.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(pathToSave, fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    await upload.TileImage.CopyToAsync(stream);
-                }
-                loai.ImagePath = upload.TileImage.FileName;
-            }
-            else
-            {
-                loai.ImagePath = "noimage.jpg";
-            }
-            loai.DateCreate = DateTime.Now;
+       
             _context.Loais.Add(loai);
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();

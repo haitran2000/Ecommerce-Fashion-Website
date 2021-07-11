@@ -13,8 +13,8 @@
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>Web_API_e_Fashion.Data.DPContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
-    <NameOfLastUsedPublishProfile>IISProfile</NameOfLastUsedPublishProfile>
-    <ActiveDebugProfile>Web_API_e_Fashion</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>D:\-DO-AN-TOT-NGHIEP\API-CHUNG\API-CHUNG\Web-API-e-Fashion\Properties\PublishProfiles\cozastores - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <ActiveDebugProfile>IIS Express</ActiveDebugProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

@@ -19,6 +19,8 @@ using Microsoft.Extensions.Logging;
 using Web_API_e_Fashion.Auth;
 using Web_API_e_Fashion.Helpers;
 using Web_API_e_Fashion.SignalRModels;
+using Swashbuckle;
+using Microsoft.OpenApi.Models;
 
 namespace Web_API_e_Fashion
 {
@@ -38,7 +40,10 @@ namespace Web_API_e_Fashion
         public void ConfigureServices(IServiceCollection services)
         {
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
-
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAppService", Version = "v1" });
+            });
             // Configure JwtIssuerOptions
             services.Configure<JwtIssuerOptions>(options =>
             {
@@ -46,10 +51,10 @@ namespace Web_API_e_Fashion
                 options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
                 options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
             });
+           
 
 
-
-
+            services.AddMvc();
             services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
                 builder
                 .AllowAnyMethod()
@@ -57,6 +62,7 @@ namespace Web_API_e_Fashion
                 .AllowCredentials()
                 .WithOrigins("http://localhost:4200");
             }));
+
             services.AddSignalR();
             services.AddControllersWithViews();
             services.AddDbContext<DPContext>(op => op.UseSqlServer(Configuration.GetConnectionString("db")));
@@ -70,6 +76,7 @@ namespace Web_API_e_Fashion
             {
                 options.AddPolicy("ApiUser", policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess));
             });
+           
 
             services.AddIdentity<AppUser, IdentityRole>
                 (o =>
@@ -85,6 +92,7 @@ namespace Web_API_e_Fashion
                 .AddDefaultTokenProviders();
 
             services.AddAutoMapper();
+         
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,21 +101,22 @@ namespace Web_API_e_Fashion
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAppService v1"));
+
             }
             else
             {
+                app.UseHttpsRedirection();
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-                RequestPath = new PathString("/Resources")
-            });
-
+         
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
             var tokenValidationParameters = new TokenValidationParameters
             {
@@ -125,9 +134,9 @@ namespace Web_API_e_Fashion
                 ClockSkew = TimeSpan.Zero
             };
 
-           
-            app.UseAuthentication();
             app.UseRouting();
+            app.UseAuthentication();
+        
           
             app.UseAuthorization();
 

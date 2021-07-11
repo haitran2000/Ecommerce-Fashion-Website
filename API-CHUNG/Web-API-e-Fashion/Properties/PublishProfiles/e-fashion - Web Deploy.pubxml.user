@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAu4Tq6t70JEaFnSDnyA2baQAAAAACAAAAAAAQZgAAAAEAACAAAADCq9hweH8CDpP2Rz6ZTyjHh0k21Yubl9Pwa3KhEbGV0wAAAAAOgAAAAAIAACAAAAAPqjeU6nXtRljqGal4RxvnU9aUueSdIosW2cXDvSPIzIAAAABMt04aCI3RxgY2h4ECuCVqmNFgJDb3kvBqmlxXipbA6Y57xkFX+2CrvvgqdXgsnb0m+02C9mgQ4Y3fxzDPKzyf+BPR0Vczyjyb4KSUAC0ZPqmsggrb4Wf+dXZlSfZQIw0mBaM5RydaIUFOJM4Qy6vP4JZPio9JBZwUH+mLZbVNLEAAAABRnnNP2LL9yK4po2lMyoeCamV8caTN3QKPE7qsiHVXMYzncvaGMdP2XwbT0aiawEzgwF3Dj/nu/LhIqtg207PU</EncryptedPassword>
+    <History>False|2021-06-28T15:43:14.1351893Z;True|2021-06-27T08:45:12.6044373+07:00;True|2021-06-27T08:21:45.4638894+07:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="db">
+      <Value>Data Source=tcp:web-api-e-fashiondb.database.windows.net,1433%3bInitial Catalog=Web-API-e-Fashion_db%3bUser Id=a%40web-api-e-fashiondb%3bPassword=Eysuo147852%40</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="Web_API_e_Fashion.Data.DPContext">
+      <Value>Data Source=tcp:web-api-e-fashiondb.database.windows.net,1433%3bInitial Catalog=Web-API-e-Fashion_db%3bUser Id=a%40web-api-e-fashiondb%3bPassword=Eysuo147852%40</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

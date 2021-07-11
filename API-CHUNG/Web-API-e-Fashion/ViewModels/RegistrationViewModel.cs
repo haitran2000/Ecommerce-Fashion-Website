@@ -12,7 +12,7 @@ namespace Web_API_e_Fashion.ViewModels
         [Validator(typeof(RegistrationViewModelValidator))]
         public class RegistrationViewModel
         {
-            public IFormFile file { get; set; }  
+            public IFormFile? file { get; set; }  
             public string Email { get; set; }
             public string Password { get; set; }
             public string FirstName { get; set; }

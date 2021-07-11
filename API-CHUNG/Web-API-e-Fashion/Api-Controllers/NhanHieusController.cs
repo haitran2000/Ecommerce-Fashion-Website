@@ -56,24 +56,8 @@ namespace Web_API_e_Fashion.Api_Controllers
             NhanHieu thuonghieu = new NhanHieu();
             thuonghieu = await _context.NhanHieus.FirstOrDefaultAsync(c => c.Id == id);
             thuonghieu.Ten = upload.Name;
-            thuonghieu.ThongTin = upload.ThongTin;
-            if (upload.TileImage != null)
-            {
-                var folderName = Path.Combine("Resources", "Images", "brand");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                var fileName = ContentDispositionHeaderValue.Parse(upload.TileImage.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(pathToSave, fileName);
-                thuonghieu.ImagePath = fullPath;
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    await upload.TileImage.CopyToAsync(stream);
-                }
-                thuonghieu.ImagePath = upload.TileImage.FileName;
-            }
-            else
-            {
-                thuonghieu.ImagePath = "noimage.jpg";
-            }
+         
+         
 
             thuonghieu.DateCreate = DateTime.Now;
             _context.NhanHieus.Update(thuonghieu);
@@ -111,23 +95,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             NhanHieu nhanhieu = new NhanHieu();
             nhanhieu.Ten = upload.Name;
-            nhanhieu.ThongTin = upload.ThongTin;
-            if (upload.TileImage != null)
-            {
-                var folderName = Path.Combine("Resources", "Images", "brand");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                var fileName = ContentDispositionHeaderValue.Parse(upload.TileImage.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(pathToSave, fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    await upload.TileImage.CopyToAsync(stream);
-                }
-                nhanhieu.ImagePath = upload.TileImage.FileName;
-            }
-            else
-            {
-                nhanhieu.ImagePath = "noimage.jpg";
-            }
+       
            nhanhieu.DateCreate = DateTime.Now;
             _context.NhanHieus.Add(nhanhieu);
             Notification notification = new Notification()

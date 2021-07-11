@@ -46,8 +46,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                      on g.SizeId equals s.Id
                      select new GiaSanPham_MauSac_SanPham_Size()
                      {
-                         DataHinhAnh = g.DataHinhAnh,
-                         ImagePath = g.ImagePath,
+                         //DataHinhAnh = g.DataHinhAnh,
+                         //ImagePath = g.ImagePath,
                          Id = g.Id,
                          MaMau = m.MaMau,
                          TenSanPham = sp.Ten,
@@ -80,23 +80,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             spbt = await _context.SanPhamBienThes.FindAsync(id);
             spbt.Id_Mau = upload.MauId;
             spbt.Id_SanPham = upload.SanPhamId;
-           
-            if (upload.file != null)
-            {
-                var folderName = Path.Combine("Resources", "Images", "san-pham-bien-the");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                var fileName = ContentDispositionHeaderValue.Parse(upload.file.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(pathToSave, fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    await upload.file.CopyToAsync(stream);
-                }
-                spbt.ImagePath = upload.file.FileName;
-            }
-            else
-            {
-                spbt.ImagePath = "noimage.jpg";
-            }
+          
             try
             {
                 _context.SanPhamBienThes.Update(spbt);
@@ -115,7 +99,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
             Notification notification = new Notification()
             {
-                TenSanPham = upload.file.FileName,
+              
                 TranType = "Edit"
             };
             _context.Notifications.Add(notification);
@@ -133,8 +117,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             byte[] a;
 
             Notification notification = new Notification()
-            {
-                TenSanPham = upload.file.FileName,
+            {           
                 TranType = "Add"
             };
 
@@ -146,34 +129,9 @@ namespace Web_API_e_Fashion.Api_Controllers
                 Id_Mau = upload.MauId,
                 
             };
-            using (var stream = new MemoryStream())
-            {
-                await upload.file.CopyToAsync(stream);
-                a = stream.ToArray();
-                var base64 = Convert.ToBase64String(a);
-                spbt.DataHinhAnh = string.Format("data:image/jpg;base64,{0}", base64);
-               
-            }
-            if (upload.file != null)
-            {
-                var folderName = Path.Combine("Resources", "Images", "san-pham-bien-the");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                var fileName = ContentDispositionHeaderValue.Parse(upload.file.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(pathToSave, fileName);
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    await upload.file.CopyToAsync(stream);
-                }
-                spbt.ImagePath = upload.file.FileName;
-            }
-            else
-            {
-                spbt.ImagePath = "noimage.jpg";
-            }
+           
+           
             _context.SanPhamBienThes.Add(spbt);
-        
-
-     
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
@@ -190,13 +148,13 @@ namespace Web_API_e_Fashion.Api_Controllers
             _context.SanPhamBienThes.Remove(spbt);
             Notification notification = new Notification()
             {
-                TenSanPham = spbt.ImagePath,
+                //TenSanPham = spbt.ImagePath,
                 TranType = "Delete",
             };
             _context.Notifications.Add(notification);
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
-            return NoContent();
+            return Ok();
         }
 
         private bool GiaSanPhamExists(int id)

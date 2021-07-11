@@ -43,7 +43,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                                    on spbt.Id_SanPham equals sp.Id
                                    select new SanPham()
                                    {
-                                       Id = (int)spbt.Id_SanPham,
+                                       Id = (int)spbt.Id,
                                        Gia = sp.Gia,
                                    }).First(s => s.Id == IdThamSo);
 
@@ -85,7 +85,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                      {
                          IdCTHD = cthd.Id,
                          TenSanPham = sp.Ten,
-                         HinhAnh = spbt.ImagePath,
+                         //HinhAnh = spbt.ImagePath,
                          Gia = (decimal)sp.Gia,
                          SoLuong = cthd.Soluong,
                          ThanhTien = cthd.ThanhTien,
@@ -99,8 +99,6 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPost]
         public async Task<ActionResult<HoaDon>> TaoHoaDon(HoaDon hd)
         {
-
-
             HoaDon hoaDon = new HoaDon()
             {
                 GhiChi = hd.GhiChi,
@@ -110,9 +108,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             _context.HoaDons.Add(hoaDon);
             await _context.SaveChangesAsync();
             HoaDon hoaDonTest;
-
             hoaDonTest = await _context.HoaDons.FindAsync(hoaDon.Id);
-
             NotificationCheckout notification = new NotificationCheckout()
             {
                 ThongBaoMaDonHang = hoaDonTest.Id,
@@ -136,12 +132,22 @@ namespace Web_API_e_Fashion.Api_Controllers
             };
             hoaDonTest.TongTien = TongTien;
             _context.HoaDons.Update(hoaDonTest);
-
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
         }
-
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteHoaDons(int id)
+        {
+            ChiTietHoaDon[] cthd;
+            cthd = _context.ChiTietHoaDons.Where(s => s.Id_HoaDon == id).ToArray();
+            _context.ChiTietHoaDons.RemoveRange(cthd);
+            HoaDon hd;
+            hd = await _context.HoaDons.FindAsync(id);
+            _context.HoaDons.Remove(hd);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
        public static string basePath = "D:\\API-CHUNG\\API-CHUNG\\Web-API-e-Fashion\\Template\\OrderTemplate.xlsx";
         [HttpGet("cc/{Id}")]
         public IActionResult DownloadFile(int Id)
@@ -179,7 +185,7 @@ namespace Web_API_e_Fashion.Api_Controllers
   
         private void GenerateOrderAsync(int orderId)
         {
-            string filePath = "~/Resources/Excel/";
+            string filePath = "~/wwwroot/Excel/";
             string documentName = string.Format("Order-{0}-{1}.xlsx", orderId, DateTime.Now.ToString("yyyyMMddhhmmsss"));
             if (!Directory.Exists(filePath))
             {
@@ -245,7 +251,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                          {
                              IdCTHD = cthd.Id,
                              TenSanPham = sp.Ten,
-                             HinhAnh = spbt.ImagePath,
+                             //HinhAnh = spbt.ImagePath,
                              Gia = (decimal)sp.Gia,
                              SoLuong = cthd.Soluong,
                              ThanhTien = cthd.ThanhTien,

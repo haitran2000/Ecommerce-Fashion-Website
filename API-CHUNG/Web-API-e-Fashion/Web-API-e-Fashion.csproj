@@ -7,10 +7,38 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Resources\Images\designproduct\**" />
-    <Content Remove="Resources\Images\designproduct\**" />
-    <EmbeddedResource Remove="Resources\Images\designproduct\**" />
-    <None Remove="Resources\Images\designproduct\**" />
+    <Compile Remove="wwwroot\Images\brand\**" />
+    <Compile Remove="wwwroot\Images\category\**" />
+    <Compile Remove="wwwroot\Images\item\**" />
+    <Compile Remove="wwwroot\Images\san-pham-bien-the\**" />
+    <Compile Remove="wwwroot\Images\sptk\**" />
+    <Compile Remove="wwwroot\Images\user\**" />
+    <Compile Remove="wwwroot\NewFolder\**" />
+    <Content Remove="wwwroot\Images\brand\**" />
+    <Content Remove="wwwroot\Images\category\**" />
+    <Content Remove="wwwroot\Images\item\**" />
+    <Content Remove="wwwroot\Images\san-pham-bien-the\**" />
+    <Content Remove="wwwroot\Images\sptk\**" />
+    <Content Remove="wwwroot\Images\user\**" />
+    <Content Remove="wwwroot\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\Images\brand\**" />
+    <EmbeddedResource Remove="wwwroot\Images\category\**" />
+    <EmbeddedResource Remove="wwwroot\Images\item\**" />
+    <EmbeddedResource Remove="wwwroot\Images\san-pham-bien-the\**" />
+    <EmbeddedResource Remove="wwwroot\Images\sptk\**" />
+    <EmbeddedResource Remove="wwwroot\Images\user\**" />
+    <EmbeddedResource Remove="wwwroot\NewFolder\**" />
+    <None Remove="wwwroot\Images\brand\**" />
+    <None Remove="wwwroot\Images\category\**" />
+    <None Remove="wwwroot\Images\item\**" />
+    <None Remove="wwwroot\Images\san-pham-bien-the\**" />
+    <None Remove="wwwroot\Images\sptk\**" />
+    <None Remove="wwwroot\Images\user\**" />
+    <None Remove="wwwroot\NewFolder\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\Images\list-image-product\noimage.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +48,9 @@
     <PackageReference Include="FluentValidation.ValidatorAttribute" Version="8.6.1" />
     <PackageReference Include="Microsoft.AspNet.SignalR" Version="2.4.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="5.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.4" />
+    <PackageReference Include="Microsoft.Azure.SignalR" Version="1.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
       <PrivateAssets>all</PrivateAssets>
@@ -31,10 +61,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="1.1.0" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.11.0" />
+    <PackageReference Include="Microsoft.OpenApi" Version="1.2.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="MimeKit" Version="2.12.0" />
     <PackageReference Include="Nancy" Version="2.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.3" />
     <PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="19.1.0.64" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.0" />
@@ -42,10 +76,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Images\item\" />
-    <Folder Include="Resources\Images\sptk\" />
-    <Folder Include="Resources\Images\san-pham-bien-the\" />
-    <Folder Include="Resources\Excel\" />
+    <Folder Include="wwwroot\Images\list-image-product\" />
   </ItemGroup>
 
 </Project>

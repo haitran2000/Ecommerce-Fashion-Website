@@ -11,14 +11,13 @@ namespace Web_API_e_Fashion.Models
     {
         [Key]
         public int Id { get; set; }
-        public string? ImagePath { get; set; }
-        public string DataHinhAnh { get; set; }
         public int? Id_SanPham { get; set; }
         [ForeignKey("Id_SanPham")]
         public virtual SanPham SanPham { get; set; }
         public int? Id_Mau { get; set; }
         [ForeignKey("Id_Mau")]
         public virtual MauSac MauSac { get; set; }
+        public int SoLuongTon { get; set; }
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDon { get; set; }
         public int? SizeId { get; set; }
         [ForeignKey("SizeId")]

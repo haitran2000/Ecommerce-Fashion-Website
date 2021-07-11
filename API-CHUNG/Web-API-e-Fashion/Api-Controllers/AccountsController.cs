@@ -40,30 +40,28 @@ namespace Web_API_e_Fashion.Api_Controllers
                 return BadRequest(ModelState);
             }
 
-            var userIdentity = _mapper.Map<AppUser>(model);
-
-          
-                var folderName = Path.Combine("Resources", "Images", "user");
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-                var fileName = ContentDispositionHeaderValue.Parse(model.file.ContentDisposition).FileName.Trim('"');
-                var fullPath = Path.Combine(pathToSave, fileName);
-                var result = await _userManager.CreateAsync(userIdentity, model.Password);
+            var userIdentity = _mapper.Map<AppUser>(model);      
+            var result = await _userManager.CreateAsync(userIdentity, model.Password);
                 
             AppUser user = new AppUser();
             user = await _context.AppUsers.FirstOrDefaultAsync(s => s.Id == userIdentity.Id);
             
-            if (model.file != null)
-            {
-                using (var stream = new FileStream(fullPath, FileMode.Create))
-                {
-                    await model.file.CopyToAsync(stream);
-                }
-                user.ImagePath = fileName;
-            }
-            else
-            {
-                user.ImagePath = "noimage.jpg";
-            }
+            //if (model.file != null)
+            //{
+            //    var folderName = Path.Combine("wwwroot", "Images", "user");
+            //    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+            //    var fileName = ContentDispositionHeaderValue.Parse(model.file.ContentDisposition).FileName.Trim('"');
+            //    var fullPath = Path.Combine(pathToSave, fileName);
+            //    using (var stream = new FileStream(fullPath, FileMode.Create))
+            //    {
+            //        await model.file.CopyToAsync(stream);
+            //    }
+            //    user.ImagePath = fileName;
+            //}
+            //else
+            //{
+            //    user.ImagePath = "noimage.jpg";
+            //}
 
             
 
