@@ -1,0 +1,91 @@
+<br>
+<br>
+<div class="animated fadeIn">
+    <div class="row">
+      <div class="col-sm-6 col-lg-3">
+        <div class="card text-white bg-success">
+          <div class="card-body pb-0">
+            <button type="button" class="btn btn-transparent p-0 float-right">
+              <i class="icon-location-pin"></i>
+            </button>
+            <div class="text-value">{{this.countProduct}}</div>
+            <div>Số sản phẩm</div>
+            <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+            </div>
+          </div>
+        </div>
+      </div><!--/.col-->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card text-white bg-primary">
+          <div class="card-body pb-0">
+            <div class="btn-group float-right" dropdown>
+              <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+                <i class="icon-settings"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+            <div class="text-value">{{this.countOrder}}</div>
+            <div>Số lượng đơn hàng</div>
+          </div>
+          <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+          </div>
+        </div>
+      </div><!--/.col-->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card text-white bg-warning">
+          <div class="card-body pb-0">
+            <div class="btn-group float-right" dropdown>
+              <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+                <i class="icon-settings"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+            <div class="text-value">{{this.countUser}}</div>
+            <div>Số lượng User</div>
+          </div>
+          <div class="chart-wrapper mt-3" style="height:70px;">
+          </div>
+        </div>
+      </div><!--/.col-->
+      <div class="col-sm-6 col-lg-3">
+        <div class="card text-white bg-danger">
+          <div class="card-body pb-0">
+            <div class="btn-group float-right" dropdown>
+              <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+                <i class="icon-settings"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div>
+            <div class="text-value">{{this.countTotalMoney}}</div>
+            <div>Tiền thu về</div>
+          </div>
+          <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+          </div>
+        </div>
+      </div><!--/.col-->
+    </div><!--/.row-->
+  </div>
+  <h1>
+    {{title}}
+  </h1>
+  <fusioncharts
+  type="column2d"
+  width="100%"
+  height="400"
+  dataFormat="json"
+  [dataSource]="dataSource"
+  (initialized)="initialized($event)">
+</fusioncharts>

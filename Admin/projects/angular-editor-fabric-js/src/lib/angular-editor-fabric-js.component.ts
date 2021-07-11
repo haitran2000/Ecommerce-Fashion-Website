@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 // import { fabric } from "../../../../node_modules/fabric";
  import { fabric } from "fabric";
-import { ItemService } from '../../../../src/app/views/items/item.service';
+import { ItemService } from '../../../../src/app/admin/containers/views/items/item.service';
 
 @Component({
   selector: 'angular-editor-fabric-js',

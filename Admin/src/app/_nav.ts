@@ -3,7 +3,7 @@ import { INavData } from '@coreui/angular';
 export const navItems: INavData[] = [
   {
     name: 'Tổng quan',
-    url: '/dashboard',
+    url: '/admin/dashboard',
     icon: 'icon-speedometer',
     badge: {
       variant: 'info',
@@ -12,96 +12,43 @@ export const navItems: INavData[] = [
   },
   {
     name: 'DS sản phẩm',
-    url: '/products',
-  
+    url: '/admin/products',
   },
   {
     name: 'DS loại',
-    url: '/categories',
+    url: '/admin/categories',
   
   },
   {
     name: 'DS nhãn hiệu',
-    url: '/brands',
-  
-  },
-  {
-  name:'Sản phẩm thiết kế',
-  url:'/sanphamthietke'
-  },
-  {
-    name: 'DS sản phẩm thiết kế',
-    url: '/sanphamthietkes',
+    url: '/admin/brands',
   
   },
   {
     name: 'DS size',
-    url: '/sizes',
+    url: '/admin/sizes',
   
   },
   {
     name: 'DS màu sắc',
-    url: '/mausacs',
+    url: '/admin/mausacs',
   
   },
   {
     name: 'DS sản phẩm biến thể',
-    url: '/sanphambienthes',
-  
-  },
-  {
-    name: 'DS item',
-    url: '/items',
-  },
-  {
-    name: 'DS item Sản phẩm thiết kế',
-    url: '/item_sanphamthietke',
-  
-  },
-  {
-    name: 'DS SP Sản phẩm thiết kế',
-    url: '/sanpham_sanphamthietkes',
+    url: '/admin/sanphambienthes',
   
   },
   {
     name: 'DS chi tiết hóa đơn',
-    url: '/chitiethoadons',
+    url: '/admin/chitiethoadons',
   },
   {
     name: 'DS hóa đơn',
-    url: '/hoadons',
+    url: '/admin/hoadons',
   },
   {
-    name: 'JobSeekes',
-    url: '/jobseekes',
-  },
-  {
-    name: 'AspNetUsers',
-    url: '/aspnetusers',
-  
-  },
-  {
-    name: 'AspNetUserClaims',
-    url: '/aspnetuserclaims',
-  
-  },
-  {
-    name: 'AspNetUserRoles',
-    url: '/aspnetuserroles',
-  },
-  {
-    name: 'AspNetUserLogins',
-    url: '/aspnetuserlogins',
-  
-  },
-  {
-    name: 'AspNetUserTokens',
-    url: '/aspnetusertokens',
-  
-  },
-  {
-    name: 'AuthHistories',
-    url: '/authhistories',
-  
-  },
+    name:'DS User',
+    url:'/admin/aspnetusers',
+  }
 ];

@@ -89,7 +89,10 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "scripts": [],
+            "scripts": [
+            
+            
+            ],
             "styles": [
               "node_modules/@coreui/icons/css/free.css",
               "node_modules/flag-icon-css/css/flag-icon.css",
