@@ -14,6 +14,7 @@ using Web_API_e_Fashion.ResModels;
 using Web_API_e_Fashion.ServerToClientModels;
 using Web_API_e_Fashion.SignalRModels;
 using Web_API_e_Fashion.UploadFileModels;
+using SanPhamBienThe = Web_API_e_Fashion.Models.SanPhamBienThe;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
@@ -263,8 +264,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                  
                 }
             
-            }       
-            SanPhamBienThe[] spbts;
+            }
+            Models.SanPhamBienThe[] spbts;
             spbts = _context.SanPhamBienThes.Where(s => s.Id_SanPham == id).ToArray();
             _context.SanPhamBienThes.RemoveRange(spbts);
             ImageSanPham[] images;
@@ -346,7 +347,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                       on s.Id equals spbt.Id_SanPham
                       join hinh in _context.ImageSanPhams
                       on s.Id equals hinh.IdSanPham
-                      join th in  _context.NhanHieus
+                      join th in _context.NhanHieus
                       on s.Id_NhanHieu equals th.Id
                       join l in _context.Loais
                       on s.Id_Loai equals l.Id

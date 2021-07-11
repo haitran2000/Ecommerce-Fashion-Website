@@ -73,16 +73,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         }
 
         //Sản phẩm bán chạy nhất
-        [Route("topproduct")]
-        [HttpGet]
-        public async Task<ActionResult<string>> GetTopProduct()
-        {
-            var topProducts = await (from not in _context.HoaDons
-                               select not).ToListAsync();
-           
-          var top = topProducts.Where
-            return TongTienTatCa;
-        }
+      
     }
 
 }
