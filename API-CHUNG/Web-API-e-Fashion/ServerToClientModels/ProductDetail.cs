@@ -31,7 +31,7 @@ namespace Web_API_e_Fashion.ServerToClientModels
         public string TenLoai { get; set; }
         public string TenNhanHieu { get; set; }
         public ICollection<ImageSanPham> ImageSanPhams { get; set; }
-        public ICollection<SanPhamBienThe> SanPhamBienThes { get; set; }
+        public ICollection<SanPhamBienTheMauSize> SanPhamBienThes { get; set; }
 
     }
 }

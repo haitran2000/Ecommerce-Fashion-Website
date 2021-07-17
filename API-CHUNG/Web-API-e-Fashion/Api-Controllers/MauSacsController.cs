@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
 using Web_API_e_Fashion.ResModels;
+using Web_API_e_Fashion.ServerToClientModels;
 using Web_API_e_Fashion.SignalRModels;
 using Web_API_e_Fashion.UploadDataFormClientModels;
 
@@ -42,6 +43,20 @@ namespace Web_API_e_Fashion.Api_Controllers
             return await kb.ToListAsync();
         }
 
+        [HttpGet("tenmauloai")]
+        public async Task<ActionResult<IEnumerable<TenMauLoai>>> GetMauSacLoai()
+        {
+            var kb = from m in _context.MauSacs
+                     join l in _context.Loais
+                     on m.Id_Loai equals l.Id
+                     select new TenMauLoai()
+                     {
+                         Id = m.Id,
+                        LoaiTenMau = m.MaMau+" "+l.Ten
+                     };
+            return await kb.ToListAsync();
+
+        }
         // GET: api/MauSacs/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MauSac>> GetMauSac(int id)

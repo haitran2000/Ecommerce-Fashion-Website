@@ -30,22 +30,22 @@ namespace Web_API_e_Fashion.Api_Controllers
             _hubContext = hubContext;
         }
 
+        [HttpGet("sp")]
+        public async Task<ActionResult<IEnumerable<SanPham>>> GetSps()
+        {
+            return await _context.SanPhams.ToListAsync();
+        }
         // GET: api/SanPhams
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> GetSanPhams()
         {
-
-            var kb = from s in _context.SanPhams
-                     join l in _context.Loais
-                     on s.Id_Loai equals l.Id
-                     into f
-                     from l in f.DefaultIfEmpty()
+            var kb=(from image in _context.ImageSanPhams
+                     join s in _context.SanPhams
+                     on image.IdSanPham equals s.Id
                      join th in _context.NhanHieus
                      on s.Id_NhanHieu equals th.Id
-                     into j
-                     from th in j.DefaultIfEmpty()
-                     join image in _context.ImageSanPhams
-                     on s.Id equals image.IdSanPham
+                     join l in _context.Loais
+                     on s.Id_Loai equals l.Id
                      select new SanPhamLoaiThuongHieu()
                      {
                          Image = image.ImageName,
@@ -61,8 +61,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                          TrangThaiHoatDong = s.TrangThaiHoatDong,                       
                          TenLoai = l.Ten,
                          TenNhanHieu = th.Ten,
-                     };
-            return await kb.ToListAsync();
+                     });
+            return await kb.OrderBy(s=>s.Id).ToListAsync();
         }
 
         // GET: api/SanPhams/5
@@ -128,6 +128,19 @@ namespace Web_API_e_Fashion.Api_Controllers
             _context.ImageSanPhams.RemoveRange(images);
             ImageSanPham image = new ImageSanPham();
             var file = upload.files.ToArray();
+            var imageSanPhams = _context.ImageSanPhams.ToArray().Where(s => s.IdSanPham == id);
+            foreach (var i in imageSanPhams)
+            {
+                try
+                {
+                    System.IO.File.Delete(Path.Combine("wwwroot/Images/list-image-product", i.ImageName));
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+            }
             if (upload.files != null)
             {
                 for (int i = 0; i < file.Length; i++)
@@ -135,8 +148,6 @@ namespace Web_API_e_Fashion.Api_Controllers
 
                     if (file[i].Length > 0)
                     {
-
-
                         var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot/Images/list-image-product",
                        upload.Ten + i + "." +  file[i].FileName.Split(".")[file[i].FileName.Split(".").Length - 1]);
@@ -340,8 +351,21 @@ namespace Web_API_e_Fashion.Api_Controllers
             ProductDetail pr;
             List<ImageSanPham> listImage;
             listImage = await _context.ImageSanPhams.Where(s => s.IdSanPham == id).ToListAsync();
-            List<SanPhamBienThe> listSPBT;
-            listSPBT = await _context.SanPhamBienThes.Where(s => s.Id_SanPham == id).ToListAsync();
+            List<SanPhamBienTheMauSize> listSPBT;
+            var kb1 = from s in _context.SanPhamBienThes
+                      join z in _context.Sizes
+                      on s.SizeId equals z.Id
+                      join m in _context.MauSacs
+                      on s.Id_Mau equals m.Id
+                      select new SanPhamBienTheMauSize()
+                      {
+                          Id = s.Id,
+                          SoLuongTon = s.SoLuongTon,
+                          TenMau = m.MaMau,
+                          TenSize = z.TenSize,
+                          Id_SanPham = s.Id_SanPham,
+                      };
+            listSPBT = await kb1.Where(s=>s.Id_SanPham==id).ToListAsync();        
             var kb = from s in _context.SanPhams
                       join spbt in _context.SanPhamBienThes
                       on s.Id equals spbt.Id_SanPham
@@ -377,7 +401,6 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet("laytatcasanpham")]
         public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> Laytatcasanpham()
         {
-
             var kb = from s in _context.SanPhams
                      join l in _context.Loais
                      on s.Id_Loai equals l.Id
@@ -406,7 +429,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                          Id_NhanHieu = s.Id_NhanHieu,
                      };
             var kbs = kb.ToList();
-            return kbs.Except(kbs.GroupBy(i => i.Id)
+            return  kbs.Except(kbs.GroupBy(i => i.Id)
                                              .Select(ss => ss.FirstOrDefault()))
                                             .ToList();
         }
