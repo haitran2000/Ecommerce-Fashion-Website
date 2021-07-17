@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { UserService } from '../user.service';
 import {  UserRegistration} from '../user.service'
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-registration-form',
@@ -62,7 +63,7 @@ export class RegistrationFormComponent implements OnInit {
     form.append('Location',data.location);
     form.append('Quyen','Admin');
     
-    this.http.post('https://cozastores.azurewebsites.net/api/accounts',form).subscribe
+    this.http.post(environment.URL_API+'accounts',form).subscribe
     (result  => {
       this.router.navigate(['/login'],{queryParams: {brandNew: true,email:data.email}});                     
     },

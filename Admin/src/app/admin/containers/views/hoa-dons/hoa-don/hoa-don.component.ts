@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { environment } from '../../../../../../environments/environment';
 import { CTHDViewModel, HoaDon } from '../hoa-dons.component';
 import { HoaDonService } from '../hoadon.service';
 
@@ -37,7 +38,7 @@ export class HoaDonComponent implements OnInit {
   }
 
 getExportFile(){
-  this.http.get("https://cozastores.azurewebsites.net/api/hoadons/exportExcel/"+this.service.hoadon.id);
+  this.http.get(environment.URL_API+"hoadons/exportExcel/"+this.service.hoadon.id);
 }
 
 getIdThisHoaDon(){

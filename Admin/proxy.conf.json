@@ -1,6 +1,6 @@
 {
     "/api": {
-      "target": "https://cozastores.azurewebsites.net/",
+      "target": "https://localhost:44302/",
       "secure": true,
       "changeOrigin": true,
       "pathRewrite": {

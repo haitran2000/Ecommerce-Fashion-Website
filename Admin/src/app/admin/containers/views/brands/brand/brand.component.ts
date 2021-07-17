@@ -5,6 +5,7 @@ import { BrandsComponent } from '../brands.component';
 import { BrandService } from '../brand.service';
 import { ToastrService } from 'ngx-toastr';
 import { NotifierService } from 'angular-notifier';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-brand',
@@ -65,7 +66,7 @@ const formData = new FormData();
 formData.append('Name', data.Name);
 
 console.log(data)
-this.http.post('https://cozastores.azurewebsites.net/api/nhanhieus', formData)
+this.http.post(environment.URL_API+'nhanhieus', formData)
 .subscribe(res => {
   this.showToastThemThanhCong()
 this.service.getAllBrands();
@@ -81,7 +82,7 @@ else
 const formData = new FormData();
 formData.append('Name', data.Name);
 formData.append('ThongTin', data.ThongTin);
-this.http.put('https://cozastores.azurewebsites.net/api/nhanhieus/'+`${this.service.brand.id}`, formData)
+this.http.put(environment.URL_API+'nhanhieus/'+`${this.service.brand.id}`, formData)
 .subscribe(res=>{
   this.showToastSuaThanhCong()
   this.service.getAllBrands();

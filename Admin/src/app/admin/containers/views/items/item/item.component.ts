@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { environment } from '../../../../../../environments/environment';
 import { FileToUploadService } from '../../../shared/file-to-upload.service';
 import { ToastServiceService } from '../../../shared/toast-service.service';
 import { ItemService } from '../item.service';
@@ -77,7 +78,7 @@ export class ItemComponent implements OnInit {
         const formData = new FormData();
       
         formData.append('file', this.selectedFile.item(0));
-        this.http.post('https://cozastores.azurewebsites.net/api/getsanphamthuongdethietkes/file', formData)
+        this.http.post(environment.URL_API+'getsanphamthuongdethietkes/file', formData)
         .subscribe(res => {
           this.serviceToast.showToastThemThanhCong()
         this.service.getAllItems();
@@ -91,7 +92,7 @@ export class ItemComponent implements OnInit {
       formData.append('TrangThai', data.TrangThai);
       formData.append('TileImage', this.selectedFile.item(0));
       console.log(data)
-      this.http.post('https://cozastores.azurewebsites.net/api/items', formData)
+      this.http.post(environment.URL_API+'items', formData)
       .subscribe(res => {
         this.serviceToast.showToastThemThanhCong()
       this.service.getAllItems();
@@ -104,7 +105,7 @@ export class ItemComponent implements OnInit {
       const formData = new FormData();
       formData.append('TrangThai', data.TrangThai);
       formData.append('TileImage', this.selectedFile.item(0));
-      this.http.put('https://cozastores.azurewebsites.net/api/items/'+`${this.service.item.id}`, formData)
+      this.http.put(environment.URL_API+'items/'+`${this.service.item.id}`, formData)
       .subscribe(res=>{
         this.serviceToast.showToastSuaThanhCong()
         this.service.getAllItems();

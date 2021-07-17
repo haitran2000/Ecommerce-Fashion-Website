@@ -3,6 +3,7 @@ import { Injectable, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { environment } from "../../../../../environments/environment";
 import { SanPhamBienThe, SanPhamBienThesComponent } from "./san-pham-bien-thes.component";
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,8 @@ export class SanPhamBienTheService{
   public dataSource = new MatTableDataSource<SanPhamBienThe>();
     sanphambienthe:SanPhamBienThe = new SanPhamBienThe()
     spbts: SanPhamBienThe[]
-    readonly url="https://cozastores.azurewebsites.net/api/sanphambienthes"
+    tensizeloai:any
+    readonly url=environment.URL_API+"sanphambienthes"
     constructor(public http:HttpClient) { }
     get(){
       return this.http.get(this.url)
@@ -22,11 +24,24 @@ export class SanPhamBienTheService{
       return this.http.delete(`${this.url}/${id}`)
     }
     getAllSanPhamBienThes(){
-      this.http.get("https://cozastores.azurewebsites.net/api/sanphambienthes").subscribe(
+      this.http.get(environment.URL_API+"sanphambienthes").subscribe(
         res=>{
           this.dataSource.data = res as SanPhamBienThe[];
           this.spbts = res as SanPhamBienThe[];
         }
       )
     }
+    getAllSanPhams(){
+      return this.http.get(environment.URL_API+"sanphams/sp")
+    }
+    getAllTenSizeLoai(){
+      return this.http.get(environment.URL_API+"sizes/tensizeloai")
+    }
+    getAllTenMauLoai(){
+      return this.http.get(environment.URL_API+"mausacs/tenmauloai")
+    }
+  }
+
+  export class LoaiMau{
+    loaiTenMau: string
   }

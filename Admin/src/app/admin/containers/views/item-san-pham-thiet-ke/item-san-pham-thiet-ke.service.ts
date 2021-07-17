@@ -3,6 +3,7 @@ import { Injectable, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class ItemSanPhamThietKeService {
   itemsp = new ItemSanPhamThietKe
   
   constructor(public http:HttpClient) { }
-  private url = "https://cozastores.azurewebsites.net/api/item_sanphamthietke";
+  private url = environment.URL_API+"item_sanphamthietke";
   get(){
     this.http.get(this.url).subscribe(
       res=>{

@@ -8,6 +8,7 @@ import { ModalService } from '../modal/modal.service';
 import * as signalR from '@microsoft/signalr';  
 import { NotificationCheckOutCountResult, NotificationCheckOutResult, NotificationCountResult, NotificationResult } from '../notification/notification';  
 import { NotificationService } from '../notification/notification.service';  
+import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html'
@@ -36,7 +37,7 @@ export class DefaultLayoutComponent implements OnInit{
     this.userService.logout()
   }
   ngOnInit(): void {
-  this.http.get("https://cozastores.azurewebsites.net/api/Auth/AuthHistory").subscribe(
+  this.http.get(environment.URL_API+"Auth/AuthHistory").subscribe(
     res=>{
       this.user = res as UserIdenity
       console.log(this.user)
@@ -49,7 +50,7 @@ export class DefaultLayoutComponent implements OnInit{
   this.getNotificationCount();  
   const connection = new signalR.HubConnectionBuilder()  
     .configureLogging(signalR.LogLevel.Information)  
-    .withUrl('https://cozastores.azurewebsites.net/notify')  
+    .withUrl('https://localhost:44302/notify')  
     .build();  
 
   connection.start().then(function () {  

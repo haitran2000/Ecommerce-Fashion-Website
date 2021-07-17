@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities';
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   templateUrl: 'dashboard.component.html'
@@ -426,7 +427,7 @@ export class DashboardComponent implements OnInit {
   countUser: number;
   countTotalMoney: number;
   getCountProduct(){
-    this.http.get("https://localhost:44302/api/countentitys/countproduct").subscribe(
+    this.http.get(environment.URL_API+"countentitys/countproduct").subscribe(
       result=>{
         this.countProduct = result as number;
         console.log(this.countProduct);
@@ -435,7 +436,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getCountOrder(){
-    this.http.get("https://localhost:44302/api/countentitys/countorder").subscribe(
+    this.http.get(environment.URL_API+"countentitys/countorder").subscribe(
       result =>{
         this.countOrder = result as number
       }
@@ -443,7 +444,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getCountUser(){
-    this.http.get("https://localhost:44302/api/countentitys/countuser").subscribe(
+    this.http.get(environment.URL_API+"countentitys/countuser").subscribe(
       result =>{
         this.countUser = result as number
       }
@@ -451,7 +452,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getCountTotalMoney(){
-    this.http.get("https://localhost:44302/api/countentitys/countmoney").subscribe(
+    this.http.get(environment.URL_API+"countentitys/countmoney").subscribe(
       result =>{
         this.countTotalMoney = result as number
       }

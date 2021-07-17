@@ -5,6 +5,7 @@ import { SizesComponent } from '../sizes.component';
 import { SizeService } from '../size.service';
 import { CategoryService } from '../../categories/category.service';
 import { ToastServiceService } from '../../../shared/toast-service.service';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-size',
@@ -52,7 +53,7 @@ const formData = new FormData();
 formData.append('Id_Loai', data.Id_Loai);
 formData.append('TenSize',data.TenSize);
 console.log(data)
-this.http.post('https://cozastores.azurewebsites.net/api/sizes', formData)
+this.http.post(environment.URL_API+'sizes', formData)
 .subscribe(res => {
 this.serviceToast.showToastThemThanhCong()
 this.service.getAllSizes();
@@ -67,7 +68,7 @@ else
 const formData = new FormData();
 formData.append('Id_Loai', data.Id_Loai);
 formData.append('TenSize',data.TenSize);
-this.http.put('https://cozastores.azurewebsites.net/api/sizes/'+`${this.service.size.id}`, formData)
+this.http.put(environment.URL_API+'sizes/'+`${this.service.size.id}`, formData)
 .subscribe(res=>{
   this.serviceToast.showToastSuaThanhCong()
   this.service.getAllSizes();

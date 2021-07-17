@@ -3,6 +3,7 @@ import { Injectable, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { environment } from "../../../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class CategoryService{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public dataSource = new MatTableDataSource<Category>();
     category:Category = new Category()
-    readonly url="https://cozastores.azurewebsites.net/api/loais"
+    readonly url=environment.URL_API+"loais"
     constructor(public http:HttpClient) { }
     get(){
       return this.http.get(this.url)
@@ -21,7 +22,7 @@ export class CategoryService{
       return this.http.delete(`${this.url}/${id}`)
     }
     getAllCategories(){
-      this.http.get("https://cozastores.azurewebsites.net/api/loais").subscribe(
+      this.http.get(environment.URL_API+"loais").subscribe(
         res=>{
           this.dataSource.data = res as Category[];
         }

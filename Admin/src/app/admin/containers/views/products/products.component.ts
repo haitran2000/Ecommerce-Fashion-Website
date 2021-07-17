@@ -18,6 +18,7 @@ import {MatAccordion} from '@angular/material/expansion';
 import { ToastServiceService } from '../../shared/toast-service.service';
 import { SanPhamBienTheService } from '../gia-san-phams/san-pham-bien-the.service';
 import { SanPhamBienThe } from '../gia-san-phams/san-pham-bien-thes.component';
+import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -39,7 +40,7 @@ export class ProductsComponent implements OnInit,AfterViewInit {
               public serviceToast : ToastServiceService,) { }
 public dataSource = new MatTableDataSource<Product>();
 
-readonly url="https://cozastores.azurewebsites.net/api/sanphams"
+readonly url=environment.URL_API+"sanphams"
 get(){
   return this.http.get(this.url)
 }
@@ -56,7 +57,7 @@ getAllProducts(){
     this.getAllProducts();
     const connection = new signalR.HubConnectionBuilder()  
     .configureLogging(signalR.LogLevel.Information)  
-    .withUrl('https://cozastores.azurewebsites.net/notify')  
+    .withUrl('https://localhost:44302/notify')  
     .build();  
 
   connection.start().then(function () {  

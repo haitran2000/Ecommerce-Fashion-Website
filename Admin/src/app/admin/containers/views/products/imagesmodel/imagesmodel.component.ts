@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../../../../environments/environment';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class ImagesmodelComponent implements OnInit {
             public service : ProductService) { }
   public imageproductList : ImageProduct[]
   ngOnInit(): void {
-    this.http.get("https://cozastores.azurewebsites.net/api/SanPhamBienThes/spbt/"+this.service.product.id).subscribe(
+    this.http.get(environment.URL_API+"SanPhamBienThes/spbt/"+this.service.product.id).subscribe(
       res=>{
         this.imageproductList = res as ImageProduct[]
         console.log( this.imageproductList)

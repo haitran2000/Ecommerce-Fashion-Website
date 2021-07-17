@@ -4,6 +4,7 @@ import { Injectable, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { environment } from "../../../../../environments/environment";
 import { User } from "./asp-net-users.component";
 
 @Injectable({
@@ -14,7 +15,7 @@ export class UserService{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public dataSource = new MatTableDataSource<User>();
     user:User = new User()
-    readonly url="https://cozastores.azurewebsites.net/api/usermanagers"
+    readonly url=environment.URL_API+"usermanagers"
     constructor(public http:HttpClient) { }
     get(){
       return this.http.get(this.url)
@@ -23,7 +24,7 @@ export class UserService{
       return this.http.delete(`${this.url}/${id}`)
     }
     getAllUsers(){
-      this.http.get("https://cozastores.azurewebsites.net/api/usermanagers").subscribe(
+      this.http.get(environment.URL_API+"usermanagers").subscribe(
         res=>{
           this.dataSource.data = res as User[];
         }

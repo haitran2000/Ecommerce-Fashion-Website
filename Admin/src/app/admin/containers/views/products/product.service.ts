@@ -4,6 +4,7 @@ import {MatTableDataSource} from '@angular/material/table';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class ProductService {
   constructor( public http : HttpClient) { }
     listData : MatTableDataSource<any>;
     product: Product = new Product();
-    readonly url="https://cozastores.azurewebsites.net/api/sanphams"
+    readonly url=environment.URL_API+"sanphams"
     get(){
       return this.http.get(this.url)
     }

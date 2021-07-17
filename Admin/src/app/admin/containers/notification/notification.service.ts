@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';  
 import { Observable, throwError } from 'rxjs';  
 import { catchError } from 'rxjs/operators';  
+import { environment } from '../../../../environments/environment';
 
 import { NotificationCheckOutCountResult, NotificationCountResult, NotificationResult,NotificationCheckOutResult } from './notification';  
   
@@ -10,12 +11,12 @@ import { NotificationCheckOutCountResult, NotificationCountResult, NotificationR
 })  
 export class NotificationService {  
   
-  private notificationsUrl = 'https://cozastores.azurewebsites.net/api/notifications';  
+  private notificationsUrl = environment.URL_API+'notifications';  
   
   constructor(private http: HttpClient) { }  
   
   getNotificationCount(): Observable<NotificationCountResult> {  
-    const url = 'https://cozastores.azurewebsites.net/api/notifications/notificationcount';  
+    const url = environment.URL_API+'notifications/notificationcount';  
     return this.http.get<NotificationCountResult>(url)  
       .pipe(  
         catchError(this.handleError)  
@@ -51,14 +52,14 @@ export class NotificationService {
   }  
 
   getNotificationCheckOutCount(): Observable<NotificationCheckOutCountResult> {  
-    const url = 'https://cozastores.azurewebsites.net/api/notificationcheckout/notificationcheckoutcount';  
+    const url = environment.URL_API+'notificationcheckout/notificationcheckoutcount';  
     return this.http.get<NotificationCheckOutCountResult>(url)  
       .pipe(  
         catchError(this.handleError)  
       );  
   }  
   getNotificationCheckOutMessage(): Observable<Array<NotificationCheckOutResult>> {  
-    const url = 'https://cozastores.azurewebsites.net/api/notificationcheckout/notificationcheckoutresult';
+    const url = environment.URL_API+'notificationcheckout/notificationcheckoutresult';
     return this.http.get<Array<NotificationCheckOutResult>>(url)  
       .pipe(  
         catchError(this.handleError)  

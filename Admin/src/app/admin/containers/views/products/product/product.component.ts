@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { CategoryService } from '../../categories/category.service';
 import { BrandService } from '../../brands/brand.service';
 import { ToastServiceService } from '../../../shared/toast-service.service';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-product',
@@ -172,7 +173,7 @@ export class ProductComponent implements OnInit {
         form.append('TrangThaiHoatDong',data.TrangThaiHoatDong);
        var json_arr = JSON.stringify(data);
        console.log(json_arr)
-        this.http.post('https://cozastores.azurewebsites.net/api/sanphams', form)
+        this.http.post(environment.URL_API+'sanphams', form)
         .subscribe(res => {
           this.serviceToast.showToastThemThanhCong()
           this.resetForm()
@@ -199,8 +200,11 @@ export class ProductComponent implements OnInit {
         form.append('Id_NhanHieu', data.Id_NhanHieu);
         form.append('TrangThaiSanPham',data.TrangThaiSanPham);
         form.append('TrangThaiSanPhamThietKe',data.TrangThaiSanPhamThietKe);
+        for(let i = 0;i<this.urls.length;i++){
+          form.append('files',this.selectedFile.item(i))
+        }
         form.append('TrangThaiHoatDong',data.TrangThaiHoatDong);
-        this.http.put('https://cozastores.azurewebsites.net/api/sanphams/'+`${this.service.product.id}`, form)
+        this.http.put(environment.URL_API+'sanphams/'+`${this.service.product.id}`, form)
         .subscribe(res=>{
           this.serviceToast.showToastSuaThanhCong()
          this.resetForm()

@@ -4,6 +4,7 @@ import { Injectable, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { environment } from "../../../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,8 @@ export class MauSacService{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public dataSource = new MatTableDataSource<MauSac>();
     mausac:MauSac = new MauSac()
-    readonly url="https://cozastores.azurewebsites.net/api/mausacs"
+    tensizeloai: any
+    readonly url=environment.URL_API+"mausacs"
     constructor(public http:HttpClient) { }
     get(){
       return this.http.get(this.url)
@@ -22,11 +24,14 @@ export class MauSacService{
       return this.http.delete(`${this.url}/${id}`)
     }
     getAllMauSacs(){
-      this.http.get("https://cozastores.azurewebsites.net/api/mausacs").subscribe(
+      this.http.get(environment.URL_API+"mausacs").subscribe(
         res=>{
           this.dataSource.data = res as MauSac[];
         }
       )
+    }
+    getAllMauSacLoais(){
+      return this.http.get(environment.URL_API+"sizes/tensizeloai")
     }
   }
   export class MauSac{
@@ -43,4 +48,8 @@ export class MauSacService{
     lastName:string
     firstName:string
     quyen:string
+  }
+
+  export class MauSacLoai{
+
   }

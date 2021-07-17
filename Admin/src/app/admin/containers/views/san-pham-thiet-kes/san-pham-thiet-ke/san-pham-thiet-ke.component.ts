@@ -14,6 +14,7 @@ import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 import { FileToUploadService } from '../../../shared/file-to-upload.service';
 import { SanPhamBienTheService } from '../../gia-san-phams/san-pham-bien-the.service';
 import { ToastServiceService } from '../../../shared/toast-service.service';
+import { environment } from '../../../../../../environments/environment';
 
 
 
@@ -62,12 +63,12 @@ public spbts: SanPhamBienThe[];
   ngOnInit(): void {
     this.service.currentMessage.subscribe(message => this.message = message);
     this.serviceItem.getAllItems()
-//     this.http.get("https://cozastores.azurewebsites.net/api/items").subscribe(res=>{
+//     this.http.get(environment.URL_API+"items").subscribe(res=>{
 //   this.items = res as asd[]
 //   console.log(this.items)
  
 // })
-this.http.get("https://cozastores.azurewebsites.net/api/GetSanPhamThuongDeThietKes").subscribe(
+this.http.get(environment.URL_API+"GetSanPhamThuongDeThietKes").subscribe(
   res=>{
     this.spbts = res as SanPhamBienThe[];
   }
@@ -103,7 +104,7 @@ this.http.get("https://cozastores.azurewebsites.net/api/GetSanPhamThuongDeThietK
     const formData = new FormData();
       formData.append('file', this.canvas.getBase64());
       formData.append('idElement',this.canvas.json)
-      this.http.post('https://cozastores.azurewebsites.net/api/GetSanPhamThuongDeThietKes', formData)
+      this.http.post(environment.URL_API+'GetSanPhamThuongDeThietKes', formData)
       .subscribe(res => {
         this.serviceToast.showToastThemThanhCong()
         this.idflags = []

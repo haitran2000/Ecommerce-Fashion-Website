@@ -5,6 +5,7 @@ import { BaseService } from './base.service';
 import { Route } from '@angular/compiler/src/core';
 import { Router } from '@angular/router';
 import { ToastServiceService } from '../../shared/toast-service.service';
+import { environment } from '../../../../../environments/environment';
 
 //import * as _ from 'lodash';
 
@@ -30,7 +31,7 @@ export class UserService extends BaseService  {
     // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
     // header component resulting in authed user nav links disappearing despite the fact user is still logged in
     this._authNavStatusSource.next(this.loggedIn);
-    this.baseUrl = "https://cozastores.azurewebsites.net/api/"
+    this.baseUrl = environment.URL_API
   }
    login(userName, password) {
     return this.http

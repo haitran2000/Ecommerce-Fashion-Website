@@ -3,6 +3,7 @@ import { Injectable, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { environment } from '../../../../../environments/environment';
 
 
 @Injectable({
@@ -14,7 +15,7 @@ export class ItemService {
   public dataSource = new MatTableDataSource<Item>();
   item : Item = new Item()
   public items : Item[]
-  readonly url="https://cozastores.azurewebsites.net/api/items"
+  readonly url=environment.URL_API+"items"
   constructor(public http:HttpClient) { }
   get(){
     return this.http.get(this.url)
@@ -23,14 +24,14 @@ export class ItemService {
     return this.http.delete(`${this.url}/${id}`)
   }
   getAllItems(){
-    this.http.get("https://cozastores.azurewebsites.net/api/items").subscribe(
+    this.http.get(environment.URL_API+"items").subscribe(
       res=>{
         this.dataSource.data = res as Item[];
       }
     )
   }
   getAllItemss(){
-    this.http.get("https://cozastores.azurewebsites.net/api/items").subscribe(
+    this.http.get(environment.URL_API+"items").subscribe(
       res=>{
         this.items = res as Item[];
       }

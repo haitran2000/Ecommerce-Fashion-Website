@@ -6,6 +6,7 @@ import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { BehaviorSubject } from "rxjs";
+import { environment } from "../../../../../environments/environment";
 import { GetSPTK } from "./san-pham-thiet-kes.component";
 ;
 @Injectable({
@@ -21,7 +22,7 @@ export class SanPhamThietKeService{
   public datasptk : sptk[]
 
    sanphamthietke:GetSPTK = new GetSPTK()
-    readonly url="https://cozastores.azurewebsites.net/api/SanPhamThietKes"
+    readonly url=environment.URL_API+"SanPhamThietKes"
     constructor(public http:HttpClient, private sanitizer: DomSanitizer) { }
     get(){
       return this.http.get(this.url)
@@ -36,7 +37,7 @@ export class SanPhamThietKeService{
       this.messageSource.next(message);
     }
     getAllSanPhamThietKes(){
-      this.http.get("https://cozastores.azurewebsites.net/api/GetSanPhamThuongDeThietKes" ,{ headers: new HttpHeaders({"Access-Control-Allow-Origin":"*"})
+      this.http.get(environment.URL_API+"GetSanPhamThuongDeThietKes" ,{ headers: new HttpHeaders({"Access-Control-Allow-Origin":"*"})
     }).subscribe(
         res=>{
           this.data = res as GetSPTK[];
@@ -45,7 +46,7 @@ export class SanPhamThietKeService{
     }
 
     getsptk(){
-      this.http.get("https://cozastores.azurewebsites.net/api/SanPhamThietKes").subscribe(
+      this.http.get(environment.URL_API+"SanPhamThietKes").subscribe(
         res=>{
           this.dataSource.data = res as sptk[];
           this.datasptk = res as sptk[];

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { environment } from '../../../../../../environments/environment';
 import { FileToUploadService } from '../../../shared/file-to-upload.service';
 import { ToastServiceService } from '../../../shared/toast-service.service';
 import { CategoryService } from '../../categories/category.service';
@@ -61,6 +62,8 @@ export class SanPhamBienTheComponent implements OnInit {
   mausacs: any[] = [];
   sanphams: any[] = [];
   sizes: any[] = [];
+  loaitenmau: any[]=[];
+  loaitensize : any[]=[];
   constructor(public service : SanPhamBienTheService,
     public upfile:FileToUploadService,
     public serviceToast : ToastServiceService,
@@ -80,33 +83,35 @@ export class SanPhamBienTheComponent implements OnInit {
   ImagePath : new FormControl(null), 
   Id_Mau : new FormControl(null,[
   Validators.required,
-]),
-Id_SanPham : new FormControl(null,[
+  ]),
+  Id_SanPham : new FormControl(null,[
   Validators.required,
-]),
-Id_Size : new FormControl(null,[
+  ]),
+  Id_Size : new FormControl(null,[
   Validators.required,
-]),
-});
+  ]),
+  });
 
 
-this.http.get("https://cozastores.azurewebsites.net/api/mausacs").subscribe(
+  this.service.getAllTenMauLoai().subscribe(
   data=>{
-        Object.assign(this.mausacs,data)
+        Object.assign(this.loaitenmau,data)
         }
     )
 
-    this.serviceCategory.get().subscribe(
-      data=>{
-            Object.assign(this.categorys,data)
-            }
-        )
-  this.serviceSanPham.get().subscribe(
+  this.service.getAllTenSizeLoai().subscribe(
   data=>{
-  Object.assign(this.sanphams,data)
+        Object.assign(this.loaitensize,data)
+        console.log(this.loaitensize);
+        
+        }
+  )
+  this.service.getAllSanPhams().subscribe(
+    data=>{
+    Object.assign(this.sanphams,data)
         }
     )
-  this.http.get("https://cozastores.azurewebsites.net/api/sizes").subscribe(
+  this.http.get(environment.URL_API+"sizes").subscribe(
   data=>{
           this.sizes = data as Size[]
         }
@@ -124,7 +129,7 @@ formData.append('SizeId',data.Id_Size);
 formData.append('file', this.selectedFile);
 console.log(data);
 
-this.http.post('https://cozastores.azurewebsites.net/api/sanphambienthes',formData)
+this.http.post(environment.URL_API+'sanphambienthes',formData)
 .subscribe(res => {
   this.serviceToast.showToastThemThanhCong()
 this.service.getAllSanPhamBienThes();
@@ -141,7 +146,7 @@ formData.append('MauId',data.Id_Mau);
 formData.append('SanPhamId',data.Id_SanPham);
 formData.append('SizeId',data.Id_Size);
 formData.append('file', this.selectedFile);
-this.http.put('https://cozastores.azurewebsites.net/api/sanphambienthes/'+`${this.service.sanphambienthe.id}`,formData)
+this.http.put(environment.URL_API+'sanphambienthes/'+`${this.service.sanphambienthe.id}`,formData)
 .subscribe(res=>{
   this.serviceToast.showToastSuaThanhCong()
   this.service.getAllSanPhamBienThes();

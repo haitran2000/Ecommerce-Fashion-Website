@@ -5,6 +5,7 @@ import { MauSacsComponent } from '../mau-sacs.component';
 import { MauSacService } from '../mau-sac.service';
 import { CategoryService } from '../../categories/category.service';
 import { ToastServiceService } from '../../../shared/toast-service.service';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'app-mau-sac',
@@ -51,7 +52,7 @@ if(this.service.mausac.id==0){
 const formData = new FormData();
 formData.append('MaMau',data.MaMau);
 formData.append('Id_Loai', data.Id_Loai);
-this.http.post('https://cozastores.azurewebsites.net/api/mausacs', formData)
+this.http.post(environment.URL_API+'mausacs', formData)
 .subscribe(res => {
 this.service.getAllMauSacs();
 this.service.mausac.id=0;
@@ -66,7 +67,7 @@ else
 const formData = new FormData();
 formData.append('MaMau',data.MaMau);
 formData.append('Id_Loai', data.Id_Loai);
-this.http.put('https://cozastores.azurewebsites.net/api/mausacs/'+`${this.service.mausac.id}`, formData)
+this.http.put(environment.URL_API+'mausacs/'+`${this.service.mausac.id}`, formData)
 .subscribe(res=>{this.serviceToast.showToastSuaThanhCong()
   
   

@@ -3,6 +3,7 @@ import { Injectable, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { environment } from "../../../../../environments/environment";
 import { CTHDViewModel, HoaDon } from "./hoa-dons.component";
 
 @Injectable({
@@ -16,7 +17,7 @@ export class HoaDonService {
 
   hoadon: HoaDon = new HoaDon()
   cthdViewModel: CTHDViewModel = new CTHDViewModel()
-  readonly url = "https://cozastores.azurewebsites.net/api/hoadons"
+  readonly url = environment.URL_API+"hoadons"
   constructor(public http: HttpClient) { }
   get() {
     return this.http.get(this.url)
@@ -25,14 +26,14 @@ export class HoaDonService {
     return this.http.delete(`${this.url}/${id}`)
   }
   getHoaDon(id: number) {
-    this.http.get("https://cozastores.azurewebsites.net/api/hoadons/" + id).subscribe(
+    this.http.get(environment.URL_API+"hoadons/" + id).subscribe(
       res => {
         this.dataSource2.data = res as CTHDViewModel[];
       }
     )
   }
   getAllHoaDons() {
-    this.http.get("https://cozastores.azurewebsites.net/api/hoadons").subscribe(
+    this.http.get(environment.URL_API+"hoadons").subscribe(
       res => {
         this.dataSource.data = res as HoaDon[];
 
