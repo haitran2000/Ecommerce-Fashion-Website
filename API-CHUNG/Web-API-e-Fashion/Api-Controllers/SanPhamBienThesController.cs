@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
 using Web_API_e_Fashion.ResModels;
+using Web_API_e_Fashion.ServerToClientModels;
 using Web_API_e_Fashion.SignalRModels;
 using Web_API_e_Fashion.UploadDataFormClientModels;
 
@@ -28,6 +29,30 @@ namespace Web_API_e_Fashion.Api_Controllers
             _hubContext = hubContext;
         }
 
+
+        [HttpGet("sanphambienthe")]
+        public async Task<ActionResult<IEnumerable<SanPhamBienTheMauSizeLoai>>> GetAllSPBTSS()
+        {
+            var kb = from spbt in _context.SanPhamBienThes
+                     join sp in _context.SanPhams
+                     on spbt.Id_SanPham equals sp.Id
+                     join l in _context.Loais
+                     on sp.Id_Loai equals l.Id
+                     join m in _context.MauSacs
+                     on spbt.Id_Mau equals m.Id
+                     join s in _context.Sizes
+                     on spbt.SizeId equals s.Id
+
+                     select new SanPhamBienTheMauSizeLoai()
+                     {
+                         Id = spbt.Id,
+                         MauLoai = m.MaMau + " " + l.Ten,
+                         SizeLoai = s.TenSize + " " + l.Ten,
+                         SanPham = sp.Ten,
+
+                     };
+            return await kb.ToListAsync();
+        }
         // GET: api/SanPhamBienThes
         [HttpGet("spbt/{id}")]
         public async Task<ActionResult<IEnumerable<SanPhamBienThe>>> GetSPBTAll(int id)

@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Web_API_e_Fashion.ClientToServerModels;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Helpers;
 using Web_API_e_Fashion.Models;
@@ -46,27 +47,6 @@ namespace Web_API_e_Fashion.Api_Controllers
             AppUser user = new AppUser();
             user = await _context.AppUsers.FirstOrDefaultAsync(s => s.Id == userIdentity.Id);
             
-            //if (model.file != null)
-            //{
-            //    var folderName = Path.Combine("wwwroot", "Images", "user");
-            //    var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
-            //    var fileName = ContentDispositionHeaderValue.Parse(model.file.ContentDisposition).FileName.Trim('"');
-            //    var fullPath = Path.Combine(pathToSave, fileName);
-            //    using (var stream = new FileStream(fullPath, FileMode.Create))
-            //    {
-            //        await model.file.CopyToAsync(stream);
-            //    }
-            //    user.ImagePath = fileName;
-            //}
-            //else
-            //{
-            //    user.ImagePath = "noimage.jpg";
-            //}
-
-            
-
-        
-
             _context.AppUsers.Update(user);
             if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
 
@@ -76,6 +56,19 @@ namespace Web_API_e_Fashion.Api_Controllers
             return Ok();
         }
 
+        [HttpPut("updateprofile/{id}")]
+        public async Task<IActionResult> Put([FromForm] UpdateUserProfile model, string id)
+        {
+            var user = await _context.AppUsers.FindAsync(id);
+            user.SDT = model.SDT;
+            user.DiaChi = model.DiaChi;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.PasswordHash = model.Password;
+            _context.AppUsers.Update(user);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
 
     }
 }
