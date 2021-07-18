@@ -98,7 +98,6 @@ import { ModalComponent } from './admin/containers/modal/modal.component';
 import { SanPhamBienTheComponent } from './admin/containers/views/gia-san-phams/san-pham-bien-the/san-pham-bien-thecomponent';
 import { SanPhamBienThesComponent } from './admin/containers/views/gia-san-phams/san-pham-bien-thes.component';
 import { ItemComponent } from './admin/containers/views/items/item/item.component';
-import { ProfileComponent } from './admin/containers/views/account/profile/profile.component';
 
 import { HoaDonComponent } from './admin/containers/views/hoa-dons/hoa-don/hoa-don.component';
 import { ChiTietHoaDonComponent } from './admin/containers/views/chi-tiet-hoa-dons/chi-tiet-hoa-don/chi-tiet-hoa-don.component';
@@ -108,6 +107,7 @@ import { FabricjsEditorModule } from '../../projects/angular-editor-fabric-js/sr
 import { ModaSaveComponent } from './admin/containers/views/san-pham-thiet-kes/san-pham-thiet-ke/moda-save/moda-save.component';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardModule } from './admin/containers/views/dashboard/dashboard.module';
+import { ProfileComponent } from './admin/containers/views/profile/profile.component';
 
 
 

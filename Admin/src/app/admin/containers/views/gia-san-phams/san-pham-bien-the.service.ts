@@ -4,14 +4,14 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { environment } from "../../../../../environments/environment";
-import { SanPhamBienThe, SanPhamBienThesComponent } from "./san-pham-bien-thes.component";
+import { SanPhamBienThe, SanPhamBienThesComponent, SanPhamBienTheSS } from "./san-pham-bien-thes.component";
 @Injectable({
     providedIn: 'root'
   })
 export class SanPhamBienTheService{
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public dataSource = new MatTableDataSource<SanPhamBienThe>();
+  public dataSource = new MatTableDataSource<SanPhamBienTheSS>();
     sanphambienthe:SanPhamBienThe = new SanPhamBienThe()
     spbts: SanPhamBienThe[]
     tensizeloai:any
@@ -24,10 +24,9 @@ export class SanPhamBienTheService{
       return this.http.delete(`${this.url}/${id}`)
     }
     getAllSanPhamBienThes(){
-      this.http.get(environment.URL_API+"sanphambienthes").subscribe(
+      this.http.get(environment.URL_API+"sanphambienthes/sanphambienthe").subscribe(
         res=>{
-          this.dataSource.data = res as SanPhamBienThe[];
-          this.spbts = res as SanPhamBienThe[];
+          this.dataSource.data = res as SanPhamBienTheSS[];
         }
       )
     }

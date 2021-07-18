@@ -39,6 +39,7 @@ import { ChartJSComponent } from './admin/containers/views/chartjs/chartjs.compo
 import { SanPhamThietKeComponent } from './admin/containers/views/san-pham-thiet-kes/san-pham-thiet-ke/san-pham-thiet-ke.component';
 import { UserdetailComponent } from './admin/containers/userdetail/userdetail.component';
 import { WidgetsComponent } from './admin/containers/views/widgets/widgets.component';
+import { ProfileComponent } from './admin/containers/views/profile/profile.component';
 
 // import { DefaultLayoutClientComponent } from './client/containers/default-layout-client/default-layout-client.component';
 
@@ -88,6 +89,11 @@ export const routes: Routes = [
       title: 'Home'
     },
     children: [
+      {
+        path:'admin/profile',
+        component:ProfileComponent
+      }
+      ,
       {
         path:'admin/widget',
         component:WidgetsComponent

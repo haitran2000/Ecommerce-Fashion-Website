@@ -40,6 +40,7 @@ export class DefaultLayoutComponent implements OnInit{
   this.http.get(environment.URL_API+"Auth/AuthHistory").subscribe(
     res=>{
       this.user = res as UserIdenity
+      localStorage.setItem('appuser',JSON.stringify(this.user))
       console.log(this.user)
     },
     error=>{
