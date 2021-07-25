@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NotificationService } from './notification.service';
+import { ExportExcelService } from './export-excel.service';
 
-describe('NotificationService', () => {
-  let service: NotificationService;
+describe('ExportExcelService', () => {
+  let service: ExportExcelService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(NotificationService);
+    service = TestBed.inject(ExportExcelService);
   });
 
   it('should be created', () => {

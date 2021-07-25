@@ -1,91 +1,229 @@
 <br>
 <br>
 <div class="animated fadeIn">
-    <div class="row">
-      <div class="col-sm-6 col-lg-3" style="cursor: pointer;">
-        <div class="card text-white bg-success"  routerLink="/admin/products" >
-          <div class="card-body pb-0">
-            <button type="button" class="btn btn-transparent p-0 float-right">
-              <i class="icon-location-pin"></i>
+  <div class="row">
+    <div class="col-sm-6 col-lg-3" style="cursor: pointer;">
+      <div class="card text-white bg-success" routerLink="/admin/products">
+        <div class="card-body pb-0">
+          <button type="button" class="btn btn-transparent p-0 float-right">
+            <i class="icon-location-pin"></i>
+          </button>
+          <div class="text-value">{{this.countProduct}}</div>
+          <div>Số sản phẩm</div>
+          <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-primary" routerLink="/admin/hoadons">
+        <div class="card-body pb-0">
+          <div class="btn-group float-right" dropdown>
+            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+              <i class="icon-settings"></i>
             </button>
-            <div class="text-value">{{this.countProduct}}</div>
-            <div>Số sản phẩm</div>
-            <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+              <a class="dropdown-item" href="#">Something else here</a>
             </div>
           </div>
+          <div class="text-value">{{this.countOrder}}</div>
+          <div>Số lượng đơn hàng</div>
         </div>
-      </div><!--/.col-->
-      <div class="col-sm-6 col-lg-3">
-        <div class="card text-white bg-primary"  routerLink="/admin/hoadons">
-          <div class="card-body pb-0">
-            <div class="btn-group float-right" dropdown>
-              <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
-                <i class="icon-settings"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-warning" routerLink="/admin/aspnetusers">
+        <div class="card-body pb-0">
+          <div class="btn-group float-right" dropdown>
+            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+              <i class="icon-settings"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
             </div>
-            <div class="text-value">{{this.countOrder}}</div>
-            <div>Số lượng đơn hàng</div>
           </div>
-          <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
-          </div>
+          <div class="text-value">{{this.countUser}}</div>
+          <div>Số lượng User</div>
         </div>
-      </div><!--/.col-->
-      <div class="col-sm-6 col-lg-3">
-        <div class="card text-white bg-warning" routerLink="/admin/aspnetusers">
-          <div class="card-body pb-0">
-            <div class="btn-group float-right" dropdown>
-              <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
-                <i class="icon-settings"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
+        <div class="chart-wrapper mt-3" style="height:70px;">
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-3">
+      <div class="card text-white bg-danger">
+        <div class="card-body pb-0">
+          <div class="btn-group float-right" dropdown>
+            <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
+              <i class="icon-settings"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
             </div>
-            <div class="text-value">{{this.countUser}}</div>
-            <div>Số lượng User</div>
           </div>
-          <div class="chart-wrapper mt-3" style="height:70px;">
-          </div>
+          <div class="text-value">{{this.countTotalMoney}}</div>
+          <div>Tiền thu về</div>
         </div>
-      </div><!--/.col-->
-      <div class="col-sm-6 col-lg-3">
-        <div class="card text-white bg-danger">
-          <div class="card-body pb-0">
-            <div class="btn-group float-right" dropdown>
-              <button type="button" class="btn btn-transparent dropdown-toggle p-0" dropdownToggle>
-                <i class="icon-settings"></i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-right" *dropdownMenu>
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </div>
-            <div class="text-value">{{this.countTotalMoney}}</div>
-            <div>Tiền thu về</div>
-          </div>
-          <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
-          </div>
+        <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
         </div>
-      </div><!--/.col-->
-    </div><!--/.row-->
+      </div>
+    </div>
+    <!--/.col-->
   </div>
-  <h1>
-    {{title}}
-  </h1>
-  <fusioncharts
-  type="column2d"
-  width="100%"
-  height="400"
-  dataFormat="json"
-  [dataSource]="dataSource"
-  (initialized)="initialized($event)">
-</fusioncharts>
+  <!--/.row-->
+</div>
+<h1>Sản phẩm bán chạy nhất: {{this.sanPhamBanChay.tenSP}} đã bán được:  {{this.sanPhamBanChay.soSanPhamBanDuoc}} sản phẩm</h1>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+      <fusioncharts type="column3d" width="100%" height="400" dataFormat="json" [dataSource]="dataSource"
+        (initialized)="initialized($event)">
+      </fusioncharts>
+    </div>
+    <div class="col-sm-4">
+      <br>
+      <br>
+      <br>
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Tháng</th>
+            <th scope="col">Doanh số</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of this.dataThongKe">
+            <td>{{item.month}}</td>
+            <td>{{item.revenues}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+        <h1>Thống kê theo sản phẩm xuất hiện trong đơn hàng</h1>
+        <fusioncharts type="column3d" width="100%" height="400" dataFormat="json" [dataSource]="dataSourceSoLanXuatHien"
+        (initialized)="initialized($event)">
+      </fusioncharts>
+    </div>
+    <div class="col-sm-4">
+      <br>
+      <br>
+      <br>
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sản phẩm</th>
+            <th scope="col">Số lần xuất hiện trong tất cả đơn hàng</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of this.soLanXuatHien">
+            <td>{{item.tenSP}}</td>
+            <td>{{item.soLanXuatHienTrongDonHang}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+        <h1>Thống kê theo sản phẩm doanh thu cao</h1>
+        <fusioncharts type="column3d" width="100%" height="400" dataFormat="json" [dataSource]="dataSourceDoanhThu"
+        (initialized)="initialized($event)">
+      </fusioncharts>
+    </div>
+    <div class="col-sm-4">
+      <br>
+      <br>
+      <br>
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Sản phẩm</th>
+            <th scope="col">Doanh thu </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of this.doanhthucaonhat">
+            <td>{{item.tenSP}}</td>
+            <td>{{item.doanhSoCaoNhat}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div>
+  <form [formGroup]="newBlogForm" (ngSubmit)="onSubmit(newBlogForm.value)" style="margin-top: 9rem;">
+    <mat-form-field appearance="fill">
+      <mat-label>Chọn tháng</mat-label>
+      <mat-select formControlName="Thang">
+        <mat-option value="1">Tháng 1</mat-option>
+        <mat-option value="2">Tháng 2</mat-option>
+        <mat-option value="3">Tháng 3</mat-option>
+        <mat-option value="4">Tháng 4</mat-option>
+        <mat-option value="5">Tháng 5</mat-option>
+        <mat-option value="6">Tháng 6</mat-option>
+        <mat-option value="7">Tháng 7</mat-option>
+        <mat-option value="8">Tháng 8</mat-option>
+        <mat-option value="9">Tháng 9</mat-option>
+        <mat-option value="10">Tháng 10</mat-option>
+        <mat-option value="11">Tháng 11</mat-option>
+        <mat-option value="12">Tháng 12</mat-option>
+      </mat-select>
+      <mat-hint align="end">Chọn tháng để xem ngày</mat-hint>
+    </mat-form-field>
+    <button mat-button color="accent" type="submit">Xem</button>
+  </form>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-8">
+      <fusioncharts type="column3d" width="100%" height="400" dataFormat="json" [dataSource]="dataSourceNgay"
+        (initialized)="initialized($event)">
+      </fusioncharts>
+    </div>
+    <div class="col-sm-4">
+      <br>
+      <br>
+      <br>
+      <br>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Ngày</th>
+            <th scope="col">Doanh số</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of this.dataThongKeNgay">
+            <td>{{item.ngay}}</td>
+            <td>{{item.revenues}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

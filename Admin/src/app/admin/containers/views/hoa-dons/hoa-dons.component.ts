@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Data, Router } from '@angular/router';
 import { ToastServiceService } from '../../shared/toast-service.service';
+import { ExportExcelService } from './export-excel.service';
 import { HoaDonComponent } from './hoa-don/hoa-don.component';
 import { HoaDonService } from './hoadon.service';
 
@@ -23,7 +24,8 @@ export class HoaDonsComponent implements OnInit {
               public router : Router,
               public http: HttpClient,
               public dialog: MatDialog,
-              public serviceToast : ToastServiceService,) { }
+              public serviceToast : ToastServiceService
+             ) { }
               
 
 
@@ -58,6 +60,7 @@ export class HoaDonsComponent implements OnInit {
     this.service.hoadon = Object.assign({},selectedRecord)
     this.dialog.open(HoaDonComponent)
 }
+
   clickDelete(id){
   if(confirm('Bạn có chắc chắn xóa bản ghi này không ??'))
   {

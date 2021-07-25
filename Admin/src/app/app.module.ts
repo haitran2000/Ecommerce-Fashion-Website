@@ -68,11 +68,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { ItemSanPhamThietKeComponent } from './admin/containers/views/item-san-pham-thiet-ke/item-san-pham-thiet-ke.component';
 import { ItemsComponent } from './admin/containers/views/items/items.component';
 import { MauSacsComponent } from './admin/containers/views/mau-sacs/mau-sacs.component';
-
-import { SanPhamThietKesComponent } from './admin/containers/views/san-pham-thiet-kes/san-pham-thiet-kes.component';
 import { SizesComponent } from './admin/containers/views/sizes/sizes.component';
-import { SanPhamSanPhamThietKeComponent } from './admin/containers/views/san-pham-san-pham-thiet-ke/san-pham-san-pham-thiet-ke.component';
-
 import { CategoryService } from './admin/containers/views/categories/category.service';
 import { CategoryComponent } from './admin/containers/views/categories/category/category.component';
 import { ProductInCategoryComponent } from './admin/containers/views/categories/product-in-category/product-in-category.component';
@@ -95,26 +91,28 @@ import { MauSacComponent } from './admin/containers/views/mau-sacs/mau-sac/mau-s
 
 import { AuthGuard } from './admin/containers/views/auth.guard';
 import { ModalComponent } from './admin/containers/modal/modal.component';
-import { SanPhamBienTheComponent } from './admin/containers/views/gia-san-phams/san-pham-bien-the/san-pham-bien-thecomponent';
-import { SanPhamBienThesComponent } from './admin/containers/views/gia-san-phams/san-pham-bien-thes.component';
+import { SanPhamBienTheComponent } from './admin/containers/views/san-pham-bien-thes/san-pham-bien-the/san-pham-bien-thecomponent';
+import { SanPhamBienThesComponent } from './admin/containers/views/san-pham-bien-thes/san-pham-bien-thes.component';
 import { ItemComponent } from './admin/containers/views/items/item/item.component';
 
 import { HoaDonComponent } from './admin/containers/views/hoa-dons/hoa-don/hoa-don.component';
 import { ChiTietHoaDonComponent } from './admin/containers/views/chi-tiet-hoa-dons/chi-tiet-hoa-don/chi-tiet-hoa-don.component';
 import { ChartsModule } from 'ng2-charts';
-import { SanPhamThietKeComponent } from './admin/containers/views/san-pham-thiet-kes/san-pham-thiet-ke/san-pham-thiet-ke.component';
 import { FabricjsEditorModule } from '../../projects/angular-editor-fabric-js/src/public-api';
-import { ModaSaveComponent } from './admin/containers/views/san-pham-thiet-kes/san-pham-thiet-ke/moda-save/moda-save.component';
 import { ToastrModule } from 'ngx-toastr';
-import { DashboardModule } from './admin/containers/views/dashboard/dashboard.module';
 import { ProfileComponent } from './admin/containers/views/profile/profile.component';
+import { DashboardComponent } from './admin/containers/views/dashboard/dashboard.component';
 
-
+import * as FusionCharts from "fusioncharts";
+import * as charts from "fusioncharts/fusioncharts.charts";
+import * as FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
+import { FusionChartsModule } from 'angular-fusioncharts';
+FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 
 
 @NgModule({
   imports: [
-
+    FusionChartsModule,
     KonvaModule,
     ChartsModule,
     HttpClientModule,
@@ -132,7 +130,6 @@ import { ProfileComponent } from './admin/containers/views/profile/profile.compo
     TabsModule.forRoot(),
     FabricjsEditorModule,
     IconModule,
-    DashboardModule,
     IconSetModule.forRoot(),
     MatTableModule,
     MatPaginatorModule,
@@ -169,6 +166,7 @@ import { ProfileComponent } from './admin/containers/views/profile/profile.compo
     MatSortModule,
   ],
   declarations: [
+    DashboardComponent,
     AppComponent,
     ...APP_CONTAINERS,
     P404Component,
@@ -182,9 +180,7 @@ import { ProfileComponent } from './admin/containers/views/profile/profile.compo
     ItemsComponent,
     MauSacsComponent,
     MauSacComponent,
-    SanPhamThietKesComponent,
     SizesComponent,
-    SanPhamSanPhamThietKeComponent,
     CategoryComponent,
     ProductInCategoryComponent,
     HoaDonsComponent,
@@ -212,8 +208,6 @@ import { ProfileComponent } from './admin/containers/views/profile/profile.compo
 
    HoaDonComponent,
      ChiTietHoaDonComponent,
-     SanPhamThietKeComponent,
-     ModaSaveComponent,
      DefaultLayoutComponent,
 
 

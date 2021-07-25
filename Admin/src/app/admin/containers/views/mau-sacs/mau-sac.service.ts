@@ -15,14 +15,14 @@ export class MauSacService{
   public dataSource = new MatTableDataSource<MauSac>();
     mausac:MauSac = new MauSac()
     tensizeloai: any
-    readonly url=environment.URL_API+"mausacs"
+   
     constructor(public http:HttpClient) { }
-    get(){
-      return this.http.get(this.url)
-    }
+
     delete(id:number){
-      return this.http.delete(`${this.url}/${id}`)
+      return this.http.delete(`${environment.URL_API+"mausacs"}/${id}`)
     }
+
+    /* Dùng cho component Product sau khi thêm hoặc sửa xong */
     getAllMauSacs(){
       this.http.get(environment.URL_API+"mausacs").subscribe(
         res=>{

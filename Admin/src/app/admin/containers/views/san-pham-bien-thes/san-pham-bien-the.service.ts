@@ -30,6 +30,7 @@ export class SanPhamBienTheService{
         }
       )
     }
+    /* Dùng cho component modal thêm xóa sửa */
     getAllSanPhams(){
       return this.http.get(environment.URL_API+"sanphams/sp")
     }

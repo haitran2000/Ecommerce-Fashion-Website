@@ -15,13 +15,10 @@ export class SizeService{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   public dataSource = new MatTableDataSource<Size>();
     size:Size = new Size()
-    readonly url=environment.URL_API+"sizes"
     constructor(public http:HttpClient) { }
-    get(){
-      return this.http.get(this.url)
-    }
+   
     delete(id:number){
-      return this.http.delete(`${this.url}/${id}`)
+      return this.http.delete(`${environment.URL_API}/${id}`)
     }
     getAllSizes(){
       this.http.get(environment.URL_API+"sizes").subscribe(

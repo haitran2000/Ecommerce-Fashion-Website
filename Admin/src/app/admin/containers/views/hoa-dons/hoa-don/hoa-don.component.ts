@@ -5,6 +5,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { environment } from '../../../../../../environments/environment';
+import { ExportExcelService } from '../export-excel.service';
 import { CTHDViewModel, HoaDon } from '../hoa-dons.component';
 import { HoaDonService } from '../hoadon.service';
 
@@ -22,25 +23,29 @@ export class HoaDonComponent implements OnInit {
   constructor(public service: HoaDonService,
               public router : Router,
               public http: HttpClient,
-              public dialog: MatDialog,) { }
+              public dialog: MatDialog,
+              private exportService:ExportExcelService) { }
 
 
               displayedColumns: string[] = ['IdCTHD', 'tenSanPham','tenSize','tenMau','gia','soLuong','thanhTien','id_HoaDon'];
 
 
   public cthdViewModel : CTHDViewModel
+  public data : any=[]
   ngOnInit(): void {
     this.service.getHoaDon(this.service.hoadon.id);
+  
+    
   }
   ngAfterViewInit(): void {
     this.service.dataSource2.sort = this.sort;
     this.service.dataSource2.paginator = this.paginator;
+    console.log(this.service.dataOneBill);
   }
 
-getExportFile(){
-  this.http.get(environment.URL_API+"hoadons/exportExcel/"+this.service.hoadon.id);
+export() {
+    this.exportService.exportExcel(this.service.dataOneBill, 'bill');
 }
-
 getIdThisHoaDon(){
   return this.service.hoadon.id
 }

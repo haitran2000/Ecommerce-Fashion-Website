@@ -6,6 +6,10 @@ import { ToastrService } from 'ngx-toastr';
 export class ToastServiceService {
 
   constructor(    public toastr: ToastrService,) { }
+
+  showToastDonHangTaoThanhCong(){
+    this.toastr.success("Đơn hàng tạo thành công")
+  }
   showToastThemThanhCong(){
     this.toastr.success("Thêm thành công")
   }

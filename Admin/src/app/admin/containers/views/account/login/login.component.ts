@@ -10,52 +10,52 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: 'login.component.html'
 })
 @Injectable()
-export class LoginComponent  implements OnInit{
+export class LoginComponent implements OnInit {
   private subscription: Subscription;
   brandNew: boolean;
   errors: string;
   isRequesting: boolean;
   submitted: boolean = false;
   credentials: Credentials = { email: '', password: '' };
-  constructor( public toast : ToastrService,public router : Router,private activatedRoute: ActivatedRoute , public http : HttpClient, public userService : UserService){
-    
+  constructor(public toast: ToastrService, public router: Router, private activatedRoute: ActivatedRoute, public http: HttpClient, public userService: UserService) {
+
   }
   private loggedIn = false;
   isLoggedIn() {
     return this.loggedIn;
-  }  
+  }
   public newForm: FormGroup;
-  ngOnInit(){
+  ngOnInit() {
     this.newForm = new FormGroup({
-      userName : new FormControl(null),
-      passWord : new FormControl(null),
+      userName: new FormControl(null),
+      passWord: new FormControl(null),
     })
     this.subscription = this.activatedRoute.queryParams.subscribe(
       (param: any) => {
-         this.brandNew = param['brandNew'];   
-         this.credentials.email = param['email'];         
-      });      
+        this.brandNew = param['brandNew'];
+        this.credentials.email = param['email'];
+      });
   }
-  onLogOut(){
+  onLogOut() {
     localStorage.removeItem('auth_token');
     this.loggedIn = false
   }
-  onLogin(){
+  onLogin() {
     this.router.navigate(['/register']);
   }
-onSubmit = (data) =>{
-  let form = new FormData();
-  form.append('UserName', data.userName);
-  form.append('Password',data.passWord);
+  onSubmit = (data) => {
+    let form = new FormData();
+    form.append('UserName', data.userName);
+    form.append('Password', data.passWord);
     this.submitted = true;
     this.isRequesting = true;
-    this.errors='';
-    this.userService.login(data.userName,data.passWord)
-    }
-  
+    this.errors = '';
+    this.userService.login(data.userName, data.passWord)
   }
 
- export interface Credentials {
-  email: string;  
+}
+
+export interface Credentials {
+  email: string;
   password: string;
 }

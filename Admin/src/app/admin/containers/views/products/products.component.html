@@ -7,7 +7,7 @@
         <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Tìm kiếm">
     </mat-form-field>
 </div>
-<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
+<table mat-table [dataSource]="service.dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
 
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>

@@ -173,7 +173,7 @@ export class ProductComponent implements OnInit {
         form.append('TrangThaiHoatDong',data.TrangThaiHoatDong);
        var json_arr = JSON.stringify(data);
        console.log(json_arr)
-        this.http.post(environment.URL_API+'sanphams', form)
+        this.service.post(form)
         .subscribe(res => {
           this.serviceToast.showToastThemThanhCong()
           this.resetForm()
@@ -204,7 +204,7 @@ export class ProductComponent implements OnInit {
           form.append('files',this.selectedFile.item(i))
         }
         form.append('TrangThaiHoatDong',data.TrangThaiHoatDong);
-        this.http.put(environment.URL_API+'sanphams/'+`${this.service.product.id}`, form)
+        this.service.put(this.service.product.id, form)
         .subscribe(res=>{
           this.serviceToast.showToastSuaThanhCong()
          this.resetForm()

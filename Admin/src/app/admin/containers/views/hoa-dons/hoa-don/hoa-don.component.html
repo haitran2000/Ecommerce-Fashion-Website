@@ -10,7 +10,7 @@
   <div style="display:flex;justify-content: space-evenly;">
     <h3>Hóa đơn Id: {{getIdThisHoaDon()}}</h3>
     <h3>Tổng tền hóa đơn: {{getTongTienThisHoaDon()}} VNĐ</h3>
-    <button mat-button (click)="getExportFile()">Xuất EXEL</button>
+    <button mat-button (click)="export()">Xuất EXEL</button>
 </div>
 
 <table mat-table [dataSource]="this.service.dataSource2" matSort class="mat-elevation-z8" style="width: 100%;">

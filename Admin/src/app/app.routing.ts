@@ -17,7 +17,7 @@ import { ChiTietHoaDonsComponent } from './admin/containers/views/chi-tiet-hoa-d
 
 import { P404Component } from './admin/containers/views/error/404.component';
 import { P500Component } from './admin/containers/views/error/500.component';
-import { SanPhamBienThesComponent } from './admin/containers/views/gia-san-phams/san-pham-bien-thes.component';
+import { SanPhamBienThesComponent } from './admin/containers/views/san-pham-bien-thes/san-pham-bien-thes.component';
 
 import { HoaDonsComponent } from './admin/containers/views/hoa-dons/hoa-dons.component';
 import { ItemSanPhamThietKeComponent } from './admin/containers/views/item-san-pham-thiet-ke/item-san-pham-thiet-ke.component';
@@ -27,8 +27,7 @@ import { LoginComponent } from './admin/containers/views/account/login/login.com
 import { MauSacsComponent } from './admin/containers/views/mau-sacs/mau-sacs.component';
 import { ProductsComponent } from './admin/containers/views/products/products.component';
 
-import { SanPhamSanPhamThietKeComponent } from './admin/containers/views/san-pham-san-pham-thiet-ke/san-pham-san-pham-thiet-ke.component';
-import { SanPhamThietKesComponent } from './admin/containers/views/san-pham-thiet-kes/san-pham-thiet-kes.component';
+
 import { SizesComponent } from './admin/containers/views/sizes/sizes.component';
 import { ProductdetailComponent } from './admin/containers/views/products/productdetail/productdetail.component';
 import { ProductComponent } from './admin/containers/views/products/product/product.component';
@@ -36,7 +35,7 @@ import { HoaDonComponent } from './admin/containers/views/hoa-dons/hoa-don/hoa-d
 
 import { DashboardComponent } from './admin/containers/views/dashboard/dashboard.component';
 import { ChartJSComponent } from './admin/containers/views/chartjs/chartjs.component';
-import { SanPhamThietKeComponent } from './admin/containers/views/san-pham-thiet-kes/san-pham-thiet-ke/san-pham-thiet-ke.component';
+
 import { UserdetailComponent } from './admin/containers/userdetail/userdetail.component';
 import { WidgetsComponent } from './admin/containers/views/widgets/widgets.component';
 import { ProfileComponent } from './admin/containers/views/profile/profile.component';
@@ -144,18 +143,6 @@ export const routes: Routes = [
         component: BrandsComponent,canActivate: [AuthGuard],
       },
       {
-        path: 'admin/sanphamthietkes',
-        component: SanPhamThietKesComponent,canActivate: [AuthGuard],
-      },
-      {
-        path: 'admin/sanphamthietke',
-        component: SanPhamThietKeComponent,canActivate: [AuthGuard],
-      },
-      {
-        path: 'admin/sanpham_sanphamthietkes',
-        component: SanPhamSanPhamThietKeComponent,canActivate: [AuthGuard],
-      },
-      {
         path: 'admin/sizes',
         component: SizesComponent,canActivate: [AuthGuard],
       },
@@ -215,10 +202,7 @@ export const routes: Routes = [
         path: 'admin/aspnetuserclaims',
         component: AspNetUserClaimsComponent,canActivate: [AuthGuard],
       },
-      {
-        path: 'admin/sanpham_sanphamthietke',
-        component: SanPhamSanPhamThietKeComponent,canActivate: [AuthGuard],
-      },
+
       {
         path: 'admin/hoadon/detail/:id',
         component: HoaDonComponent,canActivate: [AuthGuard],
