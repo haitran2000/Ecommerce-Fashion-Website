@@ -65,6 +65,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             return await kb.OrderBy(s=>s.Id).ToListAsync();
         }
 
+
         // GET: api/SanPhams/5
         [HttpGet("{id}")]
         public async Task<ActionResult<SanPham>> GetSanPham(int id)

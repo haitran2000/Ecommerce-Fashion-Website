@@ -76,6 +76,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Template\" />
     <Folder Include="wwwroot\Images\list-image-product\" />
   </ItemGroup>
 

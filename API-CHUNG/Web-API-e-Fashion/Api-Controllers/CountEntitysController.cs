@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,13 +9,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.ServerToClientModels;
 using Web_API_e_Fashion.SignalRModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountEntitysController : ControllerBase
+    public class CountEntitysController : ControllerBase //thong ke theo mot Object hoac 1 so
     {
         private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
         private readonly DPContext _context;
@@ -30,7 +32,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         public async Task<ActionResult<int>> GetProductCount()
         {
             int count = await (from not in _context.SanPhams
-                         select not).CountAsync();
+                               select not).CountAsync();      
             return count;
         }
 
@@ -43,6 +45,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             int count = await (from not in _context.HoaDons
                                select not).CountAsync();
             return count;
+
         }
 
 
@@ -52,7 +55,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         public async Task<ActionResult<int>> GetUserCount()
         {
             int count = await (from not in _context.AppUsers
-                               select not).CountAsync();
+                               select not).CountAsync();      
             return count;
         }
 
@@ -73,7 +76,54 @@ namespace Web_API_e_Fashion.Api_Controllers
         }
 
         //Sản phẩm bán chạy nhất
-        
+        [HttpGet("getsanphambanchay")]
+        public async Task<ActionResult<TenSanPham>> GetSanPhamBanChayNhatAsync()
+        {
+            string sql = @"	select Top(1)Ten, sum(ChiTietHoaDons.Soluong) as'Số sản phẩm bán được'
+                        from SanPhams
+                        inner join SanPhamBienThes
+                        on SanPhams.Id = SanPhamBienThes.Id_SanPham
+                        inner join ChiTietHoaDons
+						on ChiTietHoaDons.Id_SanPhamBienThe = SanPhamBienThes.Id
+						group by Ten
+						order by sum(Soluong) desc
+                        ";
+            //var d = await _context.SanPhams.FromSqlRaw(sql).ToListAsync();
+            SqlConnection cnn;
+            cnn = new SqlConnection(_context.Database.GetConnectionString());
+            SqlDataReader reader;
+            SqlCommand cmd;
+            var tenSP = new TenSanPham();
+            try
+            {
+                await cnn.OpenAsync();
+                cmd = new SqlCommand(sql, cnn);
+                reader = await cmd.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
+                    int i = 0;
+                    while (await reader.ReadAsync())
+                    {
+                        tenSP.TenSP = (string)reader["Ten"];
+                        tenSP.SoSanPhamBanDuoc = (int)reader["Số sản phẩm bán được"];
+                    }
+                }           
+             
+                cnn.Close();
+            }
+            catch(Exception ex)
+            {
+
+            };
+          
+            return tenSP;
+          
+          
+        }
+
+
+       
+
     }
 
 }
