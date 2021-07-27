@@ -74,7 +74,43 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
             return TongTienTatCa;
         }
+        //Khách hàng mua nhiều nhất
+        [HttpGet("getkhachhangmuanhieunhat")]
+        public async Task<ActionResult<KhachHangMuaNhieuNhat>> GetKhachHangMuaNhieuNhat()
+        {
+            string sql = @"select AspNetUsers.FirstName+' '+AspNetUsers.LastName as 'Fullname',sum(TongTien) as'Tong tien'
+                            from ChiTietHoaDons
+                            inner join HoaDons
+                            on HoaDons.Id = ChiTietHoaDons.Id_HoaDon
+                            inner join AspNetUsers
+                            on HoaDons.Id_User = AspNetUsers.Id
+                            group by (AspNetUsers.FirstName+' '+AspNetUsers.LastName)";
+            var khachHang = new KhachHangMuaNhieuNhat();
+            try
+            {
+                SqlConnection connection = new SqlConnection(_context.Database.GetConnectionString());
+                SqlDataReader reader;
+                SqlCommand cmd = new SqlCommand(sql, connection);
+                await connection.OpenAsync();
+                reader = await cmd.ExecuteReaderAsync();
 
+                if (reader.HasRows)
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        khachHang.Id_User = (string)reader["Fullname"];
+                        khachHang.TongTienDaChiTieu = (decimal)reader["Tong tien"];
+                    }
+                }
+                await connection.CloseAsync();
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return khachHang;
+        }
         //Sản phẩm bán chạy nhất
         [HttpGet("getsanphambanchay")]
         public async Task<ActionResult<TenSanPham>> GetSanPhamBanChayNhatAsync()

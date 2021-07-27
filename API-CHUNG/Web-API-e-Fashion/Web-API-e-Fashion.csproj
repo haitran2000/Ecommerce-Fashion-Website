@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Template\**" />
     <Compile Remove="wwwroot\Images\brand\**" />
     <Compile Remove="wwwroot\Images\category\**" />
     <Compile Remove="wwwroot\Images\item\**" />
@@ -14,6 +15,7 @@
     <Compile Remove="wwwroot\Images\sptk\**" />
     <Compile Remove="wwwroot\Images\user\**" />
     <Compile Remove="wwwroot\NewFolder\**" />
+    <Content Remove="Template\**" />
     <Content Remove="wwwroot\Images\brand\**" />
     <Content Remove="wwwroot\Images\category\**" />
     <Content Remove="wwwroot\Images\item\**" />
@@ -21,6 +23,7 @@
     <Content Remove="wwwroot\Images\sptk\**" />
     <Content Remove="wwwroot\Images\user\**" />
     <Content Remove="wwwroot\NewFolder\**" />
+    <EmbeddedResource Remove="Template\**" />
     <EmbeddedResource Remove="wwwroot\Images\brand\**" />
     <EmbeddedResource Remove="wwwroot\Images\category\**" />
     <EmbeddedResource Remove="wwwroot\Images\item\**" />
@@ -28,6 +31,7 @@
     <EmbeddedResource Remove="wwwroot\Images\sptk\**" />
     <EmbeddedResource Remove="wwwroot\Images\user\**" />
     <EmbeddedResource Remove="wwwroot\NewFolder\**" />
+    <None Remove="Template\**" />
     <None Remove="wwwroot\Images\brand\**" />
     <None Remove="wwwroot\Images\category\**" />
     <None Remove="wwwroot\Images\item\**" />
@@ -76,7 +80,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Template\" />
     <Folder Include="wwwroot\Images\list-image-product\" />
   </ItemGroup>
 
