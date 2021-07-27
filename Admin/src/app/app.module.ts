@@ -107,6 +107,7 @@ import * as FusionCharts from "fusioncharts";
 import * as charts from "fusioncharts/fusioncharts.charts";
 import * as FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
 import { FusionChartsModule } from 'angular-fusioncharts';
+import { SelectMonthComponent } from './admin/containers/views/dashboard/select-month/select-month.component';
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 
 
@@ -209,6 +210,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
    HoaDonComponent,
      ChiTietHoaDonComponent,
      DefaultLayoutComponent,
+     SelectMonthComponent,
 
 
  

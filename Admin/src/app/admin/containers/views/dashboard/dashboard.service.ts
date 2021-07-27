@@ -12,7 +12,31 @@ export class DashboardService {
 
 
   constructor(private http: HttpClient) { }
-
+  dataThongKeNgay: any
+  public dataSourceNgay: any = {
+    chart: {
+      caption: 'Doanh thu',
+      xAxisName: 'Ngày',
+      yAxisName: 'Số tiền thu về',
+      numberSuffix: '',
+      theme: 'fusion'
+    },
+    data: [
+      { label: "", value: "" },
+      { label: "", value: "" },
+      { label: "", value: "" },
+      { label: "", value: "" },
+      { label: "", value: "" },
+      { label: "", value: "" },
+      { label: "", value: "" },
+      { label: "", value: "" },
+      { label: "", value: "" },
+      { label: "", value: "" },
+      { label: "", value: "" },
+      { label: "", value: "" },
+      { label: "", value: "" }
+    ]
+  }
   private handleError(err) {
     let errorMessage: string;
     if (err.error instanceof ErrorEvent) {
@@ -69,5 +93,8 @@ export class DashboardService {
   }
   getSanPhamDoanhThuTop():Observable<any>{
      return this.http.get<any>(environment.URL_API+"dashboard/sanphamloinhattop") 
+  }
+  getKhachHangMuaNhieuNhat():Observable<any>{
+    return this.http.get<any>(environment.URL_API+"CountEntitys/getkhachhangmuanhieunhat") 
   }
 }

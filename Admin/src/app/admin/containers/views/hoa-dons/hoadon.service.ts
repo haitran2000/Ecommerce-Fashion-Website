@@ -15,6 +15,7 @@ export class HoaDonService {
   public dataSource = new MatTableDataSource<HoaDon>();
   public dataSource2 = new MatTableDataSource<CTHDViewModel>();
   public dataOneBill: any[]
+  public dataBills : any[]
   hoadon: HoaDon = new HoaDon()
   cthdViewModel: CTHDViewModel = new CTHDViewModel()
   readonly url = environment.URL_API + "hoadons"
@@ -37,7 +38,7 @@ export class HoaDonService {
     this.http.get(environment.URL_API + "hoadons").subscribe(
       res => {
         this.dataSource.data = res as HoaDon[];
-
+        this.dataBills = res as HoaDon[]
       }
     )
   }

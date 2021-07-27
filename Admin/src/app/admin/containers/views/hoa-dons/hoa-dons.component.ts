@@ -24,7 +24,8 @@ export class HoaDonsComponent implements OnInit {
               public router : Router,
               public http: HttpClient,
               public dialog: MatDialog,
-              public serviceToast : ToastServiceService
+              public serviceToast : ToastServiceService,
+              public exportService: ExportExcelService
              ) { }
               
 
@@ -60,7 +61,9 @@ export class HoaDonsComponent implements OnInit {
     this.service.hoadon = Object.assign({},selectedRecord)
     this.dialog.open(HoaDonComponent)
 }
-
+exports() {
+  this.exportService.exportExcel(this.service.dataBills, 'bill');
+}
   clickDelete(id){
   if(confirm('Bạn có chắc chắn xóa bản ghi này không ??'))
   {

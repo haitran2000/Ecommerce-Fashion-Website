@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { ToastServiceService } from '../../shared/toast-service.service';
 import { SanPhamBienTheService } from './san-pham-bien-the.service';
 import { SanPhamBienTheComponent } from './san-pham-bien-the/san-pham-bien-thecomponent';
-
+import * as signalR from '@microsoft/signalr';
 @Component({
   selector: 'app-san-pham-bien-thes',
   templateUrl: './san-pham-bien-thes.component.html',
@@ -26,13 +26,27 @@ export class SanPhamBienThesComponent implements OnInit, AfterViewInit {
               public serviceToast : ToastServiceService,) { }
 
 
-              displayedColumns: string[] = ['id','mauLoai','sizeLoai','sanPham',
+              displayedColumns: string[] = ['id','mauLoai','sizeLoai','sanPham','soLuongTon',
   'actions'];
 
 
   public sanphambienthe :  SanPhamBienThe
   ngOnInit(): void {
     this.service.getAllSanPhamBienThes();
+    const connection = new signalR.HubConnectionBuilder()
+    .configureLogging(signalR.LogLevel.Information)
+    .withUrl('https://localhost:44302/notify')
+    .build();
+
+  connection.start().then(function () {
+    console.log('SignalR Connected!');
+  }).catch(function (err) {
+    return console.error(err.toString());
+  });
+
+  connection.on("BroadcastMessage", () => {
+    this.service.getAllSanPhamBienThes();
+  });
   }
   onSelectedSPTK(a: SanPhamBienThe):void{
     this.service.sanphambienthe = a
@@ -75,6 +89,7 @@ export class SanPhamBienThe{
   mauId : number 
   sanPhamId : number
   sizeId : number
+  soLuongTon:number
 }
 
 export class SanPhamBienTheSS{

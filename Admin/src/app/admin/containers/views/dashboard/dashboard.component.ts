@@ -10,11 +10,13 @@ import { catchError } from 'rxjs/operators';
 import * as signalR from '@microsoft/signalr';
 import { DashboardService } from './dashboard.service';
 import { ToastServiceService } from '../../shared/toast-service.service';
+import {MatDialog} from '@angular/material/dialog';
+import { SelectMonthComponent } from './select-month/select-month.component';
 @Component({
   templateUrl: 'dashboard.component.html'
 })
 export class DashboardComponent implements OnInit {
-  public newBlogForm: FormGroup;
+
   errorMessage = '';
   public dataSource: any = {
     chart: {
@@ -44,30 +46,7 @@ export class DashboardComponent implements OnInit {
 
   ///
 
-  public dataSourceNgay: any = {
-    chart: {
-      caption: 'Doanh thu',
-      xAxisName: 'Ngày',
-      yAxisName: 'Số tiền thu về',
-      numberSuffix: '',
-      theme: 'fusion'
-    },
-    data: [
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" }
-    ]
-  }
+ 
 
   //
 
@@ -75,9 +54,9 @@ export class DashboardComponent implements OnInit {
 
   public dataSourceSoLanXuatHien: any = {
     chart: {
-      caption: 'Số lần xuất hiện',
+      caption: 'Số lượng đã bán',
       xAxisName: 'Tên sản phẩm',
-      yAxisName: 'Số lần xuất hiện trong đơn hàng',
+      yAxisName: 'Số lượng đã bán',
       numberSuffix: '',
       theme: 'fusion'
     },
@@ -100,9 +79,9 @@ export class DashboardComponent implements OnInit {
 
   public dataSourceDoanhThu: any = {
     chart: {
-      caption: 'Số lần xuất hiện',
+      caption: 'sản phẩm đạt top doanh số cao nhất',
       xAxisName: 'Tên sản phẩm',
-      yAxisName: 'Số lần xuất hiện trong đơn hàng',
+      yAxisName: 'doanh thu',
       numberSuffix: '',
       theme: 'fusion'
     },
@@ -130,6 +109,7 @@ export class DashboardComponent implements OnInit {
     this.getCountTotalMoney();
     this.getThongKeThang();
     this.getStringSanPhamBanChay()
+    this.getKhachHangMuaNhieuNhat();
     const connection = new signalR.HubConnectionBuilder()
       .configureLogging(signalR.LogLevel.Information)
       .withUrl('https://localhost:44302/notify')
@@ -167,11 +147,10 @@ export class DashboardComponent implements OnInit {
     connection.on("BroadcastMessage",()=>{
       this.getTop10SanPhamLoiNhats()
     })
-    this.newBlogForm = new FormGroup({
-      Thang: new FormControl(null,
-        [
-        ]),
-    });
+    connection.on("BroadcastMessage",()=>{
+      this.getKhachHangMuaNhieuNhat()
+    })
+  
 
 
 
@@ -179,8 +158,16 @@ export class DashboardComponent implements OnInit {
   constructor(
     public http: HttpClient,
     public service: DashboardService,
-    private toast: ToastServiceService
+    private toast: ToastServiceService,
+    public dialog: MatDialog
   ) {
+  }
+  openDialog() {
+    const dialogRef = this.dialog.open(SelectMonthComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
   getThongKeThang() {
     this.service.getThongKeThang().subscribe(
@@ -199,36 +186,7 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  onSubmit = (data) => {
-    const formData = new FormData();
-    formData.append("month", data.Thang)
-    this.http.post(environment.URL_API + "dashboard/thongkengaytheothang", formData).subscribe(
-      (result: any) => {
-        this.dataThongKeNgay = result as any
-        if (this.dataThongKeNgay.length != 0) {
-          this.dataThongKeNgay = result as any
-          console.log(this.dataThongKeNgay);
-          for (var i = 0; i < this.dataThongKeNgay.length; i++) {
-            this.dataSourceNgay.data[i].label = this.dataThongKeNgay[i].ngay as any
-            this.dataSourceNgay.data[i].value = this.dataThongKeNgay[i].revenues as any
-
-          }
-        }
-        else {
-          for (var i = 0; i < 31; i++) {
-            this.dataSourceNgay.data[i].label = ""
-            this.dataSourceNgay.data[i].value = ""
-          }
-
-
-        }
-
-      },
-      error => {
-        this.errorMessage = <any>error
-      }
-    )
-  }
+  
   dataclone: any
   dataThongKe: any
   dataThongKeNgay: any
@@ -240,6 +198,7 @@ export class DashboardComponent implements OnInit {
   soLanXuatHien: any;
   lengthArr: number;
   doanhthucaonhat:any;
+  khachhangmuanhieunhat:any;
   getCountProduct() {
     this.service.getCountProduct().subscribe(
       result => {
@@ -319,6 +278,18 @@ export class DashboardComponent implements OnInit {
           this.dataSourceDoanhThu.data[i].label = this.doanhthucaonhat[i].tenSP
           this.dataSourceDoanhThu.data[i].value = this.doanhthucaonhat[i].doanhSoCaoNhat
         }
+      }
+    )
+  }
+
+  getKhachHangMuaNhieuNhat(){
+    this.service.getKhachHangMuaNhieuNhat().subscribe(
+      result=>{
+        this.khachhangmuanhieunhat = result as any
+      },
+      error=>{
+        this.errorMessage = <any>error
+        console.log(error);
       }
     )
   }
