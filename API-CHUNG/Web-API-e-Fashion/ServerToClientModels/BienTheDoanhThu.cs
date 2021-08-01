@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Web_API_e_Fashion.ServerToClientModels
 {
-    public class KhachHangMuaNhieuNhat
+    public class BienTheDoanhThu
     {
-        public string Id_User { get; set; }
-        public decimal TongTienDaChiTieu { get; set; }
+        public string BienTheTen { get; set; }
+        public decimal ThanhTien { get; set; }
     }
 }

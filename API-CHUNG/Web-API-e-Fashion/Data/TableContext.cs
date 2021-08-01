@@ -30,9 +30,8 @@ namespace Web_API_e_Fashion.Data
         public DbSet<Notification>  Notifications { get; set; }
         protected void TableBuilder(ModelBuilder modelBuilder)
         {
-
-        
-
+            modelBuilder.Entity<UserLike>().HasKey(sc => new { sc.IdSanPham, sc.IdAppUser });
+            modelBuilder.Entity<UserComment>().HasKey(sc => new { sc.IdSanPham, sc.IdAppUser });
         }
    
     }

@@ -12,7 +12,8 @@ namespace Web_API_e_Fashion.UploadDataFormClientModels
         public int  MauId { get; set; }
         public int SanPhamId { get; set; }
         public int SizeId { get; set; }
-     
+        public int SoLuongTon { get; set; }
+
 
     }
 }

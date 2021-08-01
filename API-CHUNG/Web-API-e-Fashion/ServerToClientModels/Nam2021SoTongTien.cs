@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace Web_API_e_Fashion.ServerToClientModels
 {
-    public class KhachHangMuaNhieuNhat
+    public class Nam2021SoTongTien
     {
-        public string Id_User { get; set; }
-        public decimal TongTienDaChiTieu { get; set; }
+        public int Nam { get; set; }
+        public decimal TongTien { get; set; }
+
     }
 }

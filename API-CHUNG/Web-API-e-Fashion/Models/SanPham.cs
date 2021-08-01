@@ -17,6 +17,8 @@ namespace Web_API_e_Fashion.Models
         [Column(TypeName = "decimal(18,0)")]
         public decimal? Gia { get; set; }
         [Column(TypeName = "decimal(18,0)")]
+        public decimal? GiaNhap { get; set; }
+        [Column(TypeName = "decimal(18,0)")]
         public decimal? KhuyenMai { get; set; }
         public string Tag { get; set; }
         public string? HuongDan { get; set; }

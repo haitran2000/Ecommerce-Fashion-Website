@@ -119,15 +119,33 @@ namespace Web_API_e_Fashion.Api_Controllers
             List<ChiTietHoaDon> ListCTHD = new List<ChiTietHoaDon>();
             foreach (ChiTietHoaDon cthd in hd.ChiTietHoaDons)
             {
-                ChiTietHoaDon CTHD = new ChiTietHoaDon();
-                CTHD.Id_SanPhamBienThe = cthd.Id_SanPhamBienThe;
-                CTHD.Id_HoaDon = hoaDonTest.Id;
-                CTHD.Soluong = cthd.Soluong;
-                CTHD.ThanhTien = SPjoinSPBTTraVeGia((int)cthd.Id_SanPhamBienThe) * cthd.Soluong;
-                TongTien = TongTien + CTHD.ThanhTien;
-                ListCTHD.Add(CTHD);
-                _context.ChiTietHoaDons.Add(CTHD);
-                await _context.SaveChangesAsync();
+                try{
+                    ChiTietHoaDon CTHD = new ChiTietHoaDon();
+                    SanPhamBienThe spbt = await _context.SanPhamBienThes.FindAsync(cthd.Id_SanPhamBienThe);
+
+                    spbt.SoLuongTon = spbt.SoLuongTon - cthd.Soluong;
+                    if (spbt.SoLuongTon > 0)
+                    {
+                        _context.SanPhamBienThes.Update(spbt);
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                    CTHD.Id_SanPhamBienThe = cthd.Id_SanPhamBienThe;
+                    CTHD.Id_HoaDon = hoaDonTest.Id;
+                    CTHD.Soluong = cthd.Soluong;
+                    CTHD.ThanhTien = SPjoinSPBTTraVeGia((int)cthd.Id_SanPhamBienThe) * cthd.Soluong;
+                    TongTien = TongTien + CTHD.ThanhTien;
+                    ListCTHD.Add(CTHD);
+                    _context.ChiTietHoaDons.Add(CTHD);
+                    await _context.SaveChangesAsync();
+                }
+                catch(Exception ex)
+                {
+                   
+                }
+              
 
             };
             hoaDonTest.TongTien = TongTien;

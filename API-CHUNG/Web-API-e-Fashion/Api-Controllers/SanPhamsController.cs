@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
@@ -39,30 +40,81 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> GetSanPhams()
         {
-            var kb=(from image in _context.ImageSanPhams
-                     join s in _context.SanPhams
-                     on image.IdSanPham equals s.Id
-                     join th in _context.NhanHieus
-                     on s.Id_NhanHieu equals th.Id
-                     join l in _context.Loais
-                     on s.Id_Loai equals l.Id
-                     select new SanPhamLoaiThuongHieu()
-                     {
-                         Image = image.ImageName,
-                         Id = s.Id,
-                         Ten = s.Ten,
-                         Gia = s.Gia,
-                         Tag = s.Tag,
-                         KhuyenMai = s.KhuyenMai,
-                         MoTa = s.MoTa,
-                         HuongDan = s.HuongDan,
-                         ThanhPhan = s.ThanhPhan,
-                         TrangThaiSanPham = s.TrangThaiSanPham,
-                         TrangThaiHoatDong = s.TrangThaiHoatDong,                       
-                         TenLoai = l.Ten,
-                         TenNhanHieu = th.Ten,
-                     });
-            return await kb.OrderBy(s=>s.Id).ToListAsync();
+            string sql = @"		select SanPhams.Id,SanPhams.Ten,ImageSanPhams.ImageName,cast(SanPhams.Gia as decimal(18,2)) as'Gia',cast(SanPhams.GiaNhap as decimal(18,2))as'GiaNhap',SanPhams.Tag,
+	SanPhams.KhuyenMai,SanPhams.MoTa,SanPhams.HuongDan,SanPhams.ThanhPhan,
+	SanPhams.TrangThaiSanPham,SanPhams.TrangThaiHoatDong,Loais.Ten as 'LoaiTen',NhanHieus.Ten as'NhanHieuTen'
+	from SanPhams
+	inner join Loais
+	on SanPhams.Id_Loai = Loais.Id
+	inner join NhanHieus
+	on SanPhams.Id_NhanHieu = NhanHieus.Id
+	left join ImageSanPhams
+	on SanPhams.Id = ImageSanPhams.IdSanPham
+";
+
+            SqlConnection connection = new SqlConnection(_context.Database.GetConnectionString());
+            List<SanPhamLoaiThuongHieu> List = new List<SanPhamLoaiThuongHieu>(); 
+            try 
+            {
+                SqlCommand command = new SqlCommand(sql, connection);
+                await connection.OpenAsync();
+              
+                SqlDataReader reader = await command.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
+                    while(await reader.ReadAsync())
+                    {
+                        List.Add(new SanPhamLoaiThuongHieu()
+                        {
+                            Id = (int)reader["Id"],
+                            Ten = (string)reader["Ten"],
+                            Image= reader["ImageName"].ToString(),                  
+                            Gia = (decimal)reader["Gia"],
+                            GiaNhap = (decimal)reader["GiaNhap"],
+                            Tag = (string)reader["Tag"],
+                            KhuyenMai = (decimal)reader["KhuyenMai"],
+                            MoTa = (string)reader["MoTa"],
+                            HuongDan = (string)reader["HuongDan"],
+                            ThanhPhan = (string)reader["ThanhPhan"],
+                            TrangThaiSanPham = (string)reader["TrangThaiSanPham"],
+                            TrangThaiHoatDong = (string)reader["TrangThaiHoatDong"],
+                            TenLoai = (string)reader["LoaiTen"],
+                            TenNhanHieu = (string)reader["NhanHieuTen"]
+                        });
+                    }
+                }
+
+            }
+            catch(Exception ex)
+            {
+                return Ok(ex.Message.ToString());
+            }
+            return List;
+            //var kb=(from image in _context.ImageSanPhams
+            //         join s in _context.SanPhams
+            //         on image.IdSanPham equals s.Id
+            //        join th in _context.NhanHieus
+            //         on s.Id_NhanHieu equals th.Id
+            //         join l in _context.Loais
+            //         on s.Id_Loai equals l.Id
+            //         select new SanPhamLoaiThuongHieu()
+            //         {
+            //             Image = image.ImageName,
+            //             Id = s.Id,
+            //             Ten = s.Ten,
+            //             Gia = s.Gia,
+            //             GiaNhap=s.GiaNhap,
+            //             Tag = s.Tag,
+            //             KhuyenMai = s.KhuyenMai,
+            //             MoTa = s.MoTa,
+            //             HuongDan = s.HuongDan,
+            //             ThanhPhan = s.ThanhPhan,
+            //             TrangThaiSanPham = s.TrangThaiSanPham,
+            //             TrangThaiHoatDong = s.TrangThaiHoatDong,                       
+            //             TenLoai = l.Ten,
+            //             TenNhanHieu = th.Ten,
+            //         });
+            //return await kb.OrderBy(s=>s.Id).ToListAsync();
         }
 
 
@@ -94,6 +146,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             sanpham.MoTa = upload.MoTa;
             sanpham.Gia = upload.Gia;
             sanpham.Tag = upload.Tag;
+            sanpham.GiaNhap = upload.GiaNhap;
             sanpham.KhuyenMai = upload.KhuyenMai;
             sanpham.ThanhPhan = upload.ThanhPhan;
             sanpham.TrangThaiHoatDong = upload.TrangThaiHoatDong;      
@@ -203,6 +256,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 TrangThaiHoatDong = upload.TrangThaiHoatDong,           
                 TrangThaiSanPham = upload.TrangThaiSanPham,
                 Gia = upload.Gia,
+                GiaNhap = upload.GiaNhap,
                 Tag = upload.Tag,
                 KhuyenMai = upload.KhuyenMai,
                 Id_Loai = upload.Id_Loai,

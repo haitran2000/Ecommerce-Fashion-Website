@@ -49,7 +49,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                          MauLoai = m.MaMau + " " + l.Ten,
                          SizeLoai = s.TenSize + " " + l.Ten,
                          SanPham = sp.Ten,
-
+                         SoLuongTon=spbt.SoLuongTon,
                      };
             return await kb.ToListAsync();
         }
@@ -105,7 +105,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             spbt = await _context.SanPhamBienThes.FindAsync(id);
             spbt.Id_Mau = upload.MauId;
             spbt.Id_SanPham = upload.SanPhamId;
-          
+            spbt.SoLuongTon = upload.SoLuongTon;
             try
             {
                 _context.SanPhamBienThes.Update(spbt);
@@ -152,7 +152,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 Id_SanPham = upload.SanPhamId,
                 SizeId = upload.SizeId,
                 Id_Mau = upload.MauId,
-                
+                SoLuongTon = upload.SoLuongTon,
             };
            
            

@@ -16,6 +16,7 @@ namespace Web_API_e_Fashion.UploadFileModels
         public string? TrangThaiSanPham { get; set; }
         public string? TrangThaiHoatDong { get; set; }
         public decimal? Gia  { get; set; }
+        public decimal? GiaNhap { get; set; }
         public string? HuongDan { get; set; }
       
         public string? ThanhPhan { get; set; }

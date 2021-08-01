@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Web_API_e_Fashion.Data;
 
 namespace Web_API_e_Fashion.Migrations
 {
     [DbContext(typeof(DPContext))]
-    partial class DPContextModelSnapshot : ModelSnapshot
+    [Migration("20210727162459_v3")]
+    partial class v3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -339,9 +341,6 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("NamNu")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Ten")
                         .HasColumnType("nvarchar(max)");
 
@@ -529,45 +528,6 @@ namespace Web_API_e_Fashion.Migrations
                     b.ToTable("Sizes");
                 });
 
-            modelBuilder.Entity("Web_API_e_Fashion.Models.UserComment", b =>
-                {
-                    b.Property<int>("IdSanPham")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdAppUser")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdUser")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("IdSanPham", "IdAppUser");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("UserComment");
-                });
-
-            modelBuilder.Entity("Web_API_e_Fashion.Models.UserLike", b =>
-                {
-                    b.Property<int>("IdSanPham")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdAppUser")
-                        .HasColumnType("int");
-
-                    b.Property<string>("IdUser")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("IdSanPham", "IdAppUser");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("UserLike");
-                });
-
             modelBuilder.Entity("Web_API_e_Fashion.Models.AppUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -747,40 +707,6 @@ namespace Web_API_e_Fashion.Migrations
                         .HasForeignKey("Id_Loai");
 
                     b.Navigation("Loai");
-                });
-
-            modelBuilder.Entity("Web_API_e_Fashion.Models.UserComment", b =>
-                {
-                    b.HasOne("Web_API_e_Fashion.Models.SanPham", "SanPham")
-                        .WithMany()
-                        .HasForeignKey("IdSanPham")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Web_API_e_Fashion.Models.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("IdUser");
-
-                    b.Navigation("SanPham");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Web_API_e_Fashion.Models.UserLike", b =>
-                {
-                    b.HasOne("Web_API_e_Fashion.Models.SanPham", "SanPham")
-                        .WithMany()
-                        .HasForeignKey("IdSanPham")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Web_API_e_Fashion.Models.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("IdUser");
-
-                    b.Navigation("SanPham");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.HoaDon", b =>

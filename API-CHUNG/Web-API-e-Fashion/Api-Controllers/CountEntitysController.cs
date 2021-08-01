@@ -78,13 +78,14 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet("getkhachhangmuanhieunhat")]
         public async Task<ActionResult<KhachHangMuaNhieuNhat>> GetKhachHangMuaNhieuNhat()
         {
-            string sql = @"select AspNetUsers.FirstName+' '+AspNetUsers.LastName as 'Fullname',sum(TongTien) as'Tong tien'
-                            from ChiTietHoaDons
-                            inner join HoaDons
-                            on HoaDons.Id = ChiTietHoaDons.Id_HoaDon
-                            inner join AspNetUsers
-                            on HoaDons.Id_User = AspNetUsers.Id
-                            group by (AspNetUsers.FirstName+' '+AspNetUsers.LastName)";
+            string sql = @"
+                        select top(1) AspNetUsers.FirstName+' '+AspNetUsers.LastName as 'Fullname',max(TongTien) as'Tong tien'
+                        from ChiTietHoaDons
+                        inner join HoaDons
+                        on HoaDons.Id = ChiTietHoaDons.Id_HoaDon
+                        inner join AspNetUsers
+                        on HoaDons.Id_User = AspNetUsers.Id
+                        group by (AspNetUsers.FirstName+' '+AspNetUsers.LastName)";
             var khachHang = new KhachHangMuaNhieuNhat();
             try
             {
@@ -156,9 +157,125 @@ namespace Web_API_e_Fashion.Api_Controllers
           
           
         }
+        //Hien tai nam 2021 da ban duoc so don vi tien te la
+        [HttpGet("nam2021")]
+        public async Task<ActionResult<Nam2021SoTongTien>> GetNam2021TongTien()
+        {
+            string sql = @"select DATEPART( YYYY,HoaDons.NgayTao) as 'Nam', sum(HoaDons.TongTien) as'Tong tien trong nam'
+                            from HoaDons
+                            where DATEPART( YYYY,HoaDons.NgayTao)='2021'
+                            group by DATEPART( YYYY,HoaDons.NgayTao)
+                        ";
+            //var d = await _context.SanPhams.FromSqlRaw(sql).ToListAsync();
+            SqlConnection cnn;
+            cnn = new SqlConnection(_context.Database.GetConnectionString());
+            SqlDataReader reader;
+            SqlCommand cmd;
+            var nam2021 = new Nam2021SoTongTien();
+            try
+            {
+                await cnn.OpenAsync();
+                cmd = new SqlCommand(sql, cnn);
+                reader = await cmd.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
+                    int i = 0;
+                    while (await reader.ReadAsync())
+                    {
+                        nam2021.Nam = (int)reader["Nam"];
+                        nam2021.TongTien = (decimal)reader["Tong tien trong nam"];
+                    }
+                }
 
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
 
-       
+            };
+
+            return nam2021;
+        }
+        [HttpGet("soluongton")]
+        public async Task<ActionResult<int>> GetSoLuongTonTrongKho()
+        {
+
+            string sql = @"select sum(SanPhamBienThes.SoLuongTon)
+                            from SanPhamBienThes
+                        ";
+            //var d = await _context.SanPhams.FromSqlRaw(sql).ToListAsync();
+            SqlConnection cnn;
+            cnn = new SqlConnection(_context.Database.GetConnectionString());
+            SqlDataReader reader;
+            SqlCommand cmd;
+            var nam2021 = 0;
+            try
+            {
+                await cnn.OpenAsync();
+                cmd = new SqlCommand(sql, cnn);
+                reader = await cmd.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
+                  
+                    while (await reader.ReadAsync())
+                    {
+                        nam2021 = (int)reader[""];                       
+                    }
+                }
+
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
+
+            };
+
+            return nam2021;
+        }
+       //Tong so luong ban ra trong nam
+       [HttpGet("Soluongsanphambanratrongnam")]
+        public async Task<ActionResult<SoLuongBanRaTrongNam>> GetSoLuongBanRaTrongNam()
+        {
+            string sql = @"select DATEPART( YYYY,HoaDons.NgayTao) as 'Nam', sum(ChiTietHoaDons.Soluong) as'Tong so luong san pham trong nam'
+                            from HoaDons
+							inner join 
+							ChiTietHoaDons
+							on ChiTietHoaDons.Id_HoaDon = HoaDons.Id
+                            where DATEPART( YYYY,HoaDons.NgayTao)='2021'
+                            group by DATEPART( YYYY,HoaDons.NgayTao)
+                        ";
+            //var d = await _context.SanPhams.FromSqlRaw(sql).ToListAsync();
+            SqlConnection cnn;
+            cnn = new SqlConnection(_context.Database.GetConnectionString());
+            SqlDataReader reader;
+            SqlCommand cmd;
+            var nam2021 = new SoLuongBanRaTrongNam();
+            try
+            {
+                await cnn.OpenAsync();
+                cmd = new SqlCommand(sql, cnn);
+                reader = await cmd.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
+                    int i = 0;
+                    while (await reader.ReadAsync())
+                    {
+                        nam2021.Nam = (int)reader["Nam"];
+                        nam2021.SoLuong = (int)reader["Tong so luong san pham trong nam"];
+                    }
+                }
+
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
+
+            };
+
+            return nam2021;
+        }
+        //sanphamtonkho
+      
 
     }
 
