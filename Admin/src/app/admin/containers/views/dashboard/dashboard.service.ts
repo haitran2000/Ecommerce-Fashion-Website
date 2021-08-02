@@ -11,90 +11,35 @@ import { options } from 'fusioncharts';
 export class DashboardService {
 
 
-  constructor(private http: HttpClient) { }
-  dataThongKeNgay: any
-  public dataSourceNgay: any = {
-    chart: {
-      caption: 'Doanh thu',
-      xAxisName: 'Ngày',
-      yAxisName: 'Số tiền thu về',
-      numberSuffix: '',
-      theme: 'fusion'
-    },
-    data: [
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" },
-      { label: "", value: "" }
-    ]
-  }
-  private handleError(err) {
-    let errorMessage: string;
-    if (err.error instanceof ErrorEvent) {
-      errorMessage = `An error occurred: ${err.error.message}`;
-    } else {
-      errorMessage = `Backend returned code ${err.status}: ${err.body.error}`;
-    }
-    console.error(err);
-    return throwError(errorMessage);
-  }
+  constructor(private http: HttpClient) { } //Giao tiep 2 commponent thong qua service
+
 
 
  
   getCountProduct(): Observable<number> {
     return this.http.get<number>(environment.URL_API + "countentitys/countproduct")
-      .pipe(
-        catchError(this.handleError)
-      )
   }
 
   getCountOrder(): Observable<number> {
     return this.http.get<number>(environment.URL_API + "countentitys/countorder")
-      .pipe(
-        catchError(this.handleError)
-      )
   }
 
   getCountUser(): Observable<number> {
     return this.http.get<number>(environment.URL_API + "countentitys/countuser")
-      .pipe(
-        catchError(this.handleError)
-      )
   }
 
   getCountTotalMoney(): Observable<number> {
     return this.http.get<number>(environment.URL_API + "countentitys/countmoney")
-      .pipe(
-        catchError(this.handleError)
-      )
   }
 
-  getThongKeThang(): Observable<any> {
-    return this.http.get<any>(environment.URL_API + "dashboard/thongkethang")
-      .pipe(
-        catchError(this.handleError)
-      )
-  }
+  getTopDataSetBanRaTonKho():Observable<any>{
+    return this.http.get<any>(environment.URL_API+"dashboard/topdatasetbanratonkho") 
+ }
 
-  getSanPhamBanChay():Observable<any>{
-    return this.http.get<any>(environment.URL_API+"CountEntitys/getsanphambanchay",{headers:{'Content-Type':'application/json; charset=utf-8'}})
-  }
-  getSoLanSanPhamXuatHienTrongDonHang():Observable<any>{
-    return this.http.get<any>(environment.URL_API+"dashboard/solanxuathientrongdonhang")
-  }
-  getSanPhamDoanhThuTop():Observable<any>{
-     return this.http.get<any>(environment.URL_API+"dashboard/sanphamloinhattop") 
-  }
-  getKhachHangMuaNhieuNhat():Observable<any>{
-    return this.http.get<any>(environment.URL_API+"CountEntitys/getkhachhangmuanhieunhat") 
-  }
+
+
+
+
+  
+
 }

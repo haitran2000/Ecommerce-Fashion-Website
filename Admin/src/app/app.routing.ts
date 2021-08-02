@@ -4,24 +4,19 @@ import { Routes, RouterModule } from '@angular/router';
 // Import Containers
 import { DefaultLayoutComponent } from './admin/containers';
 import { RegistrationFormComponent } from './admin/containers/views/account/registration-form/registration-form.component';
-import { AspNetUserClaimsComponent } from './admin/containers/views/asp-net-user-claims/asp-net-user-claims.component';
-import { AspNetUserLoginsComponent } from './admin/containers/views/asp-net-user-logins/asp-net-user-logins.component';
-import { AspNetUserRolesComponent } from './admin/containers/views/asp-net-user-roles/asp-net-user-roles.component';
-import { AspNetUserTokensComponent } from './admin/containers/views/asp-net-user-tokens/asp-net-user-tokens.component';
 import { AspNetUsersComponent } from './admin/containers/views/asp-net-users/asp-net-users.component';
 import { AuthHistoriesComponent } from './admin/containers/views/auth-histories/auth-histories.component';
 import { AuthGuard } from './admin/containers/views/auth.guard';
 import { BrandsComponent } from './admin/containers/views/brands/brands.component';
 import { CategoriesComponent } from './admin/containers/views/categories/categories.component';
-import { ChiTietHoaDonsComponent } from './admin/containers/views/chi-tiet-hoa-dons/chi-tiet-hoa-dons.component';
+
 
 import { P404Component } from './admin/containers/views/error/404.component';
 import { P500Component } from './admin/containers/views/error/500.component';
 import { SanPhamBienThesComponent } from './admin/containers/views/san-pham-bien-thes/san-pham-bien-thes.component';
 
 import { HoaDonsComponent } from './admin/containers/views/hoa-dons/hoa-dons.component';
-import { ItemSanPhamThietKeComponent } from './admin/containers/views/item-san-pham-thiet-ke/item-san-pham-thiet-ke.component';
-import { ItemsComponent } from './admin/containers/views/items/items.component';
+
 import { JobSeekesComponent } from './admin/containers/views/job-seekes/job-seekes.component';
 import { LoginComponent } from './admin/containers/views/account/login/login.component';
 import { MauSacsComponent } from './admin/containers/views/mau-sacs/mau-sacs.component';
@@ -39,6 +34,9 @@ import { ChartJSComponent } from './admin/containers/views/chartjs/chartjs.compo
 import { UserdetailComponent } from './admin/containers/userdetail/userdetail.component';
 import { WidgetsComponent } from './admin/containers/views/widgets/widgets.component';
 import { ProfileComponent } from './admin/containers/views/profile/profile.component';
+import { ChartSecondComponent } from './admin/containers/views/chart-second/chart-second.component';
+
+
 
 // import { DefaultLayoutClientComponent } from './client/containers/default-layout-client/default-layout-client.component';
 
@@ -98,16 +96,16 @@ export const routes: Routes = [
         component:WidgetsComponent
       },
       {
-        path: 'admin/profile',
-       component: UserdetailComponent,canActivate: [AuthGuard],
-      },
-      {
-        path: 'admin/profile',
-       component: UserdetailComponent,canActivate: [AuthGuard],
+        path:'admin/chartsecond',
+        component:ChartSecondComponent
       },
       {
         path: 'admin/dashboard',
        component: DashboardComponent,canActivate: [AuthGuard],
+      },
+      {
+        path: 'admin/profile',
+       component: UserdetailComponent,canActivate: [AuthGuard],
       },
       {
         path: 'admin/chartjs',
@@ -151,14 +149,6 @@ export const routes: Routes = [
         component: MauSacsComponent,canActivate: [AuthGuard],
       },
       {
-        path: 'admin/items',
-        component: ItemsComponent,canActivate: [AuthGuard],
-      },
-      {
-        path: 'admin/item_sanphamthietke',
-        component: ItemSanPhamThietKeComponent,canActivate: [AuthGuard],
-      },
-      {
         path: 'admin/jobseekes',
         component: JobSeekesComponent,canActivate: [AuthGuard],
       },
@@ -167,41 +157,14 @@ export const routes: Routes = [
         component: HoaDonsComponent,canActivate: [AuthGuard],
       },
       {
-        path: 'admin/chitiethoadons',
-        component: ChiTietHoaDonsComponent,canActivate: [AuthGuard],
-      },
-      {
-        path: 'admin/aspnetusertokens',
-        component: AspNetUserTokensComponent,canActivate: [AuthGuard],
-      },
-      {
         path: 'admin/authhistories',
         component: AuthHistoriesComponent,canActivate: [AuthGuard],
-      },
-      {
-        path: 'admin/aspnetusertokens',
-        component: AspNetUserTokensComponent,canActivate: [AuthGuard],
       },
       {
         path: 'admin/aspnetusers',
         component: AspNetUsersComponent,canActivate: [AuthGuard],
       },
-      {
-        path: 'admin/aspnetuserroles',
-        component: AspNetUserRolesComponent,canActivate: [AuthGuard],
-      },
-      {
-        path: 'admin/aspnetuserlogins',
-        component: AspNetUserLoginsComponent,canActivate: [AuthGuard],
-      },
-      {
-        path: 'admin/aspnetusertokens',
-        component: AspNetUserTokensComponent,canActivate: [AuthGuard],
-      },
-      {
-        path: 'admin/aspnetuserclaims',
-        component: AspNetUserClaimsComponent,canActivate: [AuthGuard],
-      },
+
 
       {
         path: 'admin/hoadon/detail/:id',

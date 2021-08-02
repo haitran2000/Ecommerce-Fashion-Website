@@ -6,9 +6,26 @@
             <label for="form-control">Id</label>
             <input class="form-control" [value]="service.mausac.id" readonly>
         </div> -->
+
+        <select class="form-control" formControlName="NamNu" [(ngModel)]="service.category.namNu">
+          
+        </select>
+
+
+
         <div class="form-group">
             <label for="MaMau">MaMau</label>
-            <input class="form-control" formControlName="MaMau" [(ngModel)]="this.service.mausac.maMau" required>
+            <select class="form-control" formControlName="MaMau" [(ngModel)]="this.service.mausac.maMau">
+                <option value="xanh dương">Xanh dương</option>
+                <option value="đỏ">Đỏ</option>
+                <option value="vàng">Vàng</option>
+                <option value="trắng">Trắng</option>
+                <option value="xanh lá cây">Xanh lá cây</option>
+                <option value="hồng">Hồng</option>
+                <option value="cam">Cam</option>
+                <option value="đen">Đen</option>
+                <option value="xám">Xám</option>
+            </select>
             <div *ngIf="MaMau.invalid && (MaMau.dirty || MaMau.touched)" class="alert alert-danger">
 
                 <div *ngIf="MaMau.errors.required">

@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:600|Noto+Sans|Open+Sans:400,700&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600|Noto+Sans|Open+Sans:400,700&display=swap');
 *{
   margin: 0;
   padding: 0;
@@ -18,8 +18,8 @@
 }
 .main::after{
   content: "";
-  background: url(../../../../../../assets/img/background-2413081.jpg);
-  opacity: 0.3;
+  background: url(../../../../../../assets/img/beach-1751455.jpg);
+  opacity: 0.7;
   top: 0;
   left: 0;
   bottom: 0;
@@ -37,7 +37,7 @@
   padding: 60px 40px;
 }
 header{
-  font-size: 40px;
+  font-size: 20px;
   margin-bottom: 60px;
   font-family: 'Montserrat', sans-serif;
 }

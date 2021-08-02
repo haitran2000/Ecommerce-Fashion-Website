@@ -43,3 +43,15 @@ $ng-theme: mat-light-theme((
 
 // If you want to add something do it here
 @import "custom";
+
+.make-gold {
+  background-color: #FF0000;
+  
+}
+button:focus {outline:0;}
+.mat-header-cell{
+  
+  font-size: 13px;
+  color: antiquewhite ;
+  
+}

@@ -2,7 +2,7 @@
     <mat-icon>add</mat-icon>
     <p style="display: inline-block;margin-top: 0.9vh;">Thêm</p>
 </button>
-<button mat-button color="primary" style="float: left;" (click)="exports()">
+<button mat-button color="primary" style="float: left;" (click)="exports()"><!-- exports() -->
     <p style="display: inline-block;margin-top: 0.9vh;">Export exel</p>
 </button> 
 <div fxLayout fxLayoutAlign="center center" style="display: flex;justify-content: center;">
@@ -12,38 +12,32 @@
   </div>
 <table mat-table [dataSource]="this.service.dataSource" matSort class="mat-elevation-z8" style="width: 100%;">
     <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="make-gold"> Id </th>
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
     <ng-container matColumnDef="id_User">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> User  </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="make-gold"> User  </th>
         <td mat-cell *matCellDef="let element"> {{element.id_User}} </td>
     </ng-container>
     <ng-container matColumnDef="ngayTao">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ngày tạo  </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="make-gold"> Ngày tạo  </th>
         <td mat-cell *matCellDef="let element"> {{element.ngayTao}} </td>
     </ng-container>
     <ng-container matColumnDef="ghiChi">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ghi chú  </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="make-gold"> Ghi chú  </th>
         <td mat-cell *matCellDef="let element"> {{element.ghiChi}} </td>
     </ng-container>
     <ng-container matColumnDef="tongTien">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tổng tiền  </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="make-gold"> Tổng tiền  </th>
         <td mat-cell *matCellDef="let element"> {{element.tongTien}} </td>
     </ng-container>
     <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef></mat-header-cell>
-        <mat-cell *matCellDef="let element">
+        <th mat-header-cell *matHeaderCellDef class="make-gold">Xem chi tiết</th>
+        <td mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="routeChiTiet(element)" color="primary">
                 <mat-icon>visibility</mat-icon>
             </button>
-            <button mat-icon-button (click)="populateForm(element)" color="primary">
-                <mat-icon>edit</mat-icon>
-            </button>
-            <a mat-icon-button (click)="clickDelete(element.id)" color="warn">
-                <mat-icon>delete</mat-icon>
-            </a>
-        </mat-cell>
+        </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

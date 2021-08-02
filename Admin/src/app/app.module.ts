@@ -1,30 +1,29 @@
 
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NotifierModule } from 'angular-notifier';
 import { KonvaModule } from 'ng2-konva';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {NgxPaginationModule} from 'ngx-pagination';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { MatTabsModule } from '@angular/material/tabs';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-
 import { MatChipsModule } from '@angular/material/chips';
 import { MatRippleModule } from '@angular/material/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import {MatStepperModule} from '@angular/material/stepper';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatSortModule } from '@angular/material/sort';
 import { LayoutModule } from '@angular/cdk/layout';
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import {HttpClientModule} from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http'
 import { IconModule, IconSetModule, IconSetService } from '@coreui/icons-angular';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -35,12 +34,12 @@ import { DefaultLayoutComponent } from './admin/containers';
 import { P404Component } from './admin/containers/views/error/404.component';
 import { P500Component } from './admin/containers/views/error/500.component';
 import { LoginComponent } from './admin/containers/views/account/login/login.component';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
 import {
-   AppAsideModule,
+  AppAsideModule,
   AppBreadcrumbModule,
   AppHeaderModule,
   AppFooterModule,
@@ -61,25 +60,19 @@ import { RegistrationFormComponent } from './admin/containers/views/account/regi
 import { UserService } from './admin/containers/views/account/user.service';
 import { UserdetailComponent } from './admin/containers/userdetail/userdetail.component';
 
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { BrandsComponent } from './admin/containers/views/brands/brands.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 
-import { ItemSanPhamThietKeComponent } from './admin/containers/views/item-san-pham-thiet-ke/item-san-pham-thiet-ke.component';
-import { ItemsComponent } from './admin/containers/views/items/items.component';
 import { MauSacsComponent } from './admin/containers/views/mau-sacs/mau-sacs.component';
 import { SizesComponent } from './admin/containers/views/sizes/sizes.component';
 import { CategoryService } from './admin/containers/views/categories/category.service';
 import { CategoryComponent } from './admin/containers/views/categories/category/category.component';
 import { ProductInCategoryComponent } from './admin/containers/views/categories/product-in-category/product-in-category.component';
 import { HoaDonsComponent } from './admin/containers/views/hoa-dons/hoa-dons.component';
-import { ChiTietHoaDonsComponent } from './admin/containers/views/chi-tiet-hoa-dons/chi-tiet-hoa-dons.component';
+
 import { JobSeekesComponent } from './admin/containers/views/job-seekes/job-seekes.component';
 import { AspNetUsersComponent } from './admin/containers/views/asp-net-users/asp-net-users.component';
-import { AspNetUserClaimsComponent } from './admin/containers/views/asp-net-user-claims/asp-net-user-claims.component';
-import { AspNetUserRolesComponent } from './admin/containers/views/asp-net-user-roles/asp-net-user-roles.component';
-import { AspNetUserLoginsComponent } from './admin/containers/views/asp-net-user-logins/asp-net-user-logins.component';
-import { AspNetUserTokensComponent } from './admin/containers/views/asp-net-user-tokens/asp-net-user-tokens.component';
 import { AuthHistoriesComponent } from './admin/containers/views/auth-histories/auth-histories.component';
 import { BrandComponent } from './admin/containers/views/brands/brand/brand.component';
 import { ProductsComponent } from './admin/containers/views/products/products.component';
@@ -93,12 +86,12 @@ import { AuthGuard } from './admin/containers/views/auth.guard';
 import { ModalComponent } from './admin/containers/modal/modal.component';
 import { SanPhamBienTheComponent } from './admin/containers/views/san-pham-bien-thes/san-pham-bien-the/san-pham-bien-thecomponent';
 import { SanPhamBienThesComponent } from './admin/containers/views/san-pham-bien-thes/san-pham-bien-thes.component';
-import { ItemComponent } from './admin/containers/views/items/item/item.component';
+
 
 import { HoaDonComponent } from './admin/containers/views/hoa-dons/hoa-don/hoa-don.component';
-import { ChiTietHoaDonComponent } from './admin/containers/views/chi-tiet-hoa-dons/chi-tiet-hoa-don/chi-tiet-hoa-don.component';
+
 import { ChartsModule } from 'ng2-charts';
-import { FabricjsEditorModule } from '../../projects/angular-editor-fabric-js/src/public-api';
+
 import { ToastrModule } from 'ngx-toastr';
 import { ProfileComponent } from './admin/containers/views/profile/profile.component';
 import { DashboardComponent } from './admin/containers/views/dashboard/dashboard.component';
@@ -107,12 +100,18 @@ import * as FusionCharts from "fusioncharts";
 import * as charts from "fusioncharts/fusioncharts.charts";
 import * as FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
 import { FusionChartsModule } from 'angular-fusioncharts';
-import { SelectMonthComponent } from './admin/containers/views/dashboard/select-month/select-month.component';
+
+import { TopComponent } from './admin/containers/views/top/top.component';
+import { SelectMonthComponent } from './admin/containers/views/chart-second/select-month/select-month.component';
+import { ChartSecondComponent } from './admin/containers/views/chart-second/chart-second.component';
+import { DiscountCodeComponent } from './admin/containers/views/discount-code/discount-code.component';
+
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 
 
 @NgModule({
   imports: [
+
     FusionChartsModule,
     KonvaModule,
     ChartsModule,
@@ -129,26 +128,26 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    FabricjsEditorModule,
     IconModule,
     IconSetModule.forRoot(),
     MatTableModule,
     MatPaginatorModule,
     FormsModule,
-    ReactiveFormsModule ,
+    ReactiveFormsModule,
     MatDialogModule,
     MatExpansionModule,
     ColorPickerModule,
     ToastrModule.forRoot({
-      timeOut:1000,
-      progressBar:true,
-      progressAnimation:'increasing'
+      timeOut: 1000,
+      progressBar: true,
+      progressAnimation: 'increasing'
     }
-   
+
     ),
     BrowserAnimationsModule,
     //
     NotifierModule,
+    MatDatepickerModule,
     CommonModule,
     MatDialogModule,
     MatTableModule,
@@ -157,9 +156,9 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     MatSnackBarModule,
     MatTabsModule,
     MatFormFieldModule,
-    MatInputModule ,
+    MatInputModule,
     MatPaginatorModule,
-    MatSelectModule ,
+    MatSelectModule,
     CKEditorModule,
     MatStepperModule,
     FormsModule,
@@ -177,51 +176,43 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     OrdersTableComponent,
     UserdetailComponent,
     BrandsComponent,
-    ItemSanPhamThietKeComponent,
-    ItemsComponent,
     MauSacsComponent,
     MauSacComponent,
     SizesComponent,
     CategoryComponent,
     ProductInCategoryComponent,
     HoaDonsComponent,
-    ChiTietHoaDonsComponent,
+
     JobSeekesComponent,
     AspNetUsersComponent,
-    AspNetUserClaimsComponent,
-    AspNetUserRolesComponent,
-    AspNetUserLoginsComponent,
-    AspNetUserTokensComponent,
     AuthHistoriesComponent,
     BrandComponent,
     ProductsComponent,
     ProductComponent,
-   RegistrationFormComponent,
-   ImagesmodelComponent,
-   CategoriesComponent,
-   SizeComponent,
-   MauSacComponent,
+    RegistrationFormComponent,
+    ImagesmodelComponent,
+    CategoriesComponent,
+    SizeComponent,
+    MauSacComponent,
     SanPhamBienTheComponent,
     SanPhamBienThesComponent,
-   ModalComponent,
-   ItemComponent,
-   ProfileComponent,
-
-   HoaDonComponent,
-     ChiTietHoaDonComponent,
-     DefaultLayoutComponent,
-     SelectMonthComponent,
-
-
- 
+    ModalComponent,
+    ProfileComponent,
+    HoaDonComponent,
+    DefaultLayoutComponent,
+    SelectMonthComponent,
+    ChartSecondComponent,
+    TopComponent,
+    DiscountCodeComponent,
   ],
   providers: [
     IconSetService,
     UserService,
     [AuthGuard],
     LoginComponent,
+    DatePipe
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

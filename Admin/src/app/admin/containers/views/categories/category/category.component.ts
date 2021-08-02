@@ -28,7 +28,10 @@ Name: new FormControl("",
     Validators.required,
     Validators.minLength(2),
   ]),
-
+  NamNu: new FormControl("",
+  [
+    Validators.required,
+  ]),
 });
 }
 public newBlogForm: FormGroup;
@@ -37,6 +40,7 @@ onSubmit=(data) =>{
 if(this.service.category.id==0){
 const formData = new FormData();
 formData.append('Name', data.Name);
+formData.append('NamNu', data.NamNu);
 this.http.post(environment.URL_API+'loais', formData)
 .subscribe(res => {
   this.toastService.showToastThemThanhCong();
@@ -51,6 +55,7 @@ else
 {
 const formData = new FormData();
 formData.append('Name', data.Name);
+formData.append('NamNu', data.NamNu);
 this.http.put(environment.URL_API+'loais/'+`${this.service.category.id}`, formData)
 .subscribe(res=>{
   this.toastService.showToastSuaThanhCong();

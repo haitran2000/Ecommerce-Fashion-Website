@@ -4,8 +4,9 @@ import { Injectable, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { Observable } from "rxjs";
 import { environment } from "../../../../../environments/environment";
-import { Size } from "./sizes.component";
+
 
 @Injectable({
     providedIn: 'root'
@@ -20,11 +21,20 @@ export class SizeService{
     delete(id:number){
       return this.http.delete(`${environment.URL_API}/${id}`)
     }
+    get():Observable<any>{
+      return this.http.get(environment.URL_API+"sizes")
+    }
     getAllSizes(){
-      this.http.get(environment.URL_API+"sizes").subscribe(
+      this.get().subscribe(
         res=>{
           this.dataSource.data = res as Size[];
         }
       )
     }
   }
+  export class Size{
+    id : number = 0
+    tenSize : string
+    id_Loai : string 
+  }
+  

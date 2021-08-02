@@ -19,6 +19,7 @@ export class ProductService {
   product: Product = new Product();
 
 
+
   delete(id: number): Observable<any> {
     return this.http.delete<any>(`${environment.URL_API + "sanphams"}/${id}`)
   }
@@ -48,6 +49,7 @@ export class Product {
   moTa: string
   khoiLuong: number
   gia: number
+  giaNhap:number
   tag: string
   huongDan: string
   thanhPhan: string

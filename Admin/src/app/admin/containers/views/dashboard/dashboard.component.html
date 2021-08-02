@@ -83,140 +83,16 @@
   </div>
   <!--/.row-->
 
-  <h3>Hiện tại năm 2021 đã bán được số đơn vị tiền tệ là: </h3>
-  <h3>Hiện tại năm 2021 đã bán được số đơn vị tiền tệ là: </h3>
-  <h3>Sản phẩm bán chạy nhất: {{this.sanPhamBanChay.tenSP}} đã bán được: {{this.sanPhamBanChay.soSanPhamBanDuoc}} sản
-    phẩm</h3>
-  <h3>Khách hàng mua nhiều nhất: {{this.khachhangmuanhieunhat.id_User}} đã mua với số tiền
-    {{this.khachhangmuanhieunhat.tongTienDaChiTieu}} đơn vị tiền tệ</h3>
+
+  <!-- Chart Component -->
+ 
 
 
-  <mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Doanh thu trong năm 2021">
-      <div class="container">
-        <div class="row">
-          <div class="col-6 col-md-8">
-            <fusioncharts type="column3d" width="100%" height="400" dataFormat="json" [dataSource]="dataSource"
-              (initialized)="initialized($event)">
-            </fusioncharts>
-
-          </div>
-          <div class="col-6 col-md-4">
-
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Tháng</th>
-                  <th scope="col">Doanh số</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of this.dataThongKe">
-                  <td>{{item.month}}</td>
-                  <td>{{item.revenues}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+  <div class="chart-wrapper">
+    <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+      [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" [plugins]="lineChartPlugins">
+    </canvas>
+  </div>
 
 
-
-
-    </mat-tab>
-    <mat-tab label="Sản phẩm bán chạy">
-
-      <div class="container">
-        <div class="row">
-          <div class="col-6 col-md-8">
-            <fusioncharts type="column3d" width="100%" height="400" dataFormat="json"
-              [dataSource]="dataSourceSoLanXuatHien" (initialized)="initialized($event)">
-            </fusioncharts>
-
-          </div>
-          <div class="col-6 col-md-4">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Sản phẩm</th>
-                  <th scope="col">Số lượng bán được</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of this.soLanXuatHien">
-                  <td>{{item.tenSP}}</td>
-                  <td>{{item.soLanXuatHienTrongDonHang}}</td>
-                </tr>
-              </tbody>
-            </table>
-
-          </div>
-        </div>
-      </div>
-
-
-    </mat-tab>
-    <mat-tab label="Thống kê ngày theo tháng">
-
-      <div class="container">
-        <button class="btn btn-success" (click)="openDialog()">Xem ngày theo tháng</button>
-        <div class="row">
-          <div class="col-6 col-md-8">
-            <fusioncharts type="column3d" width="100%" height="400" dataFormat="json"
-              [dataSource]="service.dataSourceNgay" (initialized)="initialized($event)">
-            </fusioncharts>
-          </div>
-          <div class="col-6 col-md-4">
-            <br>
-            <br>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Ngày</th>
-                  <th scope="col">Doanh số</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of service.dataThongKeNgay">
-                  <td>{{item.ngay}}</td>
-                  <td>{{item.revenues}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </mat-tab>
-
-    <mat-tab label="Thống kê sản phẩm đạt top doanh số cao nhất">
-
-      <div class="container">
-        <div class="row">
-          <div class="col-6 col-md-8">
-            <fusioncharts type="column3d" width="100%" height="400" dataFormat="json"
-              [dataSource]="this.dataSourceDoanhThu" (initialized)="initialized($event)">
-            </fusioncharts>
-          </div>
-          <div class="col-6 col-md-4">
-            <br>
-            <br>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Ngày</th>
-                  <th scope="col">Doanh số</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of this.doanhthucaonhat">
-                  <td>{{item.tenSP}}</td>
-                  <td>{{item.doanhSoCaoNhat}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </mat-tab>
-  </mat-tab-group>
+ 

@@ -35,22 +35,37 @@
 
 
       <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
-        <mat-label>Gia</mat-label>
-        <input matInput placeholder="Giá" formControlName="Gia" type="number" [(ngModel)]="service.product.gia" required>
+        <mat-label>Giá bán</mat-label>
+        <input matInput placeholder="Giá Bán" formControlName="Gia" type="number" [(ngModel)]="service.product.gia" required>
     
       </mat-form-field>
 
       <div *ngIf="Gia.invalid && (Gia.dirty || Gia.touched)" class="alert alert-danger">
         <div *ngIf="Gia.errors.required">
-          Giá sản phẩm không được bỏ trống
+          Giá bán sản phẩm không được bỏ trống
         </div>
         <div *ngIf="Gia.errors.minlength">
-          Giá không được dưới 3 kí tự
+          Giá bán không được dưới 3 kí tự
         </div>
         <div *ngIf="Gia.errors.maxlength">
-          Giá không được trên 10 kí tự
+          Giá bán không được trên 10 kí tự
         </div>
       </div> 
+      <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
+        <mat-label>Giá nhập</mat-label>
+        <input matInput placeholder="Giá Nhập" formControlName="GiaNhap" type="number" [(ngModel)]="service.product.giaNhap" required>
+      </mat-form-field>
+      <div *ngIf="GiaNhap.invalid && (GiaNhap.dirty || GiaNhap.touched)" class="alert alert-danger">
+        <div *ngIf="GiaNhap.errors.required">
+          Giá nhập sản phẩm không được bỏ trống
+        </div>
+        <div *ngIf="GiaNhap.errors.minlength">
+          Giá nhập không được dưới 3 kí tự
+        </div>
+        <div *ngIf="GiaNhap.errors.maxlength">
+          Giá nhập không được trên 10 kí tự
+        </div>
+      </div>
       <mat-form-field appearance="outline" floatLabel="always" class="w-100-p" [color]="accent" style="width: 100%;">
         <mat-label>Khuyến mãi</mat-label>
         <input matInput placeholder="Khuyến mãi" formControlName="KhuyenMai" type="number"  [(ngModel)]="service.product.khuyenMai" required>

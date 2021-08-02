@@ -4,7 +4,7 @@ import * as signalR from '@microsoft/signalr';
 
 import { AfterViewInit, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
-import { ImageProduct, ProductComponent } from './product/product.component'
+
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
@@ -40,7 +40,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['id', 'ten', 'hinh',
     'gia',
-    'khuyenMai',
+    'giaNhap',
     'trangThaiSanPham',
     'trangThaiHoatDong',
     'tenNhanHieu',

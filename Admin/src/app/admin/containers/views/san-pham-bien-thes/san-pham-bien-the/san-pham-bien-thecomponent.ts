@@ -7,8 +7,8 @@ import { ToastServiceService } from '../../../shared/toast-service.service';
 import { CategoryService } from '../../categories/category.service';
 import { MauSacService } from '../../mau-sacs/mau-sac.service';
 import { ProductService } from '../../products/product.service';
-import { SizeService } from '../../sizes/size.service';
-import { Size } from '../../sizes/sizes.component';
+import { Size, SizeService } from '../../sizes/size.service';
+
 import { SanPhamBienTheService } from '../san-pham-bien-the.service';
 
 @Component({
@@ -90,7 +90,7 @@ export class SanPhamBienTheComponent implements OnInit {
       Id_Size: new FormControl(null, [
         Validators.required,
       ]),
-      SoLuongTon: new FormControl(null, [
+      SoLuongTon: new FormControl(100, [
         Validators.required
       ])
     });
@@ -149,6 +149,7 @@ export class SanPhamBienTheComponent implements OnInit {
       formData.append('SanPhamId', data.Id_SanPham);
       formData.append('SizeId', data.Id_Size);
       formData.append('file', this.selectedFile);
+      formData.append('SoLuongTon', data.SoLuongTon);
       this.http.put(environment.URL_API + 'sanphambienthes/' + `${this.service.sanphambienthe.id}`, formData)
         .subscribe(res => {
           this.serviceToast.showToastSuaThanhCong()

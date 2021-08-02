@@ -24,8 +24,7 @@ export class AspNetUsersComponent implements OnInit {
               public dialog: MatDialog,) { }
 public dataSource = new MatTableDataSource<User>();
 displayedColumns: string[] = ['id', 'firstName','lastName',
-'userName','quyen',
-  'actions'];
+'userName','quyen'];
 
 
 

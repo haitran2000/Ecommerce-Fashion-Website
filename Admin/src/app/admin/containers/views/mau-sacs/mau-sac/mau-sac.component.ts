@@ -13,69 +13,69 @@ import { environment } from '../../../../../../environments/environment';
   styleUrls: ['./mau-sac.component.scss']
 })
 export class MauSacComponent implements OnInit {
- 
+
   categories: any[] = [];
-  constructor ( public service : MauSacService,
-                public serviceCategory : CategoryService,
-                public http :HttpClient ,
-                public serviceToast : ToastServiceService,
-              ) {
-                  this.serviceCategory.get().subscribe(
-                  data=>{
-                        Object.assign(this.categories,data)
-                        }
-                  )
-      
-                }
-get MaMau() { return this.newBlogForm.get('MaMau'); }
-get Id_Loai() { return this.newBlogForm.get('Id_Loai'); }
+  constructor(public service: MauSacService,
+    public serviceCategory: CategoryService,
+    public http: HttpClient,
+    public serviceToast: ToastServiceService,
+  ) {
+    this.serviceCategory.get().subscribe(
+      data => {
+        Object.assign(this.categories, data)
+      }
+    )
 
-ngOnInit(): void {
-this.newBlogForm = new FormGroup({
-MaMau: new FormControl(null,
-  [
-    Validators.required,
-    Validators.minLength(2),
-  ]),
-Id_Loai : new FormControl(null,
-  [
-    Validators.required,
-  ])
-});
-}
+  }
+  get MaMau() { return this.newBlogForm.get('MaMau'); }
+  get Id_Loai() { return this.newBlogForm.get('Id_Loai'); }
 
-selectedFile: File = null;
-public newBlogForm: FormGroup;
+  ngOnInit(): void {
+    this.newBlogForm = new FormGroup({
+      MaMau: new FormControl(null,
+        [
+          Validators.required,
+          Validators.minLength(2),
+        ]),
+      Id_Loai: new FormControl(null,
+        [
+          Validators.required,
+        ])
+    });
+  }
 
-onSubmit=(data) =>{
-if(this.service.mausac.id==0){
-const formData = new FormData();
-formData.append('MaMau',data.MaMau);
-formData.append('Id_Loai', data.Id_Loai);
-this.http.post(environment.URL_API+'mausacs', formData)
-.subscribe(res => {
-this.service.getAllMauSacs();
-this.service.mausac.id=0;
-this.serviceToast.showToastThemThanhCong()
-},err=>{
-  this.serviceToast.showToastThemThatBai()
-});
-this.newBlogForm.reset();
-}
-else
-{
-const formData = new FormData();
-formData.append('MaMau',data.MaMau);
-formData.append('Id_Loai', data.Id_Loai);
-this.http.put(environment.URL_API+'mausacs/'+`${this.service.mausac.id}`, formData)
-.subscribe(res=>{this.serviceToast.showToastSuaThanhCong()
-  
-  
-  this.service.getAllMauSacs();
-  this.service.mausac.id=0;
-},err=>{
-  this.serviceToast.showToastSuaThatBai()
-});
-}
-}
+  selectedFile: File = null;
+  public newBlogForm: FormGroup;
+
+  onSubmit = (data) => {
+    if (this.service.mausac.id == 0) {
+      const formData = new FormData();
+      formData.append('MaMau', data.MaMau);
+      formData.append('Id_Loai', data.Id_Loai);
+      this.http.post(environment.URL_API + 'mausacs', formData)
+        .subscribe(res => {
+          this.service.getAllMauSacs();
+          this.service.mausac.id = 0;
+          this.serviceToast.showToastThemThanhCong()
+        }, err => {
+          this.serviceToast.showToastThemThatBai()
+        });
+      this.newBlogForm.reset();
+    }
+    else {
+      const formData = new FormData();
+      formData.append('MaMau', data.MaMau);
+      formData.append('Id_Loai', data.Id_Loai);
+      this.http.put(environment.URL_API + 'mausacs/' + `${this.service.mausac.id}`, formData)
+        .subscribe(res => {
+          this.serviceToast.showToastSuaThanhCong()
+
+
+          this.service.getAllMauSacs();
+          this.service.mausac.id = 0;
+        }, err => {
+          this.serviceToast.showToastSuaThatBai()
+        });
+    }
+  }
 }

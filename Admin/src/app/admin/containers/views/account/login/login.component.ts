@@ -7,7 +7,8 @@ import { UserService } from '../user.service';
 import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard',
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 @Injectable()
 export class LoginComponent implements OnInit {
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('auth_token');
     this.loggedIn = false
   }
-  onLogin() {
+  onRegister() {
     this.router.navigate(['/register']);
   }
   onSubmit = (data) => {

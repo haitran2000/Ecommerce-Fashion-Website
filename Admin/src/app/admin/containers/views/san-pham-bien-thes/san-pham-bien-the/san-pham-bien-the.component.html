@@ -13,7 +13,6 @@
                     [value]="mau.id">{{mau.loaiTenMau}}</option>
             </select>
             <div *ngIf="Id_Mau.invalid && (Id_Mau.dirty || Id_Mau.touched)" class="alert alert-danger">
-
                 <div *ngIf="Id_Mau.errors.required">
                  Màu không được bỏ trống
                 </div>

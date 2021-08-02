@@ -7,7 +7,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastServiceService } from '../../shared/toast-service.service';
-import { SizeService } from './size.service';
+import {  Size, SizeService } from './size.service';
+
 import { SizeComponent } from './size/size.component';
 
 @Component({
@@ -69,8 +70,3 @@ displayedColumns: string[] = ['id', 'tenSize','tenLoai',
     )
 }
 }}
-export class Size{
-  id : number = 0
-  tenSize : string
-  id_Loai : string 
-}

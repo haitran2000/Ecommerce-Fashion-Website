@@ -26,7 +26,7 @@ export class SanPhamBienThesComponent implements OnInit, AfterViewInit {
               public serviceToast : ToastServiceService,) { }
 
 
-              displayedColumns: string[] = ['id','mauLoai','sizeLoai','sanPham','soLuongTon',
+              displayedColumns: string[] = ['id','sanPham','mauLoai','sizeLoai','soLuongTon',
   'actions'];
 
 

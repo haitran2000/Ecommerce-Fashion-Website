@@ -23,7 +23,7 @@ export class SanPhamBienTheService{
       return this.http.delete(`${this.url}/${id}`)
     }
     get():Observable<any>{
-      return this.http.get(environment.URL_API+"sanphambienthes/sanphambienthes")
+      return this.http.get(environment.URL_API+"sanphambienthes/sanphambienthe")
     }
     getAllSanPhamBienThes(){
       this.get().subscribe(

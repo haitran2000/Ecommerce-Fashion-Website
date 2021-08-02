@@ -29,7 +29,7 @@ export class CategoriesComponent implements OnInit, AfterViewInit {
               public dialog: MatDialog,
               public toastService: ToastServiceService) { }
 
-displayedColumns: string[] = ['id', 'ten',
+displayedColumns: string[] = ['id', 'ten','namNu',
   'actions'];
 
 
