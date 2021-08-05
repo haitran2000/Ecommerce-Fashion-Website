@@ -28,6 +28,10 @@ namespace Web_API_e_Fashion.Data
         public DbSet<ImageSanPham> ImageSanPhams { get; set; }
         public DbSet<AuthHistory> AuthHistories { get; set; }
         public DbSet<Notification>  Notifications { get; set; }
+        public DbSet<MaGiamGia> MaGiamGias { get; set; }
+        public DbSet<UserLike> UserLikes { get; set; }
+        public DbSet<UserComment> UserComments { get; set; }
+
         protected void TableBuilder(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserLike>().HasKey(sc => new { sc.IdSanPham, sc.IdAppUser });

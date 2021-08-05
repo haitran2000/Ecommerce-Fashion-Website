@@ -10,6 +10,6 @@ namespace Web_API_e_Fashion.UploadFileModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IFormFile? TileImage { get; set; }
+        public string NamNu { get; set; }
     }
 }

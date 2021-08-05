@@ -101,7 +101,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             Loai loai = new Loai();
             loai = await _context.Loais.FirstOrDefaultAsync(c => c.Id == id);
             loai.Ten = upload.Name;
-         
+            loai.NamNu = upload.NamNu;
             _context.Loais.Update(loai);
 
             try
@@ -137,7 +137,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             _context.Notifications.Add(notification);
             Loai loai = new Loai();
             loai.Ten = upload.Name;
-       
+            loai.NamNu = upload.NamNu;
             _context.Loais.Add(loai);
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();

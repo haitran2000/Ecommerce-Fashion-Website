@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Web_API_e_Fashion.ClientToServerModels;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
 using Web_API_e_Fashion.ResModels;
@@ -53,22 +54,22 @@ namespace Web_API_e_Fashion.Api_Controllers
 ";
 
             SqlConnection connection = new SqlConnection(_context.Database.GetConnectionString());
-            List<SanPhamLoaiThuongHieu> List = new List<SanPhamLoaiThuongHieu>(); 
-            try 
+            List<SanPhamLoaiThuongHieu> List = new List<SanPhamLoaiThuongHieu>();
+            try
             {
                 SqlCommand command = new SqlCommand(sql, connection);
                 await connection.OpenAsync();
-              
+
                 SqlDataReader reader = await command.ExecuteReaderAsync();
                 if (reader.HasRows)
                 {
-                    while(await reader.ReadAsync())
+                    while (await reader.ReadAsync())
                     {
                         List.Add(new SanPhamLoaiThuongHieu()
                         {
                             Id = (int)reader["Id"],
                             Ten = (string)reader["Ten"],
-                            Image= reader["ImageName"].ToString(),                  
+                            Image = reader["ImageName"].ToString(),
                             Gia = (decimal)reader["Gia"],
                             GiaNhap = (decimal)reader["GiaNhap"],
                             Tag = (string)reader["Tag"],
@@ -85,7 +86,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Ok(ex.Message.ToString());
             }
@@ -149,7 +150,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             sanpham.GiaNhap = upload.GiaNhap;
             sanpham.KhuyenMai = upload.KhuyenMai;
             sanpham.ThanhPhan = upload.ThanhPhan;
-            sanpham.TrangThaiHoatDong = upload.TrangThaiHoatDong;      
+            sanpham.TrangThaiHoatDong = upload.TrangThaiHoatDong;
             sanpham.TrangThaiSanPham = upload.TrangThaiSanPham;
             SanPham sp;
             sp = _context.SanPhams.Find(id);
@@ -204,7 +205,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                     {
                         var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot/Images/list-image-product",
-                       upload.Ten + i + "." +  file[i].FileName.Split(".")[file[i].FileName.Split(".").Length - 1]);
+                       upload.Ten + i + "." + file[i].FileName.Split(".")[file[i].FileName.Split(".").Length - 1]);
 
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
@@ -213,7 +214,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
                         listImage.Add(new ImageSanPham()
                         {
-                            ImageName = upload.Ten + i+"." + file[i].FileName.Split(".")
+                            ImageName = upload.Ten + i + "." + file[i].FileName.Split(".")
                             [file[i].FileName.Split(".").Length - 1],
                             IdSanPham = sanpham.Id,
                         });
@@ -253,7 +254,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 HuongDan = upload.HuongDan,
                 MoTa = upload.MoTa,
                 ThanhPhan = upload.ThanhPhan,
-                TrangThaiHoatDong = upload.TrangThaiHoatDong,           
+                TrangThaiHoatDong = upload.TrangThaiHoatDong,
                 TrangThaiSanPham = upload.TrangThaiSanPham,
                 Gia = upload.Gia,
                 GiaNhap = upload.GiaNhap,
@@ -274,22 +275,22 @@ namespace Web_API_e_Fashion.Api_Controllers
 
 
             await _context.SaveChangesAsync();
-           SanPham spTest;
+            SanPham spTest;
             spTest = await _context.SanPhams.FindAsync(sanpham.Id);
             if (upload.files != null)
             {
-                for (int i =0;i< file.Length;i++)
+                for (int i = 0; i < file.Length; i++)
                 {
 
                     if (file[i].Length > 0)
                     {
-                    
+
                         ImageSanPham imageSanPham1 = new ImageSanPham();
                         _context.ImageSanPhams.Add(imageSanPham1);
                         await _context.SaveChangesAsync();
                         var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot/Images/list-image-product",
-                       upload.Ten + imageSanPham1.Id + "."+ file[i].FileName.Split(".")[file[i].FileName.Split(".").Length - 1]);
+                       upload.Ten + imageSanPham1.Id + "." + file[i].FileName.Split(".")[file[i].FileName.Split(".").Length - 1]);
 
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
@@ -300,16 +301,16 @@ namespace Web_API_e_Fashion.Api_Controllers
                         imageSanPham1.ImageName = upload.Ten + imageSanPham1.Id + "." + file[i].FileName.Split(".")
                             [file[i].FileName.Split(".").Length - 1];
                         imageSanPham1.IdSanPham = spTest.Id;
-                        
+
                         _context.ImageSanPhams.Update(imageSanPham1);
                         await _context.SaveChangesAsync();
-                      
+
                     }
                 }
-                  
-               
+
+
             }
-         
+
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
         }
@@ -317,19 +318,19 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSanPham(int id)
         {
-         
+
             var imageSanPhams = _context.ImageSanPhams.ToArray().Where(s => s.IdSanPham == id);
-            foreach(var i in imageSanPhams)
+            foreach (var i in imageSanPhams)
             {
                 try
                 {
                     System.IO.File.Delete(Path.Combine("wwwroot/Images/list-image-product", i.ImageName));
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
-                 
+
                 }
-            
+
             }
             Models.SanPhamBienThe[] spbts;
             spbts = _context.SanPhamBienThes.Where(s => s.Id_SanPham == id).ToArray();
@@ -375,7 +376,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet("loai/{id}")]
         public async Task<ActionResult<IEnumerable<SanPham>>> GetCategory(int id)
         {
-            return await _context.SanPhams.Where(s => s.Id_Loai == id||s.Id_NhanHieu==id).ToListAsync();
+            return await _context.SanPhams.Where(s => s.Id_Loai == id || s.Id_NhanHieu == id).ToListAsync();
         }
 
         [HttpGet("nhanhieu/{id}")]
@@ -387,18 +388,18 @@ namespace Web_API_e_Fashion.Api_Controllers
         public async Task<ActionResult<IEnumerable<SanPham>>> GetBrandCate(int id)
         {
 
-                var get = _context.SanPhams.Where(s => s.Id_Loai == id);
-                if (get != null)
-                {
-                    return await _context.SanPhams.Where(s => s.Id_Loai == id).ToListAsync();
-                }
-                else
-                {
-                    return await _context.SanPhams.Where(s => s.Id_NhanHieu == id).ToListAsync();
-                }
-           
-           
-            
+            var get = _context.SanPhams.Where(s => s.Id_Loai == id);
+            if (get != null)
+            {
+                return await _context.SanPhams.Where(s => s.Id_Loai == id).ToListAsync();
+            }
+            else
+            {
+                return await _context.SanPhams.Where(s => s.Id_NhanHieu == id).ToListAsync();
+            }
+
+
+
         }
         [HttpGet("chitietsanpham/{id}")]
         public async Task<ActionResult<ProductDetail>> Chitiet(int id)
@@ -420,56 +421,19 @@ namespace Web_API_e_Fashion.Api_Controllers
                           TenSize = z.TenSize,
                           Id_SanPham = s.Id_SanPham,
                       };
-            listSPBT = await kb1.Where(s=>s.Id_SanPham==id).ToListAsync();        
+            listSPBT = await kb1.Where(s => s.Id_SanPham == id).ToListAsync();
             var kb = from s in _context.SanPhams
-                      join spbt in _context.SanPhamBienThes
-                      on s.Id equals spbt.Id_SanPham
-                      join hinh in _context.ImageSanPhams
-                      on s.Id equals hinh.IdSanPham
-                      join th in _context.NhanHieus
-                      on s.Id_NhanHieu equals th.Id
-                      join l in _context.Loais
-                      on s.Id_Loai equals l.Id
-                      select new ProductDetail()
-                      {
-                        
-                           Id = s.Id,
-                           Ten = s.Ten,
-                           Gia = s.Gia,
-                           Tag = s.Tag,
-                           KhuyenMai = s.KhuyenMai,
-                           MoTa = s.MoTa,
-                           HuongDan = s.HuongDan,
-                           ThanhPhan = s.ThanhPhan,
-                           TrangThaiSanPham = s.TrangThaiSanPham,
-                           TrangThaiHoatDong = s.TrangThaiHoatDong,
-                           Id_Loai = s.Id_Loai,
-                           Id_NhanHieu = s.Id_NhanHieu,
-                          TenLoai = l.Ten,
-                          TenNhanHieu = th.Ten,
-                          ImageSanPhams = listImage,
-                           SanPhamBienThes = listSPBT,
-                      };
-            pr = kb.FirstOrDefault(s=>s.Id == id);
-            return pr;
-        }  
-        [HttpGet("laytatcasanpham")]
-        public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> Laytatcasanpham()
-        {
-            var kb = from s in _context.SanPhams
-                     join l in _context.Loais
-                     on s.Id_Loai equals l.Id
-                     into f
-                     from l in f.DefaultIfEmpty()
+                     join spbt in _context.SanPhamBienThes
+                     on s.Id equals spbt.Id_SanPham
+                     join hinh in _context.ImageSanPhams
+                     on s.Id equals hinh.IdSanPham
                      join th in _context.NhanHieus
                      on s.Id_NhanHieu equals th.Id
-                     into j
-                     from th in j.DefaultIfEmpty()                 
-                     join image in _context.ImageSanPhams
-                     on s.Id equals image.IdSanPham
-                     select new SanPhamLoaiThuongHieu()
+                     join l in _context.Loais
+                     on s.Id_Loai equals l.Id
+                     select new ProductDetail()
                      {
-                         Image = image.ImageName,
+
                          Id = s.Id,
                          Ten = s.Ten,
                          Gia = s.Gia,
@@ -482,11 +446,97 @@ namespace Web_API_e_Fashion.Api_Controllers
                          TrangThaiHoatDong = s.TrangThaiHoatDong,
                          Id_Loai = s.Id_Loai,
                          Id_NhanHieu = s.Id_NhanHieu,
+                         TenLoai = l.Ten,
+                         TenNhanHieu = th.Ten,
+                         ImageSanPhams = listImage,
+                         SanPhamBienThes = listSPBT,
                      };
-            var kbs = kb.ToList();
-            return  kbs.Except(kbs.GroupBy(i => i.Id)
-                                             .Select(ss => ss.FirstOrDefault()))
-                                            .ToList();
+            pr = kb.FirstOrDefault(s => s.Id == id);
+            return pr;
         }
+        [HttpGet("laytatcasanpham")]
+        public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> Laytatcasanphamasync()
+        {
+            var sql = @";with ProductImageTable
+	                          as (
+		                        SELECT SanPhams.Id,SanPhams.Ten,SanPhams.Gia ,ImageSanPhams.ImageName, 
+		                        ROW_NUMBER() OVER (PARTITION BY SanPhams.Id ORDER BY  ImageSanPhams.Id)  RowNum
+		                        FROM SanPhams LEFT JOIN ImageSanPhams ON SanPhams.Id=ImageSanPhams.IdSanPham
+		                          )
+		                    SELECT Id,Ten, ImageName
+		                    from ProductImageTable
+	                        where
+                            ProductImageTable.RowNum = 1";
+          
+            SqlConnection cnn;
+            cnn = new SqlConnection(_context.Database.GetConnectionString());
+            SqlDataReader reader;
+            SqlCommand cmd;
+            var list = new List<SanPhamLoaiThuongHieu>();
+
+            try
+            {
+                await cnn.OpenAsync();
+                cmd = new SqlCommand(sql, cnn);
+                reader = await cmd.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
+
+                    while (await reader.ReadAsync())
+                    {
+
+                        list.Add(new SanPhamLoaiThuongHieu() { Id=(int)reader["Id"],Ten = (string)reader["Ten"], Image=(string)reader["ImageName"] });
+                    }
+                }
+
+                await cnn.CloseAsync();
+            }
+            catch (Exception ex)
+            {
+
+            };
+
+            return list;
+            //var kb = from s in _context.SanPhams
+            //         join l in _context.Loais
+            //         on s.Id_Loai equals l.Id
+            //         into f
+            //         from l in f.DefaultIfEmpty()
+            //         join th in _context.NhanHieus
+            //         on s.Id_NhanHieu equals th.Id
+            //         into j
+            //         from th in j.DefaultIfEmpty()                 
+            //         join image in _context.ImageSanPhams
+            //         on s.Id equals image.IdSanPham
+            //         select new SanPhamLoaiThuongHieu()
+            //         {
+            //             Image = image.ImageName,
+            //             Id = s.Id,
+            //             Ten = s.Ten,
+            //             Gia = s.Gia,
+            //             Tag = s.Tag,
+            //             KhuyenMai = s.KhuyenMai,
+            //             MoTa = s.MoTa,
+            //             HuongDan = s.HuongDan,
+            //             ThanhPhan = s.ThanhPhan,
+            //             TrangThaiSanPham = s.TrangThaiSanPham,
+            //             TrangThaiHoatDong = s.TrangThaiHoatDong,
+            //             Id_Loai = s.Id_Loai,
+            //             Id_NhanHieu = s.Id_NhanHieu,
+            //         };
+            //var kbs = kb.ToList();
+            //return  kbs.Except(kbs.GroupBy(i => i.Id)
+            //                                 .Select(ss => ss.FirstOrDefault()))
+            //                                .ToList();
+        }
+        [HttpGet("timnangcao")]
+        public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> TimNangCao(TimKiemNangCao nangCao)
+        {
+
+            List<SanPhamLoaiThuongHieu> list = new List<SanPhamLoaiThuongHieu>();
+
+            return list;
+        }
+
     }
 }

@@ -24,8 +24,8 @@ namespace Web_API_e_Fashion.Api_Controllers
         private readonly IJwtFactory _jwtFactory;
         private readonly JsonSerializerSettings _serializerSettings;
         private readonly JwtIssuerOptions _jwtOptions;
-        private readonly DPContext _context; 
-        public AuthController(UserManager<AppUser> userManager, DPContext context,  IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
+        private readonly DPContext _context;
+        public AuthController(UserManager<AppUser> userManager, DPContext context, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;
@@ -36,8 +36,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                 Formatting = Formatting.Indented
             };
         }
-        static string id ;
-  
+        static string id;
+
         // POST api/auth/login
         [HttpPost("login")]
         public async Task<IActionResult> Post([FromBody] CredentialsViewModel credentials)
@@ -46,24 +46,24 @@ namespace Web_API_e_Fashion.Api_Controllers
             {
                 return BadRequest(ModelState);
             }
-
             var identity = await GetClaimsIdentity(credentials.UserName, credentials.Password);
             if (identity == null)
             {
                 return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState));
             }
 
-          
-            
+
+            User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
 
 
             // Serialize and return the response
             var response = new
             {
                 id = identity.Claims.Single(c => c.Type == "id").Value,
-                quyen = _context.AppUsers.FirstOrDefault(s=>s.Id==id).Quyen,
-                hinh =_context.AppUsers.FirstOrDefault(s=>s.Id==id).ImagePath,
-                email = _context.AppUsers.FirstOrDefault(s=>s.Id==id).Email,
+                quyen = _context.AppUsers.FirstOrDefault(s => s.Id == id).Quyen,
+                hinh = _context.AppUsers.FirstOrDefault(s => s.Id == id).ImagePath,
+                email = _context.AppUsers.FirstOrDefault(s => s.Id == id).Email,
                 auth_token = await _jwtFactory.GenerateEncodedToken(credentials.UserName, identity),
                 expires_in = (int)_jwtOptions.ValidFor.TotalSeconds
             };
@@ -80,15 +80,13 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
 
             var identity = await GetClaimsIdentity(credentials.UserName, credentials.Password);
+
+            //var idUser = User.Identity.Name;
+
             if (identity == null)
             {
                 return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState));
             }
-
-
-
-
-
             // Serialize and return the response
             var response = new
             {
@@ -115,7 +113,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                     // check the credentials  
                     if (await _userManager.CheckPasswordAsync(userToVerify, password))
                     {
-                  
+
                         AuthHistory auth = new AuthHistory();
                         auth.IdentityId = userToVerify.Id;
                         auth.Datetime = DateTime.Now;
@@ -134,7 +132,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet("AuthHistory")]
         public async Task<ActionResult<AppUser>> GetAuthHistory()
         {
-           AppUser appUser = new AppUser();
+            AppUser appUser = new AppUser();
             appUser = await _context.AppUsers.FindAsync(id);
             return appUser;
         }
