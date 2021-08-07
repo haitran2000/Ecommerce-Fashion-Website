@@ -41,7 +41,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             MaGiamGia maGiamGia = new MaGiamGia();
             maGiamGia.Code=RandomString(5);
-            maGiamGia.SoTienGiam = uploadMaGiamGia.SoTienGiam;
+            maGiamGia.SoPhanTramGiam = uploadMaGiamGia.SoTienGiam;
             _context.Add(maGiamGia);
 
           
@@ -63,7 +63,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             MaGiamGia maGiamGia;
             maGiamGia = await _context.MaGiamGias.FindAsync(id);
             maGiamGia.Code = RandomString(5);
-            maGiamGia.SoTienGiam = uploadMaGiamGia.SoTienGiam;
+            maGiamGia.SoPhanTramGiam = uploadMaGiamGia.SoTienGiam;
             _context.Update(maGiamGia);
          
             await _context.SaveChangesAsync();
@@ -93,7 +93,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             {
                 if (mgg.Code==upload.Code)
                 {
-                    product.Gia = product.Gia-( product.Gia * mgg.SoTienGiam/100);
+                    product.Gia = product.Gia-( product.Gia * mgg.SoPhanTramGiam / 100);
                 }
             }
             var response = new

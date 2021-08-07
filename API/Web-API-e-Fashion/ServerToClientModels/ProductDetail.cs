@@ -22,6 +22,7 @@ namespace Web_API_e_Fashion.ServerToClientModels
         public string? ThanhPhan { get; set; }
         public int? UpdateBy { get; set; }
         public int? Id_NhanHieu { get; set; }
+        public int? GioiTinh { get; set; }
         public int? Id_Loai { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int? GiaSanPhams { get; set; }

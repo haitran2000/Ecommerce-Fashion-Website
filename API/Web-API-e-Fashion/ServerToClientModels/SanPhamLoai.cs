@@ -17,7 +17,7 @@ namespace Web_API_e_Fashion.ResModels
         public string Tag { get; set; }
         public string? HuongDan { get; set; }
         public string? ThanhPhan { get; set; }
-
+        public int? GioiTinh  { get; set; }
         public string? TrangThaiSanPham { get; set; }
         public string? TrangThaiSanPhamThietKe { get; set; }
         public string? TrangThaiHoatDong { get; set; }

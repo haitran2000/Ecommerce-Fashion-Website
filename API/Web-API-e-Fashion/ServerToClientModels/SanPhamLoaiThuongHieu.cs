@@ -13,6 +13,7 @@ namespace Web_API_e_Fashion.ResModels
         public string? MoTa { get; set; }
         public string? Tag { get; set; }
         public string? Image { get; set; }
+        public int? GioiTinh { get; set; }
         public decimal? Gia { get; set; }
         public decimal? GiaNhap { get; set; }
         public string? TrangThaiSanPham { get; set; }

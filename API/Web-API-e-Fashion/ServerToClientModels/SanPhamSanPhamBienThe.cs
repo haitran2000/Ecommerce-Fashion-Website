@@ -9,6 +9,7 @@ namespace Web_API_e_Fashion.ResModels
     {
         public int IdSP { get; set; }
         public string Name { get; set; }
+        public int? GioiTinh { get; set; }
         public decimal Gia { get; set; }
         public string Hinh { get; set; }
         public string TrangThaiChoPhep { get; set; }

@@ -147,6 +147,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             sanpham.MoTa = upload.MoTa;
             sanpham.Gia = upload.Gia;
             sanpham.Tag = upload.Tag;
+            sanpham.GioiTinh = upload.GioiTinh;
             sanpham.GiaNhap = upload.GiaNhap;
             sanpham.KhuyenMai = upload.KhuyenMai;
             sanpham.ThanhPhan = upload.ThanhPhan;
@@ -257,6 +258,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 TrangThaiHoatDong = upload.TrangThaiHoatDong,
                 TrangThaiSanPham = upload.TrangThaiSanPham,
                 Gia = upload.Gia,
+                GioiTinh=upload.GioiTinh,
                 GiaNhap = upload.GiaNhap,
                 Tag = upload.Tag,
                 KhuyenMai = upload.KhuyenMai,
@@ -440,6 +442,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                          Tag = s.Tag,
                          KhuyenMai = s.KhuyenMai,
                          MoTa = s.MoTa,
+                         GioiTinh=s.GioiTinh,
                          HuongDan = s.HuongDan,
                          ThanhPhan = s.ThanhPhan,
                          TrangThaiSanPham = s.TrangThaiSanPham,

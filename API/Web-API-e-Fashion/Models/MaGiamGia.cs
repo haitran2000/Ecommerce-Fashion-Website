@@ -9,7 +9,7 @@ namespace Web_API_e_Fashion.Models
     {
         public int Id { get; set; }
         public string Code { get; set; }     
-        public decimal SoTienGiam { get; set; }
+        public decimal SoPhanTramGiam { get; set; }
 
     }
 }

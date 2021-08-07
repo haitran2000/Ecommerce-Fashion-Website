@@ -13,6 +13,7 @@ namespace Web_API_e_Fashion.UploadFileModels
         public decimal? KhuyenMai { get; set; }
         public string? MoTa { get; set; }
         public string? Tag { get; set; }
+        public int? GioiTinh { get; set; }
         public string? TrangThaiSanPham { get; set; }
         public string? TrangThaiHoatDong { get; set; }
         public decimal? Gia  { get; set; }
