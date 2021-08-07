@@ -43,8 +43,8 @@ export const navItems: INavData[] = [
   },
   {
     name: 'DS mã giảm giá',
-    url: '/admin/categories',
-    icon: 'cil-aperture',
+    url: '/admin/magiamgias',
+    icon: 'cil-puzzle',
   },
   // {
   //   name: 'DS chi tiết hóa đơn',

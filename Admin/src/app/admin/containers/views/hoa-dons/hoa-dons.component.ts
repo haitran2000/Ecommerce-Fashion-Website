@@ -9,7 +9,7 @@ import { ToastServiceService } from '../../shared/toast-service.service';
 
 import { HoaDonComponent } from './hoa-don/hoa-don.component';
 import {  HoaDon, HoaDonService } from './hoadon.service';
-
+import * as signalR from '@microsoft/signalr';
 @Component({
   selector: 'app-hoa-dons',
   templateUrl: './hoa-dons.component.html',
@@ -28,7 +28,7 @@ export class HoaDonsComponent implements OnInit {
     public dialog: MatDialog,
     public serviceToast: ToastServiceService,
   ) { }
-  displayedColumns: string[] = ['id', 'id_User', 'ngayTao', 'ghiChi', 'tongTien', 'actions'];
+  displayedColumns: string[] = ['id', 'id_User', 'ngayTao', 'ghiChi', 'tongTien','thanhToan','trangThai','daLayTien' ,'actions'];
 
 
   public hoadon: HoaDon

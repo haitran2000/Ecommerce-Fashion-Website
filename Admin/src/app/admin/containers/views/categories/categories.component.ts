@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ToastServiceService } from '../../shared/toast-service.service';
 import { Category, CategoryService } from './category.service';
 import { CategoryComponent } from './category/category.component';
-
+import * as signalR from '@microsoft/signalr';
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
@@ -36,6 +36,21 @@ displayedColumns: string[] = ['id', 'ten','namNu',
   public category :  Category
   ngOnInit(): void {
     this.service.getAllCategories();
+    const connection = new signalR.HubConnectionBuilder()
+    .configureLogging(signalR.LogLevel.Information)
+    .withUrl('https://localhost:44302/notify')
+    .build();
+
+  connection.start().then(function () {
+    console.log('SignalR Connected!');
+  }).catch(function (err) {
+    return console.error(err.toString());
+  });
+
+
+  connection.on("BroadcastMessage", () => {
+    this.service.getAllCategories();
+  });
   }
   
   ngAfterViewInit(): void {

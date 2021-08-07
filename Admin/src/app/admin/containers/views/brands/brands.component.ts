@@ -10,6 +10,7 @@ import { Brand, BrandService } from './brand.service';
 import { BrandComponent } from './brand/brand.component';
 import { NotifierService } from 'angular-notifier';
 import { ToastrService } from 'ngx-toastr';
+import * as signalR from '@microsoft/signalr';
 @Component({
   selector: 'app-brands',
   templateUrl: './brands.component.html',
@@ -36,6 +37,22 @@ displayedColumns: string[] = ['id', 'ten',
   public brand :  Brand
   ngOnInit(): void {
     this.service.getAllBrands();
+    const connection = new signalR.HubConnectionBuilder()
+    .configureLogging(signalR.LogLevel.Information)
+    .withUrl('https://localhost:44302/notify')
+    .build();
+
+  connection.start().then(function () {
+    console.log('SignalR Connected!');
+  }).catch(function (err) {
+    return console.error(err.toString());
+  });
+
+
+  connection.on("BroadcastMessage", () => {
+    this.service.getAllBrands();
+  });
+  
 
 
   }

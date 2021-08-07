@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastServiceService } from '../../shared/toast-service.service';
 import {  Size, SizeService } from './size.service';
-
+import * as signalR from '@microsoft/signalr';
 import { SizeComponent } from './size/size.component';
 
 @Component({
@@ -36,6 +36,20 @@ displayedColumns: string[] = ['id', 'tenSize','tenLoai',
 
   ngOnInit(): void {
     this.service.getAllSizes();
+    const connection = new signalR.HubConnectionBuilder()
+    .configureLogging(signalR.LogLevel.Information)
+    .withUrl('https://localhost:44302/notify')
+    .build();
+
+  connection.start().then(function () {
+    console.log('SignalR Connected!');
+  }).catch(function (err) {
+    return console.error(err.toString());
+  });
+
+  connection.on("BroadcastMessage", () => {
+    this.service.getAllSizes();
+  });
   }
   
   ngAfterViewInit(): void {

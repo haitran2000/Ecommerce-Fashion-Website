@@ -68,7 +68,7 @@ import { MauSacsComponent } from './admin/containers/views/mau-sacs/mau-sacs.com
 import { SizesComponent } from './admin/containers/views/sizes/sizes.component';
 import { CategoryService } from './admin/containers/views/categories/category.service';
 import { CategoryComponent } from './admin/containers/views/categories/category/category.component';
-import { ProductInCategoryComponent } from './admin/containers/views/categories/product-in-category/product-in-category.component';
+
 import { HoaDonsComponent } from './admin/containers/views/hoa-dons/hoa-dons.component';
 
 import { JobSeekesComponent } from './admin/containers/views/job-seekes/job-seekes.component';
@@ -100,11 +100,11 @@ import * as FusionCharts from "fusioncharts";
 import * as charts from "fusioncharts/fusioncharts.charts";
 import * as FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
 import { FusionChartsModule } from 'angular-fusioncharts';
-
-import { TopComponent } from './admin/containers/views/top/top.component';
 import { SelectMonthComponent } from './admin/containers/views/chart-second/select-month/select-month.component';
 import { ChartSecondComponent } from './admin/containers/views/chart-second/chart-second.component';
-import { DiscountCodeComponent } from './admin/containers/views/discount-code/discount-code.component';
+import { DiscoutCodesComponent } from './admin/containers/views/discout-codes/discout-codes.component';
+import { DiscoutCodeComponent } from './admin/containers/views/discout-codes/discout-code/discout-code.component';
+
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 
@@ -180,7 +180,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     MauSacComponent,
     SizesComponent,
     CategoryComponent,
-    ProductInCategoryComponent,
+
     HoaDonsComponent,
 
     JobSeekesComponent,
@@ -202,8 +202,10 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     DefaultLayoutComponent,
     SelectMonthComponent,
     ChartSecondComponent,
-    TopComponent,
-    DiscountCodeComponent,
+
+
+    DiscoutCodesComponent,
+    DiscoutCodeComponent,
   ],
   providers: [
     IconSetService,

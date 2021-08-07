@@ -35,6 +35,8 @@ import { UserdetailComponent } from './admin/containers/userdetail/userdetail.co
 import { WidgetsComponent } from './admin/containers/views/widgets/widgets.component';
 import { ProfileComponent } from './admin/containers/views/profile/profile.component';
 import { ChartSecondComponent } from './admin/containers/views/chart-second/chart-second.component';
+import { DiscoutCodesComponent } from './admin/containers/views/discout-codes/discout-codes.component';
+
 
 
 
@@ -87,88 +89,92 @@ export const routes: Routes = [
     },
     children: [
       {
-        path:'admin/profile',
-        component:ProfileComponent
+        path: 'admin/profile',
+        component: ProfileComponent
       }
       ,
       {
-        path:'admin/widget',
-        component:WidgetsComponent
+        path: 'admin/widget',
+        component: WidgetsComponent
       },
       {
-        path:'admin/chartsecond',
-        component:ChartSecondComponent
+        path: 'admin/chartsecond',
+        component: ChartSecondComponent
       },
       {
         path: 'admin/dashboard',
-       component: DashboardComponent,canActivate: [AuthGuard],
+        component: DashboardComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/profile',
-       component: UserdetailComponent,canActivate: [AuthGuard],
+        component: UserdetailComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/chartjs',
-       component: ChartJSComponent,canActivate: [AuthGuard],
+        component: ChartJSComponent, canActivate: [AuthGuard],
       },
-    
+
       {
         path: 'admin/product/add',
-      component: ProductComponent, canActivate: [AuthGuard],
+        component: ProductComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/product/edit/:id',
-        component: ProductComponent,canActivate: [AuthGuard],
+        component: ProductComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/product/detail/:id',
-        component: ProductdetailComponent,canActivate: [AuthGuard],
+        component: ProductdetailComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/products',
-        component: ProductsComponent,canActivate: [AuthGuard],
+        component: ProductsComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/categories',
-        component: CategoriesComponent,canActivate: [AuthGuard],
+        component: CategoriesComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/sanphambienthes',
-        component: SanPhamBienThesComponent,canActivate: [AuthGuard],
+        component: SanPhamBienThesComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/brands',
-        component: BrandsComponent,canActivate: [AuthGuard],
+        component: BrandsComponent, canActivate: [AuthGuard],
+      },
+      {
+        path: 'admin/magiamgias',
+        component: DiscoutCodesComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/sizes',
-        component: SizesComponent,canActivate: [AuthGuard],
+        component: SizesComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/mausacs',
-        component: MauSacsComponent,canActivate: [AuthGuard],
+        component: MauSacsComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/jobseekes',
-        component: JobSeekesComponent,canActivate: [AuthGuard],
+        component: JobSeekesComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/hoadons',
-        component: HoaDonsComponent,canActivate: [AuthGuard],
+        component: HoaDonsComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/authhistories',
-        component: AuthHistoriesComponent,canActivate: [AuthGuard],
+        component: AuthHistoriesComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/aspnetusers',
-        component: AspNetUsersComponent,canActivate: [AuthGuard],
+        component: AspNetUsersComponent, canActivate: [AuthGuard],
       },
 
 
       {
         path: 'admin/hoadon/detail/:id',
-        component: HoaDonComponent,canActivate: [AuthGuard],
+        component: HoaDonComponent, canActivate: [AuthGuard],
       },
     ]
   },
@@ -176,7 +182,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes,{ useHash: false }) ],
-  exports: [ RouterModule]
+  imports: [RouterModule.forRoot(routes, { useHash: false })],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

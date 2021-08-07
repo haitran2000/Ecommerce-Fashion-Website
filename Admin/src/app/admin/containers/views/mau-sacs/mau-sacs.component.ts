@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { ToastServiceService } from '../../shared/toast-service.service';
 import { MauSac, MauSacService } from './mau-sac.service';
 import { MauSacComponent } from './mau-sac/mau-sac.component';
-
+import * as signalR from '@microsoft/signalr';
 @Component({
   selector: 'app-mau-sacs',
   templateUrl: './mau-sacs.component.html',
@@ -35,6 +35,23 @@ displayedColumns: string[] = ['id', 'maMau','tenLoai',
 
   ngOnInit(): void {
     this.service.getAllMauSacs();
+
+
+    const connection = new signalR.HubConnectionBuilder()
+    .configureLogging(signalR.LogLevel.Information)
+    .withUrl('https://localhost:44302/notify')
+    .build();
+
+  connection.start().then(function () {
+    console.log('SignalR Connected!');
+  }).catch(function (err) {
+    return console.error(err.toString());
+  });
+
+
+  connection.on("BroadcastMessage", () => {
+    this.service.getAllMauSacs();
+  });
   }
   
   ngAfterViewInit(): void {

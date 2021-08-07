@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {  HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { BaseService } from './base.service';
 import { Route } from '@angular/compiler/src/core';
@@ -14,8 +14,8 @@ import { environment } from '../../../../../environments/environment';
 
 @Injectable()
 
-export class UserService extends BaseService  {
- 
+export class UserService extends BaseService {
+
   baseUrl: string = '';
 
   // Observable navItem source
@@ -25,7 +25,7 @@ export class UserService extends BaseService  {
 
   private loggedIn = false;
 
-  constructor( public toast : ToastServiceService,private http: HttpClient,public router: Router) {
+  constructor(public toast: ToastServiceService, private http: HttpClient, public router: Router) {
     super();
     this.loggedIn = !!localStorage.getItem('auth_token');
     // ?? not sure if this the best way to broadcast the status but seems to resolve issue on page refresh where auth status is lost in
@@ -33,26 +33,28 @@ export class UserService extends BaseService  {
     this._authNavStatusSource.next(this.loggedIn);
     this.baseUrl = environment.URL_API
   }
-   login(userName, password) {
+  login(userName, password) {
     return this.http
-.post(
-      this.baseUrl + 'auth/login',
-      JSON.stringify({ userName, password }),
-      { headers: new HttpHeaders({'Content-Type':'application/json'}
-      )}).subscribe(
-        (res : any)=> {
-          localStorage.setItem('auth_token', res.auth_token);
-          localStorage.setItem('idUser',res.id);
-          if(res.quyen =='Admin'){
-            this.router.navigate(['/admin/dashboard']);
-            this.toast.showToastDangNhapThanhCong()
-            console.log(res.quyen)
-          }
-          console.log(res.auth_token);
-          this.loggedIn = true;
-          this._authNavStatusSource.next(true);
-          return true;
-      })
+      .post(
+        this.baseUrl + 'auth/login',
+        JSON.stringify({ userName, password }),
+        {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' }
+          )
+        }).subscribe(
+          (res: any) => {
+            localStorage.setItem('auth_token', res.auth_token);
+            localStorage.setItem('idUser', res.id);
+            if (res.quyen == 'Admin') {
+              this.router.navigate(['/admin/dashboard']);
+              this.toast.showToastDangNhapThanhCong()
+              console.log(res.quyen)
+            }
+            console.log(res.auth_token);
+            this.loggedIn = true;
+            this._authNavStatusSource.next(true);
+            return true;
+          })
   }
 
   logout() {
@@ -64,12 +66,12 @@ export class UserService extends BaseService  {
 
   isLoggedIn() {
     return this.loggedIn;
-  }  
+  }
 }
 export interface UserRegistration {
-  email: string;  
+  email: string;
   password: string;
   firstName: string;
-  lastName:  string;
+  lastName: string;
   location: string;
 }

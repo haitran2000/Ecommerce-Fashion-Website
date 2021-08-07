@@ -13,7 +13,7 @@ import { CategoryService } from '../category.service';
   styleUrls: ['./category.component.scss']
 })
 export class CategoryComponent implements OnInit {
-  public categorysComponent : CategoriesComponent
+
   constructor(public service : CategoryService,
     public toastService: ToastServiceService,
     public http :HttpClient ,
@@ -69,6 +69,3 @@ error=>{
 }
 }
 
-function forbiddenNameValidator(arg0: RegExp): import("@angular/forms").ValidatorFn {
-  throw new Error('Function not implemented.');
-}
