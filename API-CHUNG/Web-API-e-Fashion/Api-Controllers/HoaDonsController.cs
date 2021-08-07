@@ -20,7 +20,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class HoaDonsController : ControllerBase
+    public class HoaDonsController : Controller
     {
         private readonly DPContext _context;
         private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
@@ -34,7 +34,25 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             return await _context.HoaDons.ToListAsync();
         }
+        [HttpGet("magiamgia")]
+        public async Task<ActionResult<IEnumerable<MaGiamGia>>> MaGiamGia()
+        {
+            return await _context.MaGiamGias.ToListAsync();
+        }
+        [HttpPost("hoadon/{id}")]
+        public async Task<ActionResult> ChitietHoaDon(int id)
+        {
+            var resuft = _context.HoaDons.Where(d => d.Id == id).FirstOrDefault();
+            resuft.User = _context.AppUsers.Where(d => d.Id == resuft.Id_User).FirstOrDefault();
+            return Json(resuft);
+        }
 
+            [HttpPost("danhsachhoadon")]
+        public async Task<ActionResult> ListHoaDon(User user)
+        {
+            var resuft = await _context.HoaDons.Where(d => d.Id_User == user.idUser).ToListAsync();
+            return Json(resuft);
+        }
         public decimal SPjoinSPBTTraVeGia(int IdThamSo)
         {
 
@@ -52,8 +70,11 @@ namespace Web_API_e_Fashion.Api_Controllers
 
 
         }
-
-        public class ChiTietHoaDonSanPhamBienTheViewModel
+        public class User
+        {
+            public string idUser { get; set; }
+        }
+            public class ChiTietHoaDonSanPhamBienTheViewModel
         {
             public int IdCTHD { get; set; }
             public int SoLuong { get; set; }
@@ -88,7 +109,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                          //HinhAnh = spbt.ImagePath,
                          Gia = (decimal)sp.Gia,
                          SoLuong = cthd.Soluong,
-                         ThanhTien = cthd.ThanhTien,
+                         ThanhTien = (decimal)cthd.ThanhTien,
                          Id_HoaDon = (int)cthd.Id_HoaDon,
                          TenMau = mau.MaMau,
                          TenSize = size.TenSize,
@@ -101,9 +122,16 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             HoaDon hoaDon = new HoaDon()
             {
-                GhiChi = hd.GhiChi,
+                TrangThai=0,
+                TrangThaiThanhToan=0,
+                GhiChu = hd.GhiChu,
                 Id_User = hd.Id_User,
                 NgayTao = DateTime.Now,
+                Tinh=hd.Tinh,
+                Huyen=hd.Huyen,
+                Xa=hd.Xa,
+                DiaChi=hd.DiaChi,
+                TongTien=hd.TongTien
             };
             _context.HoaDons.Add(hoaDon);
             await _context.SaveChangesAsync();
@@ -116,43 +144,27 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             _context.NotificationCheckouts.Add(notification);
             decimal TongTien = 0;
+            var cart = _context.Carts.Where(d => d.UserID == hd.Id_User).ToList();
             List<ChiTietHoaDon> ListCTHD = new List<ChiTietHoaDon>();
-            foreach (ChiTietHoaDon cthd in hd.ChiTietHoaDons)
+            for (int i=0; i<cart.Count;i++)
             {
-                try{
-                    ChiTietHoaDon CTHD = new ChiTietHoaDon();
-                    SanPhamBienThe spbt = await _context.SanPhamBienThes.FindAsync(cthd.Id_SanPhamBienThe);
-
-                    spbt.SoLuongTon = spbt.SoLuongTon - cthd.Soluong;
-                    if (spbt.SoLuongTon > 0)
-                    {
-                        _context.SanPhamBienThes.Update(spbt);
-                    }
-                    else
-                    {
-                        return BadRequest();
-                    }
-                    CTHD.Id_SanPhamBienThe = cthd.Id_SanPhamBienThe;
-                    CTHD.Id_HoaDon = hoaDonTest.Id;
-                    CTHD.Soluong = cthd.Soluong;
-                    CTHD.ThanhTien = SPjoinSPBTTraVeGia((int)cthd.Id_SanPhamBienThe) * cthd.Soluong;
-                    TongTien = TongTien + CTHD.ThanhTien;
-                    ListCTHD.Add(CTHD);
-                    _context.ChiTietHoaDons.Add(CTHD);
-                    await _context.SaveChangesAsync();
-                }
-                catch(Exception ex)
-                {
-                   
-                }
-              
+                ChiTietHoaDon cthd = new ChiTietHoaDon();
+                cthd.Id_SanPham = cart[i].SanPhamId;
+                cthd.Id_SanPhamBienThe = cart[i].Id_SanPhamBienThe;
+                cthd.Id_HoaDon = hoaDonTest.Id;
+                cthd.Gia = cart[i].Gia;
+                cthd.Soluong = cart[i].SoLuong;
+                cthd.ThanhTien = cart[i].Gia * cart[i].SoLuong;
+                cthd.Size = cart[i].Size;
+                cthd.Mau = cart[i].Mau;
+                _context.ChiTietHoaDons.Add(cthd);
+                _context.Carts.Remove(cart[i]);
+                await _context.SaveChangesAsync();
 
             };
-            hoaDonTest.TongTien = TongTien;
-            _context.HoaDons.Update(hoaDonTest);
-            await _context.SaveChangesAsync();
+            
             await _hubContext.Clients.All.BroadcastMessage();
-            return Ok();
+            return Json(1);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHoaDons(int id)
@@ -237,7 +249,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                                      FullName = u.LastName + " " + u.FirstName,
                                      TongTien = hd.TongTien,
                                      NgayTao = hd.NgayTao,//https://localhost:44302/api/hoadons/cc/66
-                                     GhiChu = hd.GhiChi
+                                     GhiChu = hd.GhiChu
                                  };
                 var orderuser = orderusers.First(s => s.IDHoaDon == orderId);
                 // Insert customer data into template
@@ -272,7 +284,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                              //HinhAnh = spbt.ImagePath,
                              Gia = (decimal)sp.Gia,
                              SoLuong = cthd.Soluong,
-                             ThanhTien = cthd.ThanhTien,
+                             ThanhTien =  (decimal)cthd.ThanhTien,
                              Id_HoaDon = (int)cthd.Id_HoaDon,
                              TenMau = mau.MaMau,
                              TenSize = size.TenSize,

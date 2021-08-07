@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Web_API_e_Fashion.Data;
 
 namespace Web_API_e_Fashion.Migrations
 {
     [DbContext(typeof(DPContext))]
-    partial class DPContextModelSnapshot : ModelSnapshot
+    [Migration("20210807041613_update-vx")]
+    partial class updatevx
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -522,9 +524,6 @@ namespace Web_API_e_Fashion.Migrations
 
                     b.Property<decimal?>("GiaNhap")
                         .HasColumnType("decimal(18,0)");
-
-                    b.Property<int?>("GioiTinh")
-                        .HasColumnType("int");
 
                     b.Property<string>("HuongDan")
                         .HasColumnType("nvarchar(max)");

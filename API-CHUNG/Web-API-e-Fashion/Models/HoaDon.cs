@@ -12,7 +12,13 @@ namespace Web_API_e_Fashion.Models
         [Key]
         public int Id { get; set; }
         public System.DateTime NgayTao { get; set; }
-        public string GhiChi { get; set; }
+        public string GhiChu { get; set; }
+        public string Tinh { get; set; }
+        public string Huyen { get; set; }
+        public string Xa { get; set; }
+        public string DiaChi { get; set; }
+        public int? TrangThai { get; set; }
+        public int? TrangThaiThanhToan { get; set; }
         public decimal TongTien { get; set; }
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
         public string? Id_User { get; set; }

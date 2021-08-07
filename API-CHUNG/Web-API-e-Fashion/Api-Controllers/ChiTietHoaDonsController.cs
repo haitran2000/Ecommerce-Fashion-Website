@@ -7,12 +7,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.ServerToClientModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ChiTietHoaDonsController : ControllerBase
+    public class ChiTietHoaDonsController : Controller
     {
         private readonly DPContext _context;
         public ChiTietHoaDonsController(DPContext context)
@@ -22,6 +23,35 @@ namespace Web_API_e_Fashion.Api_Controllers
         public async Task<ActionResult<IEnumerable<ChiTietHoaDon>>> ChiTetHoaDons()
         {
             return await _context.ChiTietHoaDons.ToListAsync();
+        }
+        [HttpPost("chitiethoadon/{id}")]
+        public async Task<ActionResult> ChitietHoaDon(int id)
+        {
+            var resuft = _context.ChiTietHoaDons.Where(d => d.Id_HoaDon == id)
+                .Select(
+                d => new ChiTietHoaDon
+                {
+                    Gia=d.Gia,
+                    Soluong=d.Soluong,
+                    Mau=d.Mau,
+                    Size=d.Size,
+                    SanPham = _context.SanPhams.Where(t => t.Id == d.Id_SanPham).FirstOrDefault()
+                }
+                ); 
+            return Json(resuft);
+        }
+        [HttpPost("thongtintaikhoan/{id}")]
+        public async Task<ActionResult> ThongTinTaiKhoan(string idUser)
+        {
+            var resuft = _context.AppUsers.Where(d => d.Id == idUser).Select(d => new ThongTinTaiKhoan
+            {
+                Ho = d.FirstName,
+                Ten = d.LastName,
+                DiaChi = d.DiaChi,
+                SoDienThoai = d.SDT
+
+            }).FirstOrDefault();
+            return Json(resuft);
         }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Web_API_e_Fashion.Data;
 
 namespace Web_API_e_Fashion.Migrations
 {
     [DbContext(typeof(DPContext))]
-    partial class DPContextModelSnapshot : ModelSnapshot
+    [Migration("20210805140053_Upv2")]
+    partial class Upv2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,7 +247,7 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal?>("Gia")
+                    b.Property<decimal>("Gia")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("Id_SanPhamBienThe")
@@ -284,7 +286,7 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal?>("Gia")
+                    b.Property<decimal>("Gia")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("Id_HoaDon")
@@ -305,7 +307,7 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<int>("Soluong")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("ThanhTien")
+                    b.Property<decimal>("ThanhTien")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -421,24 +423,6 @@ namespace Web_API_e_Fashion.Migrations
                     b.ToTable("Loais");
                 });
 
-            modelBuilder.Entity("Web_API_e_Fashion.Models.MaGiamGia", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("MyCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("SoTienGiam")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MaGiamGias");
-                });
-
             modelBuilder.Entity("Web_API_e_Fashion.Models.MauSac", b =>
                 {
                     b.Property<int>("Id")
@@ -522,9 +506,6 @@ namespace Web_API_e_Fashion.Migrations
 
                     b.Property<decimal?>("GiaNhap")
                         .HasColumnType("decimal(18,0)");
-
-                    b.Property<int?>("GioiTinh")
-                        .HasColumnType("int");
 
                     b.Property<string>("HuongDan")
                         .HasColumnType("nvarchar(max)");

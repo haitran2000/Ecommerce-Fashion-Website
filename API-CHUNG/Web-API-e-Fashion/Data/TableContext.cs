@@ -12,13 +12,15 @@ namespace Web_API_e_Fashion.Data
       
         public DbSet<NotificationCheckout> NotificationCheckouts { get; set; }
         public DbSet<JobSeeker> JobSeekers { get; set; }
+        public DbSet<MaGiamGia> MaGiamGias { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
         public DbSet<HoaDon> HoaDons { get; set; }
         public DbSet<NhanHieu> NhanHieus { get; set; }
         public DbSet<Loai> Loais { get; set; }
         public DbSet<SanPhamBienThe> SanPhamBienThes { get; set; }
-       
+        public DbSet<Cart> Carts { get; set; }
+
 
         public DbSet<MauSac> MauSacs { get; set; }
     

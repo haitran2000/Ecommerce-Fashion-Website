@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "H/AMwEq9Sv6W1Yc6ozjB9/4EreD0YKyk/azNf3zyuCSunn7smIZzaJ6c2FX4otM1EOTKkUs0F0MwE8xo1B9CaQ==",
+  "dgSpecHash": "sDWx3fsNBSL2UnEgdn3oxeDGOj+/fvPZzuPAZ5Zm7PTmdUR6OPNE2L/m5UTMz5+pDpdGfdurc4IdUXRVMO6ftA==",
   "success": true,
-  "projectFilePath": "D:\\-DO-AN-TOT-NGHIEP\\Ecommerce-Fashion-Website-api\\API-CHUNG\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\Desktop\\Hai-API\\API-CHUNG\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\automapper\\6.0.2\\automapper.6.0.2.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\2.0.1\\automapper.extensions.microsoft.dependencyinjection.2.0.1.nupkg.sha512",
@@ -94,7 +94,7 @@
     "C:\\Users\\Admin\\.nuget\\packages\\mimekit\\2.12.0\\mimekit.2.12.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\nancy\\2.0.0\\nancy.2.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\portable.bouncycastle\\1.8.10\\portable.bouncycastle.1.8.10.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",

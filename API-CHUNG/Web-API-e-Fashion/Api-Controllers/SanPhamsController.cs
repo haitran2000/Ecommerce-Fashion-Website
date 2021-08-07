@@ -456,37 +456,27 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet("laytatcasanpham")]
         public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> Laytatcasanpham()
         {
-            var kb = from s in _context.SanPhams
-                     join l in _context.Loais
-                     on s.Id_Loai equals l.Id
-                     into f
-                     from l in f.DefaultIfEmpty()
-                     join th in _context.NhanHieus
-                     on s.Id_NhanHieu equals th.Id
-                     into j
-                     from th in j.DefaultIfEmpty()                 
-                     join image in _context.ImageSanPhams
-                     on s.Id equals image.IdSanPham
-                     select new SanPhamLoaiThuongHieu()
-                     {
-                         Image = image.ImageName,
-                         Id = s.Id,
-                         Ten = s.Ten,
-                         Gia = s.Gia,
-                         Tag = s.Tag,
-                         KhuyenMai = s.KhuyenMai,
-                         MoTa = s.MoTa,
-                         HuongDan = s.HuongDan,
-                         ThanhPhan = s.ThanhPhan,
-                         TrangThaiSanPham = s.TrangThaiSanPham,
-                         TrangThaiHoatDong = s.TrangThaiHoatDong,
-                         Id_Loai = s.Id_Loai,
-                         Id_NhanHieu = s.Id_NhanHieu,
-                     };
-            var kbs = kb.ToList();
-            return  kbs.Except(kbs.GroupBy(i => i.Id)
-                                             .Select(ss => ss.FirstOrDefault()))
-                                            .ToList();
+            var kb = _context.SanPhams.Select(
+                   s => new SanPhamLoaiThuongHieu()
+                   {
+
+                       Id = s.Id,
+                       Ten = s.Ten,
+                       Gia = s.Gia,
+                       Tag = s.Tag,
+                       KhuyenMai = s.KhuyenMai,
+                       MoTa = s.MoTa,
+                       HuongDan = s.HuongDan,
+                       ThanhPhan = s.ThanhPhan,
+                       TrangThaiSanPham = s.TrangThaiSanPham,
+                       TrangThaiHoatDong = s.TrangThaiHoatDong,
+                       Id_Loai = s.Id_Loai,
+                       Id_NhanHieu = s.Id_NhanHieu,
+                       TenLoai = _context.Loais.Where(d => d.Id == s.Id_Loai).Select(d => d.Ten).FirstOrDefault(),
+                       TenNhanHieu = _context.NhanHieus.Where(d => d.Id == s.Id_NhanHieu).Select(d => d.Ten).FirstOrDefault(),
+                       Image = _context.ImageSanPhams.Where(q => q.IdSanPham == s.Id).Select(q => q.ImageName).FirstOrDefault(),
+                   }).ToList();
+            return kb;
         }
     }
 }

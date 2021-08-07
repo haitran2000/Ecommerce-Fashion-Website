@@ -12,13 +12,14 @@ using Web_API_e_Fashion.Auth;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Helpers;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.ServerToClientModels;
 using Web_API_e_Fashion.ViewModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IJwtFactory _jwtFactory;
@@ -71,7 +72,13 @@ namespace Web_API_e_Fashion.Api_Controllers
             var json = JsonConvert.SerializeObject(response, _serializerSettings);
             return new OkObjectResult(json);
         }
-
+        [HttpPost("logout")]
+        public IActionResult logout()
+        {
+            id = null;
+            return Ok();
+        }
+        
         public async Task<IActionResult> UpdateUser([FromBody] CredentialsViewModel credentials)
         {
             if (!ModelState.IsValid)
