@@ -167,6 +167,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 _context.Loais.Remove(category);
 
                 await _context.SaveChangesAsync();
+                await _hubContext.Clients.All.BroadcastMessage();
             }
             else
             {
@@ -177,6 +178,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 _context.Loais.Remove(category);
              
                 _context.SaveChanges();
+                await _hubContext.Clients.All.BroadcastMessage();
             }
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();

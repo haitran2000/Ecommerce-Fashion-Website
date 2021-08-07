@@ -60,7 +60,7 @@ namespace Web_API_e_Fashion
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials()
-                .WithOrigins("http://localhost:4200");
+                .WithOrigins("http://localhost:4200", "http://localhost:12859", "http://localhost:1847");
             }));
 
             services.AddSignalR();

@@ -89,8 +89,9 @@ namespace Web_API_e_Fashion.Api_Controllers
                 TranType = "Edit"
             };
             _context.Notifications.Add(notification);
-            await _hubContext.Clients.All.BroadcastMessage();
+    
             await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
             return NoContent();
         }
 
@@ -112,9 +113,9 @@ namespace Web_API_e_Fashion.Api_Controllers
                 TranType = "Add"
             };
             _context.Notifications.Add(notification);
-            await _hubContext.Clients.All.BroadcastMessage();
+          
             await _context.SaveChangesAsync();
-
+            await _hubContext.Clients.All.BroadcastMessage();
             return CreatedAtAction("GetSize", new { id = size.Id }, size);
         }
 
@@ -135,10 +136,9 @@ namespace Web_API_e_Fashion.Api_Controllers
                 TranType = "Delete"
             };
             _context.Notifications.Add(notification);
+         
+            await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
-            await _context.SaveChangesAsync();
-            await _context.SaveChangesAsync();
-
             return NoContent();
         }
 

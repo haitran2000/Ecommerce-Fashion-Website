@@ -463,7 +463,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 		                        ROW_NUMBER() OVER (PARTITION BY SanPhams.Id ORDER BY  ImageSanPhams.Id)  RowNum
 		                        FROM SanPhams LEFT JOIN ImageSanPhams ON SanPhams.Id=ImageSanPhams.IdSanPham
 		                          )
-		                    SELECT Id,Ten, ImageName
+		                    SELECT Id,Ten, ImageName,Gia
 		                    from ProductImageTable
 	                        where
                             ProductImageTable.RowNum = 1";
@@ -485,7 +485,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                     while (await reader.ReadAsync())
                     {
 
-                        list.Add(new SanPhamLoaiThuongHieu() { Id=(int)reader["Id"],Ten = (string)reader["Ten"], Image=(string)reader["ImageName"] });
+                        list.Add(new SanPhamLoaiThuongHieu() { Id=(int)reader["Id"],Ten = (string)reader["Ten"], Image=(string)reader["ImageName"],Gia=(decimal)reader["Gia"] });
                     }
                 }
 

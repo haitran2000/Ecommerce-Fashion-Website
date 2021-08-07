@@ -125,6 +125,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                     TranType = "Delete"
                 };
                 _context.Notifications.Add(notification);
+                await _hubContext.Clients.All.BroadcastMessage();
                 await _context.SaveChangesAsync();
             }
             else

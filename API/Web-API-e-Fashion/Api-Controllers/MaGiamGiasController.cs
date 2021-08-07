@@ -21,8 +21,9 @@ namespace Web_API_e_Fashion.Api_Controllers
         private readonly DPContext _context;
         private readonly JsonSerializerSettings _serializerSettings;
         private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
-        public MaGiamGiasController(DPContext context)
+        public MaGiamGiasController(DPContext context, IHubContext<BroadcastHub, IHubClient> hubContext)
         {
+            this._hubContext = hubContext;
             this._context = context;
             this._serializerSettings = new JsonSerializerSettings
             {
@@ -32,7 +33,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MaGiamGia>>> GetMaGiamGias()
         {
-            await _hubContext.Clients.All.BroadcastMessage();
+          
             return await _context.MaGiamGias.ToListAsync();
         }
         [HttpPost]
@@ -43,8 +44,9 @@ namespace Web_API_e_Fashion.Api_Controllers
             maGiamGia.SoTienGiam = uploadMaGiamGia.SoTienGiam;
             _context.Add(maGiamGia);
 
-            await _hubContext.Clients.All.BroadcastMessage();
+          
             await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
         }
         private static Random random = new Random();
@@ -63,8 +65,9 @@ namespace Web_API_e_Fashion.Api_Controllers
             maGiamGia.Code = RandomString(5);
             maGiamGia.SoTienGiam = uploadMaGiamGia.SoTienGiam;
             _context.Update(maGiamGia);
-            await _hubContext.Clients.All.BroadcastMessage();
+         
             await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
         }
         [HttpDelete("{id}")]
