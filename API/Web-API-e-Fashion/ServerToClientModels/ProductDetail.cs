@@ -17,7 +17,7 @@ namespace Web_API_e_Fashion.ServerToClientModels
         public decimal? Gia { get; set; }
         public string? TrangThaiSanPham { get; set; }
         public string? TrangThaiSanPhamThietKe { get; set; }
-        public string? TrangThaiHoatDong { get; set; }
+        public bool? TrangThaiHoatDong { get; set; }
         public string? HuongDan { get; set; }
         public string? ThanhPhan { get; set; }
         public int? UpdateBy { get; set; }

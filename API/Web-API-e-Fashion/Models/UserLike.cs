@@ -8,10 +8,9 @@ namespace Web_API_e_Fashion.Models
 {
     public class UserLike
     {
-        public int IdAppUser { get; set; }
-        [ForeignKey("IdUser")]
+        public string IdAppUser { get; set; }
+        [ForeignKey("IdAppUser")]
         public virtual AppUser User { get; set; }
-
         public int IdSanPham { get; set; }
         [ForeignKey("IdSanPham")]
         public virtual SanPham SanPham { get; set; }

@@ -26,7 +26,7 @@ namespace Web_API_e_Fashion.Models
         public System.DateTime? NgayCapNhat { get; set; }
         public System.DateTime? NgayTao { get; set; }
         public string? TrangThaiSanPham { get; set; }
-        public string? TrangThaiHoatDong { get; set; }
+        public bool? TrangThaiHoatDong { get; set; }
         public int? GioiTinh { get; set; } //1: nam, 2 : nữ,
         public int? Id_NhanHieu { get; set; }
         [ForeignKey("Id_NhanHieu")]
@@ -34,6 +34,9 @@ namespace Web_API_e_Fashion.Models
         public int? Id_Loai { get; set; }
         [ForeignKey("Id_Loai")]
         public virtual Loai Loai { get; set; }
+        public int? Id_NhaCungCap { get; set; }
+        [ForeignKey("Id_NhaCungCap")]
+        public virtual NhaCungCap NhaCungCap { get; set; }
         public virtual ICollection<SanPhamBienThe> SanPhamBienThes { get; set; }
         public virtual ICollection<ImageSanPham> ImageSanPhams { get; set; }
         public virtual ICollection<UserLike> UserLikes { get; set; }

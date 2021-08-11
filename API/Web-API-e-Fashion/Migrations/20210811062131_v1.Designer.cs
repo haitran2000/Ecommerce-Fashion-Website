@@ -10,8 +10,8 @@ using Web_API_e_Fashion.Data;
 namespace Web_API_e_Fashion.Migrations
 {
     [DbContext(typeof(DPContext))]
-    [Migration("20210628115736_v2")]
-    partial class v2
+    [Migration("20210811062131_v1")]
+    partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -275,17 +275,26 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("DaLayTien")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("GhiChi")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Id_User")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("LoaiThanhToan")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("NgayTao")
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("TongTien")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("TrangThai")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -347,6 +356,24 @@ namespace Web_API_e_Fashion.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Loais");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.MaGiamGia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("SoPhanTramGiam")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MaGiamGias");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.MauSac", b =>
@@ -430,6 +457,12 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<decimal?>("Gia")
                         .HasColumnType("decimal(18,0)");
 
+                    b.Property<decimal?>("GiaNhap")
+                        .HasColumnType("decimal(18,0)");
+
+                    b.Property<int?>("GioiTinh")
+                        .HasColumnType("int");
+
                     b.Property<string>("HuongDan")
                         .HasColumnType("nvarchar(max)");
 
@@ -460,8 +493,8 @@ namespace Web_API_e_Fashion.Migrations
                     b.Property<string>("ThanhPhan")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TrangThaiHoatDong")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool?>("TrangThaiHoatDong")
+                        .HasColumnType("bit");
 
                     b.Property<string>("TrangThaiSanPham")
                         .HasColumnType("nvarchar(max)");
@@ -523,6 +556,42 @@ namespace Web_API_e_Fashion.Migrations
                     b.HasIndex("Id_Loai");
 
                     b.ToTable("Sizes");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.UserComment", b =>
+                {
+                    b.Property<int>("IdSanPham")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdAppUser")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TrangThaiHienThi")
+                        .HasColumnType("bit");
+
+                    b.HasKey("IdSanPham", "IdAppUser");
+
+                    b.HasIndex("IdAppUser");
+
+                    b.ToTable("UserComments");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.UserLike", b =>
+                {
+                    b.Property<int>("IdSanPham")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdAppUser")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("IdSanPham", "IdAppUser");
+
+                    b.HasIndex("IdAppUser");
+
+                    b.ToTable("UserLikes");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.AppUser", b =>
@@ -706,6 +775,44 @@ namespace Web_API_e_Fashion.Migrations
                     b.Navigation("Loai");
                 });
 
+            modelBuilder.Entity("Web_API_e_Fashion.Models.UserComment", b =>
+                {
+                    b.HasOne("Web_API_e_Fashion.Models.AppUser", "User")
+                        .WithMany("UserComments")
+                        .HasForeignKey("IdAppUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web_API_e_Fashion.Models.SanPham", "SanPham")
+                        .WithMany("UserComments")
+                        .HasForeignKey("IdSanPham")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SanPham");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.UserLike", b =>
+                {
+                    b.HasOne("Web_API_e_Fashion.Models.AppUser", "User")
+                        .WithMany("UserLikes")
+                        .HasForeignKey("IdAppUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Web_API_e_Fashion.Models.SanPham", "SanPham")
+                        .WithMany("UserLikes")
+                        .HasForeignKey("IdSanPham")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("SanPham");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Web_API_e_Fashion.Models.HoaDon", b =>
                 {
                     b.Navigation("ChiTietHoaDons");
@@ -735,6 +842,10 @@ namespace Web_API_e_Fashion.Migrations
                     b.Navigation("ImageSanPhams");
 
                     b.Navigation("SanPhamBienThes");
+
+                    b.Navigation("UserComments");
+
+                    b.Navigation("UserLikes");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPhamBienThe", b =>
@@ -745,6 +856,13 @@ namespace Web_API_e_Fashion.Migrations
             modelBuilder.Entity("Web_API_e_Fashion.Models.Size", b =>
                 {
                     b.Navigation("SanPhamBienThes");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.AppUser", b =>
+                {
+                    b.Navigation("UserComments");
+
+                    b.Navigation("UserLikes");
                 });
 #pragma warning restore 612, 618
         }

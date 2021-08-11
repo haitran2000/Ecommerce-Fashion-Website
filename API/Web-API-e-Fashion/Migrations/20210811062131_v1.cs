@@ -67,6 +67,20 @@ namespace Web_API_e_Fashion.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MaGiamGias",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SoPhanTramGiam = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MaGiamGias", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NhanHieus",
                 columns: table => new
                 {
@@ -240,6 +254,9 @@ namespace Web_API_e_Fashion.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     NgayTao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     GhiChi = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TrangThai = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LoaiThanhToan = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DaLayTien = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TongTien = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Id_User = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
@@ -323,6 +340,7 @@ namespace Web_API_e_Fashion.Migrations
                     Ten = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MoTa = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Gia = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
+                    GiaNhap = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
                     KhuyenMai = table.Column<decimal>(type: "decimal(18,0)", nullable: true),
                     Tag = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HuongDan = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -330,7 +348,8 @@ namespace Web_API_e_Fashion.Migrations
                     NgayCapNhat = table.Column<DateTime>(type: "datetime2", nullable: true),
                     NgayTao = table.Column<DateTime>(type: "datetime2", nullable: true),
                     TrangThaiSanPham = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TrangThaiHoatDong = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TrangThaiHoatDong = table.Column<bool>(type: "bit", nullable: true),
+                    GioiTinh = table.Column<int>(type: "int", nullable: true),
                     Id_NhanHieu = table.Column<int>(type: "int", nullable: true),
                     Id_Loai = table.Column<int>(type: "int", nullable: true)
                 },
@@ -358,7 +377,7 @@ namespace Web_API_e_Fashion.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IdSanPham = table.Column<int>(type: "int", nullable: false)
+                    IdSanPham = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -368,7 +387,7 @@ namespace Web_API_e_Fashion.Migrations
                         column: x => x.IdSanPham,
                         principalTable: "SanPhams",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -403,6 +422,56 @@ namespace Web_API_e_Fashion.Migrations
                         principalTable: "Sizes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserComments",
+                columns: table => new
+                {
+                    IdAppUser = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IdSanPham = table.Column<int>(type: "int", nullable: false),
+                    TrangThaiHienThi = table.Column<bool>(type: "bit", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserComments", x => new { x.IdSanPham, x.IdAppUser });
+                    table.ForeignKey(
+                        name: "FK_UserComments_AspNetUsers_IdAppUser",
+                        column: x => x.IdAppUser,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserComments_SanPhams_IdSanPham",
+                        column: x => x.IdSanPham,
+                        principalTable: "SanPhams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserLikes",
+                columns: table => new
+                {
+                    IdAppUser = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IdSanPham = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserLikes", x => new { x.IdSanPham, x.IdAppUser });
+                    table.ForeignKey(
+                        name: "FK_UserLikes_AspNetUsers_IdAppUser",
+                        column: x => x.IdAppUser,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserLikes_SanPhams_IdSanPham",
+                        column: x => x.IdSanPham,
+                        principalTable: "SanPhams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -536,6 +605,16 @@ namespace Web_API_e_Fashion.Migrations
                 name: "IX_Sizes_Id_Loai",
                 table: "Sizes",
                 column: "Id_Loai");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserComments_IdAppUser",
+                table: "UserComments",
+                column: "IdAppUser");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserLikes_IdAppUser",
+                table: "UserLikes",
+                column: "IdAppUser");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -568,10 +647,19 @@ namespace Web_API_e_Fashion.Migrations
                 name: "JobSeekers");
 
             migrationBuilder.DropTable(
+                name: "MaGiamGias");
+
+            migrationBuilder.DropTable(
                 name: "NotificationCheckouts");
 
             migrationBuilder.DropTable(
                 name: "Notifications");
+
+            migrationBuilder.DropTable(
+                name: "UserComments");
+
+            migrationBuilder.DropTable(
+                name: "UserLikes");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
