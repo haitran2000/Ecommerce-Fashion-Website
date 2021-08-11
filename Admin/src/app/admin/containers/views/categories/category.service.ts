@@ -34,7 +34,6 @@ export class CategoryService{
   export class Category{
     id : number = 0
     ten : string
-    namNu:string
     imagePath : string 
   }
   

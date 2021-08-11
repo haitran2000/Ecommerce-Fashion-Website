@@ -45,7 +45,24 @@ export class ProductsComponent implements OnInit, AfterViewInit {
     'trangThaiHoatDong',
     'tenNhanHieu',
     'tenLoai',
-    'actions'];
+    'like',
+    'comment',
+    'toggle',
+    'actions'
+     ];
+  updateActiveStatus(element:Product) {
+    console.log("element là: ",element);
+      console.log("element.trangThaiHoatDong là: ",element.trangThaiHoatDong);
+      this.service.putHoatDong(element.id,element).subscribe(
+        result=>{
+          this.service.getAllProducts()
+        },
+        error=>{
+          console.log(error);
+          
+        }
+      )
+    }
 
   ngOnInit() {
     this.service.getAllProducts();

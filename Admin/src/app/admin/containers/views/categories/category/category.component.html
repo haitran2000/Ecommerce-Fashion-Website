@@ -19,22 +19,6 @@
                   </div>
             </div>
         </div>     
-        <div class="form-group">
-            <label for="Name">Giới tính</label>
-            <select class="form-control" formControlName="NamNu" [(ngModel)]="service.category.namNu">
-                <option value="Nam">Nam</option>
-                <option value="Nữ">Nữ</option>
-            </select>
-            <div *ngIf="NamNu.invalid && (NamNu.dirty || NamNu.touched)" class="alert alert-danger">
-
-                <div *ngIf="NamNu.errors.required">
-                  tên loại không được bỏ trống
-                </div>
-                <div *ngIf="NamNu.errors.minlength">
-                   Tên không được dưới 2 kí tự
-                  </div>
-            </div>
-        </div>
         <div class="form-group" style="justify-content:center;display: flex;">
             <button type="submit" class="btn btn-primary" [mat-dialog-close]="true" [disabled]="this.newBlogForm.invalid" >Submit</button>
         </div>

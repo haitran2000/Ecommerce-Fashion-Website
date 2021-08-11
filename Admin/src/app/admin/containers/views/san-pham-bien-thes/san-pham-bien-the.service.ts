@@ -19,8 +19,8 @@ export class SanPhamBienTheService{
     readonly url=environment.URL_API+"sanphambienthes"
     constructor(public http:HttpClient) { }
 
-    delete(id:number){
-      return this.http.delete(`${this.url}/${id}`)
+    delete(id:number):Observable<any>{
+      return this.http.delete<any>(`${this.url}/${id}`)
     }
     get():Observable<any>{
       return this.http.get(environment.URL_API+"sanphambienthes/sanphambienthe")

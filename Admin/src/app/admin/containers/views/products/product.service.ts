@@ -41,6 +41,9 @@ export class ProductService {
   put( id: number,product: any): Observable<any> {
     return this.http.put<any>(environment.URL_API + 'sanphams/' + id, product)
   }
+  putHoatDong(id: number,element:Product):Observable<any>{
+    return this.http.put<any>(environment.URL_API + 'sanphams/capnhattrangthaihoatdong/' + id,element)
+  }
 }
 export class Product {
   id: number = 0
@@ -50,11 +53,12 @@ export class Product {
   khoiLuong: number
   gia: number
   giaNhap:number
+  gioiTinh:number
   tag: string
   huongDan: string
   thanhPhan: string
   trangThaiSanPham: string
-  trangThaiHoatDong: string
+  trangThaiHoatDong: boolean
   trangThaiSanPhamThietKe: string
   id_NhanHieu: number
   id_Loai: number

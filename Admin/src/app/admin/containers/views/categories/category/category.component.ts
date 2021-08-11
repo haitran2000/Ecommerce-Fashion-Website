@@ -26,11 +26,6 @@ this.newBlogForm = new FormGroup({
 Name: new FormControl("",
   [
     Validators.required,
-    Validators.minLength(2),
-  ]),
-  NamNu: new FormControl("",
-  [
-    Validators.required,
   ]),
 });
 }

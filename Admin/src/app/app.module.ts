@@ -86,7 +86,7 @@ import { AuthGuard } from './admin/containers/views/auth.guard';
 import { ModalComponent } from './admin/containers/modal/modal.component';
 import { SanPhamBienTheComponent } from './admin/containers/views/san-pham-bien-thes/san-pham-bien-the/san-pham-bien-thecomponent';
 import { SanPhamBienThesComponent } from './admin/containers/views/san-pham-bien-thes/san-pham-bien-thes.component';
-
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { HoaDonComponent } from './admin/containers/views/hoa-dons/hoa-don/hoa-don.component';
 
@@ -136,6 +136,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     ReactiveFormsModule,
     MatDialogModule,
     MatExpansionModule,
+    MatSlideToggleModule,
     ColorPickerModule,
     ToastrModule.forRoot({
       timeOut: 1000,

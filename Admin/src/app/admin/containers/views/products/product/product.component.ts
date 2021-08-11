@@ -70,7 +70,7 @@ export class ProductComponent implements OnInit {
   get Id_NhanHieu() { return this.newForm.get('Id_NhanHieu'); }
   get TrangThaiSanPham() { return this.newForm.get('TrangThaiSanPham'); }
   get TrangThaiHoatDong() { return this.newForm.get('TrangThaiHoatDong'); }
-
+  get GioiTinh(){return this.newForm.get('GioiTinh')}
 
   ngOnInit(): void {
     this.serviceCategory.get().subscribe(
@@ -153,6 +153,10 @@ export class ProductComponent implements OnInit {
         Validators.required,
 
       ]),
+      GioiTinh: new FormControl(null, [
+        Validators.required,
+
+      ]),
 
     });
   }
@@ -175,6 +179,7 @@ export class ProductComponent implements OnInit {
       form.append('HuongDan', data.HuongDan);
       form.append('ThanhPhan', data.ThanhPhan);
       form.append('Tag', data.Tag);
+      form.append('GioiTinh',data.GioiTinh)
       form.append('Id_Loai', data.Id_Loai);
       form.append('Id_NhanHieu', data.Id_NhanHieu);
       form.append('TrangThaiSanPham', data.TrangThaiSanPham);
@@ -201,6 +206,7 @@ export class ProductComponent implements OnInit {
       form.append('MoTa', data.MoTa);
       form.append('Gia', data.Gia);
       form.append('GiaNhap', data.GiaNhap);
+      form.append('GioiTinh',data.GioiTinh)
       form.append('HuongDan', data.HuongDan);
       form.append('ThanhPhan', data.ThanhPhan);
       form.append('Tag', data.Tag);

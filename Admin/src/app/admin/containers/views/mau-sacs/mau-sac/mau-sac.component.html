@@ -7,14 +7,11 @@
             <input class="form-control" [value]="service.mausac.id" readonly>
         </div> -->
 
-        <select class="form-control" formControlName="NamNu" [(ngModel)]="service.category.namNu">
-          
-        </select>
-
+        
 
 
         <div class="form-group">
-            <label for="MaMau">MaMau</label>
+            <label for="MaMau">Tên màu</label>
             <select class="form-control" formControlName="MaMau" [(ngModel)]="this.service.mausac.maMau">
                 <option value="xanh dương">Xanh dương</option>
                 <option value="đỏ">Đỏ</option>
@@ -37,7 +34,7 @@
             </div>
         </div>
         <div class="form-group">
-            <span class="label label-default">LoaiId</span>
+            <span class="label label-default">Tên loại</span>
             <select class="form-control" [(ngModel)]="service.mausac.id_Loai" formControlName="Id_Loai">
                 <option  *ngFor="let category of this.categories"
                     [value]="category.id">{{category.ten}}</option>

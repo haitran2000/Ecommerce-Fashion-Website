@@ -7,7 +7,7 @@
             <input class="form-control" [value]="service.sanphambienthe.id" readonly>
         </div> -->
         <div class="form-group">
-            <span class="label label-default">Màu Id</span>
+            <span class="label label-default">Tên màu</span>
             <select class="form-control" [(ngModel)]="service.sanphambienthe.id_Mau" formControlName="Id_Mau">
                 <option  *ngFor="let mau of this.loaitenmau"
                     [value]="mau.id">{{mau.loaiTenMau}}</option>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="form-group">
-            <span class="label label-default">Sản phẩm Id</span>
+            <span class="label label-default">Tên sản phẩm</span>
             <select class="form-control" [(ngModel)]="service.sanphambienthe.id_SanPham" formControlName="Id_SanPham">
                 <option  *ngFor="let sanpham of this.sanphams"
                     [value]="sanpham.id">{{sanpham.ten}}</option>
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="form-group">
-            <span class="label label-default">Size Id</span>
+            <span class="label label-default">Tên Size</span>
             <select class="form-control" [(ngModel)]="service.sanphambienthe.id_Size" formControlName="Id_Size">
                 <option  *ngFor="let size of this.loaitensize"
                  [value]="size.id">{{size.sizeLoaiTen}}</option>

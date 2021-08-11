@@ -1,20 +1,33 @@
 <div class="main">
   <div class="container">
-    <header>Login Form</header>
+    <header>Register Form</header>
     <form [formGroup]="newForm" (ngSubmit)="onSubmit(newForm.value)">
       <div class="input-field">
-        <input type="text" placeholder="Username"  formControlName="userName" required>
+        <input type="text" class="form-control" placeholder="Email" formControlName="email" required>
       </div>
       <div class="input-field">
-        <input class="pswrd"   placeholder="Password" type="password" formControlName="passWord" required>
-        <span class="show">SHOW</span>
+        <input type="password" class="form-control" placeholder="Password" formControlName="password" required>
       </div>
+      <div class="input-field">
+        <input class="form-control" placeholder="firstName" formControlName="firstName"required>
+      </div>
+      <div class="input-field">
+        <input  class="form-control" placeholder="Last Name" formControlName="lastName" required>
+      </div>
+      <div class="input-field">
+        <input  class="form-control" placeholder="Địa chỉ" formControlName="location" required>
+      </div>
+     
       <div class="button">
         <div class="inner">
         </div>
-        <button type="submit">LOGIN</button>
+        <button type="submit">Create Account</button>
       </div>
+      
     </form>
+    <div *ngIf="errors" class="alert alert-danger" role="alert">
+      <strong>Oops!</strong> {{errors}}
+    </div>
     <div class="auth">
     Or login with</div>
     <div class="links">

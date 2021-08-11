@@ -4,6 +4,7 @@ import { Injectable, ViewChild } from "@angular/core";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
+import { Observable } from "rxjs";
 import { environment } from "../../../../../environments/environment";
 
 @Injectable({
@@ -18,21 +19,22 @@ export class MauSacService{
    
     constructor(public http:HttpClient) { }
 
-    delete(id:number){
-      return this.http.delete(`${environment.URL_API+"mausacs"}/${id}`)
+    delete(id:number):Observable<any>{
+      return this.http.delete<any>(`${environment.URL_API+"mausacs"}/${id}`)
     }
 
+    getMauSac():Observable<any>{
+      return this.http.get<any>(environment.URL_API+"mausacs")
+    }
     /* Dùng cho component Product sau khi thêm hoặc sửa xong */
     getAllMauSacs(){
-      this.http.get(environment.URL_API+"mausacs").subscribe(
+      this.getMauSac().subscribe(
         res=>{
           this.dataSource.data = res as MauSac[];
         }
       )
     }
-    getAllMauSacLoais(){
-      return this.http.get(environment.URL_API+"sizes/tensizeloai")
-    }
+  
   }
   export class MauSac{
     id: number = 0
