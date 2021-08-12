@@ -48,7 +48,7 @@ export class ProductService {
 export class Product {
   id: number = 0
   ten: string
-  khuyenMai: number
+  khuyenMai: number =0
   moTa: string
   khoiLuong: number
   gia: number

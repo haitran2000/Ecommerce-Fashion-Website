@@ -9,6 +9,7 @@ import { CategoryService } from '../../categories/category.service';
 import { BrandService } from '../../brands/brand.service';
 import { ToastServiceService } from '../../../shared/toast-service.service';
 import { environment } from '../../../../../../environments/environment';
+import { __values } from 'tslib';
 
 @Component({
   selector: 'app-product',
@@ -105,7 +106,7 @@ export class ProductComponent implements OnInit {
         Validators.max(100000000000),
 
       ]),
-      KhuyenMai: new FormControl(null, [
+      KhuyenMai: new FormControl( this.service.product.khuyenMai,[
         Validators.required,
         Validators.min(0),
         Validators.max(50000000000),
@@ -236,4 +237,118 @@ export class ProductComponent implements OnInit {
     this.newForm.reset();
     this.service.product = new Product();
   }
+
+
+  /* DATA SAN PHAM */
+  TenSanPhamArray:any = [
+    {value: 'Áo thun trơn', viewValue: 'Áo thun trơn'},
+    {value: 'Áo khoác bò ', viewValue: 'Áo khoác bò'},
+    {value: 'Quần short', viewValue: 'Quần short'},
+    {value: 'Quần đùi', viewValue: 'Quần đùi'},
+    {value: 'Quần kaki ', viewValue: 'Quần kaki'},
+    {value: 'Quần baggy', viewValue: 'Quần baggy'},
+    {value: 'Áo Polo', viewValue: 'Áo Polo'},
+    {value: 'Áo FEAER ', viewValue: 'Áo FEAER'},
+    {value: 'Áo sơ mi', viewValue: 'Áo sơ mi'},
+    {value: 'Áo Sơ Mi Nam Đũi Kẻ Sọc Caro ', viewValue: 'Áo Sơ Mi Nam Đũi Kẻ Sọc Caro'},
+    {value: 'Áo phông trơn unisex nam', viewValue: 'Áo phông trơn unisex nam'},
+    {value: 'Áo Thun Nam SADBOIZ', viewValue: 'Áo Thun Nam SADBOIZ'},
+    {value: 'Áo thun HOTTREND', viewValue: 'Áo thun HOTTREND'},
+    {value: 'Áo Thun Nam Thể Thao', viewValue: 'Áo Thun Nam Thể Thao'},
+    {value: 'Áo thun Highclub Basic Tee', viewValue: 'Áo thun Highclub Basic Tee'},
+    {value: 'Áo SIGNATURE', viewValue: 'Áo SIGNATURE'},
+    {value: 'Áo thun Bad Habits ROCKER', viewValue: 'Áo thun Bad Habits ROCKER'},
+    {value: 'Áo sơ mi trơn big size LADOS ', viewValue: 'Áo sơ mi trơn big size LADOS '},
+    {value: 'Áo Thun Missout BUNNY&BEAR TEE', viewValue: 'Áo Thun Missout BUNNY&BEAR TEE'},
+    {value: 'GIÀY THỂ THAO NAM', viewValue: 'GIÀY THỂ THAO NAM'},
+    {value: 'Giày thể thao nữ CV classic', viewValue: 'Giày thể thao nữ CV classic'},
+    {value: 'Giày thể thao nữ Ulzzang', viewValue: 'Giày thể thao nữ Ulzzang'},
+    {value: 'GIÀY NỮ AIR TRẮNG', viewValue: 'GIÀY NỮ AIR TRẮNG'},
+    {value: 'Giày 𝐌𝐋𝐁 boston bản trung', viewValue: 'Giày 𝐌𝐋𝐁 boston bản trung'},
+    {value: 'Giày AF1 trắng', viewValue: 'Giày AF1 trắng'},
+    {value: 'Áo sơ mi tay ngắn nam nữ', viewValue: 'Áo sơ mi tay ngắn nam nữ'},
+    {value: ' Áo Sơmi nhung Tăm vintage', viewValue: 'Áo Sơmi nhung Tăm vintage'},
+    {value: 'Đồng Hồ Nam PAGINI PA9966 ', viewValue: 'Đồng Hồ Nam PAGINI PA9966 '},
+    {value: 'Đồng Hồ Nữ Julius Hàn Quốc', viewValue: 'Đồng Hồ Nữ Julius Hàn Quốc'},
+    {value: 'Đồng hồ WR unisex dây hơp kim CS1', viewValue: 'Đồng hồ WR unisex dây hơp kim CS1'},
+    {value: 'Đồng hồ Nam Nữ Army', viewValue: 'Đồng hồ Nam Nữ Army'},
+    {value: 'Đồng Hồ Nam Crnaira Japan C3079', viewValue: 'Đồng Hồ Nam Crnaira Japan C3079'},
+    {value: 'Giây lưng thắt lưng nam ', viewValue: 'Giây lưng thắt lưng nam '},
+    {value: 'Dây Nịt Nam Mặt GG', viewValue: 'Dây Nịt Nam Mặt GG'},
+    {value: 'Thắt Lưng Da Bò SÁP', viewValue: 'Thắt Lưng Da Bò SÁP'},
+  ];
+
+  //Data gia nhap
+  GiaNhapArray:any = [
+    {value: '10000', viewValue: '10000'},
+    {value: '15700', viewValue: '15700'},
+    {value: '21300', viewValue: '21300'},
+    {value: '31100', viewValue: '31100'},
+    {value: '9000', viewValue: '9000'},
+    {value: '40200', viewValue: '40200'},
+    {value: '45000', viewValue: '45000'},
+    {value: '65000', viewValue: '65000'},
+    {value: '55000', viewValue: '55000'},
+    {value: '35000', viewValue: '35000'},
+  ];
+  //Data gia ban
+  GiaBanArray:any = [
+    {value: '15000', viewValue: '15000'},
+    {value: '25700', viewValue: '25700'},
+    {value: '51300', viewValue: '51300'},
+    {value: '41100', viewValue: '41100'},
+    {value: '15000', viewValue: '15000'},
+    {value: '60200', viewValue: '60200'},
+    {value: '65000', viewValue: '65000'},
+    {value: '75000', viewValue: '75000'},
+    {value: '85000', viewValue: '85000'},
+    {value: '65000', viewValue: '65000'},
+  ];
+  //Data mota
+  MoTaArray:any = [
+    {value: `Ngày này, áo thun tay lỡ Unisex form rộng đang ngày càng trở nên phổ biến và đa dạng với các mẫu thiết kế độc đáo bắt mắt, thậm chí còn bắt kịp nhiều trào lưu xu hướng đặc biệt là phong cách Hàn Quốc. 
+    Do đó, việc tìm hiểu tất tần tật về áo thun tay lỡ nam/nữ là cần thiết giúp bạn luôn cập nhật những mẫu thiết kế mới nhất. Điều này sẽ giúp bạn có nhiều sự lựa chọn mới mẻ và đa dạng phong cách thời trang của bạn.`,
+     viewValue:  `Ngày này, áo thun tay lỡ Unisex form rộng đang ngày càng trở nên phổ biến và đa dạng với các mẫu thiết kế độc đáo bắt mắt, thậm chí còn bắt kịp nhiều trào lưu xu hướng đặc biệt là phong cách Hàn Quốc. 
+    Do đó, việc tìm hiểu tất tần tật về áo thun tay lỡ nam/nữ là cần thiết giúp bạn luôn cập nhật những mẫu thiết kế mới nhất. Điều này sẽ giúp bạn có nhiều sự lựa chọn mới mẻ và đa dạng phong cách thời trang của bạn.`
+    },
+    {
+      value: `Mẫu quần tây đen công sở cạp lưng cao Form thoải mái, không quá ôm và quá đứng dáng đâu các nàng ạ, mặc lên vừa thoải mái vận động mà vẫn đứng dáng. Các nàng có thể mặc quần tây nữ công sở phối áo sơ mi mặc đi làm, đi chơi, học sinh mặc đi học đều xinh ạ.`, 
+    viewValue:  `Mẫu quần tây đen công sở cạp lưng cao Form thoải mái, không quá ôm và quá đứng dáng đâu các nàng ạ, mặc lên vừa thoải mái vận động mà vẫn đứng dáng. Các nàng có thể mặc quần tây nữ công sở phối áo sơ mi mặc đi làm, đi chơi, học sinh mặc đi học đều xinh ạ.`
+  },
+  {
+    value: `Đối với một người đàn ông hiện đại thì vẻ bề ngoài rất quan trọng, ngoài những bộ suit lịch lãm thì phụ kiện đồng hồ cũng là điểm nhấn không thể thiếu trên cổ tay của họ. Vì thế một chiếc đồng hồ đẹp cho nam luôn là mục đích tìm kiếm của đa số đàn ông hiện nay.`, 
+  viewValue:  `Đối với một người đàn ông hiện đại thì vẻ bề ngoài rất quan trọng, ngoài những bộ suit lịch lãm thì phụ kiện đồng hồ cũng là điểm nhấn không thể thiếu trên cổ tay của họ. Vì thế một chiếc đồng hồ đẹp cho nam luôn là mục đích tìm kiếm của đa số đàn ông hiện nay.`
+},
+{
+  value: `Mang đến hình ảnh là một người lịch lãm, nhưng không kém phần thanh lịch, thời trang giày nổi bật cùng dáng xỏ tiện lợi giúp bạn có thể sử dụng ở bất cứ đâu.`, 
+viewValue:  `Mang đến hình ảnh là một người lịch lãm, nhưng không kém phần thanh lịch, thời trang giày nổi bật cùng dáng xỏ tiện lợi giúp bạn có thể sử dụng ở bất cứ đâu.`
+},
+  ];
+  //Data thanh phan
+  ThanhPhanArray:any = [
+    {value: `Vải Thun Lạnh co giãn 4 chiều, thoáng mát, mềm mịn mát mẻ, phù hợp với mọi hoạt động dã ngoại, thể thao, hay dạo phố.`,
+     viewValue:  `Vải Thun Lạnh co giãn 4 chiều, thoáng mát, mềm mịn mát mẻ, phù hợp với mọi hoạt động dã ngoại, thể thao, hay dạo phố.`
+    },
+    {value: `Thân giày thể thao chủ yếu sử dụng vật liệu mesh (lưới), da tự nhiên hoặc da nhân tạo. `,
+     viewValue:  `Thân giày thể thao chủ yếu sử dụng vật liệu mesh (lưới), da tự nhiên hoặc da nhân tạo. `
+    },
+    {value: `Kaki `,
+    viewValue:  `Kaki  `
+   },
+   {value: `Kim loại`,
+   viewValue:  `Kim loại `
+  },
+  ];
+
+  //Data Huong dan
+  HuongDanArray:any = [
+    {value: `Ủi 180 độ, có thể phối với mọi loại đồ`,
+     viewValue:  `Ủi 180 độ, có thể phối với mọi loại đồ`
+    },
+    {value: `Để ở nơi thoáng mát, tránh ẩm mốc`,
+    viewValue:  `Để ở nơi thoáng mát, tránh ẩm mốc`
+   },
+  ];
 }
+
+
