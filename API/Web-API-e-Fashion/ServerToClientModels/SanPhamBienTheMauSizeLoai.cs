@@ -12,5 +12,7 @@ namespace Web_API_e_Fashion.ServerToClientModels
         public string MauLoai { get; set; }
         public int SoLuongTon { get; set; }
         public string SizeLoai { get; set; }
+        public string TenSanPhamBienTheMauSize { get; set; }
+        public decimal GiaNhap { get; set; }
     }
 }

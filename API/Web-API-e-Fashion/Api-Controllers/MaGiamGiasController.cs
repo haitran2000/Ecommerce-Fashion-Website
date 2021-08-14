@@ -93,13 +93,13 @@ namespace Web_API_e_Fashion.Api_Controllers
             {
                 if (mgg.Code==upload.Code)
                 {
-                    product.Gia = product.Gia-( product.Gia * mgg.SoPhanTramGiam / 100);
+                    product.GiaBan = product.GiaBan-( product.GiaBan  * mgg.SoPhanTramGiam / 100);
                 }
             }
             var response = new
             {
                 Id = product.Id,
-                Gia=product.Gia
+                GiaBan =product.GiaBan
             };
 
             var json = JsonConvert.SerializeObject(response, _serializerSettings);

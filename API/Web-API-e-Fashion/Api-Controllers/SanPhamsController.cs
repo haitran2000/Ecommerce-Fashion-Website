@@ -37,7 +37,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             return await _context.SanPhams.ToListAsync();
         }
- //       @"		select SanPhams.Id,SanPhams.Ten,ImageSanPhams.ImageName,cast(SanPhams.Gia as decimal(18,2)) as'Gia',cast(SanPhams.GiaNhap as decimal(18,2))as'GiaNhap',SanPhams.Tag,
+ //       @"select SanPhams.Id,SanPhams.Ten,ImageSanPhams.ImageName,cast(SanPhams.Gia as decimal(18,2)) as'Gia',cast(SanPhams.GiaNhap as decimal(18,2))as'GiaNhap',SanPhams.Tag,
 	//SanPhams.KhuyenMai,SanPhams.MoTa,SanPhams.HuongDan,SanPhams.ThanhPhan,
 	//SanPhams.TrangThaiSanPham,SanPhams.TrangThaiHoatDong,Loais.Ten as 'LoaiTen',NhanHieus.Ten as'NhanHieuTen'
 	//from SanPhams
@@ -54,16 +54,18 @@ namespace Web_API_e_Fashion.Api_Controllers
             string sql = @"
                             	;with ProductImageTable
 	                          as (
-		                        SELECT SanPhams.Id,SanPhams.Ten,ImageSanPhams.ImageName,cast(SanPhams.Gia as decimal(18,2)) as'Gia',cast(SanPhams.GiaNhap as decimal(18,2))as'GiaNhap',SanPhams.Tag,
+		                        SELECT SanPhams.Id,SanPhams.Ten,ImageSanPhams.ImageName,cast(SanPhams.GiaBan as decimal(18,2)) as'GiaBan',cast(SanPhams.GiaNhap as decimal(18,2))as'GiaNhap',SanPhams.Tag,
 								SanPhams.KhuyenMai,SanPhams.MoTa,SanPhams.HuongDan,SanPhams.ThanhPhan,
-								SanPhams.TrangThaiSanPham,SanPhams.TrangThaiHoatDong,Loais.Ten as 'LoaiTen',NhanHieus.Ten as'NhanHieuTen', 
+								SanPhams.TrangThaiSanPham,SanPhams.TrangThaiHoatDong,Loais.Ten as 'LoaiTen',NhaCungCaps.Ten as 'NhaCungCapTen',NhanHieus.Ten as'NhanHieuTen', 
 		                        ROW_NUMBER() OVER (PARTITION BY SanPhams.Id ORDER BY  ImageSanPhams.Id)  RowNum
 		                        FROM SanPhams LEFT JOIN ImageSanPhams ON SanPhams.Id=ImageSanPhams.IdSanPham inner join Loais
 								on SanPhams.Id_Loai = Loais.Id
 								inner join NhanHieus
 								on SanPhams.Id_NhanHieu = NhanHieus.Id
+                                left join NhaCungCaps
+                                on SanPhams.Id_NhaCungCap = NhaCungCaps.Id
 		                          )
-		                    SELECT Id,Ten, ImageName,Gia,GiaNhap,Tag,KhuyenMai,MoTa,HuongDan,ThanhPhan,TrangThaiHoatDong,TrangThaiSanPham,LoaiTen,NhanHieuTen
+		                    SELECT Id,Ten, ImageName,GiaBan,GiaNhap,Tag,KhuyenMai,MoTa,HuongDan,ThanhPhan,TrangThaiHoatDong,TrangThaiSanPham,LoaiTen,NhaCungCapTen,NhanHieuTen
 		                    from ProductImageTable
 	                        where
                             ProductImageTable.RowNum = 1
@@ -87,7 +89,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                             Id = (int)reader["Id"],
                             Ten = (string)reader["Ten"],
                             Image = reader["ImageName"].ToString(),
-                            Gia = (decimal)reader["Gia"],
+                            GiaBan = (decimal)reader["GiaBan"],
                             GiaNhap = (decimal)reader["GiaNhap"],
                             Tag = (string)reader["Tag"],
                             KhuyenMai = (decimal)reader["KhuyenMai"],
@@ -97,7 +99,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                             TrangThaiSanPham = (string)reader["TrangThaiSanPham"],
                             TrangThaiHoatDong = (bool)reader["TrangThaiHoatDong"],
                             TenLoai = (string)reader["LoaiTen"],
-                            TenNhanHieu = (string)reader["NhanHieuTen"]
+                            TenNhanHieu = (string)reader["NhanHieuTen"],
+                            TenNhaCungCap= (string)reader["NhaCungCapTen"],
                         });
                     }
                 }
@@ -148,7 +151,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             sanpham.NgayCapNhat = DateTime.Now;
             sanpham.HuongDan = upload.HuongDan;
             sanpham.MoTa = upload.MoTa;
-            sanpham.Gia = upload.Gia;
+            sanpham.GiaBan = upload.GiaBan;
             sanpham.Tag = upload.Tag;
             sanpham.GioiTinh = upload.GioiTinh;
             sanpham.GiaNhap = upload.GiaNhap;
@@ -176,6 +179,10 @@ namespace Web_API_e_Fashion.Api_Controllers
             else
             {
                 sanpham.Id_Loai = upload.Id_Loai;
+            }
+            if (upload.Id_NhaCungCap == null)
+            {
+                sanpham.Id_NhaCungCap = sp.Id_NhaCungCap;
             }
             Notification notification = new Notification()
             {
@@ -260,13 +267,14 @@ namespace Web_API_e_Fashion.Api_Controllers
                 ThanhPhan = upload.ThanhPhan,
                 TrangThaiHoatDong = upload.TrangThaiHoatDong,
                 TrangThaiSanPham = upload.TrangThaiSanPham,
-                Gia = upload.Gia,
+                GiaBan = upload.GiaBan,
                 GioiTinh=upload.GioiTinh,
                 GiaNhap = upload.GiaNhap,
                 Tag = upload.Tag,
                 KhuyenMai = upload.KhuyenMai,
                 Id_Loai = upload.Id_Loai,
                 Id_NhanHieu = upload.Id_NhanHieu,
+                Id_NhaCungCap =upload.Id_NhaCungCap,
             };
             Notification notification = new Notification()
             {
@@ -436,17 +444,20 @@ namespace Web_API_e_Fashion.Api_Controllers
                      on s.Id_NhanHieu equals th.Id
                      join l in _context.Loais
                      on s.Id_Loai equals l.Id
+                     join ncc in _context.NhaCungCaps
+                     on s.Id_NhaCungCap equals ncc.Id
                      select new ProductDetail()
                      {
 
                          Id = s.Id,
                          Ten = s.Ten,
-                         Gia = s.Gia,
+                         GiaBan = s.GiaBan,
                          Tag = s.Tag,
                          KhuyenMai = s.KhuyenMai,
                          MoTa = s.MoTa,
                          GioiTinh=s.GioiTinh,
                          HuongDan = s.HuongDan,
+                         TenNhaCungCap = ncc.Ten,
                          ThanhPhan = s.ThanhPhan,
                          TrangThaiSanPham = s.TrangThaiSanPham,
                          TrangThaiHoatDong = s.TrangThaiHoatDong,
@@ -465,11 +476,11 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             var sql = @";with ProductImageTable
 	                          as (
-		                        SELECT SanPhams.Id,SanPhams.Ten,SanPhams.Gia ,ImageSanPhams.ImageName, 
+		                        SELECT SanPhams.Id,SanPhams.Ten,SanPhams.GiaBan ,ImageSanPhams.ImageName, 
 		                        ROW_NUMBER() OVER (PARTITION BY SanPhams.Id ORDER BY  ImageSanPhams.Id)  RowNum
 		                        FROM SanPhams LEFT JOIN ImageSanPhams ON SanPhams.Id=ImageSanPhams.IdSanPham
 		                          )
-		                    SELECT Id,Ten, ImageName,Gia
+		                    SELECT Id,Ten, ImageName,GiaBan
 		                    from ProductImageTable
 	                        where
                             ProductImageTable.RowNum = 1";
@@ -491,7 +502,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                     while (await reader.ReadAsync())
                     {
 
-                        list.Add(new SanPhamLoaiThuongHieu() { Id=(int)reader["Id"],Ten = (string)reader["Ten"], Image=(string)reader["ImageName"],Gia=(decimal)reader["Gia"] });
+                        list.Add(new SanPhamLoaiThuongHieu() { Id=(int)reader["Id"],Ten = (string)reader["Ten"], Image=(string)reader["ImageName"],GiaBan=(decimal)reader["GiaBan"] });
                     }
                 }
 

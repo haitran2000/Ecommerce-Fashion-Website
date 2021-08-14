@@ -36,7 +36,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             return await _context.HoaDons.ToListAsync();
         }
 
-        public decimal SPjoinSPBTTraVeGia(int IdThamSo)
+        public decimal SPjoinSPBTTraVeGiaBan(int IdThamSo)
         {
 
             SanPham kb = (SanPham)(from spbt in _context.SanPhamBienThes
@@ -45,10 +45,10 @@ namespace Web_API_e_Fashion.Api_Controllers
                                    select new SanPham()
                                    {
                                        Id = (int)spbt.Id,
-                                       Gia = sp.Gia,
+                                       GiaBan = sp.GiaBan,
                                    }).First(s => s.Id == IdThamSo);
 
-            return (decimal)kb.Gia;
+            return (decimal)kb.GiaBan;
         }
 
 
@@ -75,7 +75,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                          LoaiThanhToan = hd.LoaiThanhToan,
                          DaLayTien = hd.DaLayTien,
                          TrangThai = hd.TrangThai,
-                         Gia = (decimal)sp.Gia,
+                         GiaBan = (decimal)sp.GiaBan,
                          SoLuong = cthd.Soluong,
                          ThanhTien = cthd.ThanhTien,
                          Id_HoaDon = (int)cthd.Id_HoaDon,
@@ -88,17 +88,10 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPost]
         public async Task<ActionResult<HoaDon>> TaoHoaDon(HoaDon hd)
         {
-            if (hd.LoaiThanhToan == "Online")
-            {
-                hd.DaLayTien = "Rồi";
-            }
-            else
-            {
-                hd.DaLayTien = "Chưa";
-            }
+         
             HoaDon hoaDon = new HoaDon()
             {
-                GhiChi = hd.GhiChi,
+                GhiChu = hd.GhiChu,
                 DaLayTien=hd.DaLayTien,
                 Id_User = hd.Id_User,
                 NgayTao = DateTime.Now,
@@ -136,7 +129,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                     CTHD.Id_SanPhamBienThe = cthd.Id_SanPhamBienThe;
                     CTHD.Id_HoaDon = hoaDonTest.Id;
                     CTHD.Soluong = cthd.Soluong;
-                    CTHD.ThanhTien = SPjoinSPBTTraVeGia((int)cthd.Id_SanPhamBienThe) * cthd.Soluong;
+                    CTHD.ThanhTien = SPjoinSPBTTraVeGiaBan((int)cthd.Id_SanPhamBienThe) * cthd.Soluong;
                     TongTien = TongTien + CTHD.ThanhTien;
                     ListCTHD.Add(CTHD);
                     _context.ChiTietHoaDons.Add(CTHD);

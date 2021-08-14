@@ -10,8 +10,8 @@ using Web_API_e_Fashion.Data;
 namespace Web_API_e_Fashion.Migrations
 {
     [DbContext(typeof(DPContext))]
-    [Migration("20210811062131_v1")]
-    partial class v1
+    [Migration("20210812224522_v2")]
+    partial class v2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -223,23 +223,6 @@ namespace Web_API_e_Fashion.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Web_API_e_Fashion.Models.AuthHistory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("IdentityId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdentityId");
-
-                    b.ToTable("AuthHistories");
-                });
-
             modelBuilder.Entity("Web_API_e_Fashion.Models.ChiTietHoaDon", b =>
                 {
                     b.Property<int>("Id")
@@ -266,6 +249,34 @@ namespace Web_API_e_Fashion.Migrations
                     b.HasIndex("Id_SanPhamBienThe");
 
                     b.ToTable("ChiTietHoaDons");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.ChiTietPhieuNhapHang", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("Id_PhieuNhapHang")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Id_SanPhamBienThe")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SoluongNhap")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ThanhTienNhap")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id_PhieuNhapHang");
+
+                    b.HasIndex("Id_SanPhamBienThe");
+
+                    b.ToTable("ChiTietPhieuNhapHangs");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.HoaDon", b =>
@@ -323,26 +334,6 @@ namespace Web_API_e_Fashion.Migrations
                     b.ToTable("ImageSanPhams");
                 });
 
-            modelBuilder.Entity("Web_API_e_Fashion.Models.JobSeeker", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Id_Identity")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id_Identity");
-
-                    b.ToTable("JobSeekers");
-                });
-
             modelBuilder.Entity("Web_API_e_Fashion.Models.Loai", b =>
                 {
                     b.Property<int>("Id")
@@ -396,6 +387,30 @@ namespace Web_API_e_Fashion.Migrations
                     b.ToTable("MauSacs");
                 });
 
+            modelBuilder.Entity("Web_API_e_Fashion.Models.NhaCungCap", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("DiaChi")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SDT")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ten")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ThongTin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("NhaCungCaps");
+                });
+
             modelBuilder.Entity("Web_API_e_Fashion.Models.NhanHieu", b =>
                 {
                     b.Property<int>("Id")
@@ -447,6 +462,32 @@ namespace Web_API_e_Fashion.Migrations
                     b.ToTable("NotificationCheckouts");
                 });
 
+            modelBuilder.Entity("Web_API_e_Fashion.Models.PhieuNhapHang", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("NgayTao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NguoiLapPhieu")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("SoChungTu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TongTien")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NguoiLapPhieu");
+
+                    b.ToTable("PhieuNhapHangs");
+                });
+
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPham", b =>
                 {
                     b.Property<int>("Id")
@@ -467,6 +508,9 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Id_Loai")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Id_NhaCungCap")
                         .HasColumnType("int");
 
                     b.Property<int?>("Id_NhanHieu")
@@ -502,6 +546,8 @@ namespace Web_API_e_Fashion.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Id_Loai");
+
+                    b.HasIndex("Id_NhaCungCap");
 
                     b.HasIndex("Id_NhanHieu");
 
@@ -670,15 +716,6 @@ namespace Web_API_e_Fashion.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Web_API_e_Fashion.Models.AuthHistory", b =>
-                {
-                    b.HasOne("Web_API_e_Fashion.Models.AppUser", "Identity")
-                        .WithMany()
-                        .HasForeignKey("IdentityId");
-
-                    b.Navigation("Identity");
-                });
-
             modelBuilder.Entity("Web_API_e_Fashion.Models.ChiTietHoaDon", b =>
                 {
                     b.HasOne("Web_API_e_Fashion.Models.HoaDon", "HoaDon")
@@ -690,6 +727,21 @@ namespace Web_API_e_Fashion.Migrations
                         .HasForeignKey("Id_SanPhamBienThe");
 
                     b.Navigation("HoaDon");
+
+                    b.Navigation("SanPhamBienThe");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.ChiTietPhieuNhapHang", b =>
+                {
+                    b.HasOne("Web_API_e_Fashion.Models.PhieuNhapHang", "PhieuNhapHang")
+                        .WithMany("ChiTietPhieuNhaps")
+                        .HasForeignKey("Id_PhieuNhapHang");
+
+                    b.HasOne("Web_API_e_Fashion.Models.SanPhamBienThe", "SanPhamBienThe")
+                        .WithMany()
+                        .HasForeignKey("Id_SanPhamBienThe");
+
+                    b.Navigation("PhieuNhapHang");
 
                     b.Navigation("SanPhamBienThe");
                 });
@@ -712,15 +764,6 @@ namespace Web_API_e_Fashion.Migrations
                     b.Navigation("SanPham");
                 });
 
-            modelBuilder.Entity("Web_API_e_Fashion.Models.JobSeeker", b =>
-                {
-                    b.HasOne("Web_API_e_Fashion.Models.AppUser", "Identity")
-                        .WithMany()
-                        .HasForeignKey("Id_Identity");
-
-                    b.Navigation("Identity");
-                });
-
             modelBuilder.Entity("Web_API_e_Fashion.Models.MauSac", b =>
                 {
                     b.HasOne("Web_API_e_Fashion.Models.Loai", "Loai")
@@ -730,17 +773,32 @@ namespace Web_API_e_Fashion.Migrations
                     b.Navigation("Loai");
                 });
 
+            modelBuilder.Entity("Web_API_e_Fashion.Models.PhieuNhapHang", b =>
+                {
+                    b.HasOne("Web_API_e_Fashion.Models.AppUser", "AppUser")
+                        .WithMany("PhieuNhapHangs")
+                        .HasForeignKey("NguoiLapPhieu");
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPham", b =>
                 {
                     b.HasOne("Web_API_e_Fashion.Models.Loai", "Loai")
                         .WithMany("SanPhams")
                         .HasForeignKey("Id_Loai");
 
+                    b.HasOne("Web_API_e_Fashion.Models.NhaCungCap", "NhaCungCap")
+                        .WithMany("SanPhams")
+                        .HasForeignKey("Id_NhaCungCap");
+
                     b.HasOne("Web_API_e_Fashion.Models.NhanHieu", "NhanHieu")
                         .WithMany("SanPhams")
                         .HasForeignKey("Id_NhanHieu");
 
                     b.Navigation("Loai");
+
+                    b.Navigation("NhaCungCap");
 
                     b.Navigation("NhanHieu");
                 });
@@ -832,9 +890,19 @@ namespace Web_API_e_Fashion.Migrations
                     b.Navigation("SanPhamBienThes");
                 });
 
+            modelBuilder.Entity("Web_API_e_Fashion.Models.NhaCungCap", b =>
+                {
+                    b.Navigation("SanPhams");
+                });
+
             modelBuilder.Entity("Web_API_e_Fashion.Models.NhanHieu", b =>
                 {
                     b.Navigation("SanPhams");
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.PhieuNhapHang", b =>
+                {
+                    b.Navigation("ChiTietPhieuNhaps");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.SanPham", b =>
@@ -860,6 +928,8 @@ namespace Web_API_e_Fashion.Migrations
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.AppUser", b =>
                 {
+                    b.Navigation("PhieuNhapHangs");
+
                     b.Navigation("UserComments");
 
                     b.Navigation("UserLikes");

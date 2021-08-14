@@ -54,7 +54,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
 
             User.FindFirstValue(ClaimTypes.NameIdentifier);
-           
+
 
 
             // Serialize and return the response
@@ -65,7 +65,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                 hinh = _context.AppUsers.FirstOrDefault(s => s.Id == id).ImagePath,
                 email = _context.AppUsers.FirstOrDefault(s => s.Id == id).Email,
                 auth_token = await _jwtFactory.GenerateEncodedToken(credentials.UserName, identity),
-                expires_in = (int)_jwtOptions.ValidFor.TotalSeconds
+                expires_in = (int)_jwtOptions.ValidFor.TotalSeconds,
+                fullname = _context.AppUsers.FirstOrDefault(s => s.Id == id).FirstName + " " + _context.AppUsers.FirstOrDefault(s => s.Id == id).LastName
             };
 
             var json = JsonConvert.SerializeObject(response, _serializerSettings);
@@ -114,10 +115,9 @@ namespace Web_API_e_Fashion.Api_Controllers
                     if (await _userManager.CheckPasswordAsync(userToVerify, password))
                     {
 
-                        AuthHistory auth = new AuthHistory();
-                        auth.IdentityId = userToVerify.Id;
-                        auth.Datetime = DateTime.Now;
-                        _context.AuthHistories.Add(auth);
+                     
+                  
+                      
                         await _context.SaveChangesAsync();
                         id = userToVerify.Id;
                         return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userName, userToVerify.Id));
@@ -127,14 +127,6 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             // Credentials are invalid, or account doesn't exist
             return await Task.FromResult<ClaimsIdentity>(null);
-        }
-
-        [HttpGet("AuthHistory")]
-        public async Task<ActionResult<AppUser>> GetAuthHistory()
-        {
-            AppUser appUser = new AppUser();
-            appUser = await _context.AppUsers.FindAsync(id);
-            return appUser;
         }
     }
 }

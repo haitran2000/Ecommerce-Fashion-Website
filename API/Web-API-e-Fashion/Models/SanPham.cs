@@ -15,7 +15,7 @@ namespace Web_API_e_Fashion.Models
        
         public string? MoTa { get; set; }
         [Column(TypeName = "decimal(18,0)")]
-        public decimal? Gia { get; set; }
+        public decimal? GiaBan { get; set; }
         [Column(TypeName = "decimal(18,0)")]
         public decimal? GiaNhap { get; set; }
         [Column(TypeName = "decimal(18,0)")]

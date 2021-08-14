@@ -16,5 +16,6 @@ namespace Web_API_e_Fashion.Models
         public string Quyen { get; set; }
         public virtual ICollection<UserLike> UserLikes { get; set; }
         public virtual ICollection<UserComment> UserComments { get; set; }
+        public virtual ICollection<PhieuNhapHang> PhieuNhapHangs { get; set; }
     }
 }

@@ -81,6 +81,21 @@ namespace Web_API_e_Fashion.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "NhaCungCaps",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Ten = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SDT = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThongTin = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NhaCungCaps", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "NhanHieus",
                 columns: table => new
                 {
@@ -228,25 +243,6 @@ namespace Web_API_e_Fashion.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuthHistories",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IdentityId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuthHistories", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AuthHistories_AspNetUsers_IdentityId",
-                        column: x => x.IdentityId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "HoaDons",
                 columns: table => new
                 {
@@ -272,20 +268,22 @@ namespace Web_API_e_Fashion.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "JobSeekers",
+                name: "PhieuNhapHang",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Id_Identity = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SoChungTu = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NgayTao = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TongTien = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    NguoiLapPhieu = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_JobSeekers", x => x.Id);
+                    table.PrimaryKey("PK_PhieuNhapHang", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_JobSeekers_AspNetUsers_Id_Identity",
-                        column: x => x.Id_Identity,
+                        name: "FK_PhieuNhapHang_AspNetUsers_NguoiLapPhieu",
+                        column: x => x.NguoiLapPhieu,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -351,7 +349,8 @@ namespace Web_API_e_Fashion.Migrations
                     TrangThaiHoatDong = table.Column<bool>(type: "bit", nullable: true),
                     GioiTinh = table.Column<int>(type: "int", nullable: true),
                     Id_NhanHieu = table.Column<int>(type: "int", nullable: true),
-                    Id_Loai = table.Column<int>(type: "int", nullable: true)
+                    Id_Loai = table.Column<int>(type: "int", nullable: true),
+                    Id_NhaCungCap = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -360,6 +359,12 @@ namespace Web_API_e_Fashion.Migrations
                         name: "FK_SanPhams_Loais_Id_Loai",
                         column: x => x.Id_Loai,
                         principalTable: "Loais",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SanPhams_NhaCungCaps_Id_NhaCungCap",
+                        column: x => x.Id_NhaCungCap,
+                        principalTable: "NhaCungCaps",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -502,6 +507,34 @@ namespace Web_API_e_Fashion.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "ChiTietPhieuNhapHang",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SoluongNhap = table.Column<int>(type: "int", nullable: false),
+                    ThanhTienNhap = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Id_PhieuNhapHang = table.Column<int>(type: "int", nullable: true),
+                    Id_SanPhamBienThe = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChiTietPhieuNhapHang", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ChiTietPhieuNhapHang_PhieuNhapHang_Id_PhieuNhapHang",
+                        column: x => x.Id_PhieuNhapHang,
+                        principalTable: "PhieuNhapHang",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ChiTietPhieuNhapHang_SanPhamBienThes_Id_SanPhamBienThe",
+                        column: x => x.Id_SanPhamBienThe,
+                        principalTable: "SanPhamBienThes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -542,11 +575,6 @@ namespace Web_API_e_Fashion.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuthHistories_IdentityId",
-                table: "AuthHistories",
-                column: "IdentityId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ChiTietHoaDons_Id_HoaDon",
                 table: "ChiTietHoaDons",
                 column: "Id_HoaDon");
@@ -554,6 +582,16 @@ namespace Web_API_e_Fashion.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ChiTietHoaDons_Id_SanPhamBienThe",
                 table: "ChiTietHoaDons",
+                column: "Id_SanPhamBienThe");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChiTietPhieuNhapHang_Id_PhieuNhapHang",
+                table: "ChiTietPhieuNhapHang",
+                column: "Id_PhieuNhapHang");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ChiTietPhieuNhapHang_Id_SanPhamBienThe",
+                table: "ChiTietPhieuNhapHang",
                 column: "Id_SanPhamBienThe");
 
             migrationBuilder.CreateIndex(
@@ -567,14 +605,14 @@ namespace Web_API_e_Fashion.Migrations
                 column: "IdSanPham");
 
             migrationBuilder.CreateIndex(
-                name: "IX_JobSeekers_Id_Identity",
-                table: "JobSeekers",
-                column: "Id_Identity");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_MauSacs_Id_Loai",
                 table: "MauSacs",
                 column: "Id_Loai");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PhieuNhapHang_NguoiLapPhieu",
+                table: "PhieuNhapHang",
+                column: "NguoiLapPhieu");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SanPhamBienThes_Id_Mau",
@@ -595,6 +633,11 @@ namespace Web_API_e_Fashion.Migrations
                 name: "IX_SanPhams_Id_Loai",
                 table: "SanPhams",
                 column: "Id_Loai");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SanPhams_Id_NhaCungCap",
+                table: "SanPhams",
+                column: "Id_NhaCungCap");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SanPhams_Id_NhanHieu",
@@ -635,16 +678,13 @@ namespace Web_API_e_Fashion.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "AuthHistories");
-
-            migrationBuilder.DropTable(
                 name: "ChiTietHoaDons");
 
             migrationBuilder.DropTable(
-                name: "ImageSanPhams");
+                name: "ChiTietPhieuNhapHang");
 
             migrationBuilder.DropTable(
-                name: "JobSeekers");
+                name: "ImageSanPhams");
 
             migrationBuilder.DropTable(
                 name: "MaGiamGias");
@@ -668,6 +708,9 @@ namespace Web_API_e_Fashion.Migrations
                 name: "HoaDons");
 
             migrationBuilder.DropTable(
+                name: "PhieuNhapHang");
+
+            migrationBuilder.DropTable(
                 name: "SanPhamBienThes");
 
             migrationBuilder.DropTable(
@@ -681,6 +724,9 @@ namespace Web_API_e_Fashion.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sizes");
+
+            migrationBuilder.DropTable(
+                name: "NhaCungCaps");
 
             migrationBuilder.DropTable(
                 name: "NhanHieus");

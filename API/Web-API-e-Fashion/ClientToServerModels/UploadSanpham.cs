@@ -16,12 +16,13 @@ namespace Web_API_e_Fashion.UploadFileModels
         public int? GioiTinh { get; set; }
         public string? TrangThaiSanPham { get; set; }
         public bool? TrangThaiHoatDong { get; set; }
-        public decimal? Gia  { get; set; }
+        public decimal? GiaBan  { get; set; }
         public decimal? GiaNhap { get; set; }
         public string? HuongDan { get; set; }
       
         public string? ThanhPhan { get; set; }
         public int? Id_NhanHieu { get; set; }
+        public int? Id_NhaCungCap { get; set; }
         public int? Id_Loai { get; set; }
         public ICollection<IFormFile>? files { get; set; }
     }

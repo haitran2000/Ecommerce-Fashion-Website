@@ -12,7 +12,7 @@ namespace Web_API_e_Fashion.ServerToClientModels
         public string TenSanPham { get; set; }
         public string HinhAnh { get; set; }
   
-        public decimal Gia { get; set; }
+        public decimal GiaBan { get; set; }
         public string DaLayTien { get; set; }//VD: chưa, rồi
         public string TrangThai { get; set; } // VD : Đang lấy hàng, đã giao hàng
         public string LoaiThanhToan { get; set; } //VD: Tiền mặt, thanh toán online

@@ -29,7 +29,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             _hubContext = hubContext;
         }
 
-
+     
         [HttpGet("sanphambienthe")]
         public async Task<ActionResult<IEnumerable<SanPhamBienTheMauSizeLoai>>> GetAllSPBTSS()
         {
@@ -50,6 +50,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                          SizeLoai = s.TenSize + " " + l.Ten,
                          SanPham = sp.Ten,
                          SoLuongTon=spbt.SoLuongTon,
+                        
                      };
             return await kb.ToListAsync();
         }
@@ -98,7 +99,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/SanPhamBienThes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSanPhamBienTh(int id, [FromForm] UploadSanPhamBienThe upload)
+        public async Task<IActionResult> PutSanPhamBienThe(int id, [FromForm] UploadSanPhamBienThe upload)
         {
 
             SanPhamBienThe spbt;

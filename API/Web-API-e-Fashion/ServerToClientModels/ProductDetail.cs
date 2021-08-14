@@ -14,11 +14,12 @@ namespace Web_API_e_Fashion.ServerToClientModels
         public string? MoTa { get; set; }
         public string? Tag { get; set; }
         public string? Image { get; set; }
-        public decimal? Gia { get; set; }
+        public decimal? GiaBan { get; set; }
         public string? TrangThaiSanPham { get; set; }
         public string? TrangThaiSanPhamThietKe { get; set; }
         public bool? TrangThaiHoatDong { get; set; }
         public string? HuongDan { get; set; }
+        public string? TenNhaCungCap { get; set; }
         public string? ThanhPhan { get; set; }
         public int? UpdateBy { get; set; }
         public int? Id_NhanHieu { get; set; }

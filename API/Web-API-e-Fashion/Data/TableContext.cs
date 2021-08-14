@@ -11,7 +11,6 @@ namespace Web_API_e_Fashion.Data
     {
       
         public DbSet<NotificationCheckout> NotificationCheckouts { get; set; }
-        public DbSet<JobSeeker> JobSeekers { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
         public DbSet<HoaDon> HoaDons { get; set; }
@@ -26,12 +25,15 @@ namespace Web_API_e_Fashion.Data
         
         public DbSet<Size> Sizes { get; set; }
         public DbSet<ImageSanPham> ImageSanPhams { get; set; }
-        public DbSet<AuthHistory> AuthHistories { get; set; }
         public DbSet<Notification>  Notifications { get; set; }
         public DbSet<MaGiamGia> MaGiamGias { get; set; }
         public DbSet<UserLike> UserLikes { get; set; }
         public DbSet<UserComment> UserComments { get; set; }
+        public DbSet<NhaCungCap> NhaCungCaps { get; set; }
 
+        public DbSet<PhieuNhapHang> PhieuNhapHangs { get; set; }
+
+        public DbSet<ChiTietPhieuNhapHang> ChiTietPhieuNhapHangs { get; set; }
         protected void TableBuilder(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserComment>().HasKey(sc => new { sc.IdSanPham, sc.IdAppUser });
