@@ -51,7 +51,7 @@ export class Product {
   khuyenMai: number =0
   moTa: string
   khoiLuong: number
-  gia: number
+  giaBan: number
   giaNhap:number
   gioiTinh:number
   tag: string
@@ -62,6 +62,7 @@ export class Product {
   trangThaiSanPhamThietKe: string
   id_NhanHieu: number
   id_Loai: number
+  id_NhaCungCap:number
   giaSanPhams: number
   sanPhamThietKes: number
   sanPham_SanPhamThietKe: number

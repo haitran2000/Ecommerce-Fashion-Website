@@ -1,39 +1,41 @@
 import { HttpClient } from '@angular/common/http';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastServiceService } from '../../shared/toast-service.service';
 
-import { SanPhamBienTheComponent } from './san-pham-bien-the/san-pham-bien-thecomponent';
 import * as signalR from '@microsoft/signalr';
-import { SanPhamBienThe, SanPhamBienTheService } from './san-pham-bien-the.service';
-@Component({
-  selector: 'app-san-pham-bien-thes',
-  templateUrl: './san-pham-bien-thes.component.html',
-  styleUrls: ['./san-pham-bien-thes.component.scss']
-})
-export class SanPhamBienThesComponent implements OnInit, AfterViewInit {
+import { NhaCungCapComponent } from './nhacungcap/nhacungcap.component';
+import { NhaCungCap, NhaCungCapService } from './nhacungcap.service';
 
+@Component({
+  selector: 'app-nhacungcaps',
+  templateUrl: './nhacungcaps.component.html',
+  styleUrls: ['./nhacungcaps.component.scss']
+})
+export class NhaCungCapsComponent implements OnInit, AfterViewInit {
+
+  
   @ViewChild(MatSort) sort: MatSort;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
   productList: any[];
-  constructor(public service:SanPhamBienTheService,
+  constructor(public service:NhaCungCapService,
               public router : Router,
               public http: HttpClient,
               public dialog: MatDialog,
               public serviceToast : ToastServiceService,) { }
 
-
-              displayedColumns: string[] = ['id','sanPham','mauLoai','sizeLoai','soLuongTon',
+displayedColumns: string[] = ['id', 'ten','sdt','thongTin','diaChi',
   'actions'];
 
 
-  public sanphambienthe :  SanPhamBienThe
   ngOnInit(): void {
-    this.service.getAllSanPhamBienTheTenLoais();
+    this.service.getAllNhaCungCaps();
     const connection = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Information)
     .withUrl('https://localhost:44302/notify')
@@ -46,30 +48,28 @@ export class SanPhamBienThesComponent implements OnInit, AfterViewInit {
   });
 
   connection.on("BroadcastMessage", () => {
-    this.service.getAllSanPhamBienTheTenLoais();
+    this.service.getAllNhaCungCaps();
   });
   }
-  onSelectedSPTK(a: SanPhamBienThe):void{
-    this.service.sanphambienthe = a
-  }
+  
   ngAfterViewInit(): void {
     this.service.dataSource.sort = this.sort;
     this.service.dataSource.paginator = this.paginator;
   }
 
   onModalDialog(){
-    this.service.sanphambienthe = new SanPhamBienThe()
-    this.dialog.open(SanPhamBienTheComponent)
+    this.service.nhacungcap = new NhaCungCap()
+    this.dialog.open(NhaCungCapComponent)
+    
   }
 
  doFilter = (value: string) => {
   this.service.dataSource.filter = value.trim().toLocaleLowerCase();
 }
 
-  populateForm(selectedRecord:SanPhamBienThe){
-    
-    this.service.sanphambienthe = Object.assign({},selectedRecord)
-    this.dialog.open(SanPhamBienTheComponent)
+  populateForm(selectedRecord:NhaCungCap){
+    this.service.nhacungcap = Object.assign({},selectedRecord)
+    this.dialog.open(NhaCungCapComponent)
 }
   clickDelete(id){
   if(confirm('Bạn có chắc chắn xóa bản ghi này không ??'))
@@ -77,9 +77,8 @@ export class SanPhamBienThesComponent implements OnInit, AfterViewInit {
     this.service.delete(id).subscribe(
       res=>{
         this.serviceToast.showToastXoaThanhCong()
-        this.service.getAllSanPhamBienTheTenLoais()
-      },
-      err=>{
+        this.service.getAllNhaCungCaps()
+      },err=>{
         this.serviceToast.showToastXoaThatBai()
       }
     )

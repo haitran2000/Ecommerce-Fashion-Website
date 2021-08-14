@@ -14,10 +14,10 @@ export class SelectMonthComponent implements OnInit {
 
   constructor(public service:ChartSecondService,
               public http: HttpClient) { }
-  public newBlogForm: FormGroup;
+  public newFormGroup: FormGroup;
   ngOnInit(): void {
   
-    this.newBlogForm = new FormGroup({
+    this.newFormGroup = new FormGroup({
       Thang: new FormControl(null,
         [
         ]),

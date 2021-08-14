@@ -17,7 +17,7 @@ import { ImagesmodelComponent } from './imagesmodel/imagesmodel.component';
 import { MatAccordion } from '@angular/material/expansion';
 import { ToastServiceService } from '../../shared/toast-service.service';
 import { SanPhamBienTheService } from '../san-pham-bien-thes/san-pham-bien-the.service';
-import { SanPhamBienThe } from '../san-pham-bien-thes/san-pham-bien-thes.component';
+
 import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'app-products',
@@ -97,9 +97,7 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   onselectedDetail() {
     this.router.navigate(['admin/product/detail/' + this.service.product.id]);
   }
-  onSelectedThietKe(a: SanPhamBienThe) {
-    this.servicespbt.sanphambienthe = a
-  }
+
   onSelectedEdit() {
     this.router.navigate(['admin/product/edit/' + this.service.product.id]);
   }

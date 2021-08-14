@@ -11,30 +11,31 @@ import { environment } from "../../../../../environments/environment";
 @Injectable({
     providedIn: 'root'
   })
-export class SizeService{
+export class NhaCungCapService{
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public dataSource = new MatTableDataSource<Size>();
-    size:Size = new Size()
+  public dataSource = new MatTableDataSource<NhaCungCap>();
+    nhacungcap:NhaCungCap = new NhaCungCap()
     constructor(public http:HttpClient) { }
    
     delete(id:number){
-      return this.http.delete(`${environment.URL_API}sizes/${id}`)
+      return this.http.delete(`${environment.URL_API}nhacungcaps/${id}`)
     }
     gethttp():Observable<any>{
-      return this.http.get(environment.URL_API+"sizes")
+      return this.http.get(environment.URL_API+"nhacungcaps")
     }
-    getAllSizes(){
+    getAllNhaCungCaps(){
       this.gethttp().subscribe(
         res=>{
-          this.dataSource.data = res as Size[];
+          this.dataSource.data = res as NhaCungCap[];
         }
       )
     }
   }
-  export class Size{
+  export class NhaCungCap{
     id : number = 0
-    tenSize : string
-    id_Loai : string 
+    ten: string
+    sdt : string 
+    thongTin:string="	Chuyên cung cấp quần áo giày dép các loại, rất hân hạnh được phục vụ quý khách"
+    diaChi:string
   }
-  

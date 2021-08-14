@@ -25,9 +25,7 @@ export class HoaDonComponent implements OnInit {
               public http: HttpClient,
               public dialog: MatDialog,
              ) { }
-
-
-              displayedColumns: string[] = ['IdCTHD', 'tenSanPham','tenSize','tenMau','gia','soLuong','thanhTien','id_HoaDon'];
+  displayedColumns: string[] = ['IdCTHD', 'tenSanPham','tenSize','tenMau','gia','soLuong','thanhTien','id_HoaDon'];
 
 
   public cthdViewModel : CTHDViewModel

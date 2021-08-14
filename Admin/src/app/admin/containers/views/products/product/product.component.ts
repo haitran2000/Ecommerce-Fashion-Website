@@ -10,6 +10,7 @@ import { BrandService } from '../../brands/brand.service';
 import { ToastServiceService } from '../../../shared/toast-service.service';
 import { environment } from '../../../../../../environments/environment';
 import { __values } from 'tslib';
+import { NhaCungCapService } from '../../nhacungcaps/nhacungcap.service';
 
 @Component({
   selector: 'app-product',
@@ -23,6 +24,7 @@ export class ProductComponent implements OnInit {
   //Begin Review multile file before upload
   public newForm: FormGroup;
   urls = new Array<string>();
+  nhacungcaps: any[]=[];
   gopHam(event) {
     this.detectFiles(event)
     this.onSelectFile(event)
@@ -48,19 +50,19 @@ export class ProductComponent implements OnInit {
 
   categories: any[] = [];
   brands: any[] = [];
-  constructor(public service: ProductService,
-    public http: HttpClient,
-    public router: Router,
-    public serviceToast: ToastServiceService,
-    public serviceCategory: CategoryService,
-    public serviceBrand: BrandService) {
+  constructor(private service: ProductService,
+    private http: HttpClient,
+    private router: Router,
+    private serviceToast: ToastServiceService,
+    private serviceCategory: CategoryService,
+    private serviceBrand: BrandService,
+    private serviceNhaCungCap:NhaCungCapService) {
   }
   onSelectedList() {
     this.router.navigate(['admin/products']);
-
   }
   get Ten() { return this.newForm.get('Ten'); }
-  get Gia() { return this.newForm.get('Gia'); }
+  get GiaBan() { return this.newForm.get('GiaBan'); }
   get GiaNhap() { return this.newForm.get('GiaNhap'); }
   get KhuyenMai() { return this.newForm.get('KhuyenMai'); }
   get MoTa() { return this.newForm.get('MoTa'); }
@@ -69,6 +71,7 @@ export class ProductComponent implements OnInit {
   get ThanhPhan() { return this.newForm.get('ThanhPhan'); }
   get Id_Loai() { return this.newForm.get('Id_Loai'); }
   get Id_NhanHieu() { return this.newForm.get('Id_NhanHieu'); }
+  get Id_NhaCungCap() { return this.newForm.get('Id_NhaCungCap'); }
   get TrangThaiSanPham() { return this.newForm.get('TrangThaiSanPham'); }
   get TrangThaiHoatDong() { return this.newForm.get('TrangThaiHoatDong'); }
   get GioiTinh(){return this.newForm.get('GioiTinh')}
@@ -85,6 +88,13 @@ export class ProductComponent implements OnInit {
         Object.assign(this.brands, data)
       }
     )
+    this.serviceNhaCungCap.gethttp().subscribe(
+      data => {
+        Object.assign(this.nhacungcaps, data)
+        console.log("nha cung cap",this.nhacungcaps);
+        
+      }
+    )
     this.newForm = new FormGroup({
 
       Ten: new FormControl(null, [
@@ -94,7 +104,7 @@ export class ProductComponent implements OnInit {
 
 
       ]),
-      Gia: new FormControl(null, [
+      GiaBan: new FormControl(null, [
         Validators.required,
         Validators.min(3),
         Validators.max(100000000000),
@@ -142,6 +152,10 @@ export class ProductComponent implements OnInit {
         Validators.required,
 
       ]),
+      Id_NhaCungCap: new FormControl( null, [
+        Validators.required,
+
+      ]),
       Id_NhanHieu: new FormControl(null, [
         Validators.required,
 
@@ -175,7 +189,7 @@ export class ProductComponent implements OnInit {
       form.append('Ten', data.Ten);
       form.append('KhuyenMai', data.KhuyenMai);
       form.append('MoTa', data.MoTa);
-      form.append('Gia', data.Gia);
+      form.append('GiaBan', data.GiaBan);
       form.append('GiaNhap', data.GiaNhap);
       form.append('HuongDan', data.HuongDan);
       form.append('ThanhPhan', data.ThanhPhan);
@@ -183,6 +197,7 @@ export class ProductComponent implements OnInit {
       form.append('GioiTinh',data.GioiTinh)
       form.append('Id_Loai', data.Id_Loai);
       form.append('Id_NhanHieu', data.Id_NhanHieu);
+      form.append('Id_NhaCungCap', data.Id_NhaCungCap);
       form.append('TrangThaiSanPham', data.TrangThaiSanPham);
       form.append('TrangThaiHoatDong', data.TrangThaiHoatDong);
       var json_arr = JSON.stringify(data);
@@ -205,7 +220,7 @@ export class ProductComponent implements OnInit {
       form.append('Ten', data.Ten);
       form.append('KhuyenMai', data.KhuyenMai);
       form.append('MoTa', data.MoTa);
-      form.append('Gia', data.Gia);
+      form.append('GiaBan', data.GiaBan);
       form.append('GiaNhap', data.GiaNhap);
       form.append('GioiTinh',data.GioiTinh)
       form.append('HuongDan', data.HuongDan);
@@ -213,6 +228,7 @@ export class ProductComponent implements OnInit {
       form.append('Tag', data.Tag);
       form.append('Id_Loai', data.Id_Loai);
       form.append('Id_NhanHieu', data.Id_NhanHieu);
+      form.append('Id_NhaCungCap', data.Id_NhaCungCap);
       form.append('TrangThaiSanPham', data.TrangThaiSanPham);
       form.append('TrangThaiSanPhamThietKe', data.TrangThaiSanPhamThietKe);
       for (let i = 0; i < this.urls.length; i++) {
@@ -271,7 +287,7 @@ export class ProductComponent implements OnInit {
     {value: 'Đồng Hồ Nam PAGINI PA9966 ', viewValue: 'Đồng Hồ Nam PAGINI PA9966 '},
     {value: 'Đồng Hồ Nữ Julius Hàn Quốc', viewValue: 'Đồng Hồ Nữ Julius Hàn Quốc'},
     {value: 'Đồng hồ WR unisex dây hơp kim CS1', viewValue: 'Đồng hồ WR unisex dây hơp kim CS1'},
-    {value: 'Đồng hồ Nam Nữ Army', viewValue: 'Đồng hồ Nam Nữ Army'},
+    {value: 'Đồng hồ Nữ Army', viewValue: 'Đồng hồ Nữ Army'},
     {value: 'Đồng Hồ Nam Crnaira Japan C3079', viewValue: 'Đồng Hồ Nam Crnaira Japan C3079'},
     {value: 'Giây lưng thắt lưng nam ', viewValue: 'Giây lưng thắt lưng nam '},
     {value: 'Dây Nịt Nam Mặt GG', viewValue: 'Dây Nịt Nam Mặt GG'},

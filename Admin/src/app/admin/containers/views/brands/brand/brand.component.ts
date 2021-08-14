@@ -21,11 +21,11 @@ export class BrandComponent implements OnInit {
               ) {
              
                 }
-get name() { return this.newBlogForm.get('Name'); }
-get ThongTin() { return this.newBlogForm.get('ThongTin'); }
+get name() { return this.newFormGroup.get('Name'); }
+get ThongTin() { return this.newFormGroup.get('ThongTin'); }
 
 ngOnInit(): void {
-this.newBlogForm = new FormGroup({
+this.newFormGroup = new FormGroup({
 Name: new FormControl(null,
   [
     Validators.required,
@@ -44,7 +44,7 @@ TileImage : new FormControl(null,
 });
 }
 
-public newBlogForm: FormGroup;
+public newFormGroup: FormGroup;
 
 
 
@@ -75,7 +75,7 @@ this.service.brand.id=0;
 err=>{
   this.showToastThemThatBai()
 });
-this.newBlogForm.reset();
+this.newFormGroup.reset();
 }
 else
 {

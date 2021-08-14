@@ -61,7 +61,7 @@ export class RegistrationFormComponent implements OnInit {
     form.append('FirstName', data.firstName);
     form.append('LastName', data.lastName);
     form.append('Location',data.location);
-    form.append('Quyen','Admin');
+    form.append('Quyen','User');
     
     this.http.post(environment.URL_API+'accounts',form).subscribe
     (result  => {

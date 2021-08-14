@@ -20,16 +20,16 @@ export class CategoryComponent implements OnInit {
   ) {
   
    }
-   get name() { return this.newBlogForm.get('Name'); }
+   get name() { return this.newFormGroup.get('Name'); }
 ngOnInit(): void {
-this.newBlogForm = new FormGroup({
+this.newFormGroup = new FormGroup({
 Name: new FormControl("",
   [
     Validators.required,
   ]),
 });
 }
-public newBlogForm: FormGroup;
+public newFormGroup: FormGroup;
 
 onSubmit=(data) =>{
 if(this.service.category.id==0){
@@ -44,7 +44,7 @@ this.service.category.id=0;
 },err=>{
   this.toastService.showToastThemThatBai()
 });
-this.newBlogForm.reset();
+this.newFormGroup.reset();
 }
 else
 {

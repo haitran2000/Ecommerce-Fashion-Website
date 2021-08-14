@@ -1,39 +1,33 @@
-import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Router } from '@angular/router';
-import { ToastServiceService } from '../../shared/toast-service.service';
-
-import { SanPhamBienTheComponent } from './san-pham-bien-the/san-pham-bien-thecomponent';
+import { PhieuNhap, TaoPhieuNhapService } from './tao-phieu-nhap.service';
 import * as signalR from '@microsoft/signalr';
-import { SanPhamBienThe, SanPhamBienTheService } from './san-pham-bien-the.service';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastServiceService } from '../../shared/toast-service.service';
+import { TaoPhieuNhapComponent } from './tao-phieu-nhap/tao-phieu-nhap.component';
 @Component({
-  selector: 'app-san-pham-bien-thes',
-  templateUrl: './san-pham-bien-thes.component.html',
-  styleUrls: ['./san-pham-bien-thes.component.scss']
+  selector: 'app-tao-phieu-nhaps',
+  templateUrl: './tao-phieu-nhaps.component.html',
+  styleUrls: ['./tao-phieu-nhaps.component.scss']
 })
-export class SanPhamBienThesComponent implements OnInit, AfterViewInit {
-
+export class TaoPhieuNhapsComponent implements OnInit, AfterViewInit {
+  
   @ViewChild(MatSort) sort: MatSort;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  productList: any[];
-  constructor(public service:SanPhamBienTheService,
+  constructor(private service:TaoPhieuNhapService,
               public router : Router,
               public http: HttpClient,
               public dialog: MatDialog,
               public serviceToast : ToastServiceService,) { }
 
-
-              displayedColumns: string[] = ['id','sanPham','mauLoai','sizeLoai','soLuongTon',
+displayedColumns: string[] = ['id', 'soChungTu','tenNhaCungCap','ngayTao','tongTien','nguoiLapPhieu',
   'actions'];
 
-
-  public sanphambienthe :  SanPhamBienThe
   ngOnInit(): void {
-    this.service.getAllSanPhamBienTheTenLoais();
     const connection = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Information)
     .withUrl('https://localhost:44302/notify')
@@ -46,42 +40,33 @@ export class SanPhamBienThesComponent implements OnInit, AfterViewInit {
   });
 
   connection.on("BroadcastMessage", () => {
-    this.service.getAllSanPhamBienTheTenLoais();
+    this.service.getAllPhieuNhaps();
   });
-  }
-  onSelectedSPTK(a: SanPhamBienThe):void{
-    this.service.sanphambienthe = a
   }
   ngAfterViewInit(): void {
     this.service.dataSource.sort = this.sort;
     this.service.dataSource.paginator = this.paginator;
   }
-
   onModalDialog(){
-    this.service.sanphambienthe = new SanPhamBienThe()
-    this.dialog.open(SanPhamBienTheComponent)
+    this.service.phieunhap = new PhieuNhap()
+    this.router.navigate(['admin/taophieunhap/them'])
   }
 
- doFilter = (value: string) => {
-  this.service.dataSource.filter = value.trim().toLocaleLowerCase();
+  populateForm(selectedRecord:PhieuNhap){
+    this.service.phieunhap = Object.assign({},selectedRecord)
+     this.router.navigate(['admin/taophieunhap/detail'+ this.service.phieunhap.id])
 }
-
-  populateForm(selectedRecord:SanPhamBienThe){
-    
-    this.service.sanphambienthe = Object.assign({},selectedRecord)
-    this.dialog.open(SanPhamBienTheComponent)
-}
-  clickDelete(id){
+clickDelete(id){
   if(confirm('Bạn có chắc chắn xóa bản ghi này không ??'))
   {
     this.service.delete(id).subscribe(
       res=>{
         this.serviceToast.showToastXoaThanhCong()
-        this.service.getAllSanPhamBienTheTenLoais()
-      },
-      err=>{
+        this.service.getAllPhieuNhaps()
+      },err=>{
         this.serviceToast.showToastXoaThatBai()
       }
     )
 }
-}}
+}
+}

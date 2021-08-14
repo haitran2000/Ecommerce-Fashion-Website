@@ -27,11 +27,11 @@ export class MauSacComponent implements OnInit {
     )
 
   }
-  get MaMau() { return this.newBlogForm.get('MaMau'); }
-  get Id_Loai() { return this.newBlogForm.get('Id_Loai'); }
+  get MaMau() { return this.newFormGroup.get('MaMau'); }
+  get Id_Loai() { return this.newFormGroup.get('Id_Loai'); }
 
   ngOnInit(): void {
-    this.newBlogForm = new FormGroup({
+    this.newFormGroup = new FormGroup({
       MaMau: new FormControl(null,
         [
           Validators.required,
@@ -45,7 +45,7 @@ export class MauSacComponent implements OnInit {
   }
 
   selectedFile: File = null;
-  public newBlogForm: FormGroup;
+  public newFormGroup: FormGroup;
 
   onSubmit = (data) => {
     if (this.service.mausac.id == 0) {
@@ -60,7 +60,7 @@ export class MauSacComponent implements OnInit {
         }, err => {
           this.serviceToast.showToastThemThatBai()
         });
-      this.newBlogForm.reset();
+      this.newFormGroup.reset();
     }
     else {
       const formData = new FormData();

@@ -36,6 +36,10 @@ import { WidgetsComponent } from './admin/containers/views/widgets/widgets.compo
 import { ProfileComponent } from './admin/containers/views/profile/profile.component';
 import { ChartSecondComponent } from './admin/containers/views/chart-second/chart-second.component';
 import { DiscoutCodesComponent } from './admin/containers/views/discout-codes/discout-codes.component';
+import { TaoPhieuNhapsComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhaps.component';
+import { TaoPhieuNhapComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhap/tao-phieu-nhap.component';
+import { NhaCungCapsComponent } from './admin/containers/views/nhacungcaps/nhacungcaps.component';
+import { NhaCungCapComponent } from './admin/containers/views/nhacungcaps/nhacungcap/nhacungcap.component';
 
 
 
@@ -131,6 +135,14 @@ export const routes: Routes = [
         component: ProductsComponent, canActivate: [AuthGuard],
       },
       {
+        path: 'admin/nhacungcaps',
+        component: NhaCungCapsComponent, canActivate: [AuthGuard],
+      },
+      {
+        path: 'admin/nhacungcap',
+        component: NhaCungCapComponent, canActivate: [AuthGuard],
+      },
+      {
         path: 'admin/categories',
         component: CategoriesComponent, canActivate: [AuthGuard],
       },
@@ -154,18 +166,12 @@ export const routes: Routes = [
         path: 'admin/mausacs',
         component: MauSacsComponent, canActivate: [AuthGuard],
       },
-      {
-        path: 'admin/jobseekes',
-        component: JobSeekesComponent, canActivate: [AuthGuard],
-      },
+  
       {
         path: 'admin/hoadons',
         component: HoaDonsComponent, canActivate: [AuthGuard],
       },
-      {
-        path: 'admin/authhistories',
-        component: AuthHistoriesComponent, canActivate: [AuthGuard],
-      },
+
       {
         path: 'admin/aspnetusers',
         component: AspNetUsersComponent, canActivate: [AuthGuard],
@@ -173,8 +179,20 @@ export const routes: Routes = [
 
 
       {
+        path: 'admin/taophieunhap',
+        component: TaoPhieuNhapsComponent, canActivate: [AuthGuard],
+      },
+      {
+        path: 'admin/taophieunhap/them',
+        component: TaoPhieuNhapComponent, canActivate: [AuthGuard],
+      },
+      {
         path: 'admin/hoadon/detail/:id',
         component: HoaDonComponent, canActivate: [AuthGuard],
+      },
+      {
+        path: 'admin/taophieunhap/detail/:id',
+        component: TaoPhieuNhapComponent, canActivate: [AuthGuard],
       },
     ]
   },

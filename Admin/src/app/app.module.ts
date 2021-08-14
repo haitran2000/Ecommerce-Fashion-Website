@@ -20,6 +20,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -86,7 +87,7 @@ import { AuthGuard } from './admin/containers/views/auth.guard';
 import { ModalComponent } from './admin/containers/modal/modal.component';
 import { SanPhamBienTheComponent } from './admin/containers/views/san-pham-bien-thes/san-pham-bien-the/san-pham-bien-thecomponent';
 import { SanPhamBienThesComponent } from './admin/containers/views/san-pham-bien-thes/san-pham-bien-thes.component';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { HoaDonComponent } from './admin/containers/views/hoa-dons/hoa-don/hoa-don.component';
 
@@ -104,6 +105,11 @@ import { SelectMonthComponent } from './admin/containers/views/chart-second/sele
 import { ChartSecondComponent } from './admin/containers/views/chart-second/chart-second.component';
 import { DiscoutCodesComponent } from './admin/containers/views/discout-codes/discout-codes.component';
 import { DiscoutCodeComponent } from './admin/containers/views/discout-codes/discout-code/discout-code.component';
+import { TaoPhieuNhapsComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhaps.component';
+import { TaoPhieuNhapComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhap/tao-phieu-nhap.component';
+import { NhaCungCapsComponent } from './admin/containers/views/nhacungcaps/nhacungcaps.component';
+import { NhaCungCapComponent } from './admin/containers/views/nhacungcaps/nhacungcap/nhacungcap.component';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
@@ -111,7 +117,6 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 
 @NgModule({
   imports: [
-
     FusionChartsModule,
     KonvaModule,
     ChartsModule,
@@ -203,17 +208,23 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     DefaultLayoutComponent,
     SelectMonthComponent,
     ChartSecondComponent,
-
-
+    NhaCungCapComponent,
+    NhaCungCapsComponent,
     DiscoutCodesComponent,
     DiscoutCodeComponent,
+    TaoPhieuNhapsComponent,
+    TaoPhieuNhapComponent,
   ],
   providers: [
     IconSetService,
     UserService,
     [AuthGuard],
     LoginComponent,
-    DatePipe
+    DatePipe,
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { showError: true }
+    }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

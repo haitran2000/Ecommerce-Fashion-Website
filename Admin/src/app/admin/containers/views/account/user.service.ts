@@ -45,6 +45,7 @@ export class UserService extends BaseService {
           (res: any) => {
             localStorage.setItem('auth_token', res.auth_token);
             localStorage.setItem('idUser', res.id);
+            localStorage.setItem('fullname', res.fullname);
             if (res.quyen == 'Admin') {
               this.router.navigate(['/admin/dashboard']);
               this.toast.showToastDangNhapThanhCong()
@@ -58,7 +59,7 @@ export class UserService extends BaseService {
   }
 
   logout() {
-    localStorage.removeItem('auth_token');
+    localStorage.clear();
     this.router.navigate(['/login']);
     this.loggedIn = false;
     this._authNavStatusSource.next(false);

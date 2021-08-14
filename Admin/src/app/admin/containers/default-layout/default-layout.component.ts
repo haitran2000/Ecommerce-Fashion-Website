@@ -22,6 +22,7 @@ export class DefaultLayoutComponent implements OnInit {
 
   notificationCheckOut: NotificationCheckOutCountResult;
   messagesCheckOut: Array<NotificationCheckOutResult>;
+  fullname: string;
 
 
   constructor(
@@ -37,16 +38,7 @@ export class DefaultLayoutComponent implements OnInit {
     this.userService.logout()
   }
   ngOnInit(): void {
-    this.http.get(environment.URL_API + "Auth/AuthHistory").subscribe(
-      res => {
-        this.user = res as UserIdenity
-        localStorage.setItem('appuser', JSON.stringify(this.user))
-        console.log(this.user)
-      },
-      error => {
-
-      }
-    );
+    this.fullname=localStorage.getItem("fullname")
     this.getNotificationCheckOutCount();
     this.getNotificationCount();
     const connection = new signalR.HubConnectionBuilder()

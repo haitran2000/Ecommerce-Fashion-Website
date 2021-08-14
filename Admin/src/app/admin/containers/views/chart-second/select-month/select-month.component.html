@@ -1,5 +1,5 @@
 <h3>Chọn tháng để xem ngày</h3>
-<form [formGroup]="newBlogForm" (ngSubmit)="onSubmit(newBlogForm.value)">
+<form [formGroup]="newFormGroup" (ngSubmit)="onSubmit(newFormGroup.value)">
     <mat-form-field appearance="fill">
       <mat-label>Chọn tháng</mat-label>
       <mat-select formControlName="Thang">

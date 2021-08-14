@@ -8,8 +8,8 @@ import { CategoryService } from '../../categories/category.service';
 import { MauSacService } from '../../mau-sacs/mau-sac.service';
 import { ProductService } from '../../products/product.service';
 import { Size, SizeService } from '../../sizes/size.service';
-
 import { SanPhamBienTheService } from '../san-pham-bien-the.service';
+
 
 @Component({
   selector: 'app-san-pham-bien-the',
@@ -73,13 +73,13 @@ export class SanPhamBienTheComponent implements OnInit {
     public http: HttpClient) {
 
   }
-  get Id_Mau() { return this.newBlogForm.get('Id_Mau'); }
-  get Id_SanPham() { return this.newBlogForm.get('Id_SanPham'); }
-  get Id_Size() { return this.newBlogForm.get('Id_Size'); }
-  get SoLuongTon(){return this.newBlogForm.get('SoLuongTon') }
+  get Id_Mau() { return this.newFormGroup.get('Id_Mau'); }
+  get Id_SanPham() { return this.newFormGroup.get('Id_SanPham'); }
+  get Id_Size() { return this.newFormGroup.get('Id_Size'); }
+  get SoLuongTon(){return this.newFormGroup.get('SoLuongTon') }
 
   ngOnInit(): void {
-    this.newBlogForm = new FormGroup({
+    this.newFormGroup = new FormGroup({
       ImagePath: new FormControl(null),
       Id_Mau: new FormControl(null, [
         Validators.required,
@@ -120,7 +120,7 @@ export class SanPhamBienTheComponent implements OnInit {
       }
     )
   }
-  public newBlogForm: FormGroup;
+  public newFormGroup: FormGroup;
 
   onSubmit = (data) => {
     if (this.service.sanphambienthe.id == 0) {
@@ -136,12 +136,12 @@ export class SanPhamBienTheComponent implements OnInit {
       this.http.post(environment.URL_API + 'sanphambienthes', formData)
         .subscribe(res => {
           this.serviceToast.showToastThemThanhCong()
-          this.service.getAllSanPhamBienThes();
+          this.service.getAllSanPhamBienTheTenLoais();
           this.service.sanphambienthe.id = 0;
         }, err => {
           this.serviceToast.showToastThemThatBai()
         });
-      this.newBlogForm.reset();
+      this.newFormGroup.reset();
     }
     else {
       const formData = new FormData();
@@ -153,7 +153,7 @@ export class SanPhamBienTheComponent implements OnInit {
       this.http.put(environment.URL_API + 'sanphambienthes/' + `${this.service.sanphambienthe.id}`, formData)
         .subscribe(res => {
           this.serviceToast.showToastSuaThanhCong()
-          this.service.getAllSanPhamBienThes();
+          this.service.getAllSanPhamBienTheTenLoais();
           this.service.sanphambienthe.id = 0;
         }, err => {
           this.serviceToast.showToastSuaThatBai()

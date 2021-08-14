@@ -15,10 +15,10 @@ export class ProfileComponent implements OnInit {
   constructor( public toast: ToastServiceService, public service : ProfileService, public http: HttpClient) { }
   id: string
   userApp: any
-  public newBlogForm: FormGroup;
+  public newFormGroup: FormGroup;
   ngOnInit(): void {
     this.userApp = JSON.parse(localStorage.getItem("appuser"));
-    this.newBlogForm = new FormGroup({
+    this.newFormGroup = new FormGroup({
       SDT: new FormControl(null,
         [
           Validators.required,

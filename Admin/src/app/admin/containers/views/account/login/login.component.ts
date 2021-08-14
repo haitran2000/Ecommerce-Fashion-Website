@@ -37,10 +37,7 @@ export class LoginComponent implements OnInit {
         this.credentials.email = param['email'];
       });
   }
-  onLogOut() {
-    localStorage.removeItem('auth_token');
-    this.loggedIn = false
-  }
+ 
   onRegister() {
     this.router.navigate(['/register']);
   }

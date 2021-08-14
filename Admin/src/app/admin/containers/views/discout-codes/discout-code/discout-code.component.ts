@@ -20,17 +20,17 @@ export class DiscoutCodeComponent implements OnInit {
   ) {
 
   }
-  get SoTienGiam() { return this.newBlogForm.get('SoTienGiam'); }
+  get SoTienGiam() { return this.newFormGroup.get('SoTienGiam'); }
 
   ngOnInit(): void {
-    this.newBlogForm = new FormGroup({
+    this.newFormGroup = new FormGroup({
       SoTienGiam: new FormControl(null,
         [
           Validators.required,
         ]),
     });
   }
-  public newBlogForm: FormGroup;
+  public newFormGroup: FormGroup;
 
   onSubmit = (data) => {
     if (this.service.magiamgia.id == 0) {
@@ -44,7 +44,7 @@ export class DiscoutCodeComponent implements OnInit {
         }, err => {
           this.toastService.showToastThemThatBai()
         });
-      this.newBlogForm.reset();
+      this.newFormGroup.reset();
     }
     else {
       const formData = new FormData();

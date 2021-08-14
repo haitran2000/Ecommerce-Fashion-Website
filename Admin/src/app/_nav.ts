@@ -22,6 +22,11 @@ export const navItems: INavData[] = [
     icon: 'cil-aperture',
   },
   {
+    name: 'DS nhà cung cấp',
+    url: '/admin/nhacungcaps',
+    icon: 'cil-puzzle',
+  },
+  {
     name: 'DS nhãn hiệu',
     url: '/admin/brands',
     icon: 'cil-apps',
@@ -46,10 +51,6 @@ export const navItems: INavData[] = [
     url: '/admin/magiamgias',
     icon: 'cil-puzzle',
   },
-  // {
-  //   name: 'DS chi tiết hóa đơn',
-  //   url: '/admin/chitiethoadons',
-  // },
   {
     name: 'DS hóa đơn',
     url: '/admin/hoadons',   
@@ -58,6 +59,11 @@ export const navItems: INavData[] = [
   {
     name:'DS User',
     url:'/admin/aspnetusers',
+    icon:'cil-address-book'
+  },
+  {
+    name:'Tạo phiếu nhập kho',
+    url:'admin/taophieunhap',
     icon:'cil-address-book'
   }
 ];

@@ -26,10 +26,10 @@ export class SizeComponent implements OnInit {
       }
     )
   }
-  get TenSize() { return this.newBlogForm.get('TenSize'); }
-  get Id_Loai() { return this.newBlogForm.get('Id_Loai'); }
+  get TenSize() { return this.newFormGroup.get('TenSize'); }
+  get Id_Loai() { return this.newFormGroup.get('Id_Loai'); }
   ngOnInit(): void {
-    this.newBlogForm = new FormGroup({
+    this.newFormGroup = new FormGroup({
       Id_Loai: new FormControl(null,
         [
           Validators.required,
@@ -43,7 +43,7 @@ export class SizeComponent implements OnInit {
   }
 
   selectedFile: File = null;
-  public newBlogForm: FormGroup;
+  public newFormGroup: FormGroup;
   onSelectFile(fileInput: any) {
     this.selectedFile = <File>fileInput.target.files[0];
   }
@@ -61,7 +61,7 @@ export class SizeComponent implements OnInit {
         }, err => {
           this.serviceToast.showToastThemThatBai()
         });
-      this.newBlogForm.reset();
+      this.newFormGroup.reset();
     }
     else {
       const formData = new FormData();

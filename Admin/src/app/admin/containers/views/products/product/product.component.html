@@ -32,19 +32,19 @@
 
   <div class="form-group">
     <label>Giá bán</label>
-    <select formControlName="Gia" class="form-control" [(ngModel)]="service.product.gia"  required>
+    <select formControlName="GiaBan" class="form-control" [(ngModel)]="service.product.giaBan"  required>
       <option *ngFor="let ten of GiaBanArray" [value]="ten.value">
         {{ten.viewValue}}
       </option>
     </select>
-    <div *ngIf="Gia.invalid && (Gia.dirty || Gia.touched)" class="alert alert-danger">
-      <div *ngIf="Gia.errors.required">
+    <div *ngIf="GiaBan.invalid && (GiaBan.dirty || GiaBan.touched)" class="alert alert-danger">
+      <div *ngIf="GiaBan.errors.required">
         Giá bán sản phẩm không được bỏ trống
       </div>
-      <div *ngIf="Gia.errors.minlength">
+      <div *ngIf="GiaBan.errors.minlength">
         Giá bán không được dưới 3 kí tự
       </div>
-      <div *ngIf="Gia.errors.maxlength">
+      <div *ngIf="GiaBan.errors.maxlength">
         Giá bán không được trên 10 kí tự
       </div>
     </div>
@@ -201,6 +201,19 @@
     <div *ngIf="Id_Loai.invalid && (Id_Loai.dirty || Id_Loai.touched)" class="alert alert-danger">
       <div *ngIf="Id_Loai.errors.required">
         Loại sản phẩm không được bỏ trống
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="form-group">
+    <span class="label label-default">Nhà cung cấp</span>
+    <select class="form-control" [(ngModel)]="service.product.id_NhaCungCap" formControlName="Id_NhaCungCap"  required>
+      <option *ngFor="let ncc of this.nhacungcaps" [value]="ncc.id">{{ncc.ten}}</option>
+    </select>
+    <div *ngIf="Id_NhaCungCap.invalid && (Id_NhaCungCap.dirty || Id_NhaCungCap.touched)" class="alert alert-danger">
+      <div *ngIf="Id_NhaCungCap.errors.required">
+        Nhà cung cấp không được bỏ trống
       </div>
     </div>
   </div>
