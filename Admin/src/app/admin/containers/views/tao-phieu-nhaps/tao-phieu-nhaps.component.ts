@@ -28,6 +28,7 @@ displayedColumns: string[] = ['id', 'soChungTu','tenNhaCungCap','ngayTao','tongT
   'actions'];
 
   ngOnInit(): void {
+    this.service.getAllPhieuNhaps();
     const connection = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Information)
     .withUrl('https://localhost:44302/notify')

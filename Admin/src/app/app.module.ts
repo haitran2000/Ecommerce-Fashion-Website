@@ -110,6 +110,7 @@ import { TaoPhieuNhapComponent } from './admin/containers/views/tao-phieu-nhaps/
 import { NhaCungCapsComponent } from './admin/containers/views/nhacungcaps/nhacungcaps.component';
 import { NhaCungCapComponent } from './admin/containers/views/nhacungcaps/nhacungcap/nhacungcap.component';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { TaoPhieuNhapSuccessComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhap-success/tao-phieu-nhap-success.component';
 
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
@@ -214,6 +215,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     DiscoutCodeComponent,
     TaoPhieuNhapsComponent,
     TaoPhieuNhapComponent,
+    TaoPhieuNhapSuccessComponent,
   ],
   providers: [
     IconSetService,

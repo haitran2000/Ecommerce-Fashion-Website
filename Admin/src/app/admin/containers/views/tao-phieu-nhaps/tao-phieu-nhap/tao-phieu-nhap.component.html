@@ -80,7 +80,8 @@
                             </div>
                             <div class="form-group">
                                 <span class="label label-default">Tên sản phẩm biến thể</span>
-                                <select  class="form-control" formControlName="TenSanPhamBienThe">
+                                <select  class="form-control"  formControlName="TenSanPhamBienThe"
+                             >
                                     <option *ngFor="let item of this.sanphambienthes"
                                         [value]="item.tenSanPhamBienTheMauSize">
                                         {{item.tenSanPhamBienTheMauSize}}
@@ -138,7 +139,9 @@
                                 <th>
                                     Thành tiền (VNĐ)
                                 </th>
-                              
+                                <th>
+                                    Xóa
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -159,20 +162,22 @@
                                     <button class="btn btn-danger"><i class="fa fa-trash" (click)="deleteDetail(item)"
                                             aria-hidden="true"></i></button>
                                 </td>
+                              
                             </tr>
+                            <h4 style="font-weight: bold; text-underline-position: auto;">Tổng tiền: {{tongTien()}} VNĐ</h4>
                         </tbody>
                     </table>
-                    <form [formGroup]="newFormGroupPhieuNhap">
+                    <form [formGroup]="newFormGroupPhieuNhap" (ngSubmit)="onSubmit(newFormGroupPhieuNhap.value)">
                         <div class="container" style="width: 30vw;">
                             <div class="form-group">
-                                <span class="label label-default">Tạo ghi chú</span>
+                                <span class="label label-default" style="font-weight: bold;">Tạo ghi chú</span>
                                 <textarea class="form-control" formControlName="GhiChu"
                                     style="margin-top: 0px; margin-bottom: 0px; height: 160px;width: 1050px;"></textarea>
                             </div>
 
                             <div class="form-group" style="justify-content:center;display: flex;">
                                 <button type="submit" class="btn btn-primary btn-lg"
-                                    [disabled]="this.newFormGroupPhieuNhap.invalid">Tạo phiếu nhập hàng</button>
+                                    [disabled]="this.newFormGroupPhieuNhap.invalid">Tạo phiếu nhập kho</button>
                             </div>
                         </div>
                     </form>
@@ -184,7 +189,7 @@
             </div>
         </form>
     </mat-step>
-    <mat-step>
+    <!-- <mat-step>
         <ng-template matStepLabel>Hoàn thành</ng-template>
         <h1>Hoàn thành, vui lòng kiểm tra kho</h1>
         <h2>Phiếu nhập của bạn: </h2>
@@ -192,7 +197,7 @@
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button (click)="stepper.reset()">Reset</button>
         </div>
-    </mat-step>
+    </mat-step> -->
 </mat-horizontal-stepper>
 <!-- 
 <div class="container">

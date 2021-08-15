@@ -40,6 +40,7 @@ import { TaoPhieuNhapsComponent } from './admin/containers/views/tao-phieu-nhaps
 import { TaoPhieuNhapComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhap/tao-phieu-nhap.component';
 import { NhaCungCapsComponent } from './admin/containers/views/nhacungcaps/nhacungcaps.component';
 import { NhaCungCapComponent } from './admin/containers/views/nhacungcaps/nhacungcap/nhacungcap.component';
+import { TaoPhieuNhapSuccessComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhap-success/tao-phieu-nhap-success.component';
 
 
 
@@ -177,10 +178,14 @@ export const routes: Routes = [
         component: AspNetUsersComponent, canActivate: [AuthGuard],
       },
 
-
+      
       {
         path: 'admin/taophieunhap',
         component: TaoPhieuNhapsComponent, canActivate: [AuthGuard],
+      },
+      {
+        path: 'admin/taophieunhapsuccess',
+        component: TaoPhieuNhapSuccessComponent, canActivate: [AuthGuard],
       },
       {
         path: 'admin/taophieunhap/them',

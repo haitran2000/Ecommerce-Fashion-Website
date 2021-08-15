@@ -53,7 +53,7 @@ export class SanPhamBienTheService{
     mauId : number 
     sanPhamId : number
     sizeId : number
-    soLuongTon:number =100
+    soLuongTon:number =0
   }
   
   export class SanPhamBienTheTenLoai{

@@ -12,12 +12,14 @@ import { environment } from '../../../../../environments/environment';
 export class TaoPhieuNhapService {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public dataSource = new MatTableDataSource<PhieuNhap>();
+  public dataSource = new MatTableDataSource<PhieuNhapNhaCungCap>();
   phieunhap:PhieuNhap = new PhieuNhap()
   sanpham:SanPham=new SanPham()
   phieunhapchange:PhieuNhapChange=new PhieuNhapChange()
   chitietphieunhap:ChiTietPhieuNhap=new ChiTietPhieuNhap()
   constructor(private http:HttpClient) { }
+  phieunhappost:PostPhieuNhap=new PostPhieuNhap()
+
   
   getphieunhaphttp():Observable<any>{
     return this.http.get(environment.URL_API+"TaoPhieuNhaps")
@@ -34,14 +36,18 @@ export class TaoPhieuNhapService {
   gettensanphambienthehttp(data):Observable<any>{
     return this.http.post(environment.URL_API+"TaoPhieuNhaps/SanPhamBienTheMauSizeLoai",data)
   }
-
+  post(data):Observable<any>{
+    return this.http.post(environment.URL_API+"TaoPhieuNhaps",data)
+  }
   delete(id:number){
     return this.http.delete(`${environment.URL_API}/${id}`)
   }
   getAllPhieuNhaps(){
     this.getphieunhaphttp().subscribe(
       res=>{
-        this.dataSource.data = res as PhieuNhap[];
+        this.dataSource.data = res as PhieuNhapNhaCungCap[] ;
+        console.log(this.dataSource.data);
+        
       }
     )
   }
@@ -66,4 +72,27 @@ export class PhieuNhapChange{
   nhacungcap:any
   sanpham:any
   sanphambienthe:any
+  idspbt:any
+}
+export class UploadChiTietPhieuNhapHang{
+ GiaNhapSanPhamBienThe:number
+ TenSanPhamBienThe:string
+ SoluongNhap:number
+
+}
+export class PostPhieuNhap{
+  nguoiLapPhieu:string
+  ghiChu:string
+  tongTien:number
+  idNhaCungCap:string
+  ChiTietPhieuNhaps:any=[]
+}
+export class PhieuNhapNhaCungCap{
+ id:number 
+ soChungTu:string 
+ ngayTao :any
+ tongTien :number
+ ghiChu :string
+ nguoiLapPhieu :string
+ tenNhaCungCap :string
 }

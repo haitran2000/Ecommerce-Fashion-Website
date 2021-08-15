@@ -3,8 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { environment } from '../../../../../../environments/environment';
 import { ToastServiceService } from '../../../shared/toast-service.service';
-import { TaoPhieuNhapService } from '../tao-phieu-nhap.service';
+import { TaoPhieuNhapService, UploadChiTietPhieuNhapHang } from '../tao-phieu-nhap.service';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-tao-phieu-nhap',
   templateUrl: './tao-phieu-nhap.component.html',
@@ -18,14 +19,16 @@ export class TaoPhieuNhapComponent implements OnInit {
 
   constructor(private service: TaoPhieuNhapService,
     private http: HttpClient,
+    private route: Router,
     private serviceToast: ToastServiceService,
     private _formBuilder: FormBuilder
   ) { }
-  chitiets: any = []
+  chitiets: any=[]
   nhacungcaps: any[] = [];
   sanphams: any[] = [];
   sanphambienthes: any[] = [];
   motnhacungcap:any
+  idUser:any
   ngOnInit(): void {
 
     this.service.getnhacungcaphttp().subscribe(
@@ -46,6 +49,7 @@ export class TaoPhieuNhapComponent implements OnInit {
         [
           
         ]),
+       
       TenSanPhamBienThe: new FormControl(null,
         [
           
@@ -75,11 +79,12 @@ export class TaoPhieuNhapComponent implements OnInit {
   GiaNhapSanPhamBienThes(value){
     this.newFormGroupChiTiet.get('GiaNhapSanPhamBienThe').setValue(value)
   }
- 
+idncc:any
   getSanPhamNhaCungCap(event) {
     var obj = {
       id: event.target.value
     }
+    this.idncc=obj.id
     console.log("object :", obj);
 
     this.service.gettensanphamhttp(obj).subscribe(res => {
@@ -102,20 +107,22 @@ export class TaoPhieuNhapComponent implements OnInit {
       this.sanphambienthes = res;
       console.log("san pham bien the",this.sanphambienthes);
       this.GiaNhapSanPhamBienThes(this.sanphambienthes[0].giaNhap)
+     
     });
   }
-
+ 
   onSubmitChiTiet = (data) => {
-    if (this.service.chitietphieunhap.id == 0) {
-      const formData = new FormData();
-      formData.append('GiaNhapSanPhamBienThe', data.GiaNhapSanPhamBienThe);
-      formData.append('TenSanPhamBienThe', data.TenSanPhamBienThe);
-      formData.append('SoLuongNhap', data.SoLuongNhap);
-      console.log(data)
       this.chitiets.push(data)
       console.log("chi tiet", this.chitiets)
-    }
     
+    
+  }
+  tongTien(){
+    let sum = 0
+    for(var i=0;i< this.chitiets.length;i++){
+      sum = sum + (this.chitiets[i].SoLuongNhap * this.chitiets[i].GiaNhapSanPhamBienThe)
+    }
+    return sum
   }
   public deleteDetail(item: any) {
     for (var index = 0; index < this.chitiets.length; index++) {
@@ -126,21 +133,34 @@ export class TaoPhieuNhapComponent implements OnInit {
       }
     }
   }
-  onSubmit = (data) => {
-    if (this.service.phieunhap.id == 0) {
-      const formData = new FormData();
-      formData.append('Id_Loai', data.Id_Loai);
-      formData.append('TenSize', data.TenSize);
-      console.log(data)
-      this.http.post(environment.URL_API + 'sizes', formData)
-        .subscribe(res => {
-          this.serviceToast.showToastThemThanhCong()
-          this.service.getAllPhieuNhaps()
-          this.service.phieunhap.id = 0;
-        }, err => {
-          this.serviceToast.showToastThemThatBai()
-        });
+  phieunhappost:any
+  onSubmit=(data) =>{
+    this.idUser = localStorage.getItem("idUser")
+  //   console.log("chi tiet thêm", this.chitiets[0])
+  //   let formData = new FormData();
+  //   formData.append('NguoiLapPhieu',this.idUser);
+  //   formData.append('GhiChu', data.GhiChu);
+  //   formData.append('TongTien', this.tongTien().toString());
+  //  for(var i=0;i<this.chitiets.length;i++){
+  //   formData.append("ChiTietPhieuNhaps", this.chitiets[i]);
+  //  }
+  
+    this.service.phieunhappost.nguoiLapPhieu=this.idUser
+    this.service.phieunhappost.ghiChu=data.GhiChu
+    this.service.phieunhappost.tongTien=this.tongTien()
+    this.service.phieunhappost.idNhaCungCap = this.idncc
+    this.service.phieunhappost.ChiTietPhieuNhaps=this.chitiets
+    console.log("this. service : ",this.service.phieunhappost);
+    this.service.post(this.service.phieunhappost).subscribe(
+      result=>{
+        this.route.navigate(["admin/taophieunhapsuccess"])
+      },
+      error=>{
+        
+      }
+    )
 
-    }
+    
+    
   }
 }
