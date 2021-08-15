@@ -5,15 +5,13 @@ using System.Threading.Tasks;
 
 namespace Web_API_e_Fashion.ServerToClientModels
 {
-    public class SanPhamBienTheMauSizeLoai
+    public class TenSanPhamBienTheChiTietPhieuNhap
     {
         public int Id { get; set; }
-        public string SanPham { get; set; }
-        public string MauLoai { get; set; }
-        public int SoLuongTon { get; set; }
-        public string SizeLoai { get; set; }
         public string TenSanPhamBienTheMauSize { get; set; }
+        public int SoluongNhap { get; set; }
         public decimal GiaNhap { get; set; }
-        public decimal ThanhTien { get; set; }
+        public decimal ThanhTienNhap { get; set; }
+        public int Id_PhieuNhapHang { get; set; }
     }
 }

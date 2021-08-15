@@ -97,8 +97,6 @@ namespace Web_API_e_Fashion.Api_Controllers
                      };
             return await kb.ToListAsync();
         }
-
-
         [HttpPost]
         public async Task<IActionResult> PostTaoPhieuNhap(UploadPhieuNhapHang uploadPhieuNhap)
         {
@@ -139,7 +137,6 @@ namespace Web_API_e_Fashion.Api_Controllers
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
-            
         }
         private int XuLyIdSPBT(string s)
         {
@@ -161,7 +158,66 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             return (decimal)kb.GiaBan;
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PhieuNhapChiTietPhieuNhap>> GetDetailPhieuNhapAsync(int id)
+        {
+            var listDetail = from spbt in _context.SanPhamBienThes
+                     join sp in _context.SanPhams
+                     on spbt.Id_SanPham equals sp.Id
+                     join l in _context.Loais
+                     on sp.Id_Loai equals l.Id
+                     join m in _context.MauSacs
+                     on spbt.Id_Mau equals m.Id
+                     join s in _context.Sizes
+                     on spbt.SizeId equals s.Id
+                     join ctpn in _context.ChiTietPhieuNhapHangs
+                     on spbt.Id equals ctpn.Id_SanPhamBienThe
+                     select new TenSanPhamBienTheChiTietPhieuNhap()
+                     {
+                         Id = spbt.Id,
+                         TenSanPhamBienTheMauSize =sp.Ten + " " + l.Ten + " " + m.MaMau,
+                         GiaNhap = (decimal)sp.GiaNhap,
+                         SoluongNhap = ctpn.SoluongNhap,
+                         ThanhTienNhap = ctpn.ThanhTienNhap,
+                         Id_PhieuNhapHang = (int)ctpn.Id_PhieuNhapHang
+                     };
 
+
+
+
+
+
+         
+
+
+            
+            var kb = (from phieunhap in _context.PhieuNhapHangs
+                     join us in _context.AppUsers
+                     on phieunhap.NguoiLapPhieu equals us.Id
+                     join ncc in _context.NhaCungCaps
+                     on phieunhap.Id_NhaCungCap equals ncc.Id
+                     select new PhieuNhapChiTietPhieuNhap()
+                     {
+                         Id = phieunhap.Id,
+                         GhiChu = phieunhap.GhiChu,
+                         NgayTao = phieunhap.NgayTao,
+                         SoChungTu = phieunhap.SoChungTu,
+                         TongTien = phieunhap.TongTien,
+                         NguoiLapPhieu = us.FirstName + " " + us.LastName,
+                         NhaCungCap = new NhaCungCap()
+                         {
+                             Id = ncc.Id,
+                             Ten = ncc.Ten,
+                             DiaChi = ncc.DiaChi,
+                             ThongTin = ncc.ThongTin,
+                             SDT = ncc.SDT,
+                         },
+                         ChiTietPhieuNhaps = (List<TenSanPhamBienTheChiTietPhieuNhap>)listDetail.Where(s=>s.Id_PhieuNhapHang==id),
+
+                     });
+            return kb.FirstOrDefault(s=>s.Id==id);
+           
+        }
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTaoPhieuNhap()
         {
