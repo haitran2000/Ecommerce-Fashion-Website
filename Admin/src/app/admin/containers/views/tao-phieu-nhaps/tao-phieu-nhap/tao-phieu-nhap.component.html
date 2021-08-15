@@ -1,18 +1,18 @@
 <mat-horizontal-stepper [linear]=true #stepper>
-    <mat-step [stepControl]="firstFormGroup" errorMessage="Name is required.">
+    <mat-step [stepControl]="firstFormGroup" >
         <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel>Lựa chọn nhà cung cấp</ng-template>
 
             <mat-label style="font-weight: bold;">Nhà cung cấp</mat-label>
             <select class="form-control" [(ngModel)]="this.service.phieunhapchange.nhacungcap"
-                (change)="getSanPhamNhaCungCap($event)">
+                (change)="getSanPhamNhaCungCap($event)" style="width:70%">
                 <option *ngFor="let item of this.nhacungcaps" [value]="item.id">
                     {{item.ten}}
                 </option>
             </select>
 
             <div class="container">
-                <table class="table" style="width:100%">
+                <table class="table" style="width:70%">
                     <tr>
                         <th>Id nhà cung cấp </th>
                         <td *ngIf="this.motnhacungcap">{{this.motnhacungcap.id}}</td>
@@ -35,12 +35,12 @@
                     </tr>
                 </table>
             </div>
-            <div style="margin-top: 200px;">
+            <div>
                 <button mat-button matStepperNext>Next</button>
             </div>
         </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
+    <mat-step [stepControl]="secondFormGroup">
         <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel>Tạo phiếu nhập khi chi tiết</ng-template>
             <div class="container">

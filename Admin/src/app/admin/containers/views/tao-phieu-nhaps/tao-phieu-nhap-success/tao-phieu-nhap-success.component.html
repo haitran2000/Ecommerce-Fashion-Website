@@ -22,9 +22,20 @@
       font-size: 100px;
       line-height: 200px;
       margin-left:-15px;
+    
     }
+ 
     .card {
       background: white;
+      padding: 60px;
+      border-radius: 4px;
+      box-shadow: 0 2px 3px #C8D0D8;
+      display: inline-block;
+      margin: 0 auto;
+    }
+    .card:hover{
+      cursor: pointer;
+      background: rgb(185, 235, 255);
       padding: 60px;
       border-radius: 4px;
       box-shadow: 0 2px 3px #C8D0D8;
@@ -35,9 +46,9 @@
   <div class="body">
     <div class="card">
         <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
-          <i class="checkmark">✓</i>
+          <i class="checkmark" [routerLink]="['/admin/sanphambienthes']">✓</i>
         </div>
-        <h1>Hoàn thành, vui lòng kiểm tra kho</h1>
+        <h1>Hoàn thành, vui lòng số lượng sản phẩm biến thể được cộng thêm !!!</h1>
         </div>
     
   </div>

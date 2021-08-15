@@ -62,7 +62,7 @@ export const navItems: INavData[] = [
     icon:'cil-address-book'
   },
   {
-    name:'Tạo phiếu nhập kho',
+    name:'Tạo phiếu nhập hàng',
     url:'admin/taophieunhap',
     icon:'cil-address-book'
   }

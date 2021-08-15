@@ -20,7 +20,7 @@ export class TaoPhieuNhapService {
   constructor(private http:HttpClient) { }
   phieunhappost:PostPhieuNhap=new PostPhieuNhap()
 
-  
+  idphieunhap:number
   getphieunhaphttp():Observable<any>{
     return this.http.get(environment.URL_API+"TaoPhieuNhaps")
   }
@@ -35,6 +35,9 @@ export class TaoPhieuNhapService {
   }
   gettensanphambienthehttp(data):Observable<any>{
     return this.http.post(environment.URL_API+"TaoPhieuNhaps/SanPhamBienTheMauSizeLoai",data)
+  }
+  getdetailphieunhap(id:number):Observable<any>{
+    return this.http.get<any>(environment.URL_API+"TaoPhieuNhaps/"+id)
   }
   post(data):Observable<any>{
     return this.http.post(environment.URL_API+"TaoPhieuNhaps",data)

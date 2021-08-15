@@ -44,18 +44,22 @@ displayedColumns: string[] = ['id', 'soChungTu','tenNhaCungCap','ngayTao','tongT
     this.service.getAllPhieuNhaps();
   });
   }
+  doFilter = (value: string) => {
+    this.service.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
+  
   ngAfterViewInit(): void {
     this.service.dataSource.sort = this.sort;
     this.service.dataSource.paginator = this.paginator;
   }
-  onModalDialog(){
+  addphieu(){
     this.service.phieunhap = new PhieuNhap()
     this.router.navigate(['admin/taophieunhap/them'])
   }
 
-  populateForm(selectedRecord:PhieuNhap){
-    this.service.phieunhap = Object.assign({},selectedRecord)
-     this.router.navigate(['admin/taophieunhap/detail'+ this.service.phieunhap.id])
+  populateForm(id:any){
+    this.service.idphieunhap = id
+    this.router.navigate(['admin/taophieunhap/detail/'+id])
 }
 clickDelete(id){
   if(confirm('Bạn có chắc chắn xóa bản ghi này không ??'))

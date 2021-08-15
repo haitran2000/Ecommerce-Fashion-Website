@@ -41,6 +41,7 @@ import { TaoPhieuNhapComponent } from './admin/containers/views/tao-phieu-nhaps/
 import { NhaCungCapsComponent } from './admin/containers/views/nhacungcaps/nhacungcaps.component';
 import { NhaCungCapComponent } from './admin/containers/views/nhacungcaps/nhacungcap/nhacungcap.component';
 import { TaoPhieuNhapSuccessComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhap-success/tao-phieu-nhap-success.component';
+import { TaoPhieuNhapDetailComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhap-detail/tao-phieu-nhap-detail.component';
 
 
 
@@ -197,7 +198,7 @@ export const routes: Routes = [
       },
       {
         path: 'admin/taophieunhap/detail/:id',
-        component: TaoPhieuNhapComponent, canActivate: [AuthGuard],
+        component: TaoPhieuNhapDetailComponent, canActivate: [AuthGuard],
       },
     ]
   },

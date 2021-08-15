@@ -135,16 +135,7 @@ idncc:any
   }
   phieunhappost:any
   onSubmit=(data) =>{
-    this.idUser = localStorage.getItem("idUser")
-  //   console.log("chi tiet thêm", this.chitiets[0])
-  //   let formData = new FormData();
-  //   formData.append('NguoiLapPhieu',this.idUser);
-  //   formData.append('GhiChu', data.GhiChu);
-  //   formData.append('TongTien', this.tongTien().toString());
-  //  for(var i=0;i<this.chitiets.length;i++){
-  //   formData.append("ChiTietPhieuNhaps", this.chitiets[i]);
-  //  }
-  
+    this.idUser = localStorage.getItem("idUser")  
     this.service.phieunhappost.nguoiLapPhieu=this.idUser
     this.service.phieunhappost.ghiChu=data.GhiChu
     this.service.phieunhappost.tongTien=this.tongTien()
