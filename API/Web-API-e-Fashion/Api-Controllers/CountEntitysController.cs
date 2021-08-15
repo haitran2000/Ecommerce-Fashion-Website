@@ -42,7 +42,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet]
         public async Task<ActionResult<int>> GetOrderCount()
         {
-            int count = await (from not in _context.HoaDons
+            int count = await (from not in _context.HoaDons.Where(s=>s.DaLayTien=="Rồi")
                                select not).CountAsync();
             return count;
 
@@ -85,6 +85,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                         on HoaDons.Id = ChiTietHoaDons.Id_HoaDon
                         inner join AspNetUsers
                         on HoaDons.Id_User = AspNetUsers.Id
+                         where HoaDons.DaLayTien = N'Rồi'
                         group by (AspNetUsers.FirstName+' '+AspNetUsers.LastName)";
             var khachHang = new KhachHangMuaNhieuNhat();
             try
@@ -116,14 +117,18 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet("getsanphambanchay")]
         public async Task<ActionResult<TenSanPham>> GetSanPhamBanChayNhatAsync()
         {
-            string sql = @"	select Top(1)Ten, sum(ChiTietHoaDons.Soluong) as'Số sản phẩm bán được'
+            string sql = @"  	select Top(1)Ten, sum(ChiTietHoaDons.Soluong) as'Số sản phẩm bán được'
                         from SanPhams
                         inner join SanPhamBienThes
                         on SanPhams.Id = SanPhamBienThes.Id_SanPham
                         inner join ChiTietHoaDons
 						on ChiTietHoaDons.Id_SanPhamBienThe = SanPhamBienThes.Id
+                        inner join HoaDons
+					    on ChiTietHoaDons.Id_HoaDon = HoaDons.Id
+						 where HoaDons.DaLayTien= N'Rồi'
 						group by Ten
 						order by sum(Soluong) desc
+                       
                         ";
             //var d = await _context.SanPhams.FromSqlRaw(sql).ToListAsync();
             SqlConnection cnn;
@@ -163,7 +168,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             string sql = @"select DATEPART( YYYY,HoaDons.NgayTao) as 'Nam', sum(HoaDons.TongTien) as'Tong tien trong nam'
                             from HoaDons
-                            where DATEPART( YYYY,HoaDons.NgayTao)='2021'
+                            where DATEPART( YYYY,HoaDons.NgayTao)='2021' and HoaDons.DaLayTien= N'Rồi'
                             group by DATEPART( YYYY,HoaDons.NgayTao)
                         ";
             //var d = await _context.SanPhams.FromSqlRaw(sql).ToListAsync();
@@ -241,7 +246,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 							inner join 
 							ChiTietHoaDons
 							on ChiTietHoaDons.Id_HoaDon = HoaDons.Id
-                            where DATEPART( YYYY,HoaDons.NgayTao)='2021'
+                            where DATEPART( YYYY,HoaDons.NgayTao)='2021' and HoaDons.DaLayTien= N'Rồi'
                             group by DATEPART( YYYY,HoaDons.NgayTao)
                         ";
             //var d = await _context.SanPhams.FromSqlRaw(sql).ToListAsync();

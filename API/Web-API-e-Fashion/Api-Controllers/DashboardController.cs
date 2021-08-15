@@ -27,17 +27,13 @@ namespace Web_API_e_Fashion.Api_Controllers
             this._context = context;
             this._hubContext = hubContext;
         }
-        [HttpGet("home")]
-        public IActionResult GetHome()
-        {
-            return new OkObjectResult(new { Message = "This is secure data!" });
-        }
+      
 
         [HttpGet("topthongkethang")]
         public async Task<ActionResult<IEnumerable<ThangRevenue>>> GetDoanhSoThangasync()
         {
          
-            var sells = await _context.HoaDons
+            var sells = await _context.HoaDons.Where(s => s.DaLayTien == "Rồi")
              .GroupBy(a => a.NgayTao.Date.Month)
                  .Select(a => new ThangRevenue { Revenues = a.Sum(b => b.TongTien), Month = a.Key.ToString()  })
                 .OrderBy(a => a.Revenues)
@@ -51,7 +47,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         public async Task<ActionResult<IEnumerable<NgayRevenue>>> GetDoanhSoNgayTheoThangasync([FromForm]string month)
         {
        
-            var sells = await _context.HoaDons
+            var sells = await _context.HoaDons.Where(s=>s.DaLayTien=="Rồi")
                .GroupBy(a => a.NgayTao.Date)
                    .Select(a => new NgayRevenue { Revenues = a.Sum(b => b.TongTien), Ngay = a.Key.Date })
                   .OrderBy(a => a.Revenues)
@@ -79,9 +75,12 @@ namespace Web_API_e_Fashion.Api_Controllers
                         on SanPhamBienThes.SizeId = Sizes.Id
                         inner join ChiTietHoaDons
                         on SanPhamBienThes.Id = ChiTietHoaDons.Id_SanPhamBienThe
+                        inner join HoaDons
+					    on ChiTietHoaDons.Id_HoaDon = HoaDons.Id
+                         where HoaDons.DaLayTien= N'Rồi'
                         group by SanPhams.Ten+' '+Sizes.TenSize+' '+MauSacs.MaMau ,SanPhamBienThes.SoLuongTon
                         order by sum(ChiTietHoaDons.Soluong) desc
-";
+                       ";
          
             var solanxuathiens = new List<TenSPSoLanXuatHienTrongDonHang>();
             try
@@ -122,8 +121,12 @@ namespace Web_API_e_Fashion.Api_Controllers
                     on SanPhamBienThes.SizeId = Sizes.Id
                     inner join ChiTietHoaDons
                     on SanPhamBienThes.Id_SanPham = ChiTietHoaDons.Id
+                    inner join HoaDons
+					on ChiTietHoaDons.Id_HoaDon = HoaDons.Id
+                    where HoaDons.DaLayTien= N'Rồi'
                     group by(SanPhams.Ten+' '+Sizes.TenSize+' '+MauSacs.MaMau)
-                    order by cast(sum(ChiTietHoaDons.ThanhTien) as decimal(18,2)) desc";
+                    order by cast(sum(ChiTietHoaDons.ThanhTien) as decimal(18,2)) desc
+                    ";
             SqlConnection conn = new SqlConnection(_context.Database.GetConnectionString());
             List<TenSanPhamDoanhSo> tenspdss = new List<TenSanPhamDoanhSo>();
             try
@@ -162,7 +165,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                             on ChiTietHoaDons.Id_SanPhamBienThe = SanPhamBienThes.Id
                             inner join HoaDons
                             on HoaDons.Id = ChiTietHoaDons.Id_HoaDon
-                            where DATEPART( YYYY,HoaDons.NgayTao)='2021'
+                            where DATEPART( YYYY,HoaDons.NgayTao)='2021' and HoaDons.DaLayTien like N'Rồi'
                             group by NhanHieus.Ten
                         ";
             //var d = await _context.SanPhams.FromSqlRaw(sql).ToListAsync();
@@ -212,8 +215,12 @@ namespace Web_API_e_Fashion.Api_Controllers
                     on SanPhamBienThes.SizeId = Sizes.Id
                     inner join ChiTietHoaDons
                     on SanPhamBienThes.Id_SanPham = ChiTietHoaDons.Id
+					inner join HoaDons
+					on ChiTietHoaDons.Id_HoaDon = HoaDons.Id
+					  where HoaDons.DaLayTien like N'Rồi'
                     group by(SanPhams.Ten+' '+Sizes.TenSize+' '+MauSacs.MaMau)
                     order by sum(ChiTietHoaDons.ThanhTien) desc
+                   
                         ";
             //var d = await _context.SanPhams.FromSqlRaw(sql).ToListAsync();
             SqlConnection cnn;

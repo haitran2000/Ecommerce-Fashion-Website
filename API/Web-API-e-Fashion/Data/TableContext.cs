@@ -9,7 +9,6 @@ namespace Web_API_e_Fashion.Data
 {
     public partial class DPContext
     {
-      
         public DbSet<NotificationCheckout> NotificationCheckouts { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
@@ -17,12 +16,8 @@ namespace Web_API_e_Fashion.Data
         public DbSet<NhanHieu> NhanHieus { get; set; }
         public DbSet<Loai> Loais { get; set; }
         public DbSet<SanPhamBienThe> SanPhamBienThes { get; set; }
-       
-
         public DbSet<MauSac> MauSacs { get; set; }
-    
         public DbSet<SanPham> SanPhams { get; set; }
-        
         public DbSet<Size> Sizes { get; set; }
         public DbSet<ImageSanPham> ImageSanPhams { get; set; }
         public DbSet<Notification>  Notifications { get; set; }
@@ -30,9 +25,7 @@ namespace Web_API_e_Fashion.Data
         public DbSet<UserLike> UserLikes { get; set; }
         public DbSet<UserComment> UserComments { get; set; }
         public DbSet<NhaCungCap> NhaCungCaps { get; set; }
-
         public DbSet<PhieuNhapHang> PhieuNhapHangs { get; set; }
-
         public DbSet<ChiTietPhieuNhapHang> ChiTietPhieuNhapHangs { get; set; }
         protected void TableBuilder(ModelBuilder modelBuilder)
         {

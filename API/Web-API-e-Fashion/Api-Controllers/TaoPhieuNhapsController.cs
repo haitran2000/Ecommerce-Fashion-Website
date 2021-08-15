@@ -42,9 +42,22 @@ namespace Web_API_e_Fashion.Api_Controllers
             return await _context.SanPhamBienThes.ToListAsync();
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PhieuNhapHang>>> GetAllPhieuNhap()
+        public async Task<ActionResult<IEnumerable<PhieuNhapHangNhaCungCap>>> GetAllPhieuNhap()
         {
-            return await _context.PhieuNhapHangs.ToListAsync();
+            var kb = from ncc in _context.NhaCungCaps
+                     join pnh in _context.PhieuNhapHangs
+                     on ncc.Id equals pnh.Id_NhaCungCap
+                     select new PhieuNhapHangNhaCungCap()
+                     {
+                         Id = pnh.Id,
+                         GhiChu = pnh.GhiChu,
+                         NgayTao = pnh.NgayTao,
+                         NguoiLapPhieu = pnh.NguoiLapPhieu,
+                         SoChungTu = pnh.SoChungTu,
+                         TenNhaCungCap = ncc.Ten,
+                         TongTien = pnh.TongTien,
+                     };
+            return await kb.ToListAsync();
         }
         private static Random random = new Random();
         public static string RandomString(int length)
@@ -79,7 +92,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                      select new SanPhamBienTheMauSizeLoai()
                      {
                          Id = spbt.Id,
-                         TenSanPhamBienTheMauSize = sp.Ten + " " + l.Ten + " " + m.MaMau,
+                         TenSanPhamBienTheMauSize = "Id: "+spbt.Id+" Tên: "+sp.Ten + " " + l.Ten + " " + m.MaMau,
                          GiaNhap = (decimal)sp.GiaNhap,
                      };
             return await kb.ToListAsync();
@@ -93,34 +106,47 @@ namespace Web_API_e_Fashion.Api_Controllers
             {
                 NguoiLapPhieu = uploadPhieuNhap.NguoiLapPhieu,
                 NgayTao = DateTime.Now,
+                Id_NhaCungCap=int.Parse(uploadPhieuNhap.IdNhaCungCap),
                 SoChungTu = RandomString(7),
-
+                TongTien = uploadPhieuNhap.TongTien,
+                GhiChu = uploadPhieuNhap.GhiChu,
             };
             _context.Add(phieuNhap);
             await _context.SaveChangesAsync();
 
-            decimal TongTien = 0;
+
             var phieuNhapTest = await _context.PhieuNhapHangs.FindAsync(phieuNhap.Id);
             List<ChiTietPhieuNhapHang> listctpn = new List<ChiTietPhieuNhapHang>();
-            foreach(var ctpnupload in uploadPhieuNhap.ChiTietPhieuNhaps)
+            foreach (var chitietupload in uploadPhieuNhap.ChiTietPhieuNhaps)
             {
+               
                 ChiTietPhieuNhapHang ctpn = new ChiTietPhieuNhapHang();
-                ctpn.Id_SanPhamBienThe = ctpnupload.Id_SanPhamBienThe;
-                ctpn.SoluongNhap = (int)ctpnupload.SoluongNhap;
-                ctpn.ThanhTienNhap = (decimal)(SPjoinSPBTTraVeGia((int)ctpnupload.Id_SanPhamBienThe) * ctpnupload.SoluongNhap);
-                TongTien = TongTien + ctpn.ThanhTienNhap;
+                ctpn.Id_SanPhamBienThe = XuLyIdSPBT(chitietupload.TenSanPhamBienThe);
+                ctpn.ThanhTienNhap = chitietupload.GiaNhapSanPhamBienThe*chitietupload.SoLuongNhap;
+                ctpn.Id_PhieuNhapHang = phieuNhapTest.Id;
+                ctpn.SoluongNhap = chitietupload.SoLuongNhap;
+
+                SanPhamBienThe spbt = await _context.SanPhamBienThes.FindAsync(XuLyIdSPBT(chitietupload.TenSanPhamBienThe));
+
+                spbt.SoLuongTon = spbt.SoLuongTon + chitietupload.SoLuongNhap;
+               _context.SanPhamBienThes.Update(spbt);
                 listctpn.Add(ctpn);
                 _context.ChiTietPhieuNhapHangs.Add(ctpn);
                 await _context.SaveChangesAsync();
             }
-            phieuNhapTest.TongTien = TongTien;
+
             _context.PhieuNhapHangs.Update(phieuNhapTest);
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
             
         }
-
+        private int XuLyIdSPBT(string s)
+        {
+            string[] arrListStr=s.Split(" ");
+            
+            return int.Parse(arrListStr[1]);
+        }
         public decimal SPjoinSPBTTraVeGia(int IdThamSo)
         {
 

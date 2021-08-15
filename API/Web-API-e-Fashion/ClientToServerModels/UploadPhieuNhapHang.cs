@@ -9,16 +9,12 @@ namespace Web_API_e_Fashion.ClientToServerModels
 {
     public class UploadPhieuNhapHang
     {
-        public int Id { get; set; }
-        public string SoChungTu { get; set; }
-        public DateTime NgayTao { get; set; }
-        public decimal TongTien { get; set; }
+
         public string NguoiLapPhieu { get; set; }
-        public int? Id_NhaCungCap { get; set; }
-        [ForeignKey("Id_NhaCungCap")]
-        public string TrangThaiPhieuNhap { get; set; }
-        public string TrangThaiThanhToan { get; set; }
-        public virtual NhaCungCap NhaCungCap { get; set; }
-        public List<UploadChiTietPhieuNhapHang> ChiTietPhieuNhaps { get; set; }
+        public string GhiChu { get; set; }
+        public decimal TongTien { get; set; }
+        public string IdNhaCungCap { get; set; }
+
+        public ICollection<UploadChiTietPhieuNhapHang> ChiTietPhieuNhaps { get; set; }
     }
 }

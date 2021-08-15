@@ -7,9 +7,12 @@ namespace Web_API_e_Fashion.ClientToServerModels
 {
     public class UploadChiTietPhieuNhapHang
     {
-        public int? SoluongNhap { get; set; }
-        public decimal? ThanhTienNhap { get; set; }
-        public int? Id_PhieuNhapHang { get; set; }
-        public int? Id_SanPhamBienThe { get; set; }
+        public decimal GiaNhapSanPhamBienThe { get; set; }
+        public string TenSanPhamBienThe { get; set; }
+        public int SoLuongNhap { get; set; }
+
+
+
+
     }
 }
