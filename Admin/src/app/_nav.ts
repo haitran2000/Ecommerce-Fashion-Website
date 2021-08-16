@@ -24,7 +24,7 @@ export const navItems: INavData[] = [
   {
     name: 'DS nhà cung cấp',
     url: '/admin/nhacungcaps',
-    icon: 'cil-puzzle',
+    icon: 'cil-library-building',
   },
   {
     name: 'DS nhãn hiệu',
@@ -47,6 +47,11 @@ export const navItems: INavData[] = [
     icon:'cil-dialpad'
   },
   {
+    name:'DS User',
+    url:'/admin/aspnetusers',
+    icon:'cil-address-book'
+  },
+  {
     name: 'DS mã giảm giá',
     url: '/admin/magiamgias',
     icon: 'cil-puzzle',
@@ -57,13 +62,8 @@ export const navItems: INavData[] = [
     icon:'cil-notes'
   },
   {
-    name:'DS User',
-    url:'/admin/aspnetusers',
-    icon:'cil-address-book'
-  },
-  {
-    name:'Tạo phiếu nhập hàng',
+    name:'DS phiếu nhập hàng',
     url:'admin/taophieunhap',
-    icon:'cil-address-book'
+    icon:'cil-list-rich'
   }
 ];

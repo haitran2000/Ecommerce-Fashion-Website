@@ -115,7 +115,7 @@ export class HoaDonService {
 export class HoaDon {
   id: number = 0
   id_User: string
-  ngayTao: Date
+  ngayTao:string
   ghiChi: string //Ghi chú
   tongTien: number
 }

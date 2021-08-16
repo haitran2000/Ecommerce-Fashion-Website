@@ -13,8 +13,8 @@ import * as signalR from '@microsoft/signalr';
 @Component({
   selector: 'app-hoa-dons',
   templateUrl: './hoa-dons.component.html',
-  styleUrls: ['./hoa-dons.component.scss'],
-  providers: [DatePipe]
+  styleUrls: ['./hoa-dons.component.scss']
+  
 })
 export class HoaDonsComponent implements OnInit {
 
@@ -27,13 +27,17 @@ export class HoaDonsComponent implements OnInit {
     public http: HttpClient,
     public dialog: MatDialog,
     public serviceToast: ToastServiceService,
+    public datepipe: DatePipe
   ) { }
   displayedColumns: string[] = ['id', 'id_User', 'ngayTao', 'ghiChi', 'tongTien','thanhToan','trangThai','daLayTien' ,'actions'];
 
 
   public hoadon: HoaDon
   ngOnInit(): void {
+    
     this.service.getAllHoaDons();
+  
+    
   }
 
   ngAfterViewInit(): void {
@@ -54,7 +58,11 @@ export class HoaDonsComponent implements OnInit {
   doFilter = (value: string) => {
     this.service.dataSource.filter = value.trim().toLocaleLowerCase();
   }
-
+  someMethod(value: any, element: any) {
+    console.log("selected value", value);
+    console.log("selected element", element);
+    element.daLayTien = value;
+  }
   populateForm(selectedRecord: HoaDon) {
 
     this.service.hoadon = Object.assign({}, selectedRecord)

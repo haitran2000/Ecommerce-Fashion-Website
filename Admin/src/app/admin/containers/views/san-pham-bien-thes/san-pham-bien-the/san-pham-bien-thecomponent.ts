@@ -129,7 +129,6 @@ export class SanPhamBienTheComponent implements OnInit {
       formData.append('MauId', data.Id_Mau);
       formData.append('SanPhamId', data.Id_SanPham);
       formData.append('SizeId', data.Id_Size);
-      formData.append('file', this.selectedFile);
       formData.append('SoLuongTon', data.SoLuongTon);
       console.log(data);
 
@@ -148,7 +147,6 @@ export class SanPhamBienTheComponent implements OnInit {
       formData.append('MauId', data.Id_Mau);
       formData.append('SanPhamId', data.Id_SanPham);
       formData.append('SizeId', data.Id_Size);
-      formData.append('file', this.selectedFile);
       formData.append('SoLuongTon', data.SoLuongTon);
       this.http.put(environment.URL_API + 'sanphambienthes/' + `${this.service.sanphambienthe.id}`, formData)
         .subscribe(res => {
