@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
@@ -33,26 +34,47 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet("sanphambienthe")]
         public async Task<ActionResult<IEnumerable<SanPhamBienTheMauSizeLoai>>> GetAllSPBTSS()
         {
-            var kb = from spbt in _context.SanPhamBienThes
-                     join sp in _context.SanPhams
-                     on spbt.Id_SanPham equals sp.Id
-                     join l in _context.Loais
-                     on sp.Id_Loai equals l.Id
-                     join m in _context.MauSacs
-                     on spbt.Id_Mau equals m.Id
-                     join s in _context.Sizes
-                     on spbt.SizeId equals s.Id
+            string sql = @"select SanPhamBienThes.Id,SanPhams.Ten,MauSacs.MaMau +' '+Loais.Ten as 'Mau loai'  ,Sizes.TenSize+' '+Loais.Ten as 'Size loai',SanPhamBienThes.SoLuongTon
+from SanPhamBienThes
+inner join MauSacs
+on SanPhamBienThes.Id_Mau = MauSacs.Id
+inner join Sizes
+on SanPhamBienThes.SizeId = Sizes.Id
+inner join SanPhams
+on SanPhams.Id = SanPhamBienThes.Id_SanPham
+inner join Loais
+on Loais.Id = Sizes.Id_Loai
+                        ";
+            //var d = await _context.SanPhams.FromSqlRaw(sql).ToListAsync();
+            SqlConnection cnn;
+            cnn = new SqlConnection(_context.Database.GetConnectionString());
+            SqlDataReader reader;
+            SqlCommand cmd;
+            List<SanPhamBienTheMauSizeLoai> list = new List<SanPhamBienTheMauSizeLoai>();
+            try
+            {
+                await cnn.OpenAsync();
+                cmd = new SqlCommand(sql, cnn);
+                reader = await cmd.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
 
-                     select new SanPhamBienTheMauSizeLoai()
-                     {
-                         Id = spbt.Id,
-                         MauLoai = m.MaMau + " " + l.Ten,
-                         SizeLoai = s.TenSize + " " + l.Ten,
-                         SanPham = sp.Ten,
-                         SoLuongTon=spbt.SoLuongTon,
-                        
-                     };
-            return await kb.ToListAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        list.Add(new SanPhamBienTheMauSizeLoai() { Id = (int)reader["Id"], SanPham = (string)reader["Ten"], MauLoai = (string)reader["Mau loai"] , SizeLoai= (string)reader["Size loai"] ,  SoLuongTon = (int)reader["SoLuongTon"] });
+
+                    }
+                }
+
+                cnn.Close();
+            }
+            catch (Exception ex)
+            {
+
+            };
+
+            return list;
+          
         }
         // GET: api/SanPhamBienThes
         [HttpGet("spbt/{id}")]
@@ -106,23 +128,9 @@ namespace Web_API_e_Fashion.Api_Controllers
             spbt = await _context.SanPhamBienThes.FindAsync(id);
             spbt.Id_Mau = upload.MauId;
             spbt.Id_SanPham = upload.SanPhamId;
-            spbt.SoLuongTon = upload.SoLuongTon;
-            try
-            {
-                _context.SanPhamBienThes.Update(spbt);
-             
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GiaSanPhamExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            spbt.SizeId = upload.SizeId;
+            spbt.SoLuongTon = upload.SoLuongTon;           
+           _context.SanPhamBienThes.Update(spbt);         
             Notification notification = new Notification()
             {
               
@@ -131,7 +139,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             _context.Notifications.Add(notification);
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
-            return NoContent();
+            return Ok();
         
         }
 
@@ -140,7 +148,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPost]
         public async Task<ActionResult<SanPhamBienThe>> PostSanPhamBienThe([FromForm] UploadSanPhamBienThe upload)
         {
-            byte[] a;
+           
 
             Notification notification = new Notification()
             {           

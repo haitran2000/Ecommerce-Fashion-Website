@@ -132,7 +132,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/SanPhams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("capnhattrangthaihoatdong/{id}")]
-        public async Task<IActionResult> PutSanPhamTrangThaiHoatDong(int id,SanPham sp)
+        public async Task<ActionResult> PutSanPhamTrangThaiHoatDong(int id,SanPham sp)
         {
             SanPham sanpham = new SanPham();
             sanpham = await _context.SanPhams.FirstOrDefaultAsync(s => s.Id == id);

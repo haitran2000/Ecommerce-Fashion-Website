@@ -180,17 +180,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                          SoluongNhap = ctpn.SoluongNhap,
                          ThanhTienNhap = ctpn.ThanhTienNhap,
                          Id_PhieuNhapHang = (int)ctpn.Id_PhieuNhapHang
-                     };
-
-
-
-
-
-
-         
-
-
-            
+                     };            
             var kb = (from phieunhap in _context.PhieuNhapHangs
                      join us in _context.AppUsers
                      on phieunhap.NguoiLapPhieu equals us.Id
