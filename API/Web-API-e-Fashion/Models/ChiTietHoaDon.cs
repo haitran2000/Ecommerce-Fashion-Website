@@ -16,6 +16,7 @@ namespace Web_API_e_Fashion.Models
         public int? Id_HoaDon { get; set; }
         [ForeignKey("Id_HoaDon")]
         public virtual HoaDon HoaDon { get; set; }
+      
         public int? Id_SanPhamBienThe { get; set; }
         [ForeignKey("Id_SanPhamBienThe")]
         public virtual SanPhamBienThe SanPhamBienThe { get; set; }

@@ -21,6 +21,7 @@ using Web_API_e_Fashion.Helpers;
 using Web_API_e_Fashion.SignalRModels;
 using Swashbuckle;
 using Microsoft.OpenApi.Models;
+using Web_API_e_Fashion.IdentityViewModels;
 
 namespace Web_API_e_Fashion
 {

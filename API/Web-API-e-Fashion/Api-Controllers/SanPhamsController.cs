@@ -53,9 +53,9 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             string sql = @"
                             	;with ProductImageTable
-	                          as (
-		                        SELECT SanPhams.Id,SanPhams.Ten,ImageSanPhams.ImageName,cast(SanPhams.GiaBan as decimal(18,2)) as'GiaBan',cast(SanPhams.GiaNhap as decimal(18,2))as'GiaNhap',SanPhams.Tag,
-								SanPhams.KhuyenMai,SanPhams.MoTa,SanPhams.HuongDan,SanPhams.ThanhPhan,
+	                            as (
+		                        SELECT COUNT(UserLikes.IdSanPham) as 'soluonglike',COUNT(UserComments.IdSanPham)as 'soluongcomment',SanPhams.Id,SanPhams.Ten,ImageSanPhams.ImageName,cast(SanPhams.GiaBan as decimal(18,2)) as'GiaBan',cast(SanPhams.GiaNhap as decimal(18,2))as'GiaNhap',SanPhams.Tag,
+								SanPhams.KhuyenMai,SanPhams.MoTa,SanPhams.HuongDan,SanPhams.ThanhPhan,ImageSanPhams.Id as 'IdImage',
 								SanPhams.TrangThaiSanPham,SanPhams.TrangThaiHoatDong,Loais.Ten as 'LoaiTen',NhaCungCaps.Ten as 'NhaCungCapTen',NhanHieus.Ten as'NhanHieuTen', 
 		                        ROW_NUMBER() OVER (PARTITION BY SanPhams.Id ORDER BY  ImageSanPhams.Id)  RowNum
 		                        FROM SanPhams LEFT JOIN ImageSanPhams ON SanPhams.Id=ImageSanPhams.IdSanPham inner join Loais
@@ -64,11 +64,18 @@ namespace Web_API_e_Fashion.Api_Controllers
 								on SanPhams.Id_NhanHieu = NhanHieus.Id
                                 left join NhaCungCaps
                                 on SanPhams.Id_NhaCungCap = NhaCungCaps.Id
+								left join UserLikes
+								on UserLikes.IdSanPham = SanPhams.Id
+								left join UserComments
+								on UserComments.IdSanPham = SanPhams.Id
+								group by SanPhams.Id,SanPhams.Ten,ImageSanPhams.ImageName,cast(SanPhams.GiaBan as decimal(18,2)) ,cast(SanPhams.GiaNhap as decimal(18,2)),SanPhams.Tag,
+								SanPhams.KhuyenMai,SanPhams.MoTa,SanPhams.HuongDan,SanPhams.ThanhPhan,ImageSanPhams.Id,
+								SanPhams.TrangThaiSanPham,SanPhams.TrangThaiHoatDong,Loais.Ten ,NhaCungCaps.Ten ,NhanHieus.Ten
 		                          )
-		                    SELECT Id,Ten, ImageName,GiaBan,GiaNhap,Tag,KhuyenMai,MoTa,HuongDan,ThanhPhan,TrangThaiHoatDong,TrangThaiSanPham,LoaiTen,NhaCungCapTen,NhanHieuTen
-		                    from ProductImageTable
-	                        where
-                            ProductImageTable.RowNum = 1
+		                        SELECT Id,Ten,soluonglike,IdImage,soluongcomment, ImageName,GiaBan,GiaNhap,Tag,KhuyenMai,MoTa,HuongDan,ThanhPhan,TrangThaiHoatDong,TrangThaiSanPham,LoaiTen,NhaCungCapTen,NhanHieuTen
+		                        from ProductImageTable
+	                            where
+                                ProductImageTable.RowNum = 1
                             ";
 
 
@@ -101,6 +108,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                             TenLoai = (string)reader["LoaiTen"],
                             TenNhanHieu = (string)reader["NhanHieuTen"],
                             TenNhaCungCap= (string)reader["NhaCungCapTen"],
+                            SoLuongComment = (int)reader["soluongcomment"],
+                            SoLuongLike = (int)reader["soluonglike"],
                         });
                     }
                 }
@@ -128,17 +137,26 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             return sanPham;
         }
-
+        //[HttpPut("capnhattrangthaihoatdong/{id}")]
+        //public async Task<ActionResult> PutSanPhamTrangThaiHoatDong(int id, SanPham sp)
+        //{
+        //    SanPham sanpham = new SanPham();
+        //    sanpham = await _context.SanPhams.FirstOrDefaultAsync(s => s.Id == id);
+        //    sanpham.TrangThaiHoatDong = !sp.TrangThaiHoatDong;
+        //    await _context.SaveChangesAsync();
+        //    await _hubContext.Clients.All.BroadcastMessage();
+        //    return Ok();
+        //}
         // PUT: api/SanPhams/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("capnhattrangthaihoatdong/{id}")]
-        public async Task<ActionResult> PutSanPhamTrangThaiHoatDong(int id,SanPham sp)
+        public ActionResult PutSanPhamTrangThaiHoatDong(int id, SanPham sp)
         {
             SanPham sanpham = new SanPham();
-            sanpham = await _context.SanPhams.FirstOrDefaultAsync(s => s.Id == id);
+            sanpham = _context.SanPhams.FirstOrDefault(s => s.Id == id);
             sanpham.TrangThaiHoatDong = !sp.TrangThaiHoatDong;
-            await _context.SaveChangesAsync();
-            await _hubContext.Clients.All.BroadcastMessage();
+            _context.SaveChanges();
+            _hubContext.Clients.All.BroadcastMessage();
             return Ok();
         }
         [HttpPut("{id}")]

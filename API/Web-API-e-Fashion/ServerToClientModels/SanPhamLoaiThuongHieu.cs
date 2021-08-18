@@ -14,6 +14,8 @@ namespace Web_API_e_Fashion.ResModels
         public string? Tag { get; set; }
         public string? Image { get; set; }
         public int? GioiTinh { get; set; }
+        public int? SoLuongLike { get; set; }
+        public int? SoLuongComment { get; set; }
         public decimal? GiaBan { get; set; }
         public decimal? GiaNhap { get; set; }
         public string? TenNhaCungCap { get; set; }

@@ -148,7 +148,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLoai(int id)
         {
-          
+
             SanPham[] product;
             product = await _context.SanPhams.Where(s => s.Id_Loai == id).ToArrayAsync();
             Size[] sizes;
@@ -156,6 +156,10 @@ namespace Web_API_e_Fashion.Api_Controllers
             MauSac[] mausacs;
             mausacs = await _context.MauSacs.Where(s => s.Id_Loai == id).ToArrayAsync();
             var category = await _context.Loais.FindAsync(id);
+            foreach (var pro in product)
+            {
+
+            };
             Notification notification = new Notification()
             {
                 TenSanPham = category.Ten,
@@ -176,8 +180,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                 _context.MauSacs.RemoveRange(mausacs);
                 await _context.SaveChangesAsync();
                 _context.Loais.Remove(category);
-             
-                _context.SaveChanges();
+
+                await _context.SaveChangesAsync();
                 await _hubContext.Clients.All.BroadcastMessage();
             }
             await _hubContext.Clients.All.BroadcastMessage();

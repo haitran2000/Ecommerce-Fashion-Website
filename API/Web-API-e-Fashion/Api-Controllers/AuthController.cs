@@ -11,8 +11,9 @@ using System.Threading.Tasks;
 using Web_API_e_Fashion.Auth;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Helpers;
+using Web_API_e_Fashion.IdentityViewModels;
 using Web_API_e_Fashion.Models;
-using Web_API_e_Fashion.ViewModels;
+
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
