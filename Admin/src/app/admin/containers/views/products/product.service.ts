@@ -68,4 +68,6 @@ export class Product {
   sanPham_SanPhamThietKe: number
   tenNhanHieu: string
   tenLoai: string
+  soLuongLike:number
+  soLuongComment:number
 }

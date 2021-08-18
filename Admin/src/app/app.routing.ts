@@ -42,6 +42,7 @@ import { NhaCungCapsComponent } from './admin/containers/views/nhacungcaps/nhacu
 import { NhaCungCapComponent } from './admin/containers/views/nhacungcaps/nhacungcap/nhacungcap.component';
 import { TaoPhieuNhapSuccessComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhap-success/tao-phieu-nhap-success.component';
 import { TaoPhieuNhapDetailComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhap-detail/tao-phieu-nhap-detail.component';
+import { ChartThirdComponent } from './admin/containers/views/chart-third/chart-third.component';
 
 
 
@@ -107,6 +108,9 @@ export const routes: Routes = [
         path: 'admin/chartsecond',
         component: ChartSecondComponent
       },
+      {
+        path: 'admin/chartthird',
+        component: ChartThirdComponent      },
       {
         path: 'admin/dashboard',
         component: DashboardComponent, canActivate: [AuthGuard],

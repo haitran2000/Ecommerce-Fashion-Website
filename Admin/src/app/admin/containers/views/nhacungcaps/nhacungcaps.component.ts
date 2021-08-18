@@ -19,68 +19,68 @@ import { NhaCungCap, NhaCungCapService } from './nhacungcap.service';
 })
 export class NhaCungCapsComponent implements OnInit, AfterViewInit {
 
-  
+
   @ViewChild(MatSort) sort: MatSort;
- 
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   productList: any[];
-  constructor(public service:NhaCungCapService,
-              public router : Router,
-              public http: HttpClient,
-              public dialog: MatDialog,
-              public serviceToast : ToastServiceService,) { }
+  constructor(public service: NhaCungCapService,
+    public router: Router,
+    public http: HttpClient,
+    public dialog: MatDialog,
+    public serviceToast: ToastServiceService,) { }
 
-displayedColumns: string[] = ['id', 'ten','sdt','thongTin','diaChi',
-  'actions'];
+  displayedColumns: string[] = ['id', 'ten', 'sdt', 'thongTin', 'diaChi',
+    'actions'];
 
 
   ngOnInit(): void {
     this.service.getAllNhaCungCaps();
     const connection = new signalR.HubConnectionBuilder()
-    .configureLogging(signalR.LogLevel.Information)
-    .withUrl('https://localhost:44302/notify')
-    .build();
+      .configureLogging(signalR.LogLevel.Information)
+      .withUrl('https://localhost:44302/notify')
+      .build();
 
-  connection.start().then(function () {
-    console.log('SignalR Connected!');
-  }).catch(function (err) {
-    return console.error(err.toString());
-  });
+    connection.start().then(function () {
+      console.log('SignalR Connected!');
+    }).catch(function (err) {
+      return console.error(err.toString());
+    });
 
-  connection.on("BroadcastMessage", () => {
-    this.service.getAllNhaCungCaps();
-  });
+    connection.on("BroadcastMessage", () => {
+      this.service.getAllNhaCungCaps();
+    });
   }
-  
+
   ngAfterViewInit(): void {
     this.service.dataSource.sort = this.sort;
     this.service.dataSource.paginator = this.paginator;
   }
 
-  onModalDialog(){
+  onModalDialog() {
     this.service.nhacungcap = new NhaCungCap()
     this.dialog.open(NhaCungCapComponent)
-    
+
   }
 
- doFilter = (value: string) => {
-  this.service.dataSource.filter = value.trim().toLocaleLowerCase();
-}
+  doFilter = (value: string) => {
+    this.service.dataSource.filter = value.trim().toLocaleLowerCase();
+  }
 
-  populateForm(selectedRecord:NhaCungCap){
-    this.service.nhacungcap = Object.assign({},selectedRecord)
+  populateForm(selectedRecord: NhaCungCap) {
+    this.service.nhacungcap = Object.assign({}, selectedRecord)
     this.dialog.open(NhaCungCapComponent)
+  }
+  clickDelete(id) {
+    if (confirm('Bạn có chắc chắn xóa bản ghi này không ??')) {
+      this.service.delete(id).subscribe(
+        res => {
+          this.serviceToast.showToastXoaThanhCong()
+          this.service.getAllNhaCungCaps()
+        }, err => {
+          this.serviceToast.showToastXoaThatBai()
+        }
+      )
+    }
+  }
 }
-  clickDelete(id){
-  if(confirm('Bạn có chắc chắn xóa bản ghi này không ??'))
-  {
-    this.service.delete(id).subscribe(
-      res=>{
-        this.serviceToast.showToastXoaThanhCong()
-        this.service.getAllNhaCungCaps()
-      },err=>{
-        this.serviceToast.showToastXoaThatBai()
-      }
-    )
-}
-}}

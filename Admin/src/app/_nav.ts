@@ -7,9 +7,14 @@ export const navItems: INavData[] = [
     icon: 'cil-chart-line',
   },
   {
-    name: 'Biểu đồ shop',
+    name: 'Biểu đồ bán hàng',
     url: '/admin/chartsecond',
     icon: 'cil-chart',
+  },
+  {
+    name: 'Biểu đồ nhập hàng',
+    url: '/admin/chartthird',
+    icon: 'cil-bar-chart',
   },
   {
     name: 'DS sản phẩm',
