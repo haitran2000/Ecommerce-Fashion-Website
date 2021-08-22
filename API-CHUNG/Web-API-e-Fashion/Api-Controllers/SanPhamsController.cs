@@ -21,7 +21,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SanPhamsController : ControllerBase
+    public class SanPhamsController : Controller
     {
         private readonly DPContext _context;
         private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
@@ -30,7 +30,105 @@ namespace Web_API_e_Fashion.Api_Controllers
             _context = context;
             _hubContext = hubContext;
         }
+        [HttpPost("size/{id}")]
+        public async Task<ActionResult> Size(int idLoai)
+        {
+            var resuft = _context.Sizes.Where(d => d.Id_Loai == 7).Select(
+                d=> new TenSizeLoai { 
+                SizeLoaiTen=d.TenSize});
+            return Json(resuft);
+        }
+        [HttpPost("mau/{id}")]
+        public async Task<ActionResult<IEnumerable<MauSac>>> Mau(int idLoai)
+        {
+            return await _context.MauSacs.Where(d=>d.Id_Loai==7).ToListAsync();
+        }
+        [HttpPost("like")]
+        public async Task<ActionResult> LikeSanPham(UserLike userlike)
+        {
+            var resuft = _context.UserLikes.Where(d => d.IdSanPham == userlike.IdSanPham && d.IdUser == userlike.IdUser).FirstOrDefault();
+            if(resuft==null)
+            {
+                resuft = new UserLike { 
+                    IdSanPham=userlike.IdSanPham,
+                    IdUser=userlike.IdUser,
+                };
+                _context.Add(resuft);
+                _context.SaveChanges();
+                return Json(1);
+            } 
+            else
+            {
+                _context.Remove(resuft);
+                _context.SaveChanges();
+                return Json(2);
+            }
+           
+        }
+        [HttpPost("dslike")]
+        public async Task<ActionResult> ListLikeSanPham(UserLike userlike)
+        {
+            var resuft = _context.UserLikes.Where(d => d.IdUser == userlike.IdUser).Select(
+                d => new SanPhamLike
+                {
+                    id = d.IdSanPham,
+                    ten = _context.SanPhams.Where(s => s.Id == d.IdSanPham).Select(s => s.Ten).FirstOrDefault(),
+                    gia = (decimal)_context.SanPhams.Where(s => s.Id == d.IdSanPham).Select(s => s.Gia).FirstOrDefault(),
+                }); ;
 
+            return Json(resuft);
+        }
+        [HttpPost("review")]
+        public async Task<ActionResult> Review(UserComment usercomment)
+        {
+
+
+            var resuft = new UserComment
+            {
+                NgayComment = DateTime.Now,
+                IdSanPham= usercomment.IdSanPham,
+                Content=usercomment.Content,
+                IdUser = usercomment.IdUser,
+            };
+            _context.Add(resuft);
+            _context.SaveChanges();
+            var listcomment = _context.UserComments.Where(d => d.IdSanPham == usercomment.IdSanPham).Select(
+                d => new Review
+                {
+                    Content = d.Content,
+                    tenUser = _context.AppUsers.Where(s => s.Id == d.IdUser).Select(s => s.FirstName + " " + s.LastName).SingleOrDefault(),
+                    NgayComment= d.NgayComment
+                }
+                );
+            return Json(listcomment) ;
+        }
+        [HttpPost("listreview")]
+        public async Task<ActionResult> ListReview(UserComment usercomment)
+        {
+            var listcomment = _context.UserComments.Where(d => d.IdSanPham == usercomment.IdSanPham).Select(
+                d => new Review
+                {
+                    Content = d.Content,
+                    tenUser = _context.AppUsers.Where(s => s.Id == d.IdUser).Select(s => s.FirstName + " " + s.LastName).SingleOrDefault(),
+                    NgayComment = d.NgayComment
+                }
+                );
+            return Json(listcomment);
+        }
+        [HttpPost("checklike")]
+        public async Task<ActionResult> checkLikeSanPham(UserLike userlike)
+        {
+            var resuft = _context.UserLikes.Where(d => d.IdSanPham == userlike.IdSanPham && d.IdUser == userlike.IdUser).FirstOrDefault();
+           if(resuft==null)
+            {
+                return Json(1);
+            }    
+           else
+            {
+                return Json(2);
+            }    
+            
+        }
         [HttpGet("sp")]
         public async Task<ActionResult<IEnumerable<SanPham>>> GetSps()
         {
@@ -456,7 +554,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet("laytatcasanpham")]
         public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> Laytatcasanpham()
         {
-            var kb = _context.SanPhams.Select(
+            var kb =  _context.SanPhams.Select(
                    s => new SanPhamLoaiThuongHieu()
                    {
 
@@ -467,6 +565,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                        KhuyenMai = s.KhuyenMai,
                        MoTa = s.MoTa,
                        HuongDan = s.HuongDan,
+                       GioiTinh = s.GioiTinh,
                        ThanhPhan = s.ThanhPhan,
                        TrangThaiSanPham = s.TrangThaiSanPham,
                        TrangThaiHoatDong = s.TrangThaiHoatDong,
@@ -478,5 +577,57 @@ namespace Web_API_e_Fashion.Api_Controllers
                    }).ToList();
             return kb;
         }
+        [HttpGet("topsanphammoi")]
+        public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> DanhSachHangMoi()
+        {
+            var kb = _context.SanPhams.Where(d => d.TrangThaiSanPham == "hot").Select(
+                   s => new SanPhamLoaiThuongHieu()
+                   {
+
+                       Id = s.Id,
+                       Ten = s.Ten,
+                       Gia = s.Gia,
+                       Tag = s.Tag,
+                       KhuyenMai = s.KhuyenMai,
+                       MoTa = s.MoTa,
+                       HuongDan = s.HuongDan,
+                       GioiTinh = s.GioiTinh,
+                       ThanhPhan = s.ThanhPhan,
+                       TrangThaiSanPham = s.TrangThaiSanPham,
+                       TrangThaiHoatDong = s.TrangThaiHoatDong,
+                       Id_Loai = s.Id_Loai,
+                       Id_NhanHieu = s.Id_NhanHieu,
+                       TenLoai = _context.Loais.Where(d => d.Id == s.Id_Loai).Select(d => d.Ten).FirstOrDefault(),
+                       TenNhanHieu = _context.NhanHieus.Where(d => d.Id == s.Id_NhanHieu).Select(d => d.Ten).FirstOrDefault(),
+                       Image = _context.ImageSanPhams.Where(q => q.IdSanPham == s.Id).Select(q => q.ImageName).FirstOrDefault(),
+                   }).Take<SanPhamLoaiThuongHieu>(4).ToList();
+            return kb;
+        }
+        //[HttpGet("topsanphambanchay")]
+        //public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> SanPhamBanChay()
+        //{
+        //    var kb = _context.SanPhams.Where(d => d.TrangThaiSanPham == "hot").Select(
+        //           s => new SanPhamLoaiThuongHieu()
+        //           {
+
+        //               Id = s.Id,
+        //               Ten = s.Ten,
+        //               Gia = s.Gia,
+        //               Tag = s.Tag,
+        //               KhuyenMai = s.KhuyenMai,
+        //               MoTa = s.MoTa,
+        //               HuongDan = s.HuongDan,
+        //               GioiTinh = s.GioiTinh,
+        //               ThanhPhan = s.ThanhPhan,
+        //               TrangThaiSanPham = s.TrangThaiSanPham,
+        //               TrangThaiHoatDong = s.TrangThaiHoatDong,
+        //               Id_Loai = s.Id_Loai,
+        //               Id_NhanHieu = s.Id_NhanHieu,
+        //               TenLoai = _context.Loais.Where(d => d.Id == s.Id_Loai).Select(d => d.Ten).FirstOrDefault(),
+        //               TenNhanHieu = _context.NhanHieus.Where(d => d.Id == s.Id_NhanHieu).Select(d => d.Ten).FirstOrDefault(),
+        //               Image = _context.ImageSanPhams.Where(q => q.IdSanPham == s.Id).Select(q => q.ImageName).FirstOrDefault(),
+        //           }).Take<SanPhamLoaiThuongHieu>(4).ToList();
+        //    return kb;
+        //}
     }
 }

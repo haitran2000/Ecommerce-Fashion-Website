@@ -15,6 +15,7 @@ namespace Web_API_e_Fashion.ResModels
         public string? Image { get; set; }
         public decimal? Gia { get; set; }
         public decimal? GiaNhap { get; set; }
+        public int? GioiTinh { get; set; }
         public string? TrangThaiSanPham { get; set; }
         public string? TrangThaiSanPhamThietKe { get; set; }
         public string? TrangThaiHoatDong { get; set; }

@@ -15,4 +15,9 @@ namespace Web_API_e_Fashion.ServerToClientModels
         public string Size { get; set; }
         public ProductDetail ProductDetail { get; set; }
     }
+    public class CountComment
+    {
+        public SanPham sanpham { get; set; }
+        public int socomment { get; set; }
+    }
 }

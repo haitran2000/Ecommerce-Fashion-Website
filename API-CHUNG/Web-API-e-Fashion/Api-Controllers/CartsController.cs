@@ -83,6 +83,23 @@ namespace Web_API_e_Fashion.Api_Controllers
                 }).ToList();
             return Json(resuft1);
         }
+        [HttpPost("coutcomment")]
+        public async Task<ActionResult> CoutComment()
+        {
+            var list_id_san_pham = _context.SanPhams.Select(d => d.Id).ToList();
+            var resuft = new List<CountComment>();
+            for(int i=0;i<list_id_san_pham.Count();i++)
+            {
+                resuft.Add(new CountComment
+                {
+                    sanpham = _context.SanPhams.Where(d => d.Id == list_id_san_pham[i]).FirstOrDefault(),
+                    socomment = _context.UserComments.Where(d => d.IdSanPham == list_id_san_pham[i]).Count(),
+
+                });
+            }
+
+            return Json(resuft);
+        }
 
         // GET: api/Carts/5
         [HttpGet("{id}")]
@@ -149,13 +166,13 @@ namespace Web_API_e_Fashion.Api_Controllers
                 newCart.Gia = _context.SanPhams.Where(d => d.Id == cart.SanPhamId).Select(d => d.Gia).FirstOrDefault();
                 newCart.SoLuong = cart.SoLuong;
                 _context.Carts.Add(newCart);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
             }
             else
             {
                 shoppingCartItem.SoLuong = shoppingCartItem.SoLuong + cart.SoLuong;
             }
-            await _context.SaveChangesAsync();
+             _context.SaveChanges();
 
             return CreatedAtAction("GetCart", new { id = cart.CartID }, cart);
         }
