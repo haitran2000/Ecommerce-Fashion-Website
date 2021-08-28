@@ -14,7 +14,6 @@
     <Compile Remove="wwwroot\Images\san-pham-bien-the\**" />
     <Compile Remove="wwwroot\Images\sptk\**" />
     <Compile Remove="wwwroot\Images\user\**" />
-    <Compile Remove="wwwroot\NewFolder\**" />
     <Content Remove="Template\**" />
     <Content Remove="wwwroot\Images\brand\**" />
     <Content Remove="wwwroot\Images\category\**" />
@@ -22,7 +21,6 @@
     <Content Remove="wwwroot\Images\san-pham-bien-the\**" />
     <Content Remove="wwwroot\Images\sptk\**" />
     <Content Remove="wwwroot\Images\user\**" />
-    <Content Remove="wwwroot\NewFolder\**" />
     <EmbeddedResource Remove="Template\**" />
     <EmbeddedResource Remove="wwwroot\Images\brand\**" />
     <EmbeddedResource Remove="wwwroot\Images\category\**" />
@@ -30,7 +28,6 @@
     <EmbeddedResource Remove="wwwroot\Images\san-pham-bien-the\**" />
     <EmbeddedResource Remove="wwwroot\Images\sptk\**" />
     <EmbeddedResource Remove="wwwroot\Images\user\**" />
-    <EmbeddedResource Remove="wwwroot\NewFolder\**" />
     <None Remove="Template\**" />
     <None Remove="wwwroot\Images\brand\**" />
     <None Remove="wwwroot\Images\category\**" />
@@ -38,7 +35,6 @@
     <None Remove="wwwroot\Images\san-pham-bien-the\**" />
     <None Remove="wwwroot\Images\sptk\**" />
     <None Remove="wwwroot\Images\user\**" />
-    <None Remove="wwwroot\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -81,10 +77,23 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.11.0" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="Wkhtmltopdf.NetCore" Version="3.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\Images\list-image-product\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\assets\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\assets\images\invoice.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="wkhtmltopdf\Windows\wkhtmltopdf.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

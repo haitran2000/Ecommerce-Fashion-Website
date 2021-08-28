@@ -22,6 +22,7 @@ using Web_API_e_Fashion.SignalRModels;
 using Swashbuckle;
 using Microsoft.OpenApi.Models;
 using Web_API_e_Fashion.IdentityViewModels;
+using Wkhtmltopdf.NetCore;
 
 namespace Web_API_e_Fashion
 {
@@ -52,9 +53,9 @@ namespace Web_API_e_Fashion
                 options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
                 options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
             });
-           
 
 
+            services.AddWkhtmltopdf("wkhtmltopdf");
             services.AddMvc();
             services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
                 builder
@@ -114,9 +115,9 @@ namespace Web_API_e_Fashion
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseHttpsRedirection();
+         
          
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
             var tokenValidationParameters = new TokenValidationParameters
@@ -137,8 +138,8 @@ namespace Web_API_e_Fashion
 
             app.UseRouting();
             app.UseAuthentication();
-        
-          
+            app.UseRouting();
+
             app.UseAuthorization();
 
             app.UseCors("CorsPolicy");

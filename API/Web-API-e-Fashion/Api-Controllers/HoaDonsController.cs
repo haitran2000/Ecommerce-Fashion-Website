@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using OfficeOpenXml;
@@ -31,9 +32,25 @@ namespace Web_API_e_Fashion.Api_Controllers
             this._hubContext = hubContext;
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HoaDon>>> HoaDons()
+        public async Task<ActionResult<IEnumerable<HoaDonUser>>> HoaDons()
         {
-            return await _context.HoaDons.ToListAsync();
+            var kb = from hd in _context.HoaDons
+                     join us in _context.AppUsers
+                     on hd.Id_User equals us.Id
+                     select new HoaDonUser()
+                     {
+
+                         DaLayTien = hd.DaLayTien,
+                         GhiChu = hd.GhiChu,
+                         Id = hd.Id,
+                         LoaiThanhToan = hd.LoaiThanhToan,
+                         NgayTao = hd.NgayTao,
+                         TrangThai = hd.TrangThai,
+                         TongTien = hd.TongTien,
+                         FullName = us.FirstName + ' ' + us.LastName,
+
+                     };
+            return await kb.ToListAsync();
         }
 
         public decimal SPjoinSPBTTraVeGiaBan(int IdThamSo)
@@ -51,48 +68,115 @@ namespace Web_API_e_Fashion.Api_Controllers
             return (decimal)kb.GiaBan;
         }
 
-
         [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<ChiTietHoaDonSanPhamBienTheViewModel>>> GetChiTietHoaDonSanPhamBienTheViewModel(int id)
+        public async Task<ActionResult<MotHoaDon>> HoaDonDetailAsync(int id)
         {
-            var kb = from spbt in _context.SanPhamBienThes
-                     join sp in _context.SanPhams
-                     on spbt.Id_SanPham equals sp.Id
-                     join cthd in _context.ChiTietHoaDons
-                     on spbt.Id equals cthd.Id_SanPhamBienThe
-                     join hd in _context.HoaDons
-                     on cthd.Id_HoaDon equals hd.Id
-                     join size in _context.Sizes
-                     on spbt.SizeId equals size.Id
-                     join mau in _context.MauSacs
-                     on spbt.Id_Mau equals mau.Id
+            string sql = @"		;with ProductImageTable
+	                            as (
+		                        SELECT ChiTietHoaDons.Id,SanPhams.Ten,ImageSanPhams.ImageName,Sizes.TenSize,MauSacs.MaMau,ChiTietHoaDons.Soluong,cast(SanPhams.GiaBan as decimal(18,2)) as'GiaBan',ChiTietHoaDons.ThanhTien,
+										
+		                        ROW_NUMBER() OVER (PARTITION BY ChiTietHoaDons.Id ORDER BY  ImageSanPhams.Id)  RowNum
+		                        FROM SanPhams 
+								LEFT JOIN ImageSanPhams 
+								ON SanPhams.Id=ImageSanPhams.IdSanPham 
+								inner join SanPhamBienThes
+								on SanPhamBienThes.Id_SanPham = SanPhams.Id
+								inner join Sizes
+								on SanPhamBienThes.SizeId = Sizes.Id
+								inner join MauSacs
+								on SanPhamBienThes.Id_Mau = MauSacs.Id
+								inner join ChiTietHoaDons
+								on ChiTietHoaDons.Id_SanPhamBienThe = SanPhamBienThes.Id
+								inner join HoaDons
+								on HoaDons.Id = ChiTietHoaDons.Id_HoaDon
+								where ChiTietHoaDons.Id_HoaDon = @value
+		                          )
+		                        SELECT Id,Ten,ImageName,TenSize,MaMau,Soluong,GiaBan,ThanhTien
+		                        from ProductImageTable
+	                            where
+                                ProductImageTable.RowNum = 1
+";
+            SqlConnection cnn;
+            cnn = new SqlConnection(_context.Database.GetConnectionString());
+            SqlDataReader reader;
+            SqlCommand cmd;
+            var list = new List<NhieuChiTietHoaDon>();
 
+            try
+            {
+                await cnn.OpenAsync();
+                SqlParameter param = new SqlParameter();
 
-                     select new ChiTietHoaDonSanPhamBienTheViewModel()
+                cmd = new SqlCommand(sql, cnn);
+                param.ParameterName = "@value";
+                param.Value = id;
+                cmd.Parameters.Add(param);
+                reader = await cmd.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
+
+                    while (await reader.ReadAsync())
+                    {
+
+                        list.Add(new NhieuChiTietHoaDon()
+                        {
+                            Id = (int)reader["Id"],
+                            Ten = (string)reader["Ten"],
+                            Hinh = (string)reader["ImageName"],
+                            GiaBan = (decimal)reader["GiaBan"],
+                            MauSac = (string)reader["MaMau"],
+                            Size = (string)reader["TenSize"],
+                            SoLuong = (int)reader["SoLuong"],
+                            ThanhTien = (decimal)reader["ThanhTien"]
+                        });
+                    }
+                }
+
+                await cnn.CloseAsync();
+            }
+            catch (Exception ex)
+            {
+
+            };
+
+          
+
+            var hd = from h in _context.HoaDons
+                     join us in _context.AppUsers
+                     on h.Id_User equals us.Id
+                     select new MotHoaDon()
                      {
-                         IdCTHD = cthd.Id,
-                         TenSanPham = sp.Ten,
-                         LoaiThanhToan = hd.LoaiThanhToan,
-                         DaLayTien = hd.DaLayTien,
-                         TrangThai = hd.TrangThai,
-                         GiaBan = (decimal)sp.GiaBan,
-                         SoLuong = cthd.Soluong,
-                         ThanhTien = cthd.ThanhTien,
-                         Id_HoaDon = (int)cthd.Id_HoaDon,
-                         TenMau = mau.MaMau,
-                         TenSize = size.TenSize,
+                         Id = h.Id,
+                         FullName = us.LastName + ' ' + us.FirstName,
+                         DiaChi = us.DiaChi,
+                         Email = us.Email,
+                         SDT = us.SDT,
+                         hoaDon = new HoaDon()
+                         {
+                             DaLayTien = h.DaLayTien,
+                             LoaiThanhToan = h.LoaiThanhToan,
+                             Id_User = h.Id_User,
+                             TongTien = h.TongTien,
+                             GhiChu = h.GhiChu,
+                             NgayTao = h.NgayTao,
+                             TrangThai = h.TrangThai
+
+                         },
+                         chiTietHoaDons = list,
 
                      };
-            return await kb.Where(s => s.Id_HoaDon == id).ToListAsync();
+            return await hd.FirstOrDefaultAsync(s => s.Id == id);
+
         }
+
         [HttpPost]
         public async Task<ActionResult<HoaDon>> TaoHoaDon(HoaDon hd)
         {
-         
+
             HoaDon hoaDon = new HoaDon()
             {
                 GhiChu = hd.GhiChu,
-                DaLayTien=hd.DaLayTien,
+                DaLayTien = hd.DaLayTien,
                 Id_User = hd.Id_User,
                 NgayTao = DateTime.Now,
                 LoaiThanhToan = hd.LoaiThanhToan,
@@ -142,6 +226,28 @@ namespace Web_API_e_Fashion.Api_Controllers
             };
             hoaDonTest.TongTien = TongTien;
             _context.HoaDons.Update(hoaDonTest);
+            await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
+            return Ok();
+        }
+        //[HttpPut("suatrangthai/{id}")]
+        //public IActionResult SuaTrangThai(int id, HoaDonUser hd)
+        //{
+        //    var kq =  _context.HoaDons.Find(id);
+        //    kq.TrangThai = hd.TrangThai;
+        //    kq.DaLayTien = hd.DaLayTien;
+        //    _context.HoaDons.Update(kq);
+        //   _context.SaveChangesAsync();
+        //     _hubContext.Clients.All.BroadcastMessage();
+        //    return Ok();
+        //}
+        [HttpPut("suatrangthai/{id}")]
+        public async Task<IActionResult> SuaTrangThai(int id, HoaDonUser hd)
+        {
+            var kq = await _context.HoaDons.FindAsync(id);
+            kq.TrangThai = hd.TrangThai;
+            kq.DaLayTien = hd.DaLayTien;
+            _context.HoaDons.Update(kq);
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();

@@ -47,12 +47,14 @@ namespace Web_API_e_Fashion.Api_Controllers
             var kb = from ncc in _context.NhaCungCaps
                      join pnh in _context.PhieuNhapHangs
                      on ncc.Id equals pnh.Id_NhaCungCap
+                     join us in _context.AppUsers
+                     on pnh.NguoiLapPhieu equals us.Id
                      select new PhieuNhapHangNhaCungCap()
                      {
                          Id = pnh.Id,
                          GhiChu = pnh.GhiChu,
                          NgayTao = pnh.NgayTao,
-                         NguoiLapPhieu = pnh.NguoiLapPhieu,
+                         NguoiLapPhieu = us.FirstName +' '+us.LastName,
                          SoChungTu = pnh.SoChungTu,
                          TenNhaCungCap = ncc.Ten,
                          TongTien = pnh.TongTien,
@@ -205,7 +207,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                          ChiTietPhieuNhaps = (List<TenSanPhamBienTheChiTietPhieuNhap>)listDetail.Where(s=>s.Id_PhieuNhapHang==id),
 
                      });
-            return kb.FirstOrDefault(s=>s.Id==id);
+            return await kb.FirstOrDefaultAsync(s=>s.Id==id);
            
         }
         [HttpPut("{id}")]

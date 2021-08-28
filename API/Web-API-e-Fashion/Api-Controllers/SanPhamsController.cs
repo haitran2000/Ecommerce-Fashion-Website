@@ -12,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 using Web_API_e_Fashion.ClientToServerModels;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
-using Web_API_e_Fashion.ResModels;
 using Web_API_e_Fashion.ServerToClientModels;
 using Web_API_e_Fashion.SignalRModels;
 using Web_API_e_Fashion.UploadFileModels;
@@ -32,21 +31,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             _hubContext = hubContext;
         }
 
-        [HttpGet("sp")]
-        public async Task<ActionResult<IEnumerable<SanPham>>> GetSps()
-        {
-            return await _context.SanPhams.ToListAsync();
-        }
- //       @"select SanPhams.Id,SanPhams.Ten,ImageSanPhams.ImageName,cast(SanPhams.Gia as decimal(18,2)) as'Gia',cast(SanPhams.GiaNhap as decimal(18,2))as'GiaNhap',SanPhams.Tag,
-	//SanPhams.KhuyenMai,SanPhams.MoTa,SanPhams.HuongDan,SanPhams.ThanhPhan,
-	//SanPhams.TrangThaiSanPham,SanPhams.TrangThaiHoatDong,Loais.Ten as 'LoaiTen',NhanHieus.Ten as'NhanHieuTen'
-	//from SanPhams
-	//inner join Loais
-	//on SanPhams.Id_Loai = Loais.Id
-	//inner join NhanHieus
-	//on SanPhams.Id_NhanHieu = NhanHieus.Id
-	//left join ImageSanPhams
-	//on SanPhams.Id = ImageSanPhams.IdSanPham"
+     
         // GET: api/SanPhams
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> GetSanPhams()
