@@ -12,7 +12,12 @@
     "module": "es2020",
     "target": "es2015",
     "typeRoots": [
-      "node_modules/@types"
+      "node_modules/@types",
+      "node_modules/@boldreports/types"
+    ],
+    "types": [
+      "jquery",
+      "reports.all"
     ],
     "lib": [
       "esnext",

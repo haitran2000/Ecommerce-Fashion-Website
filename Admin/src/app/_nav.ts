@@ -9,7 +9,7 @@ export const navItems: INavData[] = [
   {
     name: 'Biểu đồ bán hàng',
     url: '/admin/chartsecond',
-    icon: 'cil-chart',
+    icon: 'cil-chart-pie',
   },
   {
     name: 'Biểu đồ nhập hàng',

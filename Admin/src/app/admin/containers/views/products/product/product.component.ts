@@ -50,13 +50,13 @@ export class ProductComponent implements OnInit {
 
   categories: any[] = [];
   brands: any[] = [];
-  constructor(private service: ProductService,
-    private http: HttpClient,
-    private router: Router,
-    private serviceToast: ToastServiceService,
-    private serviceCategory: CategoryService,
-    private serviceBrand: BrandService,
-    private serviceNhaCungCap:NhaCungCapService) {
+  constructor(public service: ProductService,
+    public http: HttpClient,
+    public router: Router,
+    public serviceToast: ToastServiceService,
+    public serviceCategory: CategoryService,
+    public serviceBrand: BrandService,
+    public serviceNhaCungCap:NhaCungCapService) {
   }
   onSelectedList() {
     this.router.navigate(['admin/products']);

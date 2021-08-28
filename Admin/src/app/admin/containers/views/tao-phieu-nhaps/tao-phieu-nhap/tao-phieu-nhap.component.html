@@ -1,11 +1,10 @@
 <mat-horizontal-stepper [linear]=true #stepper>
-    <mat-step [stepControl]="firstFormGroup" >
+    <mat-step [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
             <ng-template matStepLabel>Lựa chọn nhà cung cấp</ng-template>
 
             <mat-label style="font-weight: bold;">Nhà cung cấp</mat-label>
-            <select class="form-control" [(ngModel)]="this.service.phieunhapchange.nhacungcap"
-                (change)="getSanPhamNhaCungCap($event)" style="width:70%">
+            <select class="form-control" [(ngModel)]="this.service.phieunhapchange.nhacungcap" (change)="getSanPhamNhaCungCap($event)" style="width:70%">
                 <option *ngFor="let item of this.nhacungcaps" [value]="item.id">
                     {{item.ten}}
                 </option>
@@ -72,16 +71,14 @@
                         <div class="container" style="width: 30vw;">
                             <div class="form-group">
                                 <span class="label label-default">Tên sản phẩm</span>
-                                <select class="form-control" [(ngModel)]="this.service.phieunhapchange.sanpham"
-                                    (change)="getSanPhamBienTheSanPham($event)">
+                                <select class="form-control" [(ngModel)]="this.service.phieunhapchange.sanpham" (change)="getSanPhamBienTheSanPham($event)">
                                     <option *ngFor="let item of this.sanphams" [value]="item.id">{{item.ten}}
                                     </option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <span class="label label-default">Tên sản phẩm biến thể</span>
-                                <select  class="form-control"  formControlName="TenSanPhamBienThe"
-                             >
+                                <select class="form-control" [disabled]="selectedFruit !== 'Apple'" formControlName="TenSanPhamBienThe">
                                     <option *ngFor="let item of this.sanphambienthes"
                                         [value]="item.tenSanPhamBienTheMauSize">
                                         {{item.tenSanPhamBienTheMauSize}}
@@ -91,11 +88,11 @@
                             </div>
                             <div class="form-group">
                                 <span class="label label-default">Giá nhập sản phẩm biến thể</span>
-                               <input type="text" class="form-control" formControlName="GiaNhapSanPhamBienThe">
+                                <input type="text" class="form-control" formControlName="GiaNhapSanPhamBienThe" readonly>
                             </div>
                             <div class="form-group">
                                 <span class="label label-default">Số lượng cần nhập</span>
-                                <select  class="form-control" formControlName="SoLuongNhap">
+                                <select class="form-control" formControlName="SoLuongNhap">
                                     <option [value]=50>
                                         50 cái</option>
                                     <option [value]=100>
@@ -107,8 +104,7 @@
                                     <option [value]=250>
                                         250 cái</option>
                                 </select>
-                                <div *ngIf="SoLuongNhap.invalid && (SoLuongNhap.dirty || SoLuongNhap.touched)"
-                                    class="alert alert-danger">
+                                <div *ngIf="SoLuongNhap.invalid && (SoLuongNhap.dirty || SoLuongNhap.touched)" class="alert alert-danger">
 
                                     <div *ngIf="SoLuongNhap.errors.required">
                                         Số lượng nhập không được bỏ trống
@@ -116,8 +112,7 @@
                                 </div>
                             </div>
                             <div class="form-group" style="justify-content:center;display: flex;">
-                                <button type="submit" class="btn btn-outline-danger btn-sm"
-                                    [disabled]="this.newFormGroupChiTiet.invalid">Thêm chi tiết</button>
+                                <button type="submit" class="btn btn-outline-danger btn-sm" [disabled]="this.newFormGroupChiTiet.invalid">Thêm chi tiết</button>
                             </div>
                         </div>
                     </form>
@@ -132,10 +127,10 @@
                                 </th>
                                 <th>
                                     Giá nhập
-                                </th>        
+                                </th>
                                 <th>
                                     Số lượng nhập (đơn vị : cái)
-                                </th>        
+                                </th>
                                 <th>
                                     Thành tiền (VNĐ)
                                 </th>
@@ -162,7 +157,7 @@
                                     <button class="btn btn-danger"><i class="fa fa-trash" (click)="deleteDetail(item)"
                                             aria-hidden="true"></i></button>
                                 </td>
-                              
+
                             </tr>
                             <h4 style="font-weight: bold; text-underline-position: auto;">Tổng tiền: {{tongTien()}} VNĐ</h4>
                         </tbody>
@@ -171,13 +166,11 @@
                         <div class="container" style="width: 30vw;">
                             <div class="form-group">
                                 <span class="label label-default" style="font-weight: bold;">Tạo ghi chú</span>
-                                <textarea class="form-control" formControlName="GhiChu"
-                                    style="margin-top: 0px; margin-bottom: 0px; height: 160px;width: 1050px;"></textarea>
+                                <textarea class="form-control" formControlName="GhiChu" style="margin-top: 0px; margin-bottom: 0px; height: 160px;width: 1050px;"></textarea>
                             </div>
 
                             <div class="form-group" style="justify-content:center;display: flex;">
-                                <button type="submit" class="btn btn-primary btn-lg"
-                                    [disabled]="this.newFormGroupPhieuNhap.invalid">Tạo phiếu nhập kho</button>
+                                <button type="submit" class="btn btn-primary btn-lg" [disabled]="this.newFormGroupPhieuNhap.invalid">Tạo phiếu nhập kho</button>
                             </div>
                         </div>
                     </form>

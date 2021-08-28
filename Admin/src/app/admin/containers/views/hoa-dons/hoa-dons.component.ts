@@ -8,8 +8,9 @@ import { Data, Router } from '@angular/router';
 import { ToastServiceService } from '../../shared/toast-service.service';
 
 import { HoaDonComponent } from './hoa-don/hoa-don.component';
-import {  HoaDon, HoaDonService } from './hoadon.service';
+import {  HoaDonUser, HoaDonService } from './hoadon.service';
 import * as signalR from '@microsoft/signalr';
+import { HoaDonEditComponent } from './hoa-don-edit/hoa-don-edit.component';
 @Component({
   selector: 'app-hoa-dons',
   templateUrl: './hoa-dons.component.html',
@@ -32,10 +33,24 @@ export class HoaDonsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'id_User', 'ngayTao', 'ghiChi', 'tongTien','thanhToan','trangThai','daLayTien' ,'actions'];
 
 
-  public hoadon: HoaDon
+
   ngOnInit(): void {
-    
     this.service.getAllHoaDons();
+    const connection = new signalR.HubConnectionBuilder()
+      .configureLogging(signalR.LogLevel.Information)
+      .withUrl('https://localhost:44302/notify')
+      .build();
+
+    connection.start().then(function () {
+      console.log('SignalR Connected!');
+    }).catch(function (err) {
+      return console.error(err.toString());
+    });
+
+    connection.on("BroadcastMessage", () => {
+      this.service.getAllHoaDons();
+    });
+    
   
     
   }
@@ -46,12 +61,9 @@ export class HoaDonsComponent implements OnInit {
 
   }
 
-  onModalDialog() {
-    this.service.hoadon = new HoaDon()
-    this.dialog.open(HoaDonComponent)
-  }
+ 
 
-  routeChiTiet(selectedRecord: HoaDon) {
+  routeChiTiet(selectedRecord: HoaDonUser) {
     this.service.hoadon = Object.assign({}, selectedRecord)
     this.router.navigate(['admin/hoadon/detail/' + this.service.hoadon.id])
   }
@@ -63,13 +75,15 @@ export class HoaDonsComponent implements OnInit {
     console.log("selected element", element);
     element.daLayTien = value;
   }
-  populateForm(selectedRecord: HoaDon) {
+  populateForm(selectedRecord: HoaDonUser) {
 
     this.service.hoadon = Object.assign({}, selectedRecord)
-    this.dialog.open(HoaDonComponent)
-  }
-  exports() {
-    this.service.generateExcel(this.service.dataBills)
+    this.dialog.open(HoaDonEditComponent)
+  } 
+
+  exportpdfs() {
+    window.open("https://localhost:44302/api/pdfs/allorder", "_blank");
+
   }
   clickDelete(id) {
     if (confirm('Bạn có chắc chắn xóa bản ghi này không ??')) {

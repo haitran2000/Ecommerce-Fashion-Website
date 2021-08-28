@@ -1,38 +1,38 @@
 <div class="main">
-  <div class="container">
-    <header>Đăng nhập vào hệ thống</header>
-    <form [formGroup]="newForm" (ngSubmit)="onSubmit(newForm.value)">
-      <div class="input-field">
-        <input type="text"  formControlName="userName" placeholder="Username" required>
-      </div>
-      <div class="input-field">
-        <input class="pswrd" type="password" formControlName="passWord"  placeholder="Password" required>
-      </div>
-      <div class="button">
-        <div class="inner">
+    <div class="container">
+        <header>Đăng nhập vào hệ thống</header>
+        <form [formGroup]="newForm" (ngSubmit)="onSubmit(newForm.value)">
+            <div class="input-field">
+                <input type="text" formControlName="userName" placeholder="Username" required>
+            </div>
+            <div class="input-field">
+                <input class="pswrd" type="password" formControlName="passWord" placeholder="Password" required>
+            </div>
+            <div class="button">
+                <div class="inner">
+                </div>
+                <button type="submit">LOGIN</button>
+            </div>
+        </form>
+        <div class="auth">
+            Or login with</div>
+        <div class="links">
+            <div class="facebook">
+                <i class="fab fa-facebook-square"><span>Facebook</span></i>
+            </div>
+            <div class="google">
+                <i class="fab fa-google-plus-square"><span>Google</span></i>
+            </div>
         </div>
-        <button type="submit">LOGIN</button>
-      </div>
-    </form>
-    <div class="auth">
-    Or login with</div>
-    <div class="links">
-      <div class="facebook">
-        <i class="fab fa-facebook-square"><span>Facebook</span></i>
-      </div>
-      <div class="google">
-        <i class="fab fa-google-plus-square"><span>Google</span></i>
-      </div>
-    </div> 
-     <div class="signup" style="cursor: pointer">
-      Not a member? <a (click)="onRegister()">Register now</a>
+        <div class="signup" style="cursor: pointer">
+            Not a member? <a (click)="onRegister()">Register now</a>
+        </div>
     </div>
-  </div>
 </div>
 
 
 
-<div class="app-body">
+<!-- <div class="app-body">
   <main class="main d-flex align-items-center">
     <div class="container">
       <div class="row">
@@ -88,4 +88,4 @@
     </div>
   </main>
 </div>
- -->
+ -->-->

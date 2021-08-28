@@ -17,23 +17,23 @@ export class DashboardService {
 
  
   getCountProduct(): Observable<number> {
-    return this.http.get<number>(environment.URL_API + "countentitys/countproduct")
+    return this.http.get<number>(environment.URL_API + "ThongKeSoLuongs/countproduct")
   }
 
   getCountOrder(): Observable<number> {
-    return this.http.get<number>(environment.URL_API + "countentitys/countorder")
+    return this.http.get<number>(environment.URL_API + "ThongKeSoLuongs/countorder")
   }
 
   getCountUser(): Observable<number> {
-    return this.http.get<number>(environment.URL_API + "countentitys/countuser")
+    return this.http.get<number>(environment.URL_API + "ThongKeSoLuongs/countuser")
   }
 
   getCountTotalMoney(): Observable<number> {
-    return this.http.get<number>(environment.URL_API + "countentitys/countmoney")
+    return this.http.get<number>(environment.URL_API + "ThongKeSoLuongs/countmoney")
   }
 
   getTopDataSetBanRaTonKho():Observable<any>{
-    return this.http.get<any>(environment.URL_API+"dashboard/topdatasetbanratonkho") 
+    return this.http.get<any>(environment.URL_API+"ThongKeBieuDos/topdatasetbanratonkho") 
  }
 
 

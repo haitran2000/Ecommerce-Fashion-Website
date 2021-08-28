@@ -1,4 +1,111 @@
-<button mat-button color="accent" style="float: left;" (click)="onModalDialog()">
+<h1>
+    Chi tiết hóa đơn</h1>
+<table class="table" style="width:100%">
+    <tr>
+        <th>Id </th>
+        <td *ngIf="this.hd.id">{{this.hd.id}}</td>
+    </tr>
+    <tr>
+        <th>Tên đầy đủ </th>
+        <td *ngIf="this.hd.fullName">{{this.hd.fullName}}</td>
+    </tr>
+    <tr>
+        <th>Số điện thoại: </th>
+        <td *ngIf="this.hd.sdt">{{this.hd.sdt}}</td>
+    </tr>
+    <tr>
+        <th>Email: </th>
+        <td *ngIf="this.hd.email">{{this.hd.email}}</td>
+    </tr>
+    <tr>
+        <th>Địa chỉ </th>
+        <td *ngIf="this.hd.diaChi">{{this.hd.diaChi}}</td>
+    </tr>
+
+    <tr>
+        <th>Ngày tạo: </th>
+        <td *ngIf="this.hd.hoaDon.ngayTao">{{this.hd.hoaDon.ngayTao}}</td>
+    </tr>
+    <tr>
+        <th>Ghi chú: </th>
+        <td *ngIf="this.hd.hoaDon.ghiChu">{{this.hd.hoaDon.ghiChu}}</td>
+    </tr>
+    <tr>
+        <th>Trạng thái: </th>
+        <td *ngIf="this.hd.hoaDon.trangThai">{{this.hd.hoaDon.trangThai}}</td>
+    </tr>
+    <tr>
+        <th>Loại thanh toán: </th>
+        <td *ngIf="this.hd.hoaDon.loaiThanhToan">{{this.hd.hoaDon.loaiThanhToan}}</td>
+    </tr>
+    <tr>
+        <th>Đã lấy tiền: </th>
+        <td *ngIf="this.hd.hoaDon.daLayTien">{{this.hd.hoaDon.daLayTien}}</td>
+    </tr>
+
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id chi tiết hóa đơn
+            </th>
+            <th>
+                Tên Sản phẩm
+            </th>
+            <th>
+                Hình ảnh đại diện
+            </th>
+            <th>
+                Size
+            </th>
+            <th>
+                Màu sắc
+            </th>
+            <th>
+                Số lượng
+            </th>
+            <th>
+                Giá bán
+            </th>
+
+            <th>
+                Thành tiền (VNĐ)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of this.hd.chiTietHoaDons">
+            <td *ngIf="item.id">
+                {{item.id}}
+            </td>
+            <td *ngIf="item.ten">
+                {{item.ten}}
+            </td>
+            <td *ngIf="item.hinh">
+                <img src="https://localhost:44302/Images/list-image-product/{{item.hinh}}" class="rounded mb-3" width="80">
+            </td>
+            <td *ngIf="item.size">
+                {{item.size}}
+            </td>
+            <td *ngIf="item.mauSac">
+                {{item.mauSac}}
+            </td>
+            <td *ngIf="item.soLuong">
+                {{item.soLuong}}
+            </td>
+            <td *ngIf="item.giaBan">
+                {{item.giaBan}}
+            </td>
+            <td *ngIf="item.thanhTien">
+                {{item.thanhTien}}
+            </td>
+        </tr>
+        <h4 style="font-weight: bold; text-underline-position: auto;" *ngIf="this.hd.hoaDon.tongTien">Tổng tiền: {{this.hd.hoaDon.tongTien}} VNĐ</h4>
+    </tbody>
+</table>
+
+<!-- <button mat-button color="accent" style="float: left;" (click)="onModalDialog()">
     <mat-icon>add</mat-icon>
     <p style="display: inline-block;margin-top: 0.9vh;">Thêm</p>
 </button>
@@ -53,4 +160,4 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 <mat-paginator [pageSize]="10" [pageSizeOptions]="[2, 4, 6, 10, 20]">
-</mat-paginator>
+</mat-paginator> -->

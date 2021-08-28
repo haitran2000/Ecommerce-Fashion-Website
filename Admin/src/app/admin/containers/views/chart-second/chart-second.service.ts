@@ -11,39 +11,39 @@ export class ChartSecondService {
 
   constructor(private http: HttpClient) { }
   getKhachHangMuaNhieuNhat():Observable<any>{
-    return this.http.get<any>(environment.URL_API+"CountEntitys/getkhachhangmuanhieunhat") 
+    return this.http.get<any>(environment.URL_API+"ThongKeSoLuongs/getkhachhangmuanhieunhat") 
   }
 
   getNam2021DoanhSo():Observable<any>{
-    return this.http.get<any>(environment.URL_API+"CountEntitys/nam2021")
+    return this.http.get<any>(environment.URL_API+"ThongKeSoLuongs/nam2021")
   }
   getNam2021SoLuong():Observable<any>{
-    return this.http.get<any>(environment.URL_API+"CountEntitys/Soluongsanphambanratrongnam")
+    return this.http.get<any>(environment.URL_API+"ThongKeSoLuongs/Soluongsanphambanratrongnam")
   }
   getSoLuongTon():Observable<any>{
-    return this.http.get<any>(environment.URL_API+"CountEntitys/soluongton")
+    return this.http.get<any>(environment.URL_API+"ThongKeSoLuongs/soluongton")
   }
 
-
+  getTopSoLuongTon():Observable<any>{
+    return this.http.get<any>(environment.URL_API+"ThongKeBieuDos/topsoluongton")
+  }
 
   ////////////////////////////////////
   getTopBienTheDoanhThu():Observable<any>{
-    return this.http.get<any>(environment.URL_API+"dashboard/topbienthedoanhthu")
+    return this.http.get<any>(environment.URL_API+"ThongKeBieuDos/topbienthedoanhthu")
   }
-  getTopSoLuongTon():Observable<any>{
-    return this.http.get<any>(environment.URL_API+"dashboard/topsoluongton")
-  }
+
   getThongKeThang(): Observable<any> {
-    return this.http.get<any>(environment.URL_API + "dashboard/topthongkethang")
+    return this.http.get<any>(environment.URL_API + "ThongKeBieuDos/topthongkethang")
   }
   getSoLanSanPhamXuatHienTrongDonHang():Observable<any>{
-    return this.http.get<any>(environment.URL_API+"dashboard/topsolanxuathientrongdonhang")
+    return this.http.get<any>(environment.URL_API+"ThongKeBieuDos/topsolanxuathientrongdonhang")
   }
   getSanPhamDoanhThuTop():Observable<any>{
-     return this.http.get<any>(environment.URL_API+"dashboard/topsanphamloinhattop") 
+     return this.http.get<any>(environment.URL_API+"ThongKeBieuDos/topsanphamloinhattop") 
   }
   getTopNhanHieuDoanhThu():Observable<any>{
-    return this.http.get<any>(environment.URL_API+"dashboard/topnhanhieubanchaynhattrongnam2021")
+    return this.http.get<any>(environment.URL_API+"ThongKeBieuDos/topnhanhieubanchaynhattrongnam2021")
   }
 
 

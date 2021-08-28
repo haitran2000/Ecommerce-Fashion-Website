@@ -1,5 +1,5 @@
-
-<h1>Phiếu nhập hàng</h1>
+<h1>
+    Phiếu nhập hàng</h1>
 <table class="table" style="width:100%">
     <tr>
         <th>Id nhà cung cấp: </th>
@@ -33,10 +33,10 @@
             </th>
             <th>
                 Giá nhập
-            </th>        
+            </th>
             <th>
                 Số lượng nhập (đơn vị : cái)
-            </th>        
+            </th>
             <th>
                 Thành tiền (VNĐ)
             </th>
@@ -69,6 +69,8 @@
         <h4 style="font-weight: bold; text-underline-position: auto;">Tổng tiền: {{this.phieunhapchitietphieunhap.tongTien}} VNĐ</h4>
     </tbody>
 </table>
-<h3 style="font-weight: bold; display: inline;">Ghi chú: </h3><h4 style="display: inline;" *ngIf="this.phieunhapchitietphieunhap.ghiChu">{{this.phieunhapchitietphieunhap.ghiChu}}</h4>
+<h3 style="font-weight: bold; display: inline;">Ghi chú: </h3>
+<h4 style="display: inline;" *ngIf="this.phieunhapchitietphieunhap.ghiChu">{{this.phieunhapchitietphieunhap.ghiChu}}</h4>
 <br>
-<h3 style="font-weight: bold; display: inline;">Người lập phiếu: </h3><h4 style="display: inline;" *ngIf="this.phieunhapchitietphieunhap.nguoiLapPhieu">{{this.phieunhapchitietphieunhap.nguoiLapPhieu}}</h4>
+<h3 style="font-weight: bold; display: inline;">Người lập phiếu: </h3>
+<h4 style="display: inline;" *ngIf="this.phieunhapchitietphieunhap.nguoiLapPhieu">{{this.phieunhapchitietphieunhap.nguoiLapPhieu}}</h4>

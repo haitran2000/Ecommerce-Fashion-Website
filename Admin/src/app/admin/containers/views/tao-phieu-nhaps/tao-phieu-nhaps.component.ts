@@ -18,7 +18,7 @@ export class TaoPhieuNhapsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
  
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(private service:TaoPhieuNhapService,
+  constructor(public service:TaoPhieuNhapService,
               public router : Router,
               public http: HttpClient,
               public dialog: MatDialog,

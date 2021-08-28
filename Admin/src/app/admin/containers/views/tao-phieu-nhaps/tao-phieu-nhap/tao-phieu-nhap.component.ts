@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class TaoPhieuNhapComponent implements OnInit {
 
 
-  constructor(private service: TaoPhieuNhapService,
+  constructor(public service: TaoPhieuNhapService,
     private http: HttpClient,
     private route: Router,
     private serviceToast: ToastServiceService,
@@ -52,7 +52,7 @@ export class TaoPhieuNhapComponent implements OnInit {
        
       TenSanPhamBienThe: new FormControl(null,
         [
-          
+          Validators.required
         ]),
       SoLuongNhap: new FormControl(100,
         [
@@ -99,7 +99,11 @@ idncc:any
 
     });
   }
+  selectedFruit = null;
   getSanPhamBienTheSanPham(event) {
+    this.selectedFruit = 'Apple'
+    console.log(this.selectedFruit);
+    
     var obj = {
       id: event.target.value
     }

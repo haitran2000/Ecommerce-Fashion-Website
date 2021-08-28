@@ -20,7 +20,6 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
@@ -72,9 +71,8 @@ import { CategoryComponent } from './admin/containers/views/categories/category/
 
 import { HoaDonsComponent } from './admin/containers/views/hoa-dons/hoa-dons.component';
 
-import { JobSeekesComponent } from './admin/containers/views/job-seekes/job-seekes.component';
 import { AspNetUsersComponent } from './admin/containers/views/asp-net-users/asp-net-users.component';
-import { AuthHistoriesComponent } from './admin/containers/views/auth-histories/auth-histories.component';
+
 import { BrandComponent } from './admin/containers/views/brands/brand/brand.component';
 import { ProductsComponent } from './admin/containers/views/products/products.component';
 import { ProductComponent } from './admin/containers/views/products/product/product.component';
@@ -113,13 +111,24 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { TaoPhieuNhapSuccessComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhap-success/tao-phieu-nhap-success.component';
 import { TaoPhieuNhapDetailComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhap-detail/tao-phieu-nhap-detail.component';
 import { ChartThirdComponent } from './admin/containers/views/chart-third/chart-third.component';
+import { NgApexchartsModule } from "ng-apexcharts";
+import { HoaDonEditComponent } from './admin/containers/views/hoa-dons/hoa-don-edit/hoa-don-edit.component';
+import { BoldReportViewerModule } from '@boldreports/angular-reporting-components';
 
+// Report viewer
+import '@boldreports/javascript-reporting-controls/Scripts/bold.report-viewer.min';
+
+// data-visualization
+import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.bulletgraph.min';
+import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.chart.min';
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 
 
 @NgModule({
   imports: [
+    BoldReportViewerModule,
+    NgApexchartsModule,
     FusionChartsModule,
     KonvaModule,
     ChartsModule,
@@ -181,7 +190,6 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     P404Component,
     P500Component,
     LoginComponent,
-
     OrdersTableComponent,
     UserdetailComponent,
     BrandsComponent,
@@ -192,9 +200,8 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 
     HoaDonsComponent,
 
-    JobSeekesComponent,
+
     AspNetUsersComponent,
-    AuthHistoriesComponent,
     BrandComponent,
     ProductsComponent,
     ProductComponent,
@@ -220,6 +227,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     TaoPhieuNhapSuccessComponent,
     TaoPhieuNhapDetailComponent,
     ChartThirdComponent,
+    HoaDonEditComponent,
   ],
   providers: [
     IconSetService,

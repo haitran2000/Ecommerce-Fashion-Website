@@ -1,8 +1,7 @@
-<button mat-button color="primary" style="float: left;" (click)="exports()">
-    <!-- exports() -->
+<!-- <button mat-button color="primary" style="float: left;" (click)="exportpdfs()">
     <p style="display: inline-block;margin-top: 0.9vh;">Export exel</p>
-</button>
-<button mat-button color="warn" style="float: left;" (click)="exports()">
+</button> -->
+<button mat-button color="warn" style="float: left;" (click)="exportpdfs()">
     <!-- exports() -->
     <p style="display: inline-block;margin-top: 0.9vh;">Export pdf</p>
 </button>
@@ -18,7 +17,7 @@
     </ng-container>
     <ng-container matColumnDef="id_User">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="make-gold"> User </th>
-        <td mat-cell *matCellDef="let element"> {{element.id_User}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.fullName}} </td>
     </ng-container>
     <ng-container matColumnDef="ngayTao">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="make-gold"> Ngày tạo </th>
@@ -45,15 +44,18 @@
         <td mat-cell *matCellDef="let element"> {{element.daLayTien}} </td>
     </ng-container>
     <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef class="make-gold">Xem chi tiết</th>
+        <th mat-header-cell *matHeaderCellDef class="make-gold">Xem chi tiết, sửa</th>
         <td mat-cell *matCellDef="let element">
             <button mat-icon-button (click)="routeChiTiet(element)" color="primary">
                 <mat-icon>visibility</mat-icon>
             </button>
+            <button mat-icon-button (click)="populateForm(element)" color="primary">
+                <mat-icon>edit</mat-icon>
+            </button>
         </td>
     </ng-container>
-    
-    
+
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 

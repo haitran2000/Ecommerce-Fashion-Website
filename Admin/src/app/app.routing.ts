@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DefaultLayoutComponent } from './admin/containers';
 import { RegistrationFormComponent } from './admin/containers/views/account/registration-form/registration-form.component';
 import { AspNetUsersComponent } from './admin/containers/views/asp-net-users/asp-net-users.component';
-import { AuthHistoriesComponent } from './admin/containers/views/auth-histories/auth-histories.component';
+
 import { AuthGuard } from './admin/containers/views/auth.guard';
 import { BrandsComponent } from './admin/containers/views/brands/brands.component';
 import { CategoriesComponent } from './admin/containers/views/categories/categories.component';
@@ -17,7 +17,6 @@ import { SanPhamBienThesComponent } from './admin/containers/views/san-pham-bien
 
 import { HoaDonsComponent } from './admin/containers/views/hoa-dons/hoa-dons.component';
 
-import { JobSeekesComponent } from './admin/containers/views/job-seekes/job-seekes.component';
 import { LoginComponent } from './admin/containers/views/account/login/login.component';
 import { MauSacsComponent } from './admin/containers/views/mau-sacs/mau-sacs.component';
 import { ProductsComponent } from './admin/containers/views/products/products.component';

@@ -18,8 +18,8 @@ export class ChartSecondComponent implements OnInit {
   nam2021soluong: any;
   soLuongTon: any;
 
-  constructor(private service:ChartSecondService,    public dialog: MatDialog,
-    private zone: NgZone) {
+  constructor(public service:ChartSecondService,    public dialog: MatDialog,
+    public zone: NgZone) {
     this.dataSourceBrand = {
       "chart": {
         "caption": "Tỉ lệ giữa top(3) các nhãn hiệu bán chạy nhất và tổng tổng số sản phẩm bán ra",
@@ -132,7 +132,7 @@ export class ChartSecondComponent implements OnInit {
     this.getThongKeThang();
     this.getNam2021doanhso();
     this.getSoLuongTrongNam();
-    this.getSoLuongTon();
+
     this.getTopNhanHieu();
     const connection = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Information)
@@ -160,9 +160,7 @@ export class ChartSecondComponent implements OnInit {
     connection.on("BroadcastMessage", () => {
       this.getNam2021doanhso()
     })
-    connection.on("BroadcastMessage", () => {
-      this.getSoLuongTon()
-    })
+
     connection.on("BroadcastMessage", () => {
       this.getNam2021doanhso()
     })
@@ -251,16 +249,7 @@ export class ChartSecondComponent implements OnInit {
       }
     )
   }
-  getSoLuongTon() {
-    this.service.getSoLuongTon().subscribe(
-      result => {
-        this.soLuongTon = result as any
-      },
-      error => {
-        this.errorMessage = <any>error
-      }
-    )
-  }
+
 
 
   bienthedoanhthu: any

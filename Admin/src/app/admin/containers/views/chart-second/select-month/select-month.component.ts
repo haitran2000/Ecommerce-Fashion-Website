@@ -27,7 +27,7 @@ export class SelectMonthComponent implements OnInit {
   onSubmit = (data) => {
     const formData = new FormData();
     formData.append("month", data.Thang)
-    this.http.post(environment.URL_API + "dashboard/topthongkengaytheothang", formData).subscribe(
+    this.http.post(environment.URL_API + "ThongKeBieuDos/topthongkengaytheothang", formData).subscribe(
       (result: any) => {
         this.service.dataThongKeNgay = result as any
         if (this.service.dataThongKeNgay.length != 0) {
