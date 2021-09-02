@@ -25,11 +25,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             this._context = context;
             this._hubContext = hubContext;
         }
-        [HttpGet("nhacungcap/{id}")]
-        public async Task<ActionResult<IEnumerable<NhaCungCap>>> GetAllNhaCungCaps()
-        {
-            return await _context.NhaCungCaps.ToListAsync();
-        }
+        
 
         [HttpGet("sanpham/{id}")]
         public async Task<ActionResult<IEnumerable<SanPham>>> GetAllSanPhams(UploadNhaCungCap uploadNhaCungCap)
@@ -177,7 +173,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                      select new TenSanPhamBienTheChiTietPhieuNhap()
                      {
                          Id = spbt.Id,
-                         TenSanPhamBienTheMauSize =sp.Ten + " " + l.Ten + " " + m.MaMau,
+                         TenSanPhamBienTheMauSize =sp.Ten + " " + s.TenSize + " " + m.MaMau,
                          GiaNhap = (decimal)sp.GiaNhap,
                          SoluongNhap = ctpn.SoluongNhap,
                          ThanhTienNhap = ctpn.ThanhTienNhap,

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Web_API_e_Fashion.ServerToClientModels.SanPhamLoaiThuongHieu>
+﻿@model IEnumerable<Web_API_e_Fashion.ServerToClientModels.PhieuNhapHangNhaCungCap>
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -11,7 +11,7 @@
     <div class="container">
         <div style="background-color:cadetblue;text-align:center">
             <h2 style="color:azure; padding:5%">
-                TẤT CẢ SẢN PHẨM
+                TẤT CẢ PHIẾU NHẬP HÀNG
             </h2>
         </div>
         <table class="table" style="text-align:left">
@@ -42,28 +42,26 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Tên</th>
-                <th scope="col">Hình đại diện</th>
-                <th scope="col">Giá nhập</th>
-                <th scope="col">Giá bán</th>
-                <th scope="col">Tên loại</th>
-                <th scope="col">Tên nhãn hiệu</th>
+                <th scope="col">Số chứng từ</th>
+                <th scope="col">Ghi chú</th>
+                <th scope="col">Ngày tạo</th>
+                <th scope="col">Tổng tiền</th>
+                <th scope="col">Người lập phiếu</th>
                 <th scope="col">Tên nhà cung cấp</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var sp in Model)
+            @foreach (var ph in Model)
             {
-            <tr>
-                <th scope="row">@sp.Id</th>
-                <td>@sp.Ten</td>
-                <td><img src="https://localhost:44302/Images/list-image-product/@sp.Image" style="width:100px" /></td>
-                <td>@sp.GiaNhap</td>
-                <td>@sp.GiaBan</td>
-                <td>@sp.TenLoai</td>
-                <td>@sp.TenNhanHieu</td>
-                <td>@sp.TenNhaCungCap</td>              
-            </tr>
+                <tr>
+                    <th scope="row">@ph.Id</th>
+                    <td>@ph.SoChungTu</td>
+                    <td>@ph.GhiChu</td>
+                    <td>@ph.NgayTao</td>
+                    <td>@ph.TongTien</td>
+                    <td>@ph.NguoiLapPhieu</td>
+                    <td>@ph.TenNhaCungCap</td>
+                </tr>
             }
 
         </tbody>

@@ -1101,3 +1101,6 @@ D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API\Web-API-e-Fashion\obj\Deb
 D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API\Web-API-e-Fashion\obj\Debug\net5.0\Razor\Views\PDFs\GetAllOrder.cshtml.g.cs
 D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API\Web-API-e-Fashion\obj\Debug\net5.0\Razor\Views\PDFs\GetOrderDetail.cshtml.g.cs
 D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API\Web-API-e-Fashion\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API\Web-API-e-Fashion\obj\Debug\net5.0\Razor\Views\PDFs\GetAllSanPham.cshtml.g.cs
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API\Web-API-e-Fashion\obj\Debug\net5.0\Razor\Views\PDFs\GetAllPhieuNhap.cshtml.g.cs
+D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API\Web-API-e-Fashion\obj\Debug\net5.0\Razor\Views\PDFs\GetPhieuNhapDetail.cshtml.g.cs

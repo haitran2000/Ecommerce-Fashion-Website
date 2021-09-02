@@ -1,4 +1,4 @@
-﻿@model Web_API_e_Fashion.ServerToClientModels.MotHoaDon
+﻿@model Web_API_e_Fashion.ServerToClientModels.PhieuNhapChiTietPhieuNhap
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -11,7 +11,7 @@
     <div class="container">
         <div style="background-color:cadetblue;text-align:center">
             <h2 style="color:azure; padding:5%">
-                CHI TIẾT HÓA ĐƠN
+                CHI TIẾT PHIẾU NHẬP HÀNG
             </h2>
         </div>
         <div class="row">
@@ -45,20 +45,24 @@
                 <h3>Bên nhận</h3>
                 <table class="table" style="text-align:left">
                     <tr>
+                        <th>Mã nhà cung cấp :</th>
+                        <td>@Model.NhaCungCap.Id</td>
+                    </tr>
+                    <tr>
                         <th>Tên :</th>
-                        <td>@Model.FullName</td>
+                        <td>@Model.NhaCungCap.Ten</td>
                     </tr>
                     <tr>
                         <th>Địa chỉ:</th>
-                        <td>@Model.DiaChi</td>
+                        <td>@Model.NhaCungCap.DiaChi</td>
                     </tr>
                     <tr>
                         <th>Điện thoại:</th>
-                        <td>@Model.SDT</td>
+                        <td>@Model.NhaCungCap.SDT</td>
                     </tr>
                     <tr>
-                        <th>Email:</th>
-                        <td>@Model.DiaChi</td>
+                        <th>Thông tin:</th>
+                        <td>@Model.NhaCungCap.ThongTin</td>
                     </tr>
 
                 </table>
@@ -69,29 +73,28 @@
     <br>
     <table class="table" style="text-align:left">
         <tr>
-            <th>Mã hóa đơn :</th>
+            <th>Mã phiếu nhập :</th>
             <td>@Model.Id</td>
         </tr>
         <tr>
+            <th>Số chứng từ:</th>
+            <td>@Model.SoChungTu</td>
+        </tr>
+        <tr>
             <th>Ngày tạo:</th>
-            <td>@Model.hoaDon.NgayTao</td>
+            <td>@Model.NgayTao</td>
+        </tr>
+        <tr>
+            <th>Ngày tạo:</th>
+            <td>@Model.NgayTao</td>
         </tr>
         <tr>
             <th>Ghi chú:</th>
-            <td>@Model.hoaDon.GhiChu</td>
+            <td>@Model.GhiChu</td>
         </tr>
-        <tr>
-            <th>Trạng thái:</th>
-            <td>@Model.hoaDon.TrangThai</td>
-        </tr>
-        <tr>
-            <th>Loại thanh toán:</th>
-            <td>@Model.hoaDon.LoaiThanhToan</td>
-        </tr>
-        <tr>
-            <th>Đã lấy tiền:</th>
-            <td>@Model.hoaDon.DaLayTien</td>
-        </tr>
+
+  
+      
 
     </table>
     <br>
@@ -99,27 +102,21 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Tên sản phẩm</th>
-                <th scope="col">Ảnh đại diện</th>
-                <th scope="col">Size</th>
-                <th scope="col">Màu sắc</th>
-                <th scope="col">Giá bán</th>
-                <th scope="col">Số lượng</th>
-                <th scope="col">Thành tiền</th>
+                <th scope="col">Tên (tên sản phẩm + màu + size)</th>
+                <th scope="col">Giá nhập</th>
+                <th scope="col">Số lượng nhập</th>
+                <th scope="col">Thành tiền nhập</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var cthd in Model.chiTietHoaDons)
+            @foreach (var ctpn in Model.ChiTietPhieuNhaps)
             {
                 <tr>
-                    <th scope="row">@cthd.Id</th>
-                    <td>@cthd.Ten</td>
-                    <td><img src="https://localhost:44302/Images/list-image-product/@cthd.Hinh" style="width:100px" /></td>
-                    <td>@cthd.Size</td>
-                    <td>@cthd.MauSac</td>
-                    <td>@cthd.GiaBan</td>
-                    <td>@cthd.SoLuong</td>
-                    <td>@cthd.ThanhTien</td>
+                    <th scope="row">@ctpn.Id</th>
+                    <td>@ctpn.TenSanPhamBienTheMauSize</td>
+                    <td>@ctpn.GiaNhap</td>
+                    <td>@ctpn.SoluongNhap</td>
+                    <td>@ctpn.ThanhTienNhap</td>
                 </tr>
             }
 
@@ -127,9 +124,9 @@
     </table>
     <div class="row">
         <div class="col">
-            <h4>Người bán hàng</h4>
+            <h4>Người lập phiếu</h4>
             <img src="https://dvdn247.net/wp-content/uploads/2020/07/22-1.jpg" alt="Alternate Text" style="width:150px" />
-            <h4>Trần Quý Vinh</h4>
+            <h4>@Model.NguoiLapPhieu</h4>
         </div>
         <div class="col">
             <table class="table">
@@ -139,7 +136,7 @@
                             <strong class="text-dark">Tổng tiền: </strong>
                         </td>
                         <td class="right">
-                            <strong class="text-dark">@Model.hoaDon.TongTien</strong>
+                            <strong class="text-dark">@Model.TongTien</strong>
                         </td>
                     </tr>
                 </tbody>

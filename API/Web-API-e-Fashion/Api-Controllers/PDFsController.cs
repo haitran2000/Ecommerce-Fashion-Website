@@ -45,7 +45,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
                      };
            
-            return await _generatePdf.GetPdf("Views/PDFs/GetAllOrder.cshtml", kb);
+            return await _generatePdf.GetPdf("Views/PDFs/GetAllOrder.cshtml", await kb.ToListAsync());
            
         }
         [HttpGet("orderdetail/{id}")]
@@ -222,5 +222,77 @@ namespace Web_API_e_Fashion.Api_Controllers
        
             return await _generatePdf.GetPdf("Views/PDFs/GetAllSanPham.cshtml", List);
         } 
+
+        [HttpGet("allphieunhap")]
+        public async Task<IActionResult> GetAllNhaCungCap()
+        {
+            var kb = from ncc in _context.NhaCungCaps
+                     join pnh in _context.PhieuNhapHangs
+                     on ncc.Id equals pnh.Id_NhaCungCap
+                     join us in _context.AppUsers
+                     on pnh.NguoiLapPhieu equals us.Id
+                     select new PhieuNhapHangNhaCungCap()
+                     {
+                         Id = pnh.Id,
+                         GhiChu = pnh.GhiChu,
+                         NgayTao = pnh.NgayTao,
+                         NguoiLapPhieu = us.FirstName + ' ' + us.LastName,
+                         SoChungTu = pnh.SoChungTu,
+                         TenNhaCungCap = ncc.Ten,
+                         TongTien = pnh.TongTien,
+                     };
+            return await _generatePdf.GetPdf("Views/PDFs/GetAllPhieuNhap.cshtml", kb);
+        }
+
+        [HttpGet("phieunhapdetail/{id}")]
+        public async Task<IActionResult> Getphieunhapdetail(int id)
+        {
+            var listDetail = from spbt in _context.SanPhamBienThes
+                             join sp in _context.SanPhams
+                             on spbt.Id_SanPham equals sp.Id
+                             join l in _context.Loais
+                             on sp.Id_Loai equals l.Id
+                             join m in _context.MauSacs
+                             on spbt.Id_Mau equals m.Id
+                             join s in _context.Sizes
+                             on spbt.SizeId equals s.Id
+                             join ctpn in _context.ChiTietPhieuNhapHangs
+                             on spbt.Id equals ctpn.Id_SanPhamBienThe
+                             select new TenSanPhamBienTheChiTietPhieuNhap()
+                             {
+                                 Id = spbt.Id,
+                                 TenSanPhamBienTheMauSize = sp.Ten + " " + s.TenSize + " " + m.MaMau,
+                                 GiaNhap = (decimal)sp.GiaNhap,
+                                 SoluongNhap = ctpn.SoluongNhap,
+                                 ThanhTienNhap = ctpn.ThanhTienNhap,
+                                 Id_PhieuNhapHang = (int)ctpn.Id_PhieuNhapHang
+                             };
+            var kb = (from phieunhap in _context.PhieuNhapHangs
+                      join us in _context.AppUsers
+                      on phieunhap.NguoiLapPhieu equals us.Id
+                      join ncc in _context.NhaCungCaps
+                      on phieunhap.Id_NhaCungCap equals ncc.Id
+                      select new PhieuNhapChiTietPhieuNhap()
+                      {
+                          Id = phieunhap.Id,
+                          GhiChu = phieunhap.GhiChu,
+                          NgayTao = phieunhap.NgayTao,
+                          SoChungTu = phieunhap.SoChungTu,
+                          TongTien = phieunhap.TongTien,
+                          NguoiLapPhieu = us.FirstName + " " + us.LastName,
+                          NhaCungCap = new NhaCungCap()
+                          {
+                              Id = ncc.Id,
+                              Ten = ncc.Ten,
+                              DiaChi = ncc.DiaChi,
+                              ThongTin = ncc.ThongTin,
+                              SDT = ncc.SDT,
+                          },
+                          ChiTietPhieuNhaps = (List<TenSanPhamBienTheChiTietPhieuNhap>)listDetail.Where(s => s.Id_PhieuNhapHang == id),
+
+                      });
+            return await _generatePdf.GetPdf("Views/PDFs/GetPhieuNhapDetail.cshtml", await kb.FirstOrDefaultAsync(s => s.Id == id));
+
+        }
     }
 }
