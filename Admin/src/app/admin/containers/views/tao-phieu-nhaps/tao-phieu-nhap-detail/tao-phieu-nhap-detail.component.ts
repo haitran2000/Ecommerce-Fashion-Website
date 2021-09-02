@@ -23,5 +23,8 @@ export class TaoPhieuNhapDetailComponent implements OnInit {
       }
     )
   }
+  exportpdfs() {
+    window.open("https://localhost:44302/api/pdfs/phieunhapdetail/"+this.phieunhapchitietphieunhap.id, "_blank");
 
+  }
 }
