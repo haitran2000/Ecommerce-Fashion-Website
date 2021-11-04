@@ -114,7 +114,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
                 await cnn.CloseAsync();
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             };

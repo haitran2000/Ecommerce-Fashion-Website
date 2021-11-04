@@ -35,16 +35,16 @@ namespace Web_API_e_Fashion.Api_Controllers
         public async Task<ActionResult<IEnumerable<SanPhamBienTheMauSizeLoai>>> GetAllSPBTSS()
         {
             string sql = @"select SanPhamBienThes.Id,SanPhams.Ten,MauSacs.MaMau +' '+Loais.Ten as 'Mau loai'  ,Sizes.TenSize+' '+Loais.Ten as 'Size loai',SanPhamBienThes.SoLuongTon
-from SanPhamBienThes
-inner join MauSacs
-on SanPhamBienThes.Id_Mau = MauSacs.Id
-inner join Sizes
-on SanPhamBienThes.SizeId = Sizes.Id
-inner join SanPhams
-on SanPhams.Id = SanPhamBienThes.Id_SanPham
-inner join Loais
-on Loais.Id = Sizes.Id_Loai
-                        ";
+                            from SanPhamBienThes
+                        inner join MauSacs
+                        on SanPhamBienThes.Id_Mau = MauSacs.Id
+                            inner join Sizes
+                        on SanPhamBienThes.SizeId = Sizes.Id
+                     inner join SanPhams
+                      on SanPhams.Id = SanPhamBienThes.Id_SanPham
+                        inner join Loais
+                    on Loais.Id = Sizes.Id_Loai
+                           ";
             //var d = await _context.SanPhams.FromSqlRaw(sql).ToListAsync();
             SqlConnection cnn;
             cnn = new SqlConnection(_context.Database.GetConnectionString());
@@ -68,7 +68,7 @@ on Loais.Id = Sizes.Id_Loai
 
                 cnn.Close();
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             };

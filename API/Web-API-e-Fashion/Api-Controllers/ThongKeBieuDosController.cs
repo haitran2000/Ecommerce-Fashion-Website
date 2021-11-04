@@ -104,7 +104,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 }
                 await conn.CloseAsync();
             }
-            catch(Exception ex)
+            catch(Exception )
             {
 
             }
@@ -148,7 +148,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -194,7 +194,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
                 cnn.Close();
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             };
@@ -249,7 +249,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
                 await cnn.CloseAsync();
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             };
@@ -294,7 +294,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
                 await cnn.CloseAsync();
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             };
@@ -343,7 +343,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
                 await cnn.CloseAsync();
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             };

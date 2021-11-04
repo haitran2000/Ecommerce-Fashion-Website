@@ -62,8 +62,6 @@ namespace Web_API_e_Fashion.Api_Controllers
 	                            where
                                 ProductImageTable.RowNum = 1
                             ";
-
-
             SqlConnection connection = new SqlConnection(_context.Database.GetConnectionString());
             List<SanPhamLoaiThuongHieu> List = new List<SanPhamLoaiThuongHieu>();
             try
@@ -98,7 +96,6 @@ namespace Web_API_e_Fashion.Api_Controllers
                         });
                     }
                 }
-
             }
             catch (Exception ex)
             {
@@ -132,18 +129,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
         }
-        // PUT: api/SanPhams/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("capnhattrangthaihoatdong/{id}")]
-        //public ActionResult PutSanPhamTrangThaiHoatDong(int id, SanPham sp)
-        //{
-        //    SanPham sanpham = new SanPham();
-        //    sanpham = _context.SanPhams.FirstOrDefault(s => s.Id == id);
-        //    sanpham.TrangThaiHoatDong = !sp.TrangThaiHoatDong;
-        //    _context.SaveChanges();
-        //    _hubContext.Clients.All.BroadcastMessage();
-        //    return Ok();
-        //}
+       
         [HttpPut("{id}")]
         public async Task<IActionResult> PutSanPham(int id, [FromForm] UploadSanpham upload)
         {
@@ -204,7 +190,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 {
                     System.IO.File.Delete(Path.Combine("wwwroot/Images/list-image-product", i.ImageName));
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
 
                 }
@@ -342,7 +328,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 {
                     System.IO.File.Delete(Path.Combine("wwwroot/Images/list-image-product", i.ImageName));
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
 
                 }
@@ -511,7 +497,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
                 await cnn.CloseAsync();
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             };

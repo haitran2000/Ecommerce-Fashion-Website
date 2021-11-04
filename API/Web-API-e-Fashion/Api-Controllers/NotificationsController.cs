@@ -13,7 +13,7 @@ using Web_API_e_Fashion.SignalRModels;
 namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController] 
     public class NotificationsController : ControllerBase
     {
         private readonly DPContext _context;

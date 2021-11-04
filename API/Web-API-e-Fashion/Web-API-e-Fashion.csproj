@@ -85,6 +85,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="wwwroot\assets\fonts\fontawesome-webfont.svg" />
     <None Include="wwwroot\assets\fonts\fontawesome-webfont.woff2" />
     <None Include="wwwroot\assets\images\invoice.svg" />

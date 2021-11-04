@@ -17,12 +17,14 @@ using System.Text;
 using System;
 using Microsoft.Extensions.Logging;
 using Web_API_e_Fashion.Auth;
-using Web_API_e_Fashion.Helpers;
 using Web_API_e_Fashion.SignalRModels;
 using Swashbuckle;
 using Microsoft.OpenApi.Models;
 using Web_API_e_Fashion.IdentityViewModels;
 using Wkhtmltopdf.NetCore;
+using Microsoft.Identity.Web;
+using Web_API_e_Fashion.Helpers;
+using Constants = Web_API_e_Fashion.Helpers.Constants;
 
 namespace Web_API_e_Fashion
 {

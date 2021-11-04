@@ -17,5 +17,7 @@ namespace Web_API_e_Fashion.Models
         public virtual ICollection<UserLike> UserLikes { get; set; }
         public virtual ICollection<UserComment> UserComments { get; set; }
         public virtual ICollection<PhieuNhapHang> PhieuNhapHangs { get; set; }
+        public virtual ICollection<UserChat> UserChats { get; set; }
+        public virtual ICollection<Calendar> Calendars { get; set; }
     }
 }

@@ -13,7 +13,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Web_API_e_Fashion.Data;
-using Web_API_e_Fashion.Helpers;
 using Web_API_e_Fashion.Models;
 using Web_API_e_Fashion.ServerToClientModels;
 using Web_API_e_Fashion.SignalRModels;
@@ -134,7 +133,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
                 await cnn.CloseAsync();
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
             };
@@ -219,7 +218,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                     _context.ChiTietHoaDons.Add(CTHD);
                     await _context.SaveChangesAsync();
                 }
-                catch (Exception ex)
+                catch (Exception )
                 {
 
                 }

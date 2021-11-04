@@ -221,6 +221,29 @@ namespace Web_API_e_Fashion.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Web_API_e_Fashion.Models.Calendar", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ToDo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("Calendars");
+                });
+
             modelBuilder.Entity("Web_API_e_Fashion.Models.ChiTietHoaDon", b =>
                 {
                     b.Property<int>("Id")
@@ -610,6 +633,29 @@ namespace Web_API_e_Fashion.Migrations
                     b.ToTable("Sizes");
                 });
 
+            modelBuilder.Entity("Web_API_e_Fashion.Models.UserChat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContentChat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("TimeChat")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("UserChats");
+                });
+
             modelBuilder.Entity("Web_API_e_Fashion.Models.UserComment", b =>
                 {
                     b.Property<int>("IdSanPham")
@@ -720,6 +766,15 @@ namespace Web_API_e_Fashion.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Web_API_e_Fashion.Models.Calendar", b =>
+                {
+                    b.HasOne("Web_API_e_Fashion.Models.AppUser", "AppUser")
+                        .WithMany("Calendars")
+                        .HasForeignKey("IdUser");
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.ChiTietHoaDon", b =>
@@ -847,6 +902,15 @@ namespace Web_API_e_Fashion.Migrations
                     b.Navigation("Loai");
                 });
 
+            modelBuilder.Entity("Web_API_e_Fashion.Models.UserChat", b =>
+                {
+                    b.HasOne("Web_API_e_Fashion.Models.AppUser", "AppUser")
+                        .WithMany("UserChats")
+                        .HasForeignKey("IdUser");
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("Web_API_e_Fashion.Models.UserComment", b =>
                 {
                     b.HasOne("Web_API_e_Fashion.Models.AppUser", "User")
@@ -944,7 +1008,11 @@ namespace Web_API_e_Fashion.Migrations
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.AppUser", b =>
                 {
+                    b.Navigation("Calendars");
+
                     b.Navigation("PhieuNhapHangs");
+
+                    b.Navigation("UserChats");
 
                     b.Navigation("UserComments");
 

@@ -14,6 +14,8 @@ namespace Web_API_e_Fashion.ServerToClientModels
         public string Tag { get; set; }
         public string Image { get; set; }
         public int? GioiTinh { get; set; }
+        public string TenLoai { get; set; }
+        public string TenNhanHieu { get; set; }
         public int? SoLuongLike { get; set; }
         public int? SoLuongComment { get; set; }
         public decimal? GiaBan { get; set; }
@@ -32,8 +34,7 @@ namespace Web_API_e_Fashion.ServerToClientModels
         public int? SanPhamThietKes { get; set; }
         public int? SanPham_SanPhamThietKes { get; set; }
 
-        public string TenLoai { get; set; }
-        public string TenNhanHieu { get; set; }
+      
 
     }
 }

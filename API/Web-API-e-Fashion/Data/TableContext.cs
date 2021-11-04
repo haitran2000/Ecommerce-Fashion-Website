@@ -18,7 +18,9 @@ namespace Web_API_e_Fashion.Data
         public DbSet<SanPhamBienThe> SanPhamBienThes { get; set; }
         public DbSet<MauSac> MauSacs { get; set; }
         public DbSet<SanPham> SanPhams { get; set; }
+        public DbSet<UserChat> UserChats { get; set; }
         public DbSet<Size> Sizes { get; set; }
+        public DbSet<Calendar> Calendars { get; set; }
         public DbSet<ImageSanPham> ImageSanPhams { get; set; }
         public DbSet<Notification>  Notifications { get; set; }
         public DbSet<MaGiamGia> MaGiamGias { get; set; }
