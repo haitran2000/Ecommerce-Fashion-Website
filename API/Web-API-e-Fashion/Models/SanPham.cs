@@ -30,10 +30,10 @@ namespace Web_API_e_Fashion.Models
         public int? GioiTinh { get; set; } //1: nam, 2 : nữ,
         public int? Id_NhanHieu { get; set; }
         [ForeignKey("Id_NhanHieu")]
-        public virtual NhanHieu NhanHieu { get; set; }
         public int? Id_Loai { get; set; }
         [ForeignKey("Id_Loai")]
         public virtual Loai Loai { get; set; }
+        public virtual NhanHieu NhanHieu { get; set; }
         public int? Id_NhaCungCap { get; set; }
         [ForeignKey("Id_NhaCungCap")]
         public virtual NhaCungCap NhaCungCap { get; set; }
