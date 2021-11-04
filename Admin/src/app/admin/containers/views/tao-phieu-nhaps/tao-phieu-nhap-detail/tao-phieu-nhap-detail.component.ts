@@ -9,22 +9,22 @@ import { TaoPhieuNhapService } from '../tao-phieu-nhap.service';
 export class TaoPhieuNhapDetailComponent implements OnInit {
   @Input() childMessage: string;
 
-  constructor(private service :TaoPhieuNhapService) { }
-  phieunhapchitietphieunhap:any
+  constructor(private service: TaoPhieuNhapService) { }
+  phieunhapchitietphieunhap: any
   ngOnInit(): void {
     this.service.getdetailphieunhap(this.service.idphieunhap).subscribe(
-      result=>{
+      result => {
         this.phieunhapchitietphieunhap = result as any
         console.log(this.phieunhapchitietphieunhap);
-        
+
       },
-      error=>{
+      error => {
 
       }
     )
   }
   exportpdfs() {
-    window.open("https://localhost:44302/api/pdfs/phieunhapdetail/"+this.phieunhapchitietphieunhap.id, "_blank");
+    window.open("https://localhost:44302/api/pdfs/phieunhapdetail/" + this.phieunhapchitietphieunhap.id, "_blank");
 
   }
 }

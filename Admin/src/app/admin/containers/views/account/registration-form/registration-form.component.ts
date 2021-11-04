@@ -43,7 +43,9 @@ export class RegistrationFormComponent implements OnInit {
  
  constructor(public userService: UserService,private router: Router,public http : HttpClient, public _snackBar:  MatSnackBar) { 
  }
-
+ onRegister(){
+  this.router.navigate(['/register'])
+ }
   ngOnInit() {       
     this.newForm = new FormGroup({
       firstName : new FormControl(null),

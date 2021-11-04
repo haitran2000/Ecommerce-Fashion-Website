@@ -2,73 +2,101 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
-    name: 'Biểu đồ tổng quan',
-    url: '/admin/dashboard',
-    icon: 'cil-chart-line',
+    name:"THỐNG KÊ",
+    children:
+    [
+      {
+        name: 'Tổng quan',
+        url: '/admin/dashboard',
+        icon: 'cil-chart-line',
+      },
+      {
+        name: 'Bán hàng',
+        url: '/admin/chartsecond',
+        icon: 'cil-chart-pie',
+      },
+      {
+        name: 'Nhập hàng',
+        url: '/admin/chartthird',
+        icon: 'cil-bar-chart',
+      },
+    ]
   },
+
   {
-    name: 'Biểu đồ bán hàng',
-    url: '/admin/chartsecond',
-    icon: 'cil-chart-pie',
+    name:"QUẢN LÝ",
+    children:
+    [
+      {
+        name: 'Quản phẩm',
+        url: '/admin/products',
+        icon: 'cil-3d',
+      },
+      {
+        name: 'Loại',
+        url: '/admin/categories',
+        icon: 'cil-aperture',
+      },
+      {
+        name: 'Nhà cung cấp',
+        url: '/admin/nhacungcaps',
+        icon: 'cil-library-building',
+      },
+      {
+        name: 'Nhãn hiệu',
+        url: '/admin/brands',
+        icon: 'cil-apps',
+      },
+      {
+        name: 'Kích thước',
+        url: '/admin/sizes',
+        icon: 'cil-resize-width',
+      },
+      {
+        name: 'Màu sắc',
+        url: '/admin/mausacs',
+        icon: 'cil-burn',
+      },
+      {
+        name: 'Sản phẩm biến thể',
+        url: '/admin/sanphambienthes',
+        icon:'cil-dialpad'
+      },
+      {
+        name:'Người dùng',
+        url:'/admin/aspnetusers',
+        icon:'cil-address-book'
+      },
+      {
+        name: 'Mã giảm giá',
+        url: '/admin/magiamgias',
+        icon: 'cil-puzzle',
+      },
+      {
+        name:'Trò chuyện',
+        url:'admin/chats',
+        icon:'cil-chat-bubble'
+      },
+    ]
   },
+  
+
   {
-    name: 'Biểu đồ nhập hàng',
-    url: '/admin/chartthird',
-    icon: 'cil-bar-chart',
+    name:"HÓA ĐƠN",
+    children:
+    [
+      {
+        name: 'Hóa đơn bán hàng',
+        url: '/admin/hoadons',   
+        icon:'cil-notes'
+      },
+      {
+        name:'Phiếu nhập hàng',
+        url:'admin/taophieunhap',
+        icon:'cil-list-rich'
+      },
+    ]
   },
-  {
-    name: 'DS sản phẩm',
-    url: '/admin/products',
-    icon: 'cil-3d',
-  },
-  {
-    name: 'DS loại',
-    url: '/admin/categories',
-    icon: 'cil-aperture',
-  },
-  {
-    name: 'DS nhà cung cấp',
-    url: '/admin/nhacungcaps',
-    icon: 'cil-library-building',
-  },
-  {
-    name: 'DS nhãn hiệu',
-    url: '/admin/brands',
-    icon: 'cil-apps',
-  },
-  {
-    name: 'DS size',
-    url: '/admin/sizes',
-    icon: 'cil-resize-width',
-  },
-  {
-    name: 'DS màu sắc',
-    url: '/admin/mausacs',
-    icon: 'cil-burn',
-  },
-  {
-    name: 'DS sản phẩm biến thể',
-    url: '/admin/sanphambienthes',
-    icon:'cil-dialpad'
-  },
-  {
-    name:'DS User',
-    url:'/admin/aspnetusers',
-    icon:'cil-address-book'
-  },
-  {
-    name: 'DS mã giảm giá',
-    url: '/admin/magiamgias',
-    icon: 'cil-puzzle',
-  },
-  {
-    name: 'DS hóa đơn',
-    url: '/admin/hoadons',   
-    icon:'cil-notes'
-  },
-  {
-    name:'DS phiếu nhập hàng',
-    url:'admin/taophieunhap',
-    icon:'cil-list-rich'
-  }
+  
+  
 ];

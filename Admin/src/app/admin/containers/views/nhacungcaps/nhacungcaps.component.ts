@@ -46,7 +46,6 @@ export class NhaCungCapsComponent implements OnInit, AfterViewInit {
     }).catch(function (err) {
       return console.error(err.toString());
     });
-
     connection.on("BroadcastMessage", () => {
       this.service.getAllNhaCungCaps();
     });

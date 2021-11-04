@@ -121,6 +121,7 @@ import '@boldreports/javascript-reporting-controls/Scripts/bold.report-viewer.mi
 // data-visualization
 import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.bulletgraph.min';
 import '@boldreports/javascript-reporting-controls/Scripts/data-visualization/ej.chart.min';
+import { ChatsComponent } from './admin/containers/views/chats/chats.component';
 
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 
@@ -228,6 +229,7 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
     TaoPhieuNhapDetailComponent,
     ChartThirdComponent,
     HoaDonEditComponent,
+    ChatsComponent,
   ],
   providers: [
     IconSetService,
