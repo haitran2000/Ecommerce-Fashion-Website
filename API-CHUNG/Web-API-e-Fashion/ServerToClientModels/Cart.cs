@@ -12,6 +12,7 @@ namespace Web_API_e_Fashion.ServerToClientModels
         public string UserID { get; set; }
         public string Mau { get; set; }
         public int SoLuong { get; set; }
+        public int? IdSanPhamBienThe { get; set; }
         public string Size { get; set; }
         public ProductDetail ProductDetail { get; set; }
     }

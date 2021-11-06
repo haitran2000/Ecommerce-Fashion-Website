@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +28,14 @@ namespace Web_API_e_Fashion.Api_Controllers
         private readonly IJwtFactory _jwtFactory;
         private readonly JsonSerializerSettings _serializerSettings;
         private readonly JwtIssuerOptions _jwtOptions;
-        private readonly DPContext _context; 
-        public AuthController(UserManager<AppUser> userManager, DPContext context,  IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
+        private readonly DPContext _context;
+        private readonly IMapper _mapper;
+        public AuthController(UserManager<AppUser> userManager, IMapper mapper, DPContext context,  IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;
             _jwtOptions = jwtOptions.Value;
+            _mapper = mapper;
             _context = context;
             _serializerSettings = new JsonSerializerSettings
             {
@@ -38,7 +43,31 @@ namespace Web_API_e_Fashion.Api_Controllers
             };
         }
         static string id ;
-  
+
+        [HttpPost("registerCustomer")]
+        public async Task<IActionResult> Post([FromBody] JObject json)
+        {
+            var model = JsonConvert.DeserializeObject<RegistrationViewModel>(json.GetValue("data").ToString());
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            model.Quyen= "Customer";
+
+            var userIdentity = _mapper.Map<AppUser>(model);
+            var result = await _userManager.CreateAsync(userIdentity, model.Password);
+
+            AppUser user = new AppUser();
+            user = await _context.AppUsers.FirstOrDefaultAsync(s => s.Id == userIdentity.Id);
+
+            _context.AppUsers.Update(user);
+            if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
+
+            await _context.JobSeekers.AddAsync(new JobSeeker { Id_Identity = userIdentity.Id, Location = model.Location });
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
         // POST api/auth/login
         [HttpPost("login")]
         public async Task<IActionResult> Post([FromBody] CredentialsViewModel credentials)

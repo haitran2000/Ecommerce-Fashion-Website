@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
 using Web_API_e_Fashion.ResModels;
@@ -17,7 +18,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MauSacsController : ControllerBase
+    public class MauSacsController : Controller
     {
         private readonly DPContext _context;
         private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
@@ -41,6 +42,27 @@ namespace Web_API_e_Fashion.Api_Controllers
                         MaMau = s.MaMau
                      };
             return await kb.ToListAsync();
+        }
+        [HttpGet("mausac")]
+        public async Task<ActionResult> GetMauSac()
+        {
+            var resuft = _context.MauSacs.Select(d => new
+            {
+                tenmau = d.MaMau
+            }).Distinct().ToList();
+            return Json(resuft);
+
+        }
+        [HttpPost("mau")]
+        public IActionResult getListMauSac([FromBody] JObject json)
+        {
+            var id = int.Parse(json.GetValue("id_san_pham").ToString());
+            var mausac_id = _context.SanPhamBienThes.Where(d => d.Id_SanPham == id).Select(d => d.Id_Mau).ToList();
+            var resuft = _context.MauSacs.Where(d => mausac_id.Contains(d.Id)).
+                Select(d=> new {
+                     mau = d.MaMau
+                }).ToList();
+            return Json(resuft);
         }
 
         [HttpGet("tenmauloai")]

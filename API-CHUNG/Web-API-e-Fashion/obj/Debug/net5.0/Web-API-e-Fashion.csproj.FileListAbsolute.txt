@@ -639,7 +639,6 @@ D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API-CHUNG\Web-API-e-Fashion\o
 D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API-CHUNG\Web-API-e-Fashion\obj\Debug\net5.0\ref\Web-API-e-Fashion.dll
 D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API-CHUNG\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.pdb
 D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API-CHUNG\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.genruntimeconfig.cache
-C:\Users\Admin\Desktop\Hai-API\API-CHUNG\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.csprojAssemblyReference.cache
 C:\Users\Admin\Desktop\Hai-API\API-CHUNG\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Admin\Desktop\Hai-API\API-CHUNG\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.AssemblyInfoInputs.cache
 C:\Users\Admin\Desktop\Hai-API\API-CHUNG\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.AssemblyInfo.cs
@@ -809,3 +808,7 @@ C:\Users\Admin\Desktop\Hai-API\API-CHUNG\Web-API-e-Fashion\obj\Debug\net5.0\Web-
 C:\Users\Admin\Desktop\Hai-API\API-CHUNG\Web-API-e-Fashion\obj\Debug\net5.0\ref\Web-API-e-Fashion.dll
 C:\Users\Admin\Desktop\Hai-API\API-CHUNG\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.pdb
 C:\Users\Admin\Desktop\Hai-API\API-CHUNG\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.genruntimeconfig.cache
+C:\Users\Admin\Desktop\Hai-API\API-CHUNG\Web-API-e-Fashion\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Admin\Desktop\Hai-API\API-CHUNG\Web-API-e-Fashion\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Admin\Desktop\Hai-API\API-CHUNG\Web-API-e-Fashion\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\Users\Admin\Desktop\Hai-API\API-CHUNG\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.csprojAssemblyReference.cache

@@ -35,6 +35,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                     CartID = d.CartID,
                     Mau = d.Mau,
                     Size = d.Size,
+                    IdSanPhamBienThe=d.Id_SanPhamBienThe,
                     SoLuong = d.SoLuong,
                     ProductDetail = _context.SanPhams.Where(i => i.Id == d.SanPhamId).Select(
                         i => new ProductDetail
@@ -99,6 +100,14 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
 
             return Json(resuft);
+        }
+        [HttpPost("delete")]
+        public async Task<ActionResult> Delete(DeleteCart delete)
+        {
+            var card = _context.Carts.Where(d => d.Id_SanPhamBienThe == delete.Id_sanpham && d.UserID == delete.User_ID).SingleOrDefault();
+            _context.Carts.Remove(card);
+            await _context.SaveChangesAsync();
+            return Json("1");
         }
 
         // GET: api/Carts/5
@@ -177,27 +186,19 @@ namespace Web_API_e_Fashion.Api_Controllers
             return CreatedAtAction("GetCart", new { id = cart.CartID }, cart);
         }
 
-        // DELETE: api/Carts/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCart(int id)
-        {
-            var cart = await _context.Carts.FindAsync(id);
-            if (cart == null)
-            {
-                return NotFound();
-            }
-
-            _context.Carts.Remove(cart);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
+        
         public class UpdateCart {
            public int Id_sanpham { get; set; }
             public int id_sanphambienthe { get; set; }
             public int soLuong { get; set; }
 
             }
+        public class DeleteCart
+        {
+            public int Id_sanpham { get; set; }
+            public string User_ID { get; set; }
+
+        }
         private bool CartExists(int id)
         {
             return _context.Carts.Any(e => e.CartID == id);

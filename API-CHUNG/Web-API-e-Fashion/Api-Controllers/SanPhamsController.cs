@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
 using Web_API_e_Fashion.ResModels;
@@ -71,12 +72,21 @@ namespace Web_API_e_Fashion.Api_Controllers
             var resuft = _context.UserLikes.Where(d => d.IdUser == userlike.IdUser).Select(
                 d => new SanPhamLike
                 {
-                    id = d.IdSanPham,
+                    id = d.Id,
+                    idSanPham = d.IdSanPham,
                     ten = _context.SanPhams.Where(s => s.Id == d.IdSanPham).Select(s => s.Ten).FirstOrDefault(),
                     gia = (decimal)_context.SanPhams.Where(s => s.Id == d.IdSanPham).Select(s => s.Gia).FirstOrDefault(),
                 }); ;
 
             return Json(resuft);
+        }
+        [HttpPost("deletelike/{id}")]
+        public async Task<ActionResult> DeleteLike(int id)
+        {
+            var card = _context.UserLikes.Where(d => d.Id==id).SingleOrDefault();
+            _context.UserLikes.Remove(card);
+            await _context.SaveChangesAsync();
+            return Json("1");
         }
         [HttpPost("review")]
         public async Task<ActionResult> Review(UserComment usercomment)
@@ -580,7 +590,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet("topsanphammoi")]
         public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> DanhSachHangMoi()
         {
-            var kb = _context.SanPhams.Where(d => d.TrangThaiSanPham == "hot").Select(
+            var kb = _context.SanPhams.Select(
                    s => new SanPhamLoaiThuongHieu()
                    {
 
@@ -600,8 +610,70 @@ namespace Web_API_e_Fashion.Api_Controllers
                        TenLoai = _context.Loais.Where(d => d.Id == s.Id_Loai).Select(d => d.Ten).FirstOrDefault(),
                        TenNhanHieu = _context.NhanHieus.Where(d => d.Id == s.Id_NhanHieu).Select(d => d.Ten).FirstOrDefault(),
                        Image = _context.ImageSanPhams.Where(q => q.IdSanPham == s.Id).Select(q => q.ImageName).FirstOrDefault(),
-                   }).Take<SanPhamLoaiThuongHieu>(4).ToList();
+                   }).Take<SanPhamLoaiThuongHieu>(8).ToList();
             return kb;
+        }
+        [HttpPost("sapxepsanpham")]
+        public async Task<ActionResult> SapXepSP(SapXep sx)
+        {
+            var kb = _context.SanPhams.Where(d => d.Gia>sx.Thap&&d.Gia<sx.Cao).Select(
+                   s => new SanPhamLoaiThuongHieu()
+                   {
+
+                       Id = s.Id,
+                       Ten = s.Ten,
+                       Gia = s.Gia,
+                       Tag = s.Tag,
+                       KhuyenMai = s.KhuyenMai,
+                       MoTa = s.MoTa,
+                       HuongDan = s.HuongDan,
+                       GioiTinh = s.GioiTinh,
+                       ThanhPhan = s.ThanhPhan,
+                       TrangThaiSanPham = s.TrangThaiSanPham,
+                       TrangThaiHoatDong = s.TrangThaiHoatDong,
+                       Id_Loai = s.Id_Loai,
+                       Id_NhanHieu = s.Id_NhanHieu,
+                       TenLoai = _context.Loais.Where(d => d.Id == s.Id_Loai).Select(d => d.Ten).FirstOrDefault(),
+                       TenNhanHieu = _context.NhanHieus.Where(d => d.Id == s.Id_NhanHieu).Select(d => d.Ten).FirstOrDefault(),
+                       Image = _context.ImageSanPhams.Where(q => q.IdSanPham == s.Id).Select(q => q.ImageName).FirstOrDefault(),
+                   }).ToList();
+            return Json(kb);
+        }
+        [HttpPost("searchtheomau")]
+        public IActionResult getListTaskCalendar([FromBody] JObject json)
+        {
+            var mau = json.GetValue("mausac").ToString();
+            var list_id_mau = _context.MauSacs.Where(d => d.MaMau == mau).Select(d => d.Id.ToString()).ToList();
+            var list_spbienthe_theomau = _context.SanPhamBienThes.Where(d => list_id_mau.Contains((d.Id_Mau.ToString()))).Select(d => d.Id_SanPham).Distinct().ToList();
+            var kb = _context.SanPhams.Where(d=>list_spbienthe_theomau.Contains(d.Id)).Select(
+                   s => new SanPhamLoaiThuongHieu()
+                   {
+
+                       Id = s.Id,
+                       Ten = s.Ten,
+                       Gia = s.Gia,
+                       Tag = s.Tag,
+                       KhuyenMai = s.KhuyenMai,
+                       MoTa = s.MoTa,
+                       HuongDan = s.HuongDan,
+                       GioiTinh = s.GioiTinh,
+                       ThanhPhan = s.ThanhPhan,
+                       TrangThaiSanPham = s.TrangThaiSanPham,
+                       TrangThaiHoatDong = s.TrangThaiHoatDong,
+                       Id_Loai = s.Id_Loai,
+                       Id_NhanHieu = s.Id_NhanHieu,
+                       TenLoai = _context.Loais.Where(d => d.Id == s.Id_Loai).Select(d => d.Ten).FirstOrDefault(),
+                       TenNhanHieu = _context.NhanHieus.Where(d => d.Id == s.Id_NhanHieu).Select(d => d.Ten).FirstOrDefault(),
+                       Image = _context.ImageSanPhams.Where(q => q.IdSanPham == s.Id).Select(q => q.ImageName).FirstOrDefault(),
+                   }).ToList();
+            return Json(kb);
+        }
+        public class SapXep
+        {
+            public decimal Thap { get; set; }
+            public decimal Cao { get; set; }
+            
+
         }
         //[HttpGet("topsanphambanchay")]
         //public async Task<ActionResult<IEnumerable<SanPhamLoaiThuongHieu>>> SanPhamBanChay()

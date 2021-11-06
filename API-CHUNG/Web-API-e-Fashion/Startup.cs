@@ -51,8 +51,8 @@ namespace Web_API_e_Fashion
                 options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
                 options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
             });
-           
 
+            services.AddControllers().AddNewtonsoftJson();
 
             services.AddMvc();
             services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
