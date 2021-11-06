@@ -8,10 +8,10 @@ namespace Web_API_e_Fashion.Models
 {
     public class ImageSanPham
     {
-        public int Id { get; set; }
-        public string? ImagePath { get; set; }
-        public int? SanPhamId { get; set; }
-        [ForeignKey("SanPhamId")]
-        public virtual SanPham sanPham { get; set; }
+        public int? Id { get; set; }
+        public string? ImageName { get; set; }
+        public int? IdSanPham { get; set; }
+        [ForeignKey("IdSanPham")]
+        public virtual SanPham? SanPham { get; set; }
     }
 }

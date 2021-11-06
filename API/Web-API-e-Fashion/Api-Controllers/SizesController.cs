@@ -4,30 +4,74 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.ResModels;
+using Web_API_e_Fashion.ServerToClientModels;
+using Web_API_e_Fashion.SignalRModels;
+using Web_API_e_Fashion.UploadDataFormClientModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SizesController : ControllerBase
+    public class SizesController : Controller
     {
         private readonly DPContext _context;
-
-        public SizesController(DPContext context)
+        private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
+        public SizesController(DPContext context, IHubContext<BroadcastHub, IHubClient> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
+        [HttpPost("sizetheomau")]
+        public IActionResult getListSizeTheoMau([FromBody] JObject json)
+        {
+            var id = int.Parse(json.GetValue("id_san_pham").ToString());
+            var mamau = json.GetValue("mamau").ToString();
+            var id_loai_sp = _context.SanPhams.Where(d => d.Id == id).Select(d => d.Id_Loai).SingleOrDefault();
+            var id_mau = _context.MauSacs.Where(d => d.MaMau == mamau && d.Id_Loai == id_loai_sp).Select(d => d.Id).SingleOrDefault();
+            var list_idsize = _context.SanPhamBienThes.Where(d => d.Id_Mau == id_mau && d.Id_SanPham == id).Select(d => d.SizeId.ToString()).ToList();
+            var resuft = _context.Sizes.Where(d => list_idsize.Contains(d.Id.ToString())).Select(
+                d => new
+                {
+                    size = d.TenSize
+                });
 
+            return Json(resuft);
+        }
         // GET: api/Sizes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Size>>> GetSizes()
+        public async Task<ActionResult<IEnumerable<SizeLoai>>> GetSizes()
         {
-            return await _context.Sizes.ToListAsync();
+            var kb = from l in _context.Loais
+                     join s in _context.Sizes
+                     on l.Id equals s.Id_Loai
+                     select new SizeLoai()
+                     {
+                         Id = s.Id,
+                         TenLoai = l.Ten,
+                         TenSize = s.TenSize
+                     };
+            return await kb.ToListAsync();
         }
-
+        [HttpGet("tensizeloai")]
+        public async Task<ActionResult<IEnumerable<TenSizeLoai>>> GetTenSizeLoais()
+        {
+            var kb = from m in _context.Sizes
+                     join l in _context.Loais
+                     on m.Id_Loai equals l.Id
+                     select new TenSizeLoai()
+                     {
+                         Id = m.Id,
+                         SizeLoaiTen = m.TenSize+" "+l.Ten
+                     };
+            var kbs = kb.ToListAsync();
+            return await kbs;
+        }
         // GET: api/Sizes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Size>> GetSize(int id)
@@ -45,42 +89,49 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/Sizes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutSize(int id, Size size)
+        public async Task<IActionResult> PutSize(int id, [FromForm] UploadSize upload)
         {
-            if (id != size.Id)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(size).State = EntityState.Modified;
+            Size size;
+            size = await _context.Sizes.FindAsync(id);
+            size.TenSize = upload.TenSize;
+            size.Id_Loai = upload.Id_Loai;
+            _context.Sizes.Update(size);
 
-            try
+          
+            Notification notification = new Notification()
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!SizeExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+                TenSanPham = upload.TenSize,
+                TranType = "Edit"
+            };
+            _context.Notifications.Add(notification);
+    
+            await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
             return NoContent();
         }
 
         // POST: api/Sizes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Size>> PostSize(Size size)
+        public async Task<ActionResult<Size>> PostSize([FromForm]UploadSize upload)
         {
-            _context.Sizes.Add(size);
-            await _context.SaveChangesAsync();
+            Size size = new Size()
+            {
+                TenSize = upload.TenSize,
+                Id_Loai = upload.Id_Loai,
+            };
 
+            _context.Sizes.Add(size);
+            Notification notification = new Notification()
+            {
+                TenSanPham = upload.TenSize,
+                TranType = "Add"
+            };
+            _context.Notifications.Add(notification);
+          
+            await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
             return CreatedAtAction("GetSize", new { id = size.Id }, size);
         }
 
@@ -95,8 +146,15 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
 
             _context.Sizes.Remove(size);
+            Notification notification = new Notification()
+            {
+                TenSanPham = size.TenSize,
+                TranType = "Delete"
+            };
+            _context.Notifications.Add(notification);
+         
             await _context.SaveChangesAsync();
-
+            await _hubContext.Clients.All.BroadcastMessage();
             return NoContent();
         }
 

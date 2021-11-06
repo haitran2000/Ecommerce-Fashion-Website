@@ -4,30 +4,82 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.ResModels;
+using Web_API_e_Fashion.ServerToClientModels;
+using Web_API_e_Fashion.SignalRModels;
+using Web_API_e_Fashion.UploadDataFormClientModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MauSacsController : ControllerBase
+    public class MauSacsController : Controller
     {
         private readonly DPContext _context;
-
-        public MauSacsController(DPContext context)
+        private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
+        public MauSacsController(DPContext context, IHubContext<BroadcastHub, IHubClient> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         // GET: api/MauSacs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MauSac>>> GetMauSacs()
+        public async Task<ActionResult<IEnumerable<MauSacLoai>>> GetMauSacs()
         {
-            return await _context.MauSacs.ToListAsync();
+            var kb = from l in _context.Loais
+                     join s in _context.MauSacs
+                     on l.Id equals s.Id_Loai
+                     select new MauSacLoai()
+                     {
+                         Id = s.Id,
+                         TenLoai = l.Ten,
+                        MaMau = s.MaMau
+                     };
+            return await kb.ToListAsync();
         }
 
+        [HttpGet("mausac")]
+        public async Task<ActionResult> GetMauSac()
+        {
+            var resuft = _context.MauSacs.Select(d => new
+            {
+                tenmau = d.MaMau
+            }).Distinct().ToList();
+            return Json(resuft);
+
+        }
+        [HttpPost("mau")]
+        public IActionResult getListMauSac([FromBody] JObject json)
+        {
+            var id = int.Parse(json.GetValue("id_san_pham").ToString());
+            var mausac_id = _context.SanPhamBienThes.Where(d => d.Id_SanPham == id).Select(d => d.Id_Mau).ToList();
+            var resuft = _context.MauSacs.Where(d => mausac_id.Contains(d.Id)).
+                Select(d => new {
+                    mau = d.MaMau
+                }).ToList();
+            return Json(resuft);
+        }
+
+        [HttpGet("tenmauloai")]
+        public async Task<ActionResult<IEnumerable<TenMauLoai>>> GetMauSacLoai()
+        {
+            var kb = from m in _context.MauSacs
+                     join l in _context.Loais
+                     on m.Id_Loai equals l.Id
+                     select new TenMauLoai()
+                     {
+                         Id = m.Id,
+                        LoaiTenMau = m.MaMau+" "+l.Ten
+                     };
+            return await kb.ToListAsync();
+
+        }
         // GET: api/MauSacs/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MauSac>> GetMauSac(int id)
@@ -45,15 +97,19 @@ namespace Web_API_e_Fashion.Api_Controllers
         // PUT: api/MauSacs/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMauSac(int id, MauSac mauSac)
+        public async Task<IActionResult> PutMauSac(int id, [FromForm]UploadMauSac upload)
         {
-            if (id != mauSac.Id)
+            MauSac mausac;
+            mausac = await _context.MauSacs.FindAsync(id);
+            mausac.MaMau = upload.MaMau;
+           mausac.Id_Loai = upload.Id_Loai;
+            _context.MauSacs.Update(mausac);
+            Notification notification = new Notification()
             {
-                return BadRequest();
-            }
-
-            _context.Entry(mauSac).State = EntityState.Modified;
-
+                TenSanPham = upload.MaMau,
+                TranType = "Edit"
+            };
+            _context.Notifications.Add(notification);
             try
             {
                 await _context.SaveChangesAsync();
@@ -69,26 +125,44 @@ namespace Web_API_e_Fashion.Api_Controllers
                     throw;
                 }
             }
-
-            return NoContent();
+            await _hubContext.Clients.All.BroadcastMessage();
+            return Ok();
         }
 
         // POST: api/MauSacs
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<MauSac>> PostMauSac(MauSac mauSac)
-        {
-            _context.MauSacs.Add(mauSac);
+        public async Task<ActionResult<MauSac>> PostMauSac([FromForm] UploadMauSac upload)
+        { 
+            Notification notification = new Notification()
+            {
+                TenSanPham = upload.MaMau,
+                TranType = "Add"
+            };
+            _context.Notifications.Add(notification);
+            MauSac mausac = new MauSac()
+            {
+                MaMau = upload.MaMau,
+                Id_Loai = upload.Id_Loai,
+            };
+            _context.MauSacs.Add(mausac);
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMauSac", new { id = mauSac.Id }, mauSac);
+            await _hubContext.Clients.All.BroadcastMessage();
+            return Ok();
         }
 
         // DELETE: api/MauSacs/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMauSac(int id)
         {
+          
             var mauSac = await _context.MauSacs.FindAsync(id);
+            Notification notification = new Notification()
+            {
+                TenSanPham = mauSac.MaMau,
+                TranType = "Delete"
+            };
+            _context.Notifications.Add(notification);
             if (mauSac == null)
             {
                 return NotFound();
@@ -96,8 +170,8 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             _context.MauSacs.Remove(mauSac);
             await _context.SaveChangesAsync();
-
-            return NoContent();
+            await _hubContext.Clients.All.BroadcastMessage();
+            return Ok();
         }
 
         private bool MauSacExists(int id)

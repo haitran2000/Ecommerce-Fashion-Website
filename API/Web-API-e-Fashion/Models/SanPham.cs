@@ -9,42 +9,39 @@ namespace Web_API_e_Fashion.Models
 {
     public class SanPham
     {
-        public SanPham()
-        {
-            this.BillInfos = new HashSet<ChiTietHoaDon>();
-            this.GiaSanPhams = new HashSet<GiaSanPham>();
-        }
         [Key]
         public int Id { get; set; }
         public string Ten { get; set; }
-        public string ImagePath { get; set; }
-        public int? KhuyenMai { get; set; }
-        public string? MoTa { get; set; }
-        public int? SoLuong { get; set; }
-        public int? TrangThaiSanPham { get; set; }
-      
-        public int? KhoiLuong { get; set; }
-        public string? HuongDan { get; set; }
-        public string? MauSac { get; set; }
-        public string? ThanhPhan { get; set; }
-        public string? ChatLieu { get; set; }
-        public int? CreateBy { get; set; }
-        public int? UpdateBy { get; set; }
-        public System.DateTime? CreatedDate { get; set; }
-        public System.DateTime? UpdatedDate { get; set; }
-        public bool? TrangThaiHoatDong { get; set; }       
-        public virtual ICollection<ChiTietHoaDon> BillInfos { get; set; }
-        public int? BrandId { get; set; }
-        [ForeignKey("BrandId")]
-        public virtual ThuongHieu Brand { get; set; }
-        public int? CategoryId { get; set; }
-        [ForeignKey("CategoryId")]
-        public virtual Loai Category { get; set; }
        
-        public virtual ICollection<GiaSanPham> GiaSanPhams { get; set; }
-        public ICollection<SanPhamThietKe> SanPhamThietKes { get; set; }
-        public List<SanPham_SanPhamThietKe> SanPham_SanPhamThietKes { get; set; }
-
+        public string? MoTa { get; set; }
+        [Column(TypeName = "decimal(18,0)")]
+        public decimal? GiaBan { get; set; }
+        [Column(TypeName = "decimal(18,0)")]
+        public decimal? GiaNhap { get; set; }
+        [Column(TypeName = "decimal(18,0)")]
+        public decimal? KhuyenMai { get; set; }
+        public string Tag { get; set; }
+        public string? HuongDan { get; set; }
+        public string? ThanhPhan { get; set; }  
+        public System.DateTime? NgayCapNhat { get; set; }
+        public System.DateTime? NgayTao { get; set; }
+        public string? TrangThaiSanPham { get; set; }
+        public bool? TrangThaiHoatDong { get; set; }
+        public int? GioiTinh { get; set; } //1: nam, 2 : nữ,
+        public int? Id_NhanHieu { get; set; }
+        [ForeignKey("Id_NhanHieu")]
+        public int? Id_Loai { get; set; }
+        [ForeignKey("Id_Loai")]
+        public virtual Loai Loai { get; set; }
+        public virtual NhanHieu NhanHieu { get; set; }
+        public int? Id_NhaCungCap { get; set; }
+        [ForeignKey("Id_NhaCungCap")]
+        public virtual NhaCungCap NhaCungCap { get; set; }
+        public virtual ICollection<SanPhamBienThe> SanPhamBienThes { get; set; }
         public virtual ICollection<ImageSanPham> ImageSanPhams { get; set; }
+     
+
+
+
     }
 }

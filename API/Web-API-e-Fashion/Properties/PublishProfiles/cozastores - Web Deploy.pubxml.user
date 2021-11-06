@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAu4Tq6t70JEaFnSDnyA2baQAAAAACAAAAAAAQZgAAAAEAACAAAADKVVznQNJClnsZ+Q+0YtIBcf15jyQR2akLwHBA9IS8FwAAAAAOgAAAAAIAACAAAACbDdOtZOPGYm9Or2rqDKJsYsyuA8iI258Jb91S2bBEw4AAAABaHr73iz/BfgD6iTKoEZlyFfRYUBHvw+vAk7kdFnLzzd/gBu0veuvrGrj76LJ41Uv3PRyrBAuHVD8py8ltPEMkfF7xbBpHc6E0mHt11Aq+yBRMIdwaSMXJ5pkAz/l63ADYamqIO+zNkg+Q2yc7nPKjQV538ycnmSDAHhhAbedyqUAAAAA4LE33jrTWjBifSjHTHxwEO83qOsYivBmAT3XMWsITyqBZfdhwY0J96yzBkJQzCPMlHABs6T1pOp6nyloI8ow9</EncryptedPassword>
+    <History>True|2021-06-29T14:42:00.7794189Z;True|2021-06-29T21:03:54.0731241+07:00;True|2021-06-28T23:04:42.8771391+07:00;True|2021-06-28T22:55:15.3499194+07:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="db">
+      <Value>Data Source=tcp:codbserver.database.windows.net,1433%3bInitial Catalog=co%3bUser Id=a%40codbserver%3bPassword=Eysuo147852</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="Web_API_e_Fashion.Data.DPContext">
+      <Value>Data Source=tcp:codbserver.database.windows.net,1433%3bInitial Catalog=co%3bUser Id=a%40codbserver%3bPassword=Eysuo147852</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>

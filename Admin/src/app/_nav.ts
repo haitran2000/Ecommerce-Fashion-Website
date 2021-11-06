@@ -2,250 +2,101 @@ import { INavData } from '@coreui/angular';
 
 export const navItems: INavData[] = [
   {
-    name: 'Dashboard',
-    url: '/dashboard',
-    icon: 'icon-speedometer',
-    badge: {
-      variant: 'info',
-      text: 'NEW'
-    }
-  },
-  {
-    title: true,
-    name: 'Theme'
-  },
-  {
-    name: 'Colors',
-    url: '/theme/colors',
-    icon: 'icon-drop'
-  },
-  {
-    name: 'Typography',
-    url: '/theme/typography',
-    icon: 'icon-pencil'
-  },
-  {
-    title: true,
-    name: 'Components'
-  },
-  {
-    name: 'Base',
-    url: '/base',
-    icon: 'icon-puzzle',
-    children: [
+    name:"THỐNG KÊ",
+    children:
+    [
       {
-        name: 'Cards',
-        url: '/base/cards',
-        icon: 'icon-puzzle'
+        name: 'Tổng quan',
+        url: '/admin/dashboard',
+        icon: 'cil-chart-line',
       },
       {
-        name: 'Carousels',
-        url: '/base/carousels',
-        icon: 'icon-puzzle'
+        name: 'Bán hàng',
+        url: '/admin/chartsecond',
+        icon: 'cil-chart-pie',
       },
       {
-        name: 'Collapses',
-        url: '/base/collapses',
-        icon: 'icon-puzzle'
+        name: 'Nhập hàng',
+        url: '/admin/chartthird',
+        icon: 'cil-bar-chart',
       },
-      {
-        name: 'Forms',
-        url: '/base/forms',
-        icon: 'icon-puzzle'
-      },
-      {
-        name: 'Navbars',
-        url: '/base/navbars',
-        icon: 'icon-puzzle'
+    ]
+  },
 
+  {
+    name:"QUẢN LÝ",
+    children:
+    [
+      {
+        name: 'Quản phẩm',
+        url: '/admin/products',
+        icon: 'cil-3d',
       },
       {
-        name: 'Pagination',
-        url: '/base/paginations',
-        icon: 'icon-puzzle'
+        name: 'Loại',
+        url: '/admin/categories',
+        icon: 'cil-aperture',
       },
       {
-        name: 'Popovers',
-        url: '/base/popovers',
-        icon: 'icon-puzzle'
+        name: 'Nhà cung cấp',
+        url: '/admin/nhacungcaps',
+        icon: 'cil-library-building',
       },
       {
-        name: 'Progress',
-        url: '/base/progress',
-        icon: 'icon-puzzle'
+        name: 'Nhãn hiệu',
+        url: '/admin/brands',
+        icon: 'cil-apps',
       },
       {
-        name: 'Switches',
-        url: '/base/switches',
-        icon: 'icon-puzzle'
+        name: 'Kích thước',
+        url: '/admin/sizes',
+        icon: 'cil-resize-width',
       },
       {
-        name: 'Tables',
-        url: '/base/tables',
-        icon: 'icon-puzzle'
+        name: 'Màu sắc',
+        url: '/admin/mausacs',
+        icon: 'cil-burn',
       },
       {
-        name: 'Tabs',
-        url: '/base/tabs',
-        icon: 'icon-puzzle'
+        name: 'Sản phẩm biến thể',
+        url: '/admin/sanphambienthes',
+        icon:'cil-dialpad'
       },
       {
-        name: 'Tooltips',
-        url: '/base/tooltips',
-        icon: 'icon-puzzle'
-      }
+        name:'Người dùng',
+        url:'/admin/aspnetusers',
+        icon:'cil-address-book'
+      },
+      {
+        name: 'Mã giảm giá',
+        url: '/admin/magiamgias',
+        icon: 'cil-puzzle',
+      },
+      {
+        name:'Trò chuyện',
+        url:'admin/chats',
+        icon:'cil-chat-bubble'
+      },
     ]
   },
+  
+
   {
-    name: 'Buttons',
-    url: '/buttons',
-    icon: 'icon-cursor',
-    children: [
+    name:"HÓA ĐƠN",
+    children:
+    [
       {
-        name: 'Buttons',
-        url: '/buttons/buttons',
-        icon: 'icon-cursor'
+        name: 'Hóa đơn bán hàng',
+        url: '/admin/hoadons',   
+        icon:'cil-notes'
       },
       {
-        name: 'Dropdowns',
-        url: '/buttons/dropdowns',
-        icon: 'icon-cursor'
+        name:'Phiếu nhập hàng',
+        url:'admin/taophieunhap',
+        icon:'cil-list-rich'
       },
-      {
-        name: 'Brand Buttons',
-        url: '/buttons/brand-buttons',
-        icon: 'icon-cursor'
-      }
     ]
   },
-  {
-    name: 'Charts',
-    url: '/charts',
-    icon: 'icon-pie-chart'
-  },
-  {
-    name: 'Icons',
-    url: '/icons',
-    icon: 'icon-star',
-    children: [
-      {
-        name: 'CoreUI Icons',
-        url: '/icons/coreui-icons',
-        icon: 'icon-star',
-        badge: {
-          variant: 'success',
-          text: 'NEW'
-        }
-      },
-      {
-        name: 'Flags',
-        url: '/icons/flags',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Font Awesome',
-        url: '/icons/font-awesome',
-        icon: 'icon-star',
-        badge: {
-          variant: 'secondary',
-          text: '4.7'
-        }
-      },
-      {
-        name: 'Simple Line Icons',
-        url: '/icons/simple-line-icons',
-        icon: 'icon-star'
-      }
-    ]
-  },
-  {
-    name: 'Notifications',
-    url: '/notifications',
-    icon: 'icon-bell',
-    children: [
-      {
-        name: 'Alerts',
-        url: '/notifications/alerts',
-        icon: 'icon-bell'
-      },
-      {
-        name: 'Badges',
-        url: '/notifications/badges',
-        icon: 'icon-bell'
-      },
-      {
-        name: 'Modals',
-        url: '/notifications/modals',
-        icon: 'icon-bell'
-      }
-    ]
-  },
-  {
-    name: 'Widgets',
-    url: '/widgets',
-    icon: 'icon-calculator',
-    badge: {
-      variant: 'info',
-      text: 'NEW'
-    }
-  },
-  {
-    divider: true
-  },
-  {
-    title: true,
-    name: 'Extras',
-  },
-  {
-    name: 'Pages',
-    url: '/pages',
-    icon: 'icon-star',
-    children: [
-      {
-        name: 'Login',
-        url: '/login',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Register',
-        url: '/register',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Error 404',
-        url: '/404',
-        icon: 'icon-star'
-      },
-      {
-        name: 'Error 500',
-        url: '/500',
-        icon: 'icon-star'
-      }
-    ]
-  },
-  {
-    name: 'Disabled',
-    url: '/dashboard',
-    icon: 'icon-ban',
-    badge: {
-      variant: 'secondary',
-      text: 'NEW'
-    },
-    attributes: { disabled: true },
-  },
-  {
-    name: 'Download CoreUI',
-    url: 'http://coreui.io/angular/',
-    icon: 'icon-cloud-download',
-    class: 'mt-auto',
-    variant: 'success',
-    attributes: { target: '_blank', rel: 'noopener' }
-  },
-  {
-    name: 'Try CoreUI PRO',
-    url: 'http://coreui.io/pro/angular/',
-    icon: 'icon-layers',
-    variant: 'danger',
-    attributes: { target: '_blank', rel: 'noopener' }
-  }
+  
+  
 ];

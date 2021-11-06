@@ -9,17 +9,13 @@ namespace Web_API_e_Fashion.Models
 {
     public class Size
     {
-        public Size()
-        {
-            this.GiaSanPhams = new HashSet<GiaSanPham>();
-        }
         [Key]
         public int Id { get; set; }
-        public string Size1 { get; set; }
-        public int? IdLoai { get; set; }
-        [ForeignKey("IdLoai")]
-        public virtual Loai Category { get; set; }
+        public string TenSize { get; set; }
+        public int? Id_Loai { get; set; }
+        [ForeignKey("Id_Loai")]
+        public virtual Loai Loai { get; set; }
      
-        public virtual ICollection<GiaSanPham> GiaSanPhams { get; set; }
+        public virtual ICollection<SanPhamBienThe> SanPhamBienThes { get; set; }
     }
 }

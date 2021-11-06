@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAu4Tq6t70JEaFnSDnyA2baQAAAAACAAAAAAAQZgAAAAEAACAAAAB6TebBUCV3tZVXLN/HbutB/SGxRIcmtmah54Qs22pnLAAAAAAOgAAAAAIAACAAAAAymiSUduFGUNy0AJSdQPRIOVtoZ2IPPmhPniYqg5dnrYAAAABN06yvLX5EusbfMQB+J4gkF1PB7FHO0bKjKgDcYFx0jaRtBbklp0YeyEYuLgntb2nyHvgWqA13L0AVcOl/MyoER6KQzbcqX+WfByF3LwQou9DcTD0/zL4o/9x+KKKWoImwRGfrwEJ2ebJNUJXZtfeu5fkjn4Gd7eU5GuJqRJxfWkAAAADccmZJkirh+/gyIzK3C7MSsQCzvzW/xS0/96rPX+xozLzcckPryJrpsZIdA1yrLRbzgEvIWIPk4odqkiSPacfo</EncryptedPassword>
+    <History>True|2021-06-27T01:14:18.3871751Z;True|2021-06-27T08:11:36.5568610+07:00;True|2021-06-27T05:44:57.7411600+07:00;True|2021-06-27T05:35:36.6450351+07:00;True|2021-06-27T04:21:15.2433606+07:00;True|2021-06-26T22:16:16.1741599+07:00;True|2021-06-26T21:56:12.9020397+07:00;True|2021-06-26T21:52:10.2362467+07:00;True|2021-06-26T21:50:42.8612743+07:00;True|2021-06-26T21:14:06.2532769+07:00;True|2021-06-26T21:01:26.8334705+07:00;False|2021-06-26T20:59:53.2832634+07:00;True|2021-06-26T20:54:27.3667084+07:00;True|2021-06-26T20:53:12.5298149+07:00;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="db">
+      <Value>Data Source=tcp:web-api-e-fashiondb.database.windows.net,1433%3bInitial Catalog=Web-API-e-Fashion_db%3bUser Id=a%40web-api-e-fashiondb%3bPassword=Eysuo147852%40</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="Web_API_e_Fashion.Data.DPContext">
+      <Value>Data Source=tcp:web-api-e-fashiondb.database.windows.net,1433%3bInitial Catalog=Web-API-e-Fashion_db%3bUser Id=a%40web-api-e-fashiondb%3bPassword=Eysuo147852%40</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
