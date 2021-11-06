@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Models;
 using Web_API_e_Fashion.ResModels;
@@ -17,7 +18,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SizesController : ControllerBase
+    public class SizesController : Controller
     {
         private readonly DPContext _context;
         private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
@@ -26,7 +27,22 @@ namespace Web_API_e_Fashion.Api_Controllers
             _context = context;
             _hubContext = hubContext;
         }
+        [HttpPost("sizetheomau")]
+        public IActionResult getListSizeTheoMau([FromBody] JObject json)
+        {
+            var id = int.Parse(json.GetValue("id_san_pham").ToString());
+            var mamau = json.GetValue("mamau").ToString();
+            var id_loai_sp = _context.SanPhams.Where(d => d.Id == id).Select(d => d.Id_Loai).SingleOrDefault();
+            var id_mau = _context.MauSacs.Where(d => d.MaMau == mamau && d.Id_Loai == id_loai_sp).Select(d => d.Id).SingleOrDefault();
+            var list_idsize = _context.SanPhamBienThes.Where(d => d.Id_Mau == id_mau && d.Id_SanPham == id).Select(d => d.SizeId.ToString()).ToList();
+            var resuft = _context.Sizes.Where(d => list_idsize.Contains(d.Id.ToString())).Select(
+                d => new
+                {
+                    size = d.TenSize
+                });
 
+            return Json(resuft);
+        }
         // GET: api/Sizes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SizeLoai>>> GetSizes()

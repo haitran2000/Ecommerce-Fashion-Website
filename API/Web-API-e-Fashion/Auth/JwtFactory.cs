@@ -6,7 +6,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
-using Web_API_e_Fashion.IdentityViewModels;
 using Web_API_e_Fashion.Models;
 
 namespace Web_API_e_Fashion.Auth

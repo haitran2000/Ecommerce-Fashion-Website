@@ -1104,3 +1104,15 @@ D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API\Web-API-e-Fashion\obj\Deb
 D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API\Web-API-e-Fashion\obj\Debug\net5.0\Razor\Views\PDFs\GetAllSanPham.cshtml.g.cs
 D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API\Web-API-e-Fashion\obj\Debug\net5.0\Razor\Views\PDFs\GetAllPhieuNhap.cshtml.g.cs
 D:\-DO-AN-TOT-NGHIEP\Ecommerce-Fashion-Website-api\API\Web-API-e-Fashion\obj\Debug\net5.0\Razor\Views\PDFs\GetPhieuNhapDetail.cshtml.g.cs
+D:\-DO-AN-TOT-NGHIEP\API- Vinh\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.csproj.AssemblyReference.cache
+D:\-DO-AN-TOT-NGHIEP\API- Vinh\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.GeneratedMSBuildEditorConfig.editorconfig
+D:\-DO-AN-TOT-NGHIEP\API- Vinh\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.AssemblyInfoInputs.cache
+D:\-DO-AN-TOT-NGHIEP\API- Vinh\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.AssemblyInfo.cs
+D:\-DO-AN-TOT-NGHIEP\API- Vinh\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.csproj.CoreCompileInputs.cache
+D:\-DO-AN-TOT-NGHIEP\API- Vinh\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.MvcApplicationPartsAssemblyInfo.cs
+D:\-DO-AN-TOT-NGHIEP\API- Vinh\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.MvcApplicationPartsAssemblyInfo.cache
+D:\-DO-AN-TOT-NGHIEP\API- Vinh\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.RazorAssemblyInfo.cache
+D:\-DO-AN-TOT-NGHIEP\API- Vinh\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.RazorAssemblyInfo.cs
+D:\-DO-AN-TOT-NGHIEP\API- Vinh\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.dll
+D:\-DO-AN-TOT-NGHIEP\API- Vinh\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\ref\Web-API-e-Fashion.dll
+D:\-DO-AN-TOT-NGHIEP\API- Vinh\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.pdb

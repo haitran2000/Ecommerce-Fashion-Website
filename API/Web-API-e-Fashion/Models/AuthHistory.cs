@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 
 namespace Web_API_e_Fashion.Models
 {
-    public class UserLike
+    public class AuthHistory
     {
         [Key]
         public int Id { get; set; }
-        public string IdUser { get; set; }
-        public int IdSanPham { get; set; }
+        public string? IdentityId { get; set; }
+        [ForeignKey("IdentityId")]
+        public virtual AppUser Identity { get; set; }
+
+       public DateTime Datetime;
     }
 }

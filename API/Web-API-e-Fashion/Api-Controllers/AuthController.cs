@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,24 +16,27 @@ using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Helpers;
 using Web_API_e_Fashion.IdentityViewModels;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.ServerToClientModels;
 
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IJwtFactory _jwtFactory;
         private readonly JsonSerializerSettings _serializerSettings;
-        private readonly JwtIssuerOptions _jwtOptions;
+        private readonly IdentityViewModels.JwtIssuerOptions _jwtOptions;
         private readonly DPContext _context;
-        public AuthController(UserManager<AppUser> userManager, DPContext context, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
+        private readonly IMapper _mapper;
+        public AuthController(UserManager<AppUser> userManager, IMapper mapper, DPContext context, IJwtFactory jwtFactory, IOptions<IdentityViewModels.JwtIssuerOptions> jwtOptions)
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;
             _jwtOptions = jwtOptions.Value;
+            _mapper = mapper;
             _context = context;
             _serializerSettings = new JsonSerializerSettings
             {
@@ -39,6 +45,30 @@ namespace Web_API_e_Fashion.Api_Controllers
         }
         static string id;
 
+        [HttpPost("registerCustomer")]
+        public async Task<IActionResult> Post([FromBody] JObject json)
+        {
+            var model = JsonConvert.DeserializeObject<IdentityViewModels.Validations.RegistrationViewModel>(json.GetValue("data").ToString());
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            model.Quyen = "Customer";
+
+            var userIdentity = _mapper.Map<AppUser>(model);
+            var result = await _userManager.CreateAsync(userIdentity, model.Password);
+
+            AppUser user = new AppUser();
+            user = await _context.AppUsers.FirstOrDefaultAsync(s => s.Id == userIdentity.Id);
+
+            _context.AppUsers.Update(user);
+            if (!result.Succeeded) return new BadRequestObjectResult(Errors.AddErrorsToModelState(result, ModelState));
+
+            await _context.JobSeekers.AddAsync(new JobSeeker { Id_Identity = userIdentity.Id, Location = model.Location });
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
         // POST api/auth/login
         [HttpPost("login")]
         public async Task<IActionResult> Post([FromBody] CredentialsViewModel credentials)
@@ -47,6 +77,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             {
                 return BadRequest(ModelState);
             }
+
             var identity = await GetClaimsIdentity(credentials.UserName, credentials.Password);
             if (identity == null)
             {
@@ -54,7 +85,6 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
 
 
-            User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 
 
@@ -66,12 +96,17 @@ namespace Web_API_e_Fashion.Api_Controllers
                 hinh = _context.AppUsers.FirstOrDefault(s => s.Id == id).ImagePath,
                 email = _context.AppUsers.FirstOrDefault(s => s.Id == id).Email,
                 auth_token = await _jwtFactory.GenerateEncodedToken(credentials.UserName, identity),
-                expires_in = (int)_jwtOptions.ValidFor.TotalSeconds,
-                fullname = _context.AppUsers.FirstOrDefault(s => s.Id == id).FirstName + " " + _context.AppUsers.FirstOrDefault(s => s.Id == id).LastName
+                expires_in = (int)_jwtOptions.ValidFor.TotalSeconds
             };
 
             var json = JsonConvert.SerializeObject(response, _serializerSettings);
             return new OkObjectResult(json);
+        }
+        [HttpPost("logout")]
+        public IActionResult logout()
+        {
+            id = null;
+            return Ok();
         }
 
         public async Task<IActionResult> UpdateUser([FromBody] CredentialsViewModel credentials)
@@ -82,13 +117,15 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
 
             var identity = await GetClaimsIdentity(credentials.UserName, credentials.Password);
-
-            //var idUser = User.Identity.Name;
-
             if (identity == null)
             {
                 return BadRequest(Errors.AddErrorToModelState("login_failure", "Invalid username or password.", ModelState));
             }
+
+
+
+
+
             // Serialize and return the response
             var response = new
             {
@@ -116,9 +153,10 @@ namespace Web_API_e_Fashion.Api_Controllers
                     if (await _userManager.CheckPasswordAsync(userToVerify, password))
                     {
 
-                     
-                  
-                      
+                        AuthHistory auth = new AuthHistory();
+                        auth.IdentityId = userToVerify.Id;
+                        auth.Datetime = DateTime.Now;
+                        _context.AuthHistories.Add(auth);
                         await _context.SaveChangesAsync();
                         id = userToVerify.Id;
                         return await Task.FromResult(_jwtFactory.GenerateClaimsIdentity(userName, userToVerify.Id));
@@ -128,6 +166,14 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             // Credentials are invalid, or account doesn't exist
             return await Task.FromResult<ClaimsIdentity>(null);
+        }
+
+        [HttpGet("AuthHistory")]
+        public async Task<ActionResult<AppUser>> GetAuthHistory()
+        {
+            AppUser appUser = new AppUser();
+            appUser = await _context.AppUsers.FindAsync(id);
+            return appUser;
         }
     }
 }

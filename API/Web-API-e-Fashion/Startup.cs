@@ -43,28 +43,28 @@ namespace Web_API_e_Fashion
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+            var jwtAppSettingOptions = Configuration.GetSection(nameof(IdentityViewModels.JwtIssuerOptions));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAppService", Version = "v1" });
             });
             // Configure JwtIssuerOptions
-            services.Configure<JwtIssuerOptions>(options =>
+            services.Configure<IdentityViewModels.JwtIssuerOptions>(options =>
             {
-                options.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
-                options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
+                options.Issuer = jwtAppSettingOptions[nameof(IdentityViewModels.JwtIssuerOptions.Issuer)];
+                options.Audience = jwtAppSettingOptions[nameof(IdentityViewModels.JwtIssuerOptions.Audience)];
                 options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
             });
 
+            services.AddControllers().AddNewtonsoftJson();
 
-            services.AddWkhtmltopdf("wkhtmltopdf");
             services.AddMvc();
             services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
                 builder
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials()
-                .WithOrigins("http://localhost:4200", "http://localhost:12859", "http://localhost:1847");
+                .WithOrigins("http://localhost:4200");
             }));
 
             services.AddSignalR();
@@ -80,7 +80,7 @@ namespace Web_API_e_Fashion
             {
                 options.AddPolicy("ApiUser", policy => policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Rol, Constants.Strings.JwtClaims.ApiAccess));
             });
-           
+
 
             services.AddIdentity<AppUser, IdentityRole>
                 (o =>
@@ -96,7 +96,7 @@ namespace Web_API_e_Fashion
                 .AddDefaultTokenProviders();
 
             services.AddAutoMapper();
-         
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -121,14 +121,14 @@ namespace Web_API_e_Fashion
             app.UseHttpsRedirection();
          
          
-            var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
+            var jwtAppSettingOptions = Configuration.GetSection(nameof(IdentityViewModels.JwtIssuerOptions));
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)],
+                ValidIssuer = jwtAppSettingOptions[nameof(IdentityViewModels.JwtIssuerOptions.Issuer)],
 
                 ValidateAudience = true,
-                ValidAudience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)],
+                ValidAudience = jwtAppSettingOptions[nameof(IdentityViewModels.JwtIssuerOptions.Audience)],
 
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = _signingKey,

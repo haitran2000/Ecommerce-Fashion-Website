@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 
 namespace Web_API_e_Fashion.Models
 {
-    public class UserLike
+    public class JobSeeker
     {
         [Key]
         public int Id { get; set; }
-        public string IdUser { get; set; }
-        public int IdSanPham { get; set; }
+        public string Id_Identity { get; set; }
+        [ForeignKey("Id_Identity")]
+        public virtual AppUser Identity { get; set; }  // navigation property
+        public string Location { get; set; }
     }
 }
