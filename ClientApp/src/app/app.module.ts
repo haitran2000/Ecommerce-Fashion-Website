@@ -1,0 +1,87 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+import {NgxPaginationModule} from 'ngx-pagination'; // <-- import the module
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { UserService } from './service/account/user.service';
+import {MatInputModule} from '@angular/material/input';
+import { CartService } from './service/product.service';
+import { HeaderComponent } from './shared/header/header.component';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { CartComponent } from './shared/cart/cart.component';
+import { SliderComponent } from './shared/slider/slider.component';
+import { BannerComponent } from './shared/banner/banner.component';
+import { CheckoutComponent } from './main/checkout/checkout.component';
+import { ProductComponent } from './shared/product/product.component';
+import { BlogComponent } from './shared/blog/blog.component';
+import { FooterComponent } from './shared/footer/footer.component';
+import { HomeComponent } from './main/home/home.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LoginComponent } from './main/login/login.component';
+import { ShopComponent } from './main/shop/shop.component';
+import { DetailComponent } from './main/blog/detail/detail.component';
+import { AboutComponent } from './main/about/about.component';
+import { ContactComponent } from './main/contact/contact.component';
+import { HistoryComponent } from './main/history/history.component';
+import { BillDetailsComponent } from './main/history/details/bill_details.component';
+import { ProductDetailsComponent } from './main/product-details/product-details.component';
+import {FilterPipe} from './service/pipes/filter.pipe';
+import { HighlightDirective } from './service/pipes/highlight.pipe';
+import { LikeComponent } from './main/like/like.component';
+import {MatIconModule} from '@angular/material/icon';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RegisterComponent } from './main/register/register.component';
+import { InfoUserComponent } from './main/info-user/info-user.component';
+import {CarouselModule} from 'primeng/carousel';
+//import {ButtonModule} from 'primeng/button';
+//import {ToastModule} from 'primeng/toast';
+@NgModule({
+  declarations: [
+    AppComponent,
+    HistoryComponent,
+    LikeComponent,
+    HeaderComponent,
+    SidebarComponent,
+    CartComponent,
+    CheckoutComponent,
+    SliderComponent,
+    BannerComponent,
+    ProductComponent,
+    BlogComponent,
+    FooterComponent,
+    HomeComponent,
+    LoginComponent,
+    ShopComponent,
+    DetailComponent,
+    AboutComponent,
+    ContactComponent,
+    ProductDetailsComponent,
+    HighlightDirective,
+    FilterPipe,
+    BillDetailsComponent,
+    RegisterComponent,
+    InfoUserComponent
+
+
+  ],
+  imports: [
+    BrowserModule,
+    MatIconModule,
+    AppRoutingModule,
+    NgbModule,
+    MatInputModule,
+    //ButtonModule,
+    CarouselModule,
+    //ToastModule,
+    FormsModule, ReactiveFormsModule,
+    HttpClientModule,
+    NgxPaginationModule,
+    BrowserAnimationsModule
+  ],
+  providers: [UserService,],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
