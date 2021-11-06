@@ -39,8 +39,7 @@ namespace Web_API_e_Fashion.Models
         public virtual NhaCungCap NhaCungCap { get; set; }
         public virtual ICollection<SanPhamBienThe> SanPhamBienThes { get; set; }
         public virtual ICollection<ImageSanPham> ImageSanPhams { get; set; }
-        public virtual ICollection<UserLike> UserLikes { get; set; }
-        public virtual ICollection<UserComment> UserComments { get; set; }
+     
 
 
 

@@ -14,7 +14,6 @@ namespace Web_API_e_Fashion.Models
         public System.DateTime NgayTao { get; set; }
         public string GhiChu { get; set; } //ghi chu
         public int? TrangThai { get; set; }
-        public int? TrangThaiThanhToan { get; set; }
         public string DaLayTien { get; set; } //VD: Rồi, chưa
         public decimal TongTien { get; set; }
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
@@ -22,7 +21,6 @@ namespace Web_API_e_Fashion.Models
         public string Huyen { get; set; }
         public string Xa { get; set; }
         public string DiaChi { get; set; }
-
         public string? Id_User { get; set; }
         [ForeignKey("Id_User")]
         public virtual AppUser User { get; set; }

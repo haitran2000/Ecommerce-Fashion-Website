@@ -122,8 +122,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             HoaDon hoaDon = new HoaDon()
             {
-                TrangThai = 0,
-                TrangThaiThanhToan = 0,
+                TrangThai = 0,           
                 GhiChu = hd.GhiChu,
                 Id_User = hd.Id_User,
                 NgayTao = DateTime.Now,

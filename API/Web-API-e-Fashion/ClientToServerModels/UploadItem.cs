@@ -8,7 +8,7 @@ namespace Web_API_e_Fashion.UploadDataFormClientModels
 {
     public class UploadItem
     {
-        public string TrangThai { get; set; }
+        public int? TrangThai { get; set; }
         public IFormFile TileImage { get; set; }
 
     }

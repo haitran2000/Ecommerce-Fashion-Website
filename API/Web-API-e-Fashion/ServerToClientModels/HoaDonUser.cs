@@ -12,7 +12,7 @@ namespace Web_API_e_Fashion.ServerToClientModels
         public int Id { get; set; }
         public System.DateTime NgayTao { get; set; }
         public string GhiChu { get; set; } //ghi chu
-        public string TrangThai { get; set; } // VD : Đang lấy hàng, đã giao hàng
+        public int? TrangThai { get; set; } // VD : Đang lấy hàng, đã giao hàng
         public string LoaiThanhToan { get; set; } //VD: Tiền mặt, thanh toán online
         public string DaLayTien { get; set; } //VD: Rồi, chưa
         public decimal TongTien { get; set; }

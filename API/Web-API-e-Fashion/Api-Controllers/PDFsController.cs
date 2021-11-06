@@ -37,7 +37,6 @@ namespace Web_API_e_Fashion.Api_Controllers
                          DaLayTien = hd.DaLayTien,
                          GhiChu = hd.GhiChu,
                          Id = hd.Id,
-                         LoaiThanhToan = hd.LoaiThanhToan,
                          NgayTao = hd.NgayTao,
                          TrangThai = hd.TrangThai,
                          TongTien = hd.TongTien,
@@ -134,7 +133,6 @@ namespace Web_API_e_Fashion.Api_Controllers
                          hoaDon = new HoaDon()
                          {
                              DaLayTien = h.DaLayTien,
-                             LoaiThanhToan = h.LoaiThanhToan,
                              Id_User = h.Id_User,
                              TongTien = h.TongTien,
                              GhiChu = h.GhiChu,
