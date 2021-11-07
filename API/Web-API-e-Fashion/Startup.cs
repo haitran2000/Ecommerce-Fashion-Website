@@ -60,14 +60,14 @@ namespace Web_API_e_Fashion
 
             services.AddMvc();
             services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
-                //builder
-                //.AllowAnyMethod()
-                //.AllowAnyHeader()
-                //.AllowCredentials()
-                //.WithOrigins("http://localhost:4200", "http://localhost:56523/");
-                builder.AllowAnyOrigin()
-                 .AllowAnyMethod()
-                 .AllowAnyHeader();
+                builder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+                .WithOrigins("http://localhost:4200", "http://localhost:4300");
+                //builder.AllowAnyOrigin()
+                // .AllowAnyMethod()
+                // .AllowAnyHeader();
             }));
 
             services.AddSignalR();

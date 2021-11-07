@@ -101,6 +101,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 id = identity.Claims.Single(c => c.Type == "id").Value,
                 quyen = _context.AppUsers.FirstOrDefault(s => s.Id == id).Quyen,
                 hinh = _context.AppUsers.FirstOrDefault(s => s.Id == id).ImagePath,
+                fullname = _context.AppUsers.FirstOrDefault(s => s.Id == id).FirstName + " " + _context.AppUsers.FirstOrDefault(s => s.Id == id).LastName,
                 email = _context.AppUsers.FirstOrDefault(s => s.Id == id).Email,
                 auth_token = await _jwtFactory.GenerateEncodedToken(credentials.UserName, identity),
                 expires_in = (int)_jwtOptions.ValidFor.TotalSeconds

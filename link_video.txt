@@ -1,0 +1,2 @@
+1. Update data chart realtime : https://www.youtube.com/watch?v=jravKZN36j8
+2. Set true false visibility product realtime from Admin page to Client page : https://www.youtube.com/watch?v=EYLGa3AW7BU

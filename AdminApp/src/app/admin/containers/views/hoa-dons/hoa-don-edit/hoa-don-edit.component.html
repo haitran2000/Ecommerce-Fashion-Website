@@ -7,17 +7,10 @@
         <div class="form-group">
             <label>Trạng thái</label>
             <select class="form-control" [(ngModel)]="service.hoadon.trangThai" name="trangThai">
-              <option value="Chờ xác nhận">Chờ xác nhận</option>
-              <option value="Đang lấy hàng">Đang lấy hàng</option>
-              <option value="Đang giao">Đang giao</option>
-              <option value="Đã giao">Đã giao</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Đã lấy tiền</label>
-            <select class="form-control" [(ngModel)]="service.hoadon.daLayTien" name="daLayTien">
-              <option value="Rồi">Rồi</option>
-              <option value="Chưa">Chưa</option>
+              <option value=0>Chưa xác nhận</option>
+              <option value=1>Đã xác nhận</option>
+              <option value=2>Hoàn thành</option>
+              <option value=3>Đã hủy</option>
             </select>
         </div>
         <div class="form-group" style="justify-content:center;display: flex;">

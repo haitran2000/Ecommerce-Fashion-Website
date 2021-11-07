@@ -35,9 +35,10 @@ export class HoaDonService {
     return this.http.put<any>(environment.URL_API+"hoadons/suatrangthai/"+this.hoadon.id,hd)
   }
   getMotHoaDonService(id:number):Observable<any>{
-    return this.http.get<any>(environment.URL_API + "hoadons/"+id)
+    return this.http.get<any>(environment.URL_API + "hoadons/admindetailorder/"+id)
   }
- 
+
+
   getAllHoaDons() {
     this.get().subscribe(
       res => {
@@ -57,9 +58,8 @@ export class HoaDonUser{
   ghiChi: string //Ghi chú
   tongTien: number
   fullName: string
-  loaiThanhToan:string
   daLayTien:string
-  trangThai:string
+  trangThai:number
 }
 
 export class CTHDViewModel {

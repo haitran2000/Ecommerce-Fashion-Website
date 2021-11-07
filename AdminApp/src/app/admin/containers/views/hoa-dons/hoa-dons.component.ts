@@ -30,7 +30,7 @@ export class HoaDonsComponent implements OnInit {
     public serviceToast: ToastServiceService,
     public datepipe: DatePipe
   ) { }
-  displayedColumns: string[] = ['id', 'id_User', 'ngayTao', 'ghiChi', 'tongTien','thanhToan','trangThai','daLayTien' ,'actions'];
+  displayedColumns: string[] = ['id', 'id_User', 'ngayTao', 'ghiChi', 'tongTien','trangThai','actions'];
 
 
 

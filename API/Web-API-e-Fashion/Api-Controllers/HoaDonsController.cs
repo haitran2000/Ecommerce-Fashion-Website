@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MimeKit;
 using OfficeOpenXml;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Helpers;
 using Web_API_e_Fashion.Models;
+using Web_API_e_Fashion.ServerToClientModels;
 using Web_API_e_Fashion.SignalRModels;
 
 namespace Web_API_e_Fashion.Api_Controllers
@@ -29,12 +31,128 @@ namespace Web_API_e_Fashion.Api_Controllers
             this._context = context;
             this._hubContext = hubContext;
         }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<HoaDon>>> HoaDons()
+        //{
+        //    return await _context.HoaDons.ToListAsync();
+        //}
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<HoaDon>>> HoaDons()
+        public async Task<ActionResult<IEnumerable<HoaDonUser>>> AllHoaDons()
         {
-            return await _context.HoaDons.ToListAsync();
+            var kb = from hd in _context.HoaDons
+                     join us in _context.AppUsers
+                     on hd.Id_User equals us.Id
+                     select new HoaDonUser()
+                     {
+                         GhiChu = hd.GhiChu,
+                         Id = hd.Id,
+                         NgayTao = hd.NgayTao,
+                         TrangThai = hd.TrangThai,
+                         TongTien = hd.TongTien,
+                         FullName = us.FirstName + ' ' + us.LastName,
+
+                     };
+            return await kb.ToListAsync();
         }
-       
+        [HttpGet("admindetailorder/{id}")]
+        public async Task<ActionResult<MotHoaDon>> HoaDonDetailAsync(int id)
+        {
+            string sql = @"		;with ProductImageTable
+	                            as (
+		                        SELECT ChiTietHoaDons.Id,SanPhams.Ten,ImageSanPhams.ImageName,Sizes.TenSize,MauSacs.MaMau,ChiTietHoaDons.Soluong,cast(SanPhams.GiaBan as decimal(18,2)) as'GiaBan',ChiTietHoaDons.ThanhTien,
+										
+		                        ROW_NUMBER() OVER (PARTITION BY ChiTietHoaDons.Id ORDER BY  ImageSanPhams.Id)  RowNum
+		                        FROM SanPhams 
+								LEFT JOIN ImageSanPhams 
+								ON SanPhams.Id=ImageSanPhams.IdSanPham 
+								inner join SanPhamBienThes
+								on SanPhamBienThes.Id_SanPham = SanPhams.Id
+								inner join Sizes
+								on SanPhamBienThes.SizeId = Sizes.Id
+								inner join MauSacs
+								on SanPhamBienThes.Id_Mau = MauSacs.Id
+								inner join ChiTietHoaDons
+								on ChiTietHoaDons.Id_SanPhamBienThe = SanPhamBienThes.Id
+								inner join HoaDons
+								on HoaDons.Id = ChiTietHoaDons.Id_HoaDon
+								where ChiTietHoaDons.Id_HoaDon = @value
+		                          )
+		                        SELECT Id,Ten,ImageName,TenSize,MaMau,Soluong,GiaBan,ThanhTien
+		                        from ProductImageTable
+	                            where
+                                ProductImageTable.RowNum = 1
+";
+            SqlConnection cnn;
+            cnn = new SqlConnection(_context.Database.GetConnectionString());
+            SqlDataReader reader;
+            SqlCommand cmd;
+            var list = new List<NhieuChiTietHoaDon>();
+
+            try
+            {
+                await cnn.OpenAsync();
+                SqlParameter param = new SqlParameter();
+
+                cmd = new SqlCommand(sql, cnn);
+                param.ParameterName = "@value";
+                param.Value = id;
+                cmd.Parameters.Add(param);
+                reader = await cmd.ExecuteReaderAsync();
+                if (reader.HasRows)
+                {
+
+                    while (await reader.ReadAsync())
+                    {
+
+                        list.Add(new NhieuChiTietHoaDon()
+                        {
+                            Id = (int)reader["Id"],
+                            Ten = (string)reader["Ten"],
+                            Hinh = (string)reader["ImageName"],
+                            GiaBan = (decimal)reader["GiaBan"],
+                            MauSac = (string)reader["MaMau"],
+                            Size = (string)reader["TenSize"],
+                            SoLuong = (int)reader["SoLuong"],
+                            ThanhTien = (decimal)reader["ThanhTien"]
+                        });
+                    }
+                }
+
+                await cnn.CloseAsync();
+            }
+            catch (Exception)
+            {
+
+            };
+
+
+
+            var hd = from h in _context.HoaDons
+                     join us in _context.AppUsers
+                     on h.Id_User equals us.Id
+                     select new MotHoaDon()
+                     {
+                         Id = h.Id,
+                         FullName = us.LastName + ' ' + us.FirstName,
+                         DiaChi = us.DiaChi,
+                         Email = us.Email,
+                         SDT = us.SDT,
+                         hoaDon = new HoaDon()
+                         {
+                           
+                             Id_User = h.Id_User,
+                             TongTien = h.TongTien,
+                             GhiChu = h.GhiChu,
+                             NgayTao = h.NgayTao,
+                             TrangThai = h.TrangThai
+
+                         },
+                         chiTietHoaDons = list,
+
+                     };
+            return await hd.FirstOrDefaultAsync(s => s.Id == id);
+
+        }
         [HttpPost("hoadon/{id}")]
         public async Task<ActionResult> ChitietHoaDon(int id)
         {
@@ -65,6 +183,16 @@ namespace Web_API_e_Fashion.Api_Controllers
 
 
 
+        }
+        [HttpPut("suatrangthai/{id}")]
+        public async Task<IActionResult> SuaTrangThai(int id, HoaDonUser hd)
+        {
+            var kq = await _context.HoaDons.FindAsync(id);
+            kq.TrangThai = hd.TrangThai;
+            _context.HoaDons.Update(kq);
+            await _context.SaveChangesAsync();
+            await _hubContext.Clients.All.BroadcastMessage();
+            return Ok();
         }
         public class User
         {
@@ -206,6 +334,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 
         public class HoaDonUser
         {
+            public int Id { get; set; }
             public string DiaChi { get; set; }
             public string SDT { get; set; }
             public int IDHoaDon { get; set; }
@@ -213,6 +342,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             public string GhiChu { get; set; }
             public string FullName { get; set; }
             public decimal TongTien { get; set; }
+            public int? TrangThai { get; set; }
         }
 
         private void GenerateOrderAsync(int orderId)

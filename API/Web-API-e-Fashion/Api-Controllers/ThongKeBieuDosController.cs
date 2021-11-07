@@ -80,7 +80,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                         on SanPhamBienThes.Id = ChiTietHoaDons.Id_SanPhamBienThe
                         inner join HoaDons
 					    on ChiTietHoaDons.Id_HoaDon = HoaDons.Id
-                         where HoaDons.DaLayTien= N'Rồi'
+                         where HoaDons.TrangThai = 2
                         group by SanPhams.Ten+' '+Sizes.TenSize+' '+MauSacs.MaMau ,SanPhamBienThes.SoLuongTon
                         order by sum(ChiTietHoaDons.Soluong) desc
                        ";
@@ -126,7 +126,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                     on SanPhamBienThes.Id_SanPham = ChiTietHoaDons.Id
                     inner join HoaDons
 					on ChiTietHoaDons.Id_HoaDon = HoaDons.Id
-                    where HoaDons.DaLayTien= N'Rồi'
+                    where HoaDons.TrangThai = 2
                     group by(SanPhams.Ten+' '+Sizes.TenSize+' '+MauSacs.MaMau)
                     order by cast(sum(ChiTietHoaDons.ThanhTien) as decimal(18,2)) desc
                     ";
@@ -168,7 +168,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                             on ChiTietHoaDons.Id_SanPhamBienThe = SanPhamBienThes.Id
                             inner join HoaDons
                             on HoaDons.Id = ChiTietHoaDons.Id_HoaDon
-                            where DATEPART( YYYY,HoaDons.NgayTao)='2021' and HoaDons.DaLayTien like N'Rồi'
+                            where DATEPART( YYYY,HoaDons.NgayTao)='2021' and HoaDons.TrangThai = 2
                             group by NhanHieus.Ten
                         ";
             //var d = await _context.SanPhams.FromSqlRaw(sql).ToListAsync();
@@ -220,10 +220,9 @@ namespace Web_API_e_Fashion.Api_Controllers
                     on SanPhamBienThes.Id_SanPham = ChiTietHoaDons.Id
 					inner join HoaDons
 					on ChiTietHoaDons.Id_HoaDon = HoaDons.Id
-					  where HoaDons.DaLayTien like N'Rồi'
+					  where HoaDons.TrangThai = 2
                     group by(SanPhams.Ten+' '+Sizes.TenSize+' '+MauSacs.MaMau)
                     order by sum(ChiTietHoaDons.ThanhTien) desc
-                   
                         ";
          
             SqlConnection cnn;

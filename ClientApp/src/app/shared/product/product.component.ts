@@ -6,6 +6,8 @@ import Swal from 'sweetalert2'
 import { CartService } from 'src/app/service/product.service';
 import { Product } from 'src/app/model/product.model';
 import { switchAll } from 'rxjs/operators';
+import * as signalR from '@microsoft/signalr';
+import { ProductService } from './product.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -21,7 +23,7 @@ export class ProductComponent implements OnInit, AfterViewInit{
     public mausac:any;
     searchText='';
     responsiveOptions;
-  constructor(public http:HttpClient,public cart:CartService)
+  constructor(public http:HttpClient,public cart:CartService, public service: ProductService)
   {
     this.chose_gia=1;
     this.chose_mau=1
@@ -31,16 +33,16 @@ export class ProductComponent implements OnInit, AfterViewInit{
     ).subscribe(resp => {
         this.mausac = resp;
     });
-    this.http
-    .get('https://localhost:44302/api/sanphams/laytatcasanpham', {}
-    ).subscribe(resp => {
+  
+    this.service.getlaytatcasanpham()
+    .subscribe(resp => {
         this.list_product = resp as Product[];
         this.list_product_male= this.list_product.filter(d=>d.gioiTinh==1);
         this.list_product_female= this.list_product.filter(d=>d.gioiTinh==2);
     });
-    this.http
-    .get('https://localhost:44302/api/sanphams/topsanphammoi', {}
-    ).subscribe(resp => {
+  
+   
+    this.service.getlaytatcasanpham().subscribe(resp => {
         this.products = resp as Product[];
     });
     this.responsiveOptions = [
@@ -63,7 +65,40 @@ export class ProductComponent implements OnInit, AfterViewInit{
   }
   ngOnInit(){
 
-  }
+    this.service.getlaytatcasanpham().subscribe(resp => {
+        this.list_product = resp as Product[];
+        this.list_product_male= this.list_product.filter(d=>d.gioiTinh==1);
+        this.list_product_female= this.list_product.filter(d=>d.gioiTinh==2);
+    });
+    this.service.getlaytatcasanpham().subscribe(resp => {
+        this.products = resp as Product[];
+    });
+    const connection = new signalR.HubConnectionBuilder()
+    .configureLogging(signalR.LogLevel.Information)
+    .withUrl('https://localhost:44302/notify')
+    .build();
+
+  connection.start().then(function () {
+    console.log('SignalR Connected!');
+  }).catch(function (err) {
+    return console.error(err.toString());
+  });
+
+  connection.on("BroadcastMessage", () => {
+    this.service.getlaytatcasanpham().subscribe(resp => {
+        this.list_product = resp as Product[];
+        this.list_product_male= this.list_product.filter(d=>d.gioiTinh==1);
+        this.list_product_female= this.list_product.filter(d=>d.gioiTinh==2);
+    });
+  });
+
+
+  connection.on("BroadcastMessage", () => {
+    this.service.getlaytatcasanpham().subscribe(resp => {
+        this.products = resp as Product[];
+    });
+  });
+  }   
   like(idSanPham){
     const clicks = localStorage.getItem('idUser');
     this.http
