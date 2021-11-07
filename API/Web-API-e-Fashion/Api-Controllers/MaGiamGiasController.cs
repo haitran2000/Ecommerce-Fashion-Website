@@ -41,7 +41,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             MaGiamGia maGiamGia = new MaGiamGia();
             maGiamGia.Code=RandomString(5);
-            maGiamGia.SoPhanTramGiam = uploadMaGiamGia.SoTienGiam;
+            maGiamGia.SoTienGiam= uploadMaGiamGia.SoTienGiam;
             _context.Add(maGiamGia);
 
           
@@ -63,7 +63,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             MaGiamGia maGiamGia;
             maGiamGia = await _context.MaGiamGias.FindAsync(id);
             maGiamGia.Code = RandomString(5);
-            maGiamGia.SoPhanTramGiam = uploadMaGiamGia.SoTienGiam;
+            maGiamGia.SoTienGiam = uploadMaGiamGia.SoTienGiam;
             _context.Update(maGiamGia);
          
             await _context.SaveChangesAsync();
@@ -80,30 +80,30 @@ namespace Web_API_e_Fashion.Api_Controllers
             await _context.SaveChangesAsync();
             return Ok();
         }
-        [HttpPost("nhapmagiamgia")]
-        public async Task<ActionResult> NhapMaGiamGia(UploadSanPhamGiamGia upload)
-        {
+        //[HttpPost("nhapmagiamgia")]
+        //public async Task<ActionResult> NhapMaGiamGia(UploadSanPhamGiamGia upload)
+        //{
 
-            var product = await _context.SanPhams.FindAsync(upload.Id);
-            var list = await _context.MaGiamGias.ToListAsync();
+        //    var product = await _context.SanPhams.FindAsync(upload.Id);
+        //    var list = await _context.MaGiamGias.ToListAsync();
 
-            //var product = _context.SanPhams.Find(upload.Id);
-            //var list = _context.MaGiamGias.ToList();
-            foreach (MaGiamGia mgg in list)
-            {
-                if (mgg.Code==upload.Code)
-                {
-                    product.GiaBan = product.GiaBan-( product.GiaBan  * mgg.SoPhanTramGiam / 100);
-                }
-            }
-            var response = new
-            {
-                Id = product.Id,
-                GiaBan =product.GiaBan
-            };
+        //    //var product = _context.SanPhams.Find(upload.Id);
+        //    //var list = _context.MaGiamGias.ToList();
+        //    foreach (MaGiamGia mgg in list)
+        //    {
+        //        if (mgg.Code==upload.Code)
+        //        {
+        //            product.GiaBan = product.GiaBan-( product.GiaBan  * mgg.SoTienGiam / 100);
+        //        }
+        //    }
+        //    var response = new
+        //    {
+        //        Id = product.Id,
+        //        GiaBan =product.GiaBan
+        //    };
 
-            var json = JsonConvert.SerializeObject(response, _serializerSettings);
-            return new OkObjectResult(json);
-        }
+        //    var json = JsonConvert.SerializeObject(response, _serializerSettings);
+        //    return new OkObjectResult(json);
+        //}
     }
 }

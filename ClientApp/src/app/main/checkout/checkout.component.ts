@@ -42,7 +42,7 @@ export class CheckoutComponent implements OnInit  {
         this.list_item = res;
         this.tongtien=0;
         for (let i = 0; i < this.list_item.length; i++) {
-            this.tongtien=this.tongtien+(this.list_item[i].productDetail.gia*this.list_item[i].soLuong);
+            this.tongtien=this.tongtien+(this.list_item[i].productDetail.giaBan*this.list_item[i].soLuong);
           this.tongThanhToan=this.tongtien+25000;
         }
       });
@@ -86,7 +86,7 @@ export class CheckoutComponent implements OnInit  {
         this.list_item = res;
         this.tongtien=0;
         for (let i = 0; i < this.list_item.length; i++) {
-            this.tongtien=this.tongtien+(this.list_item[i].productDetail.gia*this.list_item[i].soLuong);
+            this.tongtien=this.tongtien+(this.list_item[i].productDetail.giaBan*this.list_item[i].soLuong);
           this.tongThanhToan=this.tongtien+25000;
         }
         this.cartService.DeleteProduct(item.productDeatail);
@@ -107,7 +107,7 @@ export class CheckoutComponent implements OnInit  {
     {
 
 
-    this.check = this.list_MGG.filter(d=>d.myCode==this.MaGiamGia)[0];
+    this.check = this.list_MGG.filter(d=>d.code==this.MaGiamGia)[0];
     this.check_sudung = this.list_MGGSD.filter(d=>d==this.MaGiamGia)[0];
     if(this.check!=null&&this.check_sudung==null)
     {
@@ -170,7 +170,7 @@ ChangeSoLuong(cartID,i){
         this.list_item=res;
         this.tongtien=0;
         for (let i = 0; i < this.list_item.length; i++) {
-          this.tongtien=this.tongtien+(this.list_item[i].productDetail.gia*this.list_item[i].soLuong);
+          this.tongtien=this.tongtien+(this.list_item[i].productDetail.giaBan*this.list_item[i].soLuong);
           this.tongThanhToan=this.tongtien+25000;
         }
       }
@@ -189,7 +189,7 @@ ChangeSoLuong(cartID,i){
         this.list_item=res;
         this.tongtien=0;
         for (let i = 0; i < this.list_item.length; i++) {
-            this.tongtien=this.tongtien+(this.list_item[i].productDetail.gia*this.list_item[i].soLuong);
+            this.tongtien=this.tongtien+(this.list_item[i].productDetail.giaBan*this.list_item[i].soLuong);
           this.tongThanhToan=this.tongtien+25000;
         }
 
@@ -218,7 +218,7 @@ ChangeSoLuong(cartID,i){
         this.list_item=res;
         this.tongtien=0;
         for (let i = 0; i < this.list_item.length; i++) {
-            this.tongtien=this.tongtien+(this.list_item[i].productDetail.gia*this.list_item[i].soLuong);
+            this.tongtien=this.tongtien+(this.list_item[i].productDetail.giaBan*this.list_item[i].soLuong);
           this.tongThanhToan=this.tongtien+25000;
         }
         }

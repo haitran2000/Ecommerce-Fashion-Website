@@ -30,18 +30,26 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPost("sizetheomau")]
         public IActionResult getListSizeTheoMau([FromBody] JObject json)
         {
-            var id = int.Parse(json.GetValue("id_san_pham").ToString());
-            var mamau = json.GetValue("mamau").ToString();
-            var id_loai_sp = _context.SanPhams.Where(d => d.Id == id).Select(d => d.Id_Loai).SingleOrDefault();
-            var id_mau = _context.MauSacs.Where(d => d.MaMau == mamau && d.Id_Loai == id_loai_sp).Select(d => d.Id).SingleOrDefault();
-            var list_idsize = _context.SanPhamBienThes.Where(d => d.Id_Mau == id_mau && d.Id_SanPham == id).Select(d => d.SizeId.ToString()).ToList();
-            var resuft = _context.Sizes.Where(d => list_idsize.Contains(d.Id.ToString())).Select(
-                d => new
-                {
-                    size = d.TenSize
-                });
+            try
+            {
+                var id = int.Parse(json.GetValue("id_san_pham").ToString());
+                var mamau = json.GetValue("mamau").ToString();
+                var id_loai_sp = _context.SanPhams.Where(d => d.Id == id).Select(d => d.Id_Loai).SingleOrDefault();
+                var id_mau = _context.MauSacs.Where(d => d.MaMau == mamau && d.Id_Loai == id_loai_sp).Select(d => d.Id).SingleOrDefault();
+                var list_idsize = _context.SanPhamBienThes.Where(d => d.Id_Mau == id_mau && d.Id_SanPham == id).Select(d => d.SizeId.ToString()).ToList();
+                var resuft = _context.Sizes.Where(d => list_idsize.Contains(d.Id.ToString())).Select(
+                    d => new
+                    {
+                        size = d.TenSize
+                    });
 
-            return Json(resuft);
+                return Json(resuft);
+            }
+            catch
+            {
+                return Json("");
+            }
+           
         }
         // GET: api/Sizes
         [HttpGet]

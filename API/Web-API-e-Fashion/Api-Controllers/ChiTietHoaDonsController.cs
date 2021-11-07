@@ -32,7 +32,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                 .Select(
                 d => new ChiTietHoaDon
                 {
-                    Gia = d.Gia,
+                    GiaBan = d.GiaBan,
                     Soluong = d.Soluong,
                     Mau = d.Mau,
                     Size = d.Size,

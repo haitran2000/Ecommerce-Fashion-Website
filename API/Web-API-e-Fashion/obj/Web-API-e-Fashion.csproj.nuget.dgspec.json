@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\Music\\DA\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj": {}
+    "D:\\-DO-AN-TOT-NGHIEP\\Main\\Ecommerce-Fashion-Website\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\Music\\DA\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj": {
+    "D:\\-DO-AN-TOT-NGHIEP\\Main\\Ecommerce-Fashion-Website\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Music\\DA\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
+        "projectUniqueName": "D:\\-DO-AN-TOT-NGHIEP\\Main\\Ecommerce-Fashion-Website\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
         "projectName": "Web-API-e-Fashion",
-        "projectPath": "C:\\Users\\Admin\\Music\\DA\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
+        "projectPath": "D:\\-DO-AN-TOT-NGHIEP\\Main\\Ecommerce-Fashion-Website\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Music\\DA\\API\\Web-API-e-Fashion\\obj\\",
+        "outputPath": "D:\\-DO-AN-TOT-NGHIEP\\Main\\Ecommerce-Fashion-Website\\API\\Web-API-e-Fashion\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -175,7 +175,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

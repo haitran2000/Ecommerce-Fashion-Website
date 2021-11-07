@@ -14,23 +14,23 @@
 </div>
 <div class="main-container container">
 
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <td class="text-left">Tên sản phẩm</td>
-                            <td class="text-right">Giá</td>
-                            <td>Xoá</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of list_sanphamyeuthich">
-                            <td class="text-left">{{item.ten}} </td>
-                            <td class="text-right">{{item.gia|number}}</td>
-                            <td><button (click)="deleteSanPham(item)"><mat-icon>delete</mat-icon></button></td>
-                        </tr>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <td class="text-left">Tên sản phẩm</td>
+                    <td class="text-right">Giá</td>
+                    <td>Xoá</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of list_sanphamyeuthich">
+                    <td class="text-left">{{item.ten}} </td>
+                    <td class="text-right">{{item.giaBan|number}}</td>
+                    <td><button (click)="deleteSanPham(item)"><mat-icon>delete</mat-icon></button></td>
+                </tr>
 
-                    </tbody>
-                </table>
-            </div>
+            </tbody>
+        </table>
+    </div>
 </div>

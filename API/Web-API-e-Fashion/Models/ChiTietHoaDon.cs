@@ -13,7 +13,7 @@ namespace Web_API_e_Fashion.Models
         public int Id { get; set; }
         public int Soluong { get; set; }     
         public decimal? ThanhTien { get; set; }
-        public decimal? Gia { get; set; }
+        public decimal? GiaBan { get; set; }
         public string Mau { get; set; }
         public string Size { get; set; }
         public int? Id_HoaDon { get; set; }

@@ -7,38 +7,38 @@
         </div>
         <p-carousel [value]="products" styleClass="custom-carousel" [numVisible]="4" [numScroll]="1" [circular]="true" [autoplayInterval]="2000" [responsiveOptions]="responsiveOptions">
             <ng-template let-product pTemplate="item">
-              <div style="padding-right: 15px;padding-left: 15px;width: 100%;">
-                  <div class="block2" >
-                    <div class="block2-pic hov-img0">
-                        <img src="https://localhost:44302/Images/list-image-product/{{product.image}}" alt="IMG-PRODUCT">
+                <div style="padding-right: 15px;padding-left: 15px;width: 100%;">
+                    <div class="block2">
+                        <div class="block2-pic hov-img0">
+                            <img src="https://localhost:44302/Images/list-image-product/{{product.image}}" alt="IMG-PRODUCT">
 
-                        <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                            <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                             Quick View
                         </a>
-                    </div>
+                        </div>
 
-                    <div class="block2-txt flex-w flex-t p-t-14">
-                        <div class="block2-txt-child1 flex-col-l ">
-                            <a [routerLink]="'/product/'+product.id" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                        <div class="block2-txt flex-w flex-t p-t-14">
+                            <div class="block2-txt-child1 flex-col-l ">
+                                <a [routerLink]="'/product/'+product.id" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                 {{product.ten}}
                             </a>
 
-                            <span class="stext-105 cl3">
-                                {{product.gia|number}} VNĐ
+                                <span class="stext-105 cl3">
+                                {{product.giaBan|number}} VNĐ
                             </span>
-                        </div>
+                            </div>
 
-                        <div class="block2-txt-child2 flex-r p-t-3">
-                            <a *ngIf="product.like==null" (click)="like(product.id)" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                <img class="icon-heart1 dis-block trans-04" src="../../../assets/images/icons/icon-heart-01.png" alt="ICON">
-                            </a>
-                            <a *ngIf="product.like==1" (click)="like(product.id)" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                <img class="icon-heart1 dis-block trans-04" src="../../../assets/images/icons/icon-heart-02.png" alt="ICON">
-                            </a>
+                            <div class="block2-txt-child2 flex-r p-t-3">
+                                <a *ngIf="product.like==null" (click)="like(product.id)" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                    <img class="icon-heart1 dis-block trans-04" src="../../../assets/images/icons/icon-heart-01.png" alt="ICON">
+                                </a>
+                                <a *ngIf="product.like==1" (click)="like(product.id)" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                    <img class="icon-heart1 dis-block trans-04" src="../../../assets/images/icons/icon-heart-02.png" alt="ICON">
+                                </a>
+                            </div>
                         </div>
                     </div>
-                  </div>
-              </div>
+                </div>
             </ng-template>
         </p-carousel>
 
@@ -77,14 +77,12 @@
             <div class="flex-w flex-c-m m-tb-10">
                 <div class="flex-c-m stext-106 cl6 size-104 bor4 pointer hov-btn3 trans-04 m-r-8 m-tb-4 js-show-filter">
                     <i class="icon-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-filter-list"></i>
-                    <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-                     Filter
+                    <i class="icon-close-filter cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i> Filter
                 </div>
 
                 <div class="flex-c-m stext-106 cl6 size-105 bor4 pointer hov-btn3 trans-04 m-tb-4 js-show-search">
                     <i class="icon-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-search"></i>
-                    <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i>
-                    Search
+                    <i class="icon-close-search cl2 m-r-6 fs-15 trans-04 zmdi zmdi-close dis-none"></i> Search
                 </div>
             </div>
 
@@ -109,10 +107,10 @@
 
                         <ul>
                             <li class="p-b-6">
-                                <button (click)="searchTheoGia(0,999999999,1)" *ngIf="chose_gia==1"  class="filter-link stext-106 trans-04 filter-link-active">
+                                <button (click)="searchTheoGia(0,999999999,1)" *ngIf="chose_gia==1" class="filter-link stext-106 trans-04 filter-link-active">
                                     Tất cả
                                 </button>
-                                <button (click)="searchTheoGia(0,999999999,1)" *ngIf="chose_gia!=1"  class="filter-link stext-106 trans-04 ">
+                                <button (click)="searchTheoGia(0,999999999,1)" *ngIf="chose_gia!=1" class="filter-link stext-106 trans-04 ">
                                   Tất cả
                               </button>
                             </li>
@@ -128,10 +126,10 @@
                             </li>
 
                             <li class="p-b-6">
-                                <button (click)="searchTheoGia(300000,400000,3)" *ngIf="chose_gia==3"  class="filter-link stext-106 trans-04 filter-link-active">
+                                <button (click)="searchTheoGia(300000,400000,3)" *ngIf="chose_gia==3" class="filter-link stext-106 trans-04 filter-link-active">
                                     {{300000|number}} - {{400000|number}} VNĐ
                                 </button>
-                                <button (click)="searchTheoGia(300000,400000,3)" *ngIf="chose_gia!=3"  class="filter-link stext-106 trans-04">
+                                <button (click)="searchTheoGia(300000,400000,3)" *ngIf="chose_gia!=3" class="filter-link stext-106 trans-04">
                                   {{300000|number}} - {{400000|number}} VNĐ
                               </button>
                             </li>
@@ -180,7 +178,7 @@
                                     <i class="zmdi zmdi-circle"></i>
                                 </span>
 
-                                <button *ngIf="chose_mau==2"  (click)="searchthemau('Trắng',2)" class="filter-link stext-106 trans-04 filter-link-active">
+                                <button *ngIf="chose_mau==2" (click)="searchthemau('Trắng',2)" class="filter-link stext-106 trans-04 filter-link-active">
                                     Trắng
                                 </button>
                                 <button *ngIf="chose_mau!=2" (click)="searchthemau('Trắng',2)" class="filter-link stext-106 trans-04">
@@ -233,73 +231,69 @@
         </div>
 
         <div class="row isotope-grid" style="height: auto;max-height: 100%;">
-                <div  *ngFor="let item of list_product_female| appFilter: searchText"
-                appHighlight [searchedWord]="searchText" [content]="c"
-                [classToApply]="'font-weight-bold'" [setTitle]="'true'" class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
-                    <!-- Block2 -->
-                    <div class="block2" >
-                        <div class="block2-pic hov-img0">
-                            <img src="https://localhost:44302/Images/list-image-product/{{item.image}}" alt="IMG-PRODUCT">
+            <div *ngFor="let item of list_product_female| appFilter: searchText" appHighlight [searchedWord]="searchText" [content]="c" [classToApply]="'font-weight-bold'" [setTitle]="'true'" class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+                <!-- Block2 -->
+                <div class="block2">
+                    <div class="block2-pic hov-img0">
+                        <img src="https://localhost:44302/Images/list-image-product/{{item.image}}" alt="IMG-PRODUCT">
 
-                            <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                        <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                 Quick View
                             </a>
-                        </div>
+                    </div>
 
-                        <div class="block2-txt flex-w flex-t p-t-14">
-                            <div class="block2-txt-child1 flex-col-l ">
-                                <a [routerLink]="'/product/'+item.id" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                    <div class="block2-txt flex-w flex-t p-t-14">
+                        <div class="block2-txt-child1 flex-col-l ">
+                            <a [routerLink]="'/product/'+item.id" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     {{item.ten}}
                                 </a>
 
-                                <span class="stext-105 cl3">
-                                    {{item.gia|number}} VNĐ
+                            <span class="stext-105 cl3">
+                                    {{item.giaBan|number}} VNĐ
                                 </span>
-                            </div>
+                        </div>
 
-                            <div class="block2-txt-child2 flex-r p-t-3">
-                                <a *ngIf="item.like==null" (click)="like(item.id)" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                    <img class="icon-heart1 dis-block trans-04" src="../../../assets/images/icons/icon-heart-01.png" alt="ICON">
-                                </a>
-                                <a *ngIf="item.like==1" (click)="like(item.id)" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                    <img class="icon-heart1 dis-block trans-04" src="../../../assets/images/icons/icon-heart-02.png" alt="ICON">
-                                </a>
-                            </div>
+                        <div class="block2-txt-child2 flex-r p-t-3">
+                            <a *ngIf="item.like==null" (click)="like(item.id)" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                <img class="icon-heart1 dis-block trans-04" src="../../../assets/images/icons/icon-heart-01.png" alt="ICON">
+                            </a>
+                            <a *ngIf="item.like==1" (click)="like(item.id)" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                <img class="icon-heart1 dis-block trans-04" src="../../../assets/images/icons/icon-heart-02.png" alt="ICON">
+                            </a>
                         </div>
                     </div>
                 </div>
-                <div  *ngFor="let item of list_product_male| appFilter: searchText"
-                appHighlight [searchedWord]="searchText" [content]="c"
-                [classToApply]="'font-weight-bold'" [setTitle]="'true'" class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item men">
-                    <!-- Block2 -->
-                    <div class="block2" >
-                        <div class="block2-pic hov-img0">
-                            <img src="https://localhost:44302/Images/list-image-product/{{item.image}}" alt="IMG-PRODUCT">
+            </div>
+            <div *ngFor="let item of list_product_male| appFilter: searchText" appHighlight [searchedWord]="searchText" [content]="c" [classToApply]="'font-weight-bold'" [setTitle]="'true'" class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item men">
+                <!-- Block2 -->
+                <div class="block2">
+                    <div class="block2-pic hov-img0">
+                        <img src="https://localhost:44302/Images/list-image-product/{{item.image}}" alt="IMG-PRODUCT">
 
-                            <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+                        <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
                                 Quick View
                             </a>
-                        </div>
+                    </div>
 
-                        <div class="block2-txt flex-w flex-t p-t-14">
-                            <div class="block2-txt-child1 flex-col-l ">
-                                <a [routerLink]="'/product/'+item.id" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                    <div class="block2-txt flex-w flex-t p-t-14">
+                        <div class="block2-txt-child1 flex-col-l ">
+                            <a [routerLink]="'/product/'+item.id" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     {{item.ten}}
                                 </a>
 
-                                <span class="stext-105 cl3">
-                                    {{item.gia|number}} VNĐ
+                            <span class="stext-105 cl3">
+                                    {{item.giaBan|number}} VNĐ
                                 </span>
-                            </div>
+                        </div>
 
-                            <div class="block2-txt-child2 flex-r p-t-3">
-                                <a  (click)="like(item.id)" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
-                                    <img class="icon-heart1 dis-block trans-04" src="../../../assets/images/icons/icon-heart-01.png" alt="ICON">
-                                </a>
-                            </div>
+                        <div class="block2-txt-child2 flex-r p-t-3">
+                            <a (click)="like(item.id)" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+                                <img class="icon-heart1 dis-block trans-04" src="../../../assets/images/icons/icon-heart-01.png" alt="ICON">
+                            </a>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
 

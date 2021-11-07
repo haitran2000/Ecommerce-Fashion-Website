@@ -32,7 +32,7 @@
                             <b>Ngày mua:</b> {{bill.ngayTao|date: 'dd/MM/yyyy HH:mm'}}</td>
                         <td style="width: 50%;" class="text-left"> <b>Phương thức thanh toán:</b> Thanh toán khi nhận hàng
                             <br>
-                            <b>Vận chuyển:</b>  </td>
+                            <b>Vận chuyển:</b> </td>
                     </tr>
                 </tbody>
             </table>
@@ -49,11 +49,11 @@
                             <br><span>{{bill.user.firstName}} {{bill.user.lastName}}</span>,
                             <br>{{bill.user.diaChi}},
                             <br>{{bill.user.sdt}}
-                        <td class="text-left">{{bill.diaChi}}
-                            <br>{{bill.xa}},
-                            <br>{{bill.huyen}},
-                            <br>{{bill.tinh}},
-                            <br>{{bill.ghiChu}}</td>
+                            <td class="text-left">{{bill.diaChi}}
+                                <br>{{bill.xa}},
+                                <br>{{bill.huyen}},
+                                <br>{{bill.tinh}},
+                                <br>{{bill.ghiChu}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -71,7 +71,7 @@
                         <tr *ngFor="let item of bill_details">
                             <td class="text-left">{{item.sanPham.ten}} </td>
                             <td class="text-right">{{item.soluong}}</td>
-                            <td class="text-right">{{item.gia|number}}</td>
+                            <td class="text-right">{{item.giaBan|number}}</td>
                             <td class="text-right">{{item.soluong*item.gia|number}}</td>
                         </tr>
 
