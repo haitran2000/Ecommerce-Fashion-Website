@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { BaseService } from 'src/app/service/base.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -12,13 +12,14 @@ import Swal from 'sweetalert2';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent extends BaseService implements OnInit {
   public register:any;
   userFormGroup: FormGroup
   public hide: boolean = true;
   username:any;
   private _unsubscribeAll: Subject<any>;
   constructor(public http : HttpClient, public router: Router,private _formBuilder: FormBuilder) {
+    super();
     this.register={};
     this._unsubscribeAll = new Subject();
 
@@ -37,12 +38,15 @@ export class RegisterComponent implements OnInit {
 
    }
    registerAccount(){
-    this.http.post(environment.URL_API+"auth/registerCustomer",{
+    this.http.post("https://localhost:44302/api/auth/registerCustomer",{
       data:this.userFormGroup.value
-      }).subscribe(
-    )
-    Swal.fire("Đăng ký thành công", '', 'success').then(function () {
-    }
+      }).subscribe(resp => {
+        Swal.fire("Đăng ký thành công", ' ', 'success').then(function () {
+          // this.router.navigate(['/login']);
+          window.location.href='/login'
+        }
+        )
+      }
     )
   }
 
@@ -52,6 +56,8 @@ export class RegisterComponent implements OnInit {
       FirstName: ['', [Validators.required]],
       LastName: ['', Validators.required],
       Email: ['', Validators.required],
+      SDT: ['', Validators.required],
+      DiaChi: ['', Validators.required],
       Password: ['', Validators.required],
       RePassword: ['', Validators.required],
     });

@@ -10614,11 +10614,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\-DO-AN-TOT-NGHIEP\\Main\\Ecommerce-Fashion-Website\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
+      "projectUniqueName": "C:\\Users\\Admin\\Music\\DA\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
       "projectName": "Web-API-e-Fashion",
-      "projectPath": "D:\\-DO-AN-TOT-NGHIEP\\Main\\Ecommerce-Fashion-Website\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
+      "projectPath": "C:\\Users\\Admin\\Music\\DA\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\-DO-AN-TOT-NGHIEP\\Main\\Ecommerce-Fashion-Website\\API\\Web-API-e-Fashion\\obj\\",
+      "outputPath": "C:\\Users\\Admin\\Music\\DA\\API\\Web-API-e-Fashion\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -10782,7 +10782,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

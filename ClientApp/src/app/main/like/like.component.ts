@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { CartService } from 'src/app/service/product.service';
 import Swal from 'sweetalert2';
-import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-contact',
   templateUrl: './like.component.html',
@@ -14,7 +13,7 @@ export class LikeComponent implements OnInit {
   list_sanphamyeuthich:any;
   constructor(public http:HttpClient,public route: ActivatedRoute,private cartService: CartService) {
     const clicks = localStorage.getItem('idUser');
-  this.http.post(environment.URL_API+"sanphams/dslike/",{
+  this.http.post("https://localhost:44302/api/sanphams/dslike/",{
     IdUser:clicks,
     }).subscribe(
       res=>{

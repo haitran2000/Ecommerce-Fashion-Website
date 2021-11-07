@@ -5,7 +5,7 @@ export interface Product {
     moTa?: string;
     tag?: string;
     image?: string;
-    giaBan?: number;
+    gia?: number;
     trangThaiSanPham?: string;
     trangThaiSanPhamThietKe?:string;
     trangThaiHoatDong?:string;

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pqTHIgVud4bci8Leb7P6j6wILTpgaTR4TmqIrBTUT/mspdMTVm1vzj/qRsIYJsgoCpx1Vvm33AT0VPMpHyRolw==",
+  "dgSpecHash": "DRkrTU2QMOgVuR1FuFJVwRdR0xMQeyry+auWw7J6/g9OQyg/R+QTjrcoaEeoVAEbtkeygx5l+R+DPS7lqDCOyQ==",
   "success": true,
-  "projectFilePath": "D:\\-DO-AN-TOT-NGHIEP\\Main\\Ecommerce-Fashion-Website\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\Music\\DA\\API\\Web-API-e-Fashion\\Web-API-e-Fashion.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\automapper\\6.0.2\\automapper.6.0.2.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\2.0.1\\automapper.extensions.microsoft.dependencyinjection.2.0.1.nupkg.sha512",

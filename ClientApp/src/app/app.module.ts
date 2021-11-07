@@ -20,6 +20,7 @@ import { BlogComponent } from './shared/blog/blog.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './main/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { LoginComponent } from './main/login/login.component';
 import { ShopComponent } from './main/shop/shop.component';
 import { DetailComponent } from './main/blog/detail/detail.component';
@@ -74,6 +75,7 @@ import {CarouselModule} from 'primeng/carousel';
     NgbModule,
     MatInputModule,
     //ButtonModule,
+    MatCheckboxModule,
     CarouselModule,
     //ToastModule,
     FormsModule, ReactiveFormsModule,

@@ -14,11 +14,10 @@ using System.Threading.Tasks;
 using Web_API_e_Fashion.Auth;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Helpers;
-using Web_API_e_Fashion.IdentityViewModels;
-using Web_API_e_Fashion.IdentityViewModels.Validations;
 using Web_API_e_Fashion.Models;
 using Web_API_e_Fashion.ServerToClientModels;
-
+using Web_API_e_Fashion.IdentityViewModels;
+using Web_API_e_Fashion.IdentityViewModels.Validations;
 
 namespace Web_API_e_Fashion.Api_Controllers
 {
@@ -29,10 +28,10 @@ namespace Web_API_e_Fashion.Api_Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IJwtFactory _jwtFactory;
         private readonly JsonSerializerSettings _serializerSettings;
-        private readonly IdentityViewModels.JwtIssuerOptions _jwtOptions;
+        private readonly JwtIssuerOptions _jwtOptions;
         private readonly DPContext _context;
         private readonly IMapper _mapper;
-        public AuthController(UserManager<AppUser> userManager, IMapper mapper, DPContext context, IJwtFactory jwtFactory, IOptions<IdentityViewModels.JwtIssuerOptions> jwtOptions)
+        public AuthController(UserManager<AppUser> userManager, IMapper mapper, DPContext context, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
         {
             _userManager = userManager;
             _jwtFactory = jwtFactory;

@@ -43,16 +43,16 @@ namespace Web_API_e_Fashion
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var jwtAppSettingOptions = Configuration.GetSection(nameof(IdentityViewModels.JwtIssuerOptions));
+            var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAppService", Version = "v1" });
             });
             // Configure JwtIssuerOptions
-            services.Configure<IdentityViewModels.JwtIssuerOptions>(options =>
+            services.Configure<JwtIssuerOptions>(options =>
             {
-                options.Issuer = jwtAppSettingOptions[nameof(IdentityViewModels.JwtIssuerOptions.Issuer)];
-                options.Audience = jwtAppSettingOptions[nameof(IdentityViewModels.JwtIssuerOptions.Audience)];
+                options.Issuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
+                options.Audience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)];
                 options.SigningCredentials = new SigningCredentials(_signingKey, SecurityAlgorithms.HmacSha256);
             });
 
@@ -124,14 +124,14 @@ namespace Web_API_e_Fashion
             app.UseHttpsRedirection();
          
          
-            var jwtAppSettingOptions = Configuration.GetSection(nameof(IdentityViewModels.JwtIssuerOptions));
+            var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
             var tokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidIssuer = jwtAppSettingOptions[nameof(IdentityViewModels.JwtIssuerOptions.Issuer)],
+                ValidIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)],
 
                 ValidateAudience = true,
-                ValidAudience = jwtAppSettingOptions[nameof(IdentityViewModels.JwtIssuerOptions.Audience)],
+                ValidAudience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)],
 
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = _signingKey,

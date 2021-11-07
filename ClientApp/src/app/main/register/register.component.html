@@ -31,14 +31,37 @@
           <div fxFlex="100%">
             <mat-form-field [floatLabel]="'always'" appearance="outline" fxFlex="100%" style="padding-left:10px;padding-right:10px;width:100%">
                 <mat-label>Email</mat-label>
-                <input matInput [type]="'text'" formControlName="Email">
+                <input matInput type="email" formControlName="Email">
 
                 <mat-error *ngIf="userFormGroup.get('Email').hasError('required')">
                     Bắt buộc
                 </mat-error>
 
             </mat-form-field>
-        </div>
+          </div>
+          <div fxFlex="100%">
+            <mat-form-field [floatLabel]="'always'" appearance="outline" fxFlex="100%" style="padding-left:10px;padding-right:10px;width:100%">
+                <mat-label>Số điện thoại</mat-label>
+                <span matPrefix>+84 &nbsp;</span>
+                <input matInput type="tel" formControlName="SDT">
+
+                <mat-error *ngIf="userFormGroup.get('SDT').hasError('required')">
+                    Bắt buộc
+                </mat-error>
+
+            </mat-form-field>
+          </div>
+          <div fxFlex="100%">
+            <mat-form-field [floatLabel]="'always'" appearance="outline" fxFlex="100%" style="padding-left:10px;padding-right:10px;width:100%">
+                <mat-label>Địa chỉ</mat-label>
+                <input matInput [type]="'text'" formControlName="DiaChi">
+
+                <mat-error *ngIf="userFormGroup.get('DiaChi').hasError('required')">
+                    Bắt buộc
+                </mat-error>
+
+            </mat-form-field>
+          </div>
 
 
             <div fxFlex="100%">
