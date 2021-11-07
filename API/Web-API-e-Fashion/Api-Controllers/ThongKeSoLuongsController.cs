@@ -42,7 +42,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpGet]
         public async Task<ActionResult<int>> GetOrderCount()
         {
-            int count = await (from not in _context.HoaDons.Where(s=>s.DaLayTien=="Rồi")
+            int count = await (from not in _context.HoaDons.Where(s=>s.TrangThai==2)
                                select not).CountAsync();
             return count;
 

@@ -34,7 +34,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                      select new HoaDonUser()
                      {
 
-                         DaLayTien = hd.DaLayTien,
+                   
                          GhiChu = hd.GhiChu,
                          Id = hd.Id,
                          NgayTao = hd.NgayTao,
@@ -132,7 +132,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                          SDT = us.SDT,
                          hoaDon = new HoaDon()
                          {
-                             DaLayTien = h.DaLayTien,
+                      
                              Id_User = h.Id_User,
                              TongTien = h.TongTien,
                              GhiChu = h.GhiChu,

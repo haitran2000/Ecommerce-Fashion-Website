@@ -2507,3 +2507,4 @@ D:\-DO-AN-TOT-NGHIEP\Main\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\De
 D:\-DO-AN-TOT-NGHIEP\Main\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\ref\Web-API-e-Fashion.dll
 D:\-DO-AN-TOT-NGHIEP\Main\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.pdb
 D:\-DO-AN-TOT-NGHIEP\Main\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.genruntimeconfig.cache
+D:\-DO-AN-TOT-NGHIEP\Main\Ecommerce-Fashion-Website\API\Web-API-e-Fashion\obj\Debug\net5.0\Web-API-e-Fashion.csproj.AssemblyReference.cache

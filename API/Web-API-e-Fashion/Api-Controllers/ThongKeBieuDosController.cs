@@ -36,7 +36,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         public async Task<ActionResult<IEnumerable<ThangRevenue>>> GetDoanhSoThangasync()
         {
          
-            var sells = await _context.HoaDons.Where(s => s.DaLayTien == "Rồi")
+            var sells = await _context.HoaDons.Where(s => s.TrangThai == 2)
              .GroupBy(a => a.NgayTao.Date.Month)
                  .Select(a => new ThangRevenue { Revenues = a.Sum(b => b.TongTien), Month = a.Key.ToString()  })
                 .OrderBy(a => a.Revenues)
@@ -50,7 +50,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         public async Task<ActionResult<IEnumerable<NgayRevenue>>> GetDoanhSoNgayTheoThangasync([FromForm]string month)
         {
        
-            var sells = await _context.HoaDons.Where(s=>s.DaLayTien=="Rồi")
+            var sells = await _context.HoaDons.Where(s=>s.TrangThai==2)
                .GroupBy(a => a.NgayTao.Date)
                    .Select(a => new NgayRevenue { Revenues = a.Sum(b => b.TongTien), Ngay = a.Key.Date })
                   .OrderBy(a => a.Revenues)
