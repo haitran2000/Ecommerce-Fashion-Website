@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { CartService } from 'src/app/service/product.service';
 import { UserService } from 'src/app/service/account/user.service';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -33,7 +34,7 @@ export class CheckoutComponent implements OnInit  {
     this.http.get("https://provinces.open-api.vn/api/?depth=3").subscribe(res=>{
       this.list_tinh_thanh=res;
     } );
-    this.http.post("https://localhost:44302/api/Carts/getCart/"+clicks,{}).subscribe(
+    this.http.post(environment.URL_API+"Carts/getCart/"+clicks,{}).subscribe(
       res=>{
         this.list_item = res;
         this.tongtien=0;
@@ -42,7 +43,7 @@ export class CheckoutComponent implements OnInit  {
           this.tongThanhToan=this.tongtien+25000;
         }
       });
-    this.http.get("https://localhost:44302/api/hoadons/magiamgia/").subscribe(res=>{
+    this.http.get(environment.URL_API+"hoadons/magiamgia/").subscribe(res=>{
       this.list_MGG=res;
     } );
 
@@ -52,13 +53,13 @@ export class CheckoutComponent implements OnInit  {
 
  deleteSanPham(item):void {
   const clicks = localStorage.getItem('idUser');
-  this.http.post("https://localhost:44302/api/carts/delete",{
+  this.http.post(environment.URL_API+"carts/delete",{
     Id_sanpham:item.idSanPhamBienThe,
     User_ID:clicks
   }).subscribe(
     res=>{
       Swal.fire("Xoá sản phẩm thành công .", '', 'success')
-      this.http.post("https://localhost:44302/api/Carts/getCart/"+clicks,{}).subscribe(
+      this.http.post(environment.URL_API+"Carts/getCart/"+clicks,{}).subscribe(
       res=>{
         this.list_item = res;
         this.tongtien=0;
@@ -115,7 +116,7 @@ export class CheckoutComponent implements OnInit  {
     else
     {
       const clicks = localStorage.getItem('idUser');
-    this.http.post("https://localhost:44302/api/hoadons/",{
+    this.http.post(environment.URL_API+"hoadons/",{
       Tinh:this.Tinh,
       Huyen:this.Huyen,
       Xa:this.Xa,
@@ -137,7 +138,7 @@ export class CheckoutComponent implements OnInit  {
   updateCongSanPham(cartID,soLuong){
     const clicks = localStorage.getItem('idUser');
 
-    this.http.post("https://localhost:44302/api/Carts/update/",{
+    this.http.post(environment.URL_API+"Carts/update/",{
     CartID:cartID,
     SoLuong:soLuong+1,
     UserID:clicks
@@ -166,7 +167,7 @@ export class CheckoutComponent implements OnInit  {
     {
       soLuong=soLuong-1;
     }
-    this.http.post("https://localhost:44302/api/Carts/update/",{
+    this.http.post(environment.URL_API+"Carts/update/",{
     CartID:cartID,
     SoLuong:soLuong,
     UserID:clicks

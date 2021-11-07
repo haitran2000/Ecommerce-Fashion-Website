@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import {Product} from '../../model/product.model'
 import {sanPhamBienThes} from '../../model/product.model'
 import { CartService } from 'src/app/service/product.service';
+import { environment } from 'src/environments/environment';
 declare var $: any;
 @Component({
   selector: 'app-product-details',
@@ -30,12 +31,12 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
       this.id_product = params['id']; // get id to params
   });
   this.soLuong=1;
-  this.http.get("https://localhost:44302/api/sanphams/chitietsanpham/"+this.id_product
+  this.http.get(environment.URL_API+"sanphams/chitietsanpham/"+this.id_product
           ).subscribe(resp => {
               this.product =resp as Product;
               this.list_san_pham_bien_the= this.product.sanPhamBienThes;
               this.testMarkup = this.sanitized.bypassSecurityTrustHtml(this.product.moTa);
-              this.http.post("https://localhost:44302/api/mausacs/mau/",{
+              this.http.post(environment.URL_API+"mausacs/mau/",{
                 id_san_pham:this.id_product
     }).subscribe(
       res=>{
@@ -43,7 +44,7 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
       });
       this.size={};
 
-      this.http.post("https://localhost:44302/api/sanphams/listreview/",{
+      this.http.post(environment.URL_API+"sanphams/listreview/",{
         IdSanPham:this.product.id
     }).subscribe(
       res=>{
@@ -57,7 +58,7 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
 
   }
   onChangeMau(mau){
-    this.http.post("https://localhost:44302/api/sizes/sizetheomau/",{
+    this.http.post(environment.URL_API+"sizes/sizetheomau/",{
       id_san_pham:this.id_product,
       mamau:mau
     }).subscribe(
@@ -67,7 +68,7 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
   }
   Review(){
     const clicks = localStorage.getItem('idUser');
-    this.http.post("https://localhost:44302/api/sanphams/review/",{
+    this.http.post(environment.URL_API+"sanphams/review/",{
         IdUser:clicks,
         IdSanPham:this.product.id,
         Content:this.Content,
@@ -214,7 +215,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     const clicks = localStorage.getItem('idUser');
     var SanPhamId=SanPhamBienThe.id;
     console.log(SanPhamId);
-    this.http.post("https://localhost:44302/api/Carts"
+    this.http.post(environment.URL_API+"Carts"
      ,{
         Id_SanPhamBienThe:SanPhamId,
        SanPhamId:this.product.id,
@@ -233,7 +234,7 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
   //   const clicks = localStorage.getItem('idUser');
   //   var SanPhamId=SanPhamBienThe.id;
   //   console.log(SanPhamId);
-  //   this.http.post("https://localhost:44302/api/Carts"
+  //   this.http.post(environment.URL_API+Carts"
   //    ,{
   //       Id_SanPhamBienThe:SanPhamId,
   //      SanPhamId:this.product.id,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-contact',
   templateUrl: './history.component.html',
@@ -10,7 +11,7 @@ export class HistoryComponent implements OnInit {
   list_hoadon:any;
   constructor(public http:HttpClient) {
     const clicks = localStorage.getItem('idUser');
-    this.http.post("https://localhost:44302/api/hoadons/danhsachhoadon/",{
+    this.http.post(environment.URL_API+"hoadons/danhsachhoadon/",{
       idUser:clicks
     }).subscribe(
       res=>{

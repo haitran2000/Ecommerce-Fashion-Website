@@ -15,6 +15,7 @@ using Web_API_e_Fashion.Auth;
 using Web_API_e_Fashion.Data;
 using Web_API_e_Fashion.Helpers;
 using Web_API_e_Fashion.IdentityViewModels;
+using Web_API_e_Fashion.IdentityViewModels.Validations;
 using Web_API_e_Fashion.Models;
 using Web_API_e_Fashion.ServerToClientModels;
 
@@ -48,7 +49,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPost("registerCustomer")]
         public async Task<IActionResult> Post([FromBody] JObject json)
         {
-            var model = JsonConvert.DeserializeObject<IdentityViewModels.Validations.RegistrationViewModel>(json.GetValue("data").ToString());
+            var model = JsonConvert.DeserializeObject<RegistrationViewModel>(json.GetValue("data").ToString());
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -68,6 +69,13 @@ namespace Web_API_e_Fashion.Api_Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+        [HttpPost("getDiaChi")]
+        public async Task<IActionResult> GetDiaChi([FromBody] JObject json)
+        {
+            var id = json.GetValue("id_user").ToString();
+            var resuft = _context.AppUsers.Where(d => d.Id == id).Select(d => d.DiaChi).SingleOrDefault();
+            return Json(resuft);
         }
         // POST api/auth/login
         [HttpPost("login")]

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Product } from '../model/product.model';
 import { take, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -78,7 +79,7 @@ export class CartService {
   }
   LoadCard(){
     const clicks = localStorage.getItem('idUser');
-    this.http.post("https://localhost:44302/api/Carts/getCart/"+clicks,{}).subscribe(
+    this.http.post(environment.URL_API+"Carts/getCart/"+clicks,{}).subscribe(
       res=>{
         var list_item = res;
         localStorage.setItem('products',JSON.stringify(list_item));

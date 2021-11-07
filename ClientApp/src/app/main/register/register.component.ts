@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -36,7 +37,7 @@ export class RegisterComponent implements OnInit {
 
    }
    registerAccount(){
-    this.http.post("https://localhost:44302/api/auth/registerCustomer",{
+    this.http.post(environment.URL_API+"auth/registerCustomer",{
       data:this.userFormGroup.value
       }).subscribe(
     )

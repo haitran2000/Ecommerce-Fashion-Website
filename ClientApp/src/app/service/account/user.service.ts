@@ -50,7 +50,7 @@ export class UserService extends BaseService  {
           check=true;
           this._authNavStatusSource.next(true);
           const clicks = localStorage.getItem('idUser');
-      this.http.post("https://localhost:44302/api/Carts/getCart/"+clicks,{}).subscribe(
+      this.http.post(environment.URL_API+clicks,{}).subscribe(
         res=>{
           var list_item = res;
           localStorage.setItem('products',JSON.stringify(list_item));

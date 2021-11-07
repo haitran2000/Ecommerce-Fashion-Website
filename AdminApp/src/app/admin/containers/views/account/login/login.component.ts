@@ -42,13 +42,13 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/register']);
   }
   onSubmit = (data) => {
-    let form = new FormData();
-    form.append('UserName', data.userName);
-    form.append('Password', data.passWord);
+
     this.submitted = true;
     this.isRequesting = true;
     this.errors = '';
+    console.log(data.userName,data.passWord)
     this.userService.login(data.userName, data.passWord)
+
   }
 
 }

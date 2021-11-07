@@ -34,6 +34,7 @@ export class UserService extends BaseService {
     this.baseUrl = environment.URL_API
   }
   login(userName, password) {
+    console.log("aa",userName,password)
     return this.http
       .post(
         this.baseUrl + 'auth/login',
