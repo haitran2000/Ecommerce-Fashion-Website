@@ -15,4 +15,5 @@ export class ProductService {
   getsanphammoi():Observable<any>{
     return this.http.get<any>(" https://localhost:44302/api/sanphams/topsanphammoi")
   }
+  public trangthaiDataProduct:boolean
 }

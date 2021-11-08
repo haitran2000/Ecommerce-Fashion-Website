@@ -24,8 +24,8 @@ export class HoaDonComponent implements OnInit {
     this.url = environment.URL_API
     this.getMotHoaDon(this.service.hoadon.id)
   }
-  exportpdfs() {
-    window.open("https://localhost:44302/api/pdfs/orderdetail/"+this.hd.id, "_blank");
+  exportpdfsnew() {
+    window.open("https://localhost:44302/api/pdfsnew/orderdetail/"+this.hd.id, "_blank");
 
   }
   getMotHoaDon(id:any){

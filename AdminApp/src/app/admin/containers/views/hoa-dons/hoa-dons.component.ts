@@ -81,8 +81,8 @@ export class HoaDonsComponent implements OnInit {
     this.dialog.open(HoaDonEditComponent)
   } 
 
-  exportpdfs() {
-    window.open("https://localhost:44302/api/pdfs/allorder", "_blank");
+  exportpdfsnew() {
+    window.open("https://localhost:44302/api/pdfsnew/allorder", "_blank");
 
   }
   clickDelete(id) {

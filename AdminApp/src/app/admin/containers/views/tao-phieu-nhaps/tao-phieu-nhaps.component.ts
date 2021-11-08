@@ -67,8 +67,8 @@ export class TaoPhieuNhapsComponent implements OnInit, AfterViewInit {
     this.service.phieunhap = new PhieuNhap();
     this.router.navigate(["admin/taophieunhap/them"]);
   }
-  exportpdfs() {
-    window.open("https://localhost:44302/api/pdfs/allphieunhap", "_blank");
+  exportpdfsnew() {
+    window.open("https://localhost:44302/api/pdfsnew/allphieunhap", "_blank");
   }
   populateForm(id: any) {
     this.service.idphieunhap = id;

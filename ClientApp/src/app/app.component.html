@@ -1,4 +1,6 @@
 <app-header></app-header>
 <app-cart></app-cart>
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+<div ng-if="this.sharedservice.dataloadvariable==true">
+    <app-footer></app-footer>
+</div>

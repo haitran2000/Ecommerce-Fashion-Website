@@ -625,7 +625,7 @@ namespace Web_API_e_Fashion.Api_Controllers
                        TenLoai = _context.Loais.Where(d => d.Id == s.Id_Loai).Select(d => d.Ten).FirstOrDefault(),
                        TenNhanHieu = _context.NhanHieus.Where(d => d.Id == s.Id_NhanHieu).Select(d => d.Ten).FirstOrDefault(),
                        Image = _context.ImageSanPhams.Where(q => q.IdSanPham == s.Id).Select(q => q.ImageName).FirstOrDefault(),
-                   }).Take<SanPhamLoaiThuongHieu>(8).ToList();
+                   }).Where(s=>s.TrangThaiSanPham=="new"&&s.TrangThaiHoatDong==true).ToList();
             return kb;
         }
         [HttpPost("sapxepsanpham")]

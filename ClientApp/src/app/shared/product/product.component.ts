@@ -8,6 +8,7 @@ import { Product } from 'src/app/model/product.model';
 import { switchAll } from 'rxjs/operators';
 import * as signalR from '@microsoft/signalr';
 import { ProductService } from './product.service';
+import { SharedService } from '../shared.service';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -23,7 +24,8 @@ export class ProductComponent implements OnInit, AfterViewInit{
     public mausac:any;
     searchText='';
     responsiveOptions;
-  constructor(public http:HttpClient,public cart:CartService, public service: ProductService)
+    public statusData: boolean = false
+  constructor(public http:HttpClient,public cart:CartService, public service: ProductService,public sharedservice:SharedService)
   {
     this.chose_gia=1;
     this.chose_mau=1
@@ -34,17 +36,6 @@ export class ProductComponent implements OnInit, AfterViewInit{
         this.mausac = resp;
     });
   
-    this.service.getlaytatcasanpham()
-    .subscribe(resp => {
-        this.list_product = resp as Product[];
-        this.list_product_male= this.list_product.filter(d=>d.gioiTinh==1);
-        this.list_product_female= this.list_product.filter(d=>d.gioiTinh==2);
-    });
-  
-   
-    this.service.getlaytatcasanpham().subscribe(resp => {
-        this.products = resp as Product[];
-    });
     this.responsiveOptions = [
       {
           breakpoint: '1024px',
@@ -63,14 +54,17 @@ export class ProductComponent implements OnInit, AfterViewInit{
       }
   ];
   }
+
   ngOnInit(){
 
     this.service.getlaytatcasanpham().subscribe(resp => {
-        this.list_product = resp as Product[];
+  this.list_product = resp as Product[];
         this.list_product_male= this.list_product.filter(d=>d.gioiTinh==1);
         this.list_product_female= this.list_product.filter(d=>d.gioiTinh==2);
+        this.sharedservice.dataloadvariable = true;
+        this.statusData = true;
     });
-    this.service.getlaytatcasanpham().subscribe(resp => {
+    this.service.getsanphammoi().subscribe(resp => {
         this.products = resp as Product[];
     });
     const connection = new signalR.HubConnectionBuilder()
@@ -94,8 +88,10 @@ export class ProductComponent implements OnInit, AfterViewInit{
 
 
   connection.on("BroadcastMessage", () => {
-    this.service.getlaytatcasanpham().subscribe(resp => {
+    this.service.getsanphammoi().subscribe(resp => {
         this.products = resp as Product[];
+        this.statusData = true;
+   
     });
   });
   }   
@@ -310,6 +306,7 @@ $('.wrap-slick1').each(function(){
   });
 
 });
+
 
   }
 }

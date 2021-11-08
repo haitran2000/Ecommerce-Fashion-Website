@@ -97,8 +97,8 @@ export class ProductsComponent implements OnInit, AfterViewInit {
   onselectedDetail() {
     this.router.navigate(['admin/product/detail/' + this.service.product.id]);
   }
-  exportpdfs() {
-    window.open("https://localhost:44302/api/pdfs/allsanpham", "_blank");
+  exportpdfsnew() {
+    window.open("https://localhost:44302/api/pdfsnew/allsanpham", "_blank");
 
   }
   onSelectedEdit() {
