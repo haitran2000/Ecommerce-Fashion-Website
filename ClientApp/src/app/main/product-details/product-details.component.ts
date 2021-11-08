@@ -36,15 +36,18 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
               this.list_san_pham_bien_the= this.product.sanPhamBienThes;
               this.testMarkup = this.sanitized.bypassSecurityTrustHtml(this.product.moTa);
               this.http.post("https://localhost:44302/api/mausacs/mau/",{
-                id_san_pham:this.id_product
+                id_san_pham:this.id_product,
+              
     }).subscribe(
       res=>{
         this.mau=res;
+        
       });
       this.size={};
 
       this.http.post("https://localhost:44302/api/sanphams/listreview/",{
         IdSanPham:this.product.id
+        
     }).subscribe(
       res=>{
         this.list_review=res;

@@ -276,6 +276,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             List<ChiTietHoaDon> ListCTHD = new List<ChiTietHoaDon>();
             for (int i = 0; i < cart.Count; i++)
             {
+                var thisSanPhamBienThe =  _context.SanPhamBienThes.Find(cart[i].Id_SanPhamBienThe);
                 ChiTietHoaDon cthd = new ChiTietHoaDon();
                 cthd.Id_SanPham = cart[i].SanPhamId;
                 cthd.Id_SanPhamBienThe = cart[i].Id_SanPhamBienThe;
@@ -285,6 +286,8 @@ namespace Web_API_e_Fashion.Api_Controllers
                 cthd.ThanhTien = cart[i].Gia * cart[i].SoLuong;
                 cthd.Size = cart[i].Size;
                 cthd.Mau = cart[i].Mau;
+                thisSanPhamBienThe.SoLuongTon = thisSanPhamBienThe.SoLuongTon - cart[i].SoLuong;
+                _context.SanPhamBienThes.Update(thisSanPhamBienThe);
                 _context.ChiTietHoaDons.Add(cthd);
                 _context.Carts.Remove(cart[i]);
                 await _context.SaveChangesAsync();

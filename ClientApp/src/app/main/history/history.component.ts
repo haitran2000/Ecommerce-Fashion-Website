@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import * as signalR from '@microsoft/signalr';
 @Component({
   selector: 'app-contact',
   templateUrl: './history.component.html',
@@ -9,6 +10,10 @@ export class HistoryComponent implements OnInit {
 
   list_hoadon:any;
   constructor(public http:HttpClient) {
+  
+   }
+
+  ngOnInit(): void {
     const clicks = localStorage.getItem('idUser');
     this.http.post("https://localhost:44302/api/hoadons/danhsachhoadon/",{
       idUser:clicks
@@ -16,9 +21,25 @@ export class HistoryComponent implements OnInit {
       res=>{
         this.list_hoadon=res;
       });
-   }
+    const connection = new signalR.HubConnectionBuilder()
+    .configureLogging(signalR.LogLevel.Information)
+    .withUrl('https://localhost:44302/notify')
+    .build();
 
-  ngOnInit(): void {
+  connection.start().then(function () {
+    console.log('SignalR Connected!');
+  }).catch(function (err) {
+    return console.error(err.toString());
+  });
+
+  connection.on("BroadcastMessage", () => {
+    this.http.post("https://localhost:44302/api/hoadons/danhsachhoadon/",{
+      idUser:clicks
+    }).subscribe(
+      res=>{
+        this.list_hoadon=res;
+      });
   }
-
+  )
+}
 }

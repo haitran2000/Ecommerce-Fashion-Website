@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from '../shared.service';
 declare var $: any;
 @Component({
   selector: 'app-footer',
@@ -7,7 +8,7 @@ declare var $: any;
 })
 export class FooterComponent implements OnInit {
 
-  constructor() { }
+  constructor(public sharedservice:SharedService) { }
 
   ngOnInit(): void {
     $('.wrap-slick3').each(function(){
