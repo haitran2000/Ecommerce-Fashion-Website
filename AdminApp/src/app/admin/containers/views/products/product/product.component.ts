@@ -257,6 +257,7 @@ export class ProductComponent implements OnInit {
 
   /* DATA SAN PHAM */
   TenSanPhamArray:any = [
+    {value: 'Áo ba lỗ', viewValue: 'Áo ba lỗ'},
     {value: 'Áo thun trơn', viewValue: 'Áo thun trơn'},
     {value: 'Áo khoác bò ', viewValue: 'Áo khoác bò'},
     {value: 'Quần short', viewValue: 'Quần short'},

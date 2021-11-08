@@ -110,7 +110,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             }
             return solanxuathiens;
         }
-        //Sản phẩm bán đạt lợi nhuận nhất trong top
+        //Sản phẩm bán đạt lợi nhuận cao nhất trong top 10
         [HttpGet("topsanphamloinhattop")]
         public async Task<ActionResult<IEnumerable<TenSanPhamDoanhSo>>> Top10SanPhamLoiNhats()
         {

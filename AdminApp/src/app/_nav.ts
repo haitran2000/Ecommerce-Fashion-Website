@@ -28,7 +28,7 @@ export const navItems: INavData[] = [
     children:
     [
       {
-        name: 'Quản phẩm',
+        name: 'Sản phẩm',
         url: '/admin/products',
         icon: 'cil-3d',
       },
