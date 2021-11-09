@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<sitemanifest>
-  <IisApp path="D:\-DO-AN-TOT-NGHIEP\API-CHUNG\API-CHUNG\Web-API-e-Fashion\obj\Release\net5.0\PubTmp\Out\" />
-  <dbfullsql path="D:\-DO-AN-TOT-NGHIEP\API-CHUNG\API-CHUNG\Web-API-e-Fashion\obj\Release\net5.0\PubTmp\EFSQLScripts\Web_API_e_Fashion.Data.DPContext.sql" />
-</sitemanifest>
