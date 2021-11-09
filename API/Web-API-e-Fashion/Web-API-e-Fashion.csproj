@@ -84,6 +84,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Images\list-image-product\" />
+    <Folder Include="wwwroot\Images\list-image-blog\" />
   </ItemGroup>
 
   <ItemGroup>

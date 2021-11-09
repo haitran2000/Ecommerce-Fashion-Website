@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Web_API_e_Fashion.Data;
 
 namespace Web_API_e_Fashion.Migrations
 {
     [DbContext(typeof(DPContext))]
-    partial class DPContextModelSnapshot : ModelSnapshot
+    [Migration("20211109095746_v12")]
+    partial class v12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,9 +247,6 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("FkAppUser_NguoiThem")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("NoiDung")
                         .HasColumnType("nvarchar(max)");
 
@@ -255,8 +254,6 @@ namespace Web_API_e_Fashion.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("FkAppUser_NguoiThem");
 
                     b.ToTable("Blogs");
                 });
@@ -936,15 +933,6 @@ namespace Web_API_e_Fashion.Migrations
                         .HasForeignKey("IdentityId");
 
                     b.Navigation("Identity");
-                });
-
-            modelBuilder.Entity("Web_API_e_Fashion.Models.Blog", b =>
-                {
-                    b.HasOne("Web_API_e_Fashion.Models.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("FkAppUser_NguoiThem");
-
-                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("Web_API_e_Fashion.Models.Calendar", b =>
