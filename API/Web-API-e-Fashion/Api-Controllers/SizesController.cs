@@ -35,18 +35,23 @@ namespace Web_API_e_Fashion.Api_Controllers
                 var id = int.Parse(json.GetValue("id_san_pham").ToString());
                 var mamau = json.GetValue("mamau").ToString();
                 var id_loai_sp = _context.SanPhams.Where(d => d.Id == id).Select(d => d.Id_Loai).SingleOrDefault();
-                var id_mau = _context.MauSacs.Where(d => d.MaMau == mamau && d.Id_Loai == id_loai_sp).Select(d => d.Id).SingleOrDefault();
+                var mauloai = mamau + id_loai_sp;
+                var id_mau = _context.MauSacs.Where(d => d.MaMau+d.Id_Loai == mauloai && d.Id_Loai == id_loai_sp).Select(d => d.Id).SingleOrDefault();
                 var list_idsize = _context.SanPhamBienThes.Where(d => d.Id_Mau == id_mau && d.Id_SanPham == id).Select(d => d.SizeId.ToString()).ToList();
+                
                 var resuft = _context.Sizes.Where(d => list_idsize.Contains(d.Id.ToString())).Select(
                     d => new
                     {
+                        
                         size = d.TenSize
-                    });
+                     
+                    }).ToList();
 
                 return Json(resuft);
             }
-            catch
+            catch (Exception ex)
             {
+                var a = ex;
                 return Json("");
             }
            

@@ -66,6 +66,8 @@ namespace Web_API_e_Fashion.Api_Controllers
             return Json(resuft);
         }
 
+ 
+
         [HttpGet("tenmauloai")]
         public async Task<ActionResult<IEnumerable<TenMauLoai>>> GetMauSacLoai()
         {

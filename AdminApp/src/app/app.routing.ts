@@ -43,6 +43,7 @@ import { TaoPhieuNhapSuccessComponent } from './admin/containers/views/tao-phieu
 import { TaoPhieuNhapDetailComponent } from './admin/containers/views/tao-phieu-nhaps/tao-phieu-nhap-detail/tao-phieu-nhap-detail.component';
 import { ChartThirdComponent } from './admin/containers/views/chart-third/chart-third.component';
 import { ChatsComponent } from './admin/containers/views/chats/chats.component';
+import { BlogsComponent } from './admin/containers/views/blogs/blogs.component';
 
 
 
@@ -207,6 +208,10 @@ export const routes: Routes = [
       {
         path: 'admin/chats',
         component: ChatsComponent, canActivate: [AuthGuard],
+      },
+      {
+        path: 'admin/blogs',
+        component: BlogsComponent, canActivate: [AuthGuard],
       },
     ]
   },

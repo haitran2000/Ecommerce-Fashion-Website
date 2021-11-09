@@ -40,6 +40,7 @@ export class CheckoutComponent implements OnInit  {
     this.http.post("https://localhost:44302/api/Carts/getCart/"+this.id_user,{}).subscribe(
       res=>{
         this.list_item = res;
+        console.log(this.list_item)
         this.tongtien=0;
         for (let i = 0; i < this.list_item.length; i++) {
             this.tongtien=this.tongtien+(this.list_item[i].productDetail.giaBan*this.list_item[i].soLuong);
@@ -73,12 +74,15 @@ export class CheckoutComponent implements OnInit  {
       this.DiaChi='';
     }
   }
+
  deleteSanPham(item):void {
   const clicks = localStorage.getItem('idUser');
-  this.http.post("https://localhost:44302/api/carts/delete",{
-    Id_sanpham:item.idSanPhamBienThe,
-    User_ID:clicks
-  }).subscribe(
+   let delproduct : deleteProduct = new deleteProduct()
+   delproduct.id_sanpham = item.idSanPhamBienThe
+   delproduct.user_ID = clicks
+ console.log(delproduct)
+  this.http.post("https://localhost:44302/api/Carts/delete",delproduct
+  ).subscribe(
     res=>{
       Swal.fire("Xoá sản phẩm thành công .", '', 'success')
       this.http.post("https://localhost:44302/api/Carts/getCart/"+clicks,{}).subscribe(
@@ -240,4 +244,8 @@ ChangeSoLuong(cartID,i){
     this.list_xa_phuong=search.wards;
   }
 
+}
+export class deleteProduct{
+  id_sanpham : number
+  user_ID : string
 }

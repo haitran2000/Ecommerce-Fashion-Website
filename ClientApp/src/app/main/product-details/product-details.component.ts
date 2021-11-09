@@ -29,7 +29,7 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
 
       this.id_product = params['id']; // get id to params
   });
-  this.soLuong=1;
+  this.soLuong=0;
   this.http.get("https://localhost:44302/api/sanphams/chitietsanpham/"+this.id_product
           ).subscribe(resp => {
               this.product =resp as Product;
@@ -56,6 +56,7 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
 
 
   }
+
   ngOnInit(){
 
   }
@@ -80,11 +81,9 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
         this.Content="";
       });
   }
-  soLuongCong(){
-    this.soLuong++;
-  }
+
   soLuongTru(){
-    if(this.soLuong==1)
+    if(this.soLuong>=0)
     {
 
     }
@@ -211,7 +210,26 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 });
 
   }
-
+  maxQty(){
+   
+    if(this.list_san_pham_bien_the.filter(d=>d.tenMau==this.selectMau&&d.tenSize==this.selectSize)[0]!=null){
+      let maxQty = this.list_san_pham_bien_the.filter(d=>d.tenMau==this.selectMau&&d.tenSize==this.selectSize)[0].soLuongTon
+      return maxQty
+    }
+    return 0
+   
+  }
+  checkQty(){
+    if(this.maxQty()<=0){
+        return true
+    }
+  }
+  soLuongCong(){
+    if(this.soLuong<this.maxQty()){
+      this.soLuong++;
+    }
+   
+  }
   addToCard(product) {
     var SanPhamBienThe = this.list_san_pham_bien_the.filter(d=>d.tenMau==this.selectMau&&d.tenSize==this.selectSize)[0];
     const clicks = localStorage.getItem('idUser');

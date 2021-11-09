@@ -32,6 +32,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             var resuft = _context.Carts.Where(s => s.UserID == getiduser)
                 .Select(d => new Web_API_e_Fashion.ServerToClientModels.Cart
                 {
+                    IdSanPhamBienThe = d.Id_SanPhamBienThe,
                     CartID = d.CartID,
                     Mau = d.Mau,
                     Size = d.Size,
@@ -48,6 +49,23 @@ namespace Web_API_e_Fashion.Api_Controllers
                 }).ToList();
             return resuft;
 
+        }
+        [HttpPost("coutcomment")]
+        public async Task<ActionResult> CoutComment()
+        {
+            var list_id_san_pham = _context.SanPhams.Select(d => d.Id).ToList();
+            var resuft = new List<CountComment>();
+            for (int i = 0; i < list_id_san_pham.Count(); i++)
+            {
+                resuft.Add(new CountComment
+                {
+                    sanpham = _context.SanPhams.Where(d => d.Id == list_id_san_pham[i]).FirstOrDefault(),
+                    socomment = _context.UserComments.Where(d => d.IdSanPham == list_id_san_pham[i]).Count(),
+
+                });
+            }
+
+            return Json(resuft);
         }
         [HttpPost("update")]
         public async Task<ActionResult> UpdateCarts(Models.Cart json)
@@ -128,7 +146,23 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             return NoContent();
         }
+   
+        [HttpPost("delete")]     
+        public async Task<IActionResult> Delete([FromBody]DeleteCart delete)
+        {
+            var card = _context.Carts.Where(d => d.Id_SanPhamBienThe == delete.Id_sanpham && d.UserID == delete.User_ID).SingleOrDefault();
+            _context.Carts.Remove(card);
+            await _context.SaveChangesAsync();
+            return Json("1");
+        }
+        public class DeleteCart
+        {
+            public int Id_sanpham { get; set; }
+            public string User_ID { get; set; }
 
+        }
+       
+      
         // POST: api/Carts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
@@ -160,21 +194,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             return CreatedAtAction("GetCart", new { id = cart.CartID }, cart);
         }
 
-        // DELETE: api/Carts/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCart(int id)
-        {
-            var cart = await _context.Carts.FindAsync(id);
-            if (cart == null)
-            {
-                return NotFound();
-            }
-
-            _context.Carts.Remove(cart);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
+        
         public class UpdateCart
         {
             public int Id_sanpham { get; set; }
