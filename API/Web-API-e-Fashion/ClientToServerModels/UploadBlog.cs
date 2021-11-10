@@ -11,6 +11,7 @@ namespace Web_API_e_Fashion.ClientToServerModels
         public int Id { get; set; }
         public string TieuDe { get; set; }
         public string NoiDung { get; set; }
+        public string FkUserId { get; set; }
         public ICollection<IFormFile> files { get; set; }
     }
 }

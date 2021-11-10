@@ -84,9 +84,8 @@ export class BlogComponent implements OnInit {
     }
     else {
       const form = new FormData();
-      form.append('Ten', data.Ten);
-      form.append('TieuDe', data.Ten);
-      form.append('NoiDung', data.KhuyenMai);
+      form.append('TieuDe', data.TieuDe);
+      form.append('NoiDung', data.NoiDung);
       for (let i = 0; i < this.urls.length; i++) {
         form.append('files', this.selectedFile.item(i))
       }

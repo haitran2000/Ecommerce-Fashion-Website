@@ -48,7 +48,7 @@ export const navItems: INavData[] = [
         icon: 'cil-apps',
       },
       {
-        name: 'Kích thước',
+        name: 'Size',
         url: '/admin/sizes',
         icon: 'cil-resize-width',
       },

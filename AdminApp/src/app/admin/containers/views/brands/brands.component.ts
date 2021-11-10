@@ -81,6 +81,7 @@ showToastXoaThatBai(){
   populateForm(selectedRecord:Brand){
     this.service.brand = Object.assign({},selectedRecord)
     this.dialog.open(BrandComponent)
+    console.log(selectedRecord)
 }
   clickDelete(id){
   if(confirm('Bạn có chắc chắn xóa bản ghi này không ??'))

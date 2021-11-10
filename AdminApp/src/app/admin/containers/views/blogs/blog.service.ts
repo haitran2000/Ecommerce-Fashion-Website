@@ -20,7 +20,7 @@ export class BlogService {
       return this.http.get(environment.URL_API+"blogs")
     }
     delete(id:number){
-      return this.http.delete(`${environment.URL_API+"blog"}/${id}`)
+      return this.http.delete(`${environment.URL_API+"blogs"}/${id}`)
     }
     post(blog: any): Observable<any> {
       return this.http.post<any>(environment.URL_API + 'blogs', blog)
@@ -33,13 +33,14 @@ export class BlogService {
       this.get().subscribe(
         res=>{
           this.dataSource.data = res as Blog[];
+          console.log((res))
         }
       )
     }
 
 }
 export class Blog{
-  id:number
+  id:number = 0
   tieude:string
   hinh:string
   noidung:string

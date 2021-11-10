@@ -28,7 +28,7 @@ export class BlogsComponent implements OnInit {
    public blog : Blog 
   ngOnInit(): void {
     this.service.getAllBlogs()
-
+    
     const connection = new signalR.HubConnectionBuilder()
     .configureLogging(signalR.LogLevel.Information)
     .withUrl('https://localhost:44302/notify')
@@ -70,6 +70,7 @@ showToastXoaThatBai(){
   populateForm(selectedRecord:Blog){
     this.service.blog = Object.assign({},selectedRecord)
     this.dialog.open(BlogComponent)
+    console.log(selectedRecord)
 }
   clickDelete(id){
   if(confirm('Bạn có chắc chắn xóa bản ghi này không ??'))
