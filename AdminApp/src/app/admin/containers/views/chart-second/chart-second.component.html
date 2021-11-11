@@ -50,7 +50,7 @@
                         <tbody>
                             <tr *ngFor="let item of this.doanhthucaonhat">
                                 <td>{{item.tenSP}}</td>
-                                <td>{{item.doanhSoCaoNhat}}</td>
+                                <td>{{item.doanhSoCaoNhat|number}} VNĐ</td>
                             </tr>
                         </tbody>
                     </table>
@@ -78,7 +78,7 @@
                         <tbody>
                             <tr *ngFor="let item of this.dataThongKe">
                                 <td>{{item.month}}</td>
-                                <td>{{item.revenues}}</td>
+                                <td>{{item.revenues|number}} VNĐ</td>
                             </tr>
                         </tbody>
                     </table>
@@ -113,7 +113,7 @@
                         <tbody>
                             <tr *ngFor="let item of service.dataThongKeNgay">
                                 <td>{{item.ngay}}</td>
-                                <td>{{item.revenues}}</td>
+                                <td>{{item.revenues|number}} VNĐ</td>
                             </tr>
                         </tbody>
                     </table>
@@ -132,7 +132,7 @@
         </div>
         <div class="col">
             <br>
-            <h4>Hiện tại năm 2021 đã bán được số VNĐ là: {{nam2021.tongTien}} (VNĐ)</h4>
+            <h4>Hiện tại năm 2021 đã bán được số VNĐ là: {{nam2021.tongTien|number}} VNĐ</h4>
         </div>
     </div>
 </div>

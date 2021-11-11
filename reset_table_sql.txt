@@ -1,0 +1,36 @@
+
+
+DELETE FROM ChiTietHoaDons
+DBCC CHECKIDENT ('dbo.ChiTietHoaDons',RESEED, 0)
+
+DELETE FROM HoaDons
+DBCC CHECKIDENT ('dbo.HoaDons',RESEED, 0)
+
+DELETE FROM PhieuNhapHangs
+DBCC CHECKIDENT ('dbo.PhieuNhapHangs',RESEED, 0)
+
+DELETE FROM ChiTietPhieuNhapHangs
+DBCC CHECKIDENT ('dbo.ChiTietPhieuNhapHangs',RESEED, 0)
+
+DELETE FROM SanPhamBienThes
+DBCC CHECKIDENT ('dbo.SanPhamBienThes',RESEED, 0)
+
+DELETE FROM ImageSanPhams
+DBCC CHECKIDENT ('dbo.ImageSanPhams',RESEED, 0)
+
+DELETE FROM SanPhams
+DBCC CHECKIDENT ('dbo.Sanphams',RESEED, 0)
+
+
+DELETE FROM MaGiamGias
+DBCC CHECKIDENT ('dbo.MaGiamGias',RESEED, 0)
+
+
+
+DELETE FROM Blogs
+DBCC CHECKIDENT ('dbo.Blogs',RESEED, 0)
+DELETE FROM ImageBlogs
+DBCC CHECKIDENT ('dbo.ImageBlogs',RESEED, 0)
+
+DELETE FROM UserChats
+DBCC CHECKIDENT ('dbo.UserChats',RESEED, 0)

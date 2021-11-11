@@ -297,29 +297,29 @@ export class ProductComponent implements OnInit {
 
   //Data gia nhap
   GiaNhapArray:any = [
-    {value: '10000', viewValue: '10000'},
-    {value: '15700', viewValue: '15700'},
-    {value: '21300', viewValue: '21300'},
-    {value: '31100', viewValue: '31100'},
-    {value: '9000', viewValue: '9000'},
-    {value: '40200', viewValue: '40200'},
-    {value: '45000', viewValue: '45000'},
-    {value: '65000', viewValue: '65000'},
-    {value: '55000', viewValue: '55000'},
-    {value: '35000', viewValue: '35000'},
+    {value: '100000', viewValue: '100000'},
+    {value: '157000', viewValue: '157000'},
+    {value: '213000', viewValue: '213000'},
+    {value: '311000', viewValue: '311000'},
+    {value: '900000', viewValue: '900000'},
+    {value: '402000', viewValue: '402000'},
+    {value: '450000', viewValue: '450000'},
+    {value: '650000', viewValue: '650000'},
+    {value: '550000', viewValue: '550000'},
+    {value: '350000', viewValue: '350000'},
   ];
   //Data gia ban
   GiaBanArray:any = [
-    {value: '15000', viewValue: '15000'},
-    {value: '25700', viewValue: '25700'},
-    {value: '51300', viewValue: '51300'},
-    {value: '41100', viewValue: '41100'},
-    {value: '15000', viewValue: '15000'},
-    {value: '60200', viewValue: '60200'},
-    {value: '65000', viewValue: '65000'},
-    {value: '75000', viewValue: '75000'},
-    {value: '85000', viewValue: '85000'},
-    {value: '65000', viewValue: '65000'},
+    {value: '150000', viewValue: '150000'},
+    {value: '257000', viewValue: '257000'},
+    {value: '513000', viewValue: '513000'},
+    {value: '411000', viewValue: '411000'},
+    {value: '150000', viewValue: '150000'},
+    {value: '602000', viewValue: '602000'},
+    {value: '650000', viewValue: '650000'},
+    {value: '750000', viewValue: '750000'},
+    {value: '850000', viewValue: '850000'},
+    {value: '650000', viewValue: '650000'},
   ];
   //Data mota
   MoTaArray:any = [

@@ -279,7 +279,7 @@
         <label>Giá bán</label>
         <select formControlName="GiaBan" class="form-control" [(ngModel)]="service.product.giaBan" required>
       <option *ngFor="let ten of GiaBanArray" [value]="ten.value">
-        {{ten.viewValue}}
+        {{ten.viewValue|number}} VNĐ
       </option>
     </select>
         <div *ngIf="GiaBan.invalid && (GiaBan.dirty || GiaBan.touched)" class="alert alert-danger">
@@ -300,7 +300,7 @@
         <label>Giá nhập</label>
         <select class="form-control" formControlName="GiaNhap" [(ngModel)]="service.product.giaNhap" required>
       <option *ngFor="let ten of GiaNhapArray" [value]="ten.value">
-        {{ten.viewValue}}
+        {{ten.viewValue|number}} VNĐ
       </option>
     </select>
         <div *ngIf="GiaNhap.invalid && (GiaNhap.dirty || GiaNhap.touched)" class="alert alert-danger">

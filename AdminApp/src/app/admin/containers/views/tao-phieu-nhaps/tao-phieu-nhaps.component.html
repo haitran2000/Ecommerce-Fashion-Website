@@ -33,7 +33,7 @@
 
     <ng-container matColumnDef="tongTien">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="make-gold"> Tổng tiền </th>
-        <td mat-cell *matCellDef="let element"> {{element.tongTien}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.tongTien|number}} VNĐ </td>
     </ng-container>
     <ng-container matColumnDef="nguoiLapPhieu">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="make-gold"> Người lập phiếu

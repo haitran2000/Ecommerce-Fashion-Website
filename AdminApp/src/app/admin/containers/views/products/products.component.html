@@ -33,11 +33,11 @@
     </ng-container>
     <ng-container matColumnDef="gia">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="make-gold"> Giá bán</th>
-        <td mat-cell *matCellDef="let element"> {{element.giaBan}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.giaBan|number}} VNĐ </td>
     </ng-container>
     <ng-container matColumnDef="giaNhap">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="make-gold"> Giá nhập </th>
-        <td mat-cell *matCellDef="let element"> {{element.giaNhap}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.giaNhap|number}} VNĐ </td>
     </ng-container>
     <ng-container matColumnDef="trangThaiHoatDong">
         <th mat-header-cell *matHeaderCellDef mat-sort-header class="make-gold"> Hoạt động </th>
@@ -92,5 +92,3 @@
 </table>
 <mat-paginator [pageSize]="10" [pageSizeOptions]="[2, 4, 6, 10, 20]">
 </mat-paginator>
-
-
