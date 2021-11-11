@@ -4,7 +4,6 @@ import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { FormControl, FormGroup } from '@angular/forms';
-import { error } from 'node:console';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import * as signalR from '@microsoft/signalr';

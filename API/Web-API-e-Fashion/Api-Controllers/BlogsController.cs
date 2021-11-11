@@ -17,7 +17,7 @@ namespace Web_API_e_Fashion.Api_Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogsController : ControllerBase
+    public class BlogsController : Controller
     {
         private readonly IHubContext<BroadcastHub, IHubClient> _hubContext;
         private readonly DPContext _context;
@@ -140,6 +140,18 @@ namespace Web_API_e_Fashion.Api_Controllers
             await _context.SaveChangesAsync();
             await _hubContext.Clients.All.BroadcastMessage();
             return Ok();
+        }
+        [HttpPost("getBlog")]
+        public async Task<ActionResult> GetBlog()
+        {
+            var resuft = _context.Blogs.Select(d=>
+            new { 
+                id=d.Id,
+                tieude=d.TieuDe,
+                noidung =d.NoiDung,
+                image = _context.ImageBlogs.Where(s=>s.FkBlogId==d.Id).Select(d=>d.ImageName).SingleOrDefault(),
+            }).ToList();
+            return Json(resuft);
         }
 
         // POST: api/Blogs

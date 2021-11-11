@@ -16,7 +16,6 @@ import { SliderComponent } from './shared/slider/slider.component';
 import { BannerComponent } from './shared/banner/banner.component';
 import { CheckoutComponent } from './main/checkout/checkout.component';
 import { ProductComponent } from './shared/product/product.component';
-import { BlogComponent } from './shared/blog/blog.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HomeComponent } from './main/home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -37,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterComponent } from './main/register/register.component';
 import { InfoUserComponent } from './main/info-user/info-user.component';
 import {CarouselModule} from 'primeng/carousel';
+import { BlogComponent } from './main/blog/blog.component';
 //import {ButtonModule} from 'primeng/button';
 //import {ToastModule} from 'primeng/toast';
 @NgModule({

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit {
-
-  constructor() { }
-
+  public listblog:any;
+  constructor(public http:HttpClient) {
+    this.http.post("https://localhost:44302/api/blogs/getBlog/",{}
+  ).subscribe(
+    res=>{
+      this.listblog=res;
+  })
+  }
   ngOnInit(): void {
   }
 

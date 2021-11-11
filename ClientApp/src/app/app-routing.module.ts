@@ -7,13 +7,13 @@ import { DetailComponent } from './main/blog/detail/detail.component';
 import { AboutComponent } from './main/about/about.component';
 import { CheckoutComponent } from './main/checkout/checkout.component';
 import { ContactComponent } from './main/contact/contact.component';
-import { BlogComponent } from './shared/blog/blog.component';
 import { HistoryComponent } from './main/history/history.component';
 import {ProductDetailsComponent} from './main/product-details/product-details.component'
 import { BillDetailsComponent } from './main/history/details/bill_details.component';
 import { LikeComponent } from './main/like/like.component';
 import { RegisterComponent } from './main/register/register.component';
 import { InfoUserComponent } from './main/info-user/info-user.component';
+import { BlogComponent } from './main/blog/blog.component';
 const routes: Routes = [
   {
     path: 'info_user',
