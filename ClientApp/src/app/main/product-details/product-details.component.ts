@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 import {Product} from '../../model/product.model'
 import {sanPhamBienThes} from '../../model/product.model'
 import { CartService } from 'src/app/service/product.service';
+import { UserService } from 'src/app/service/account/user.service';
 declare var $: any;
 @Component({
   selector: 'app-product-details',
@@ -24,7 +25,7 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
   Content="";
   list_review:any;
   soLuong:number;
-  constructor(private cartService: CartService,public http:HttpClient,public route: ActivatedRoute,private sanitized: DomSanitizer) {
+  constructor(private cartService: CartService,public userService: UserService,public http:HttpClient,public route: ActivatedRoute,private sanitized: DomSanitizer) {
     this.route.params.subscribe(params => {
 
       this.id_product = params['id']; // get id to params
@@ -37,17 +38,17 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
               this.testMarkup = this.sanitized.bypassSecurityTrustHtml(this.product.moTa);
               this.http.post("https://localhost:44302/api/mausacs/mau/",{
                 id_san_pham:this.id_product,
-              
+
     }).subscribe(
       res=>{
         this.mau=res;
-        
+
       });
       this.size={};
 
       this.http.post("https://localhost:44302/api/sanphams/listreview/",{
         IdSanPham:this.product.id
-        
+
     }).subscribe(
       res=>{
         this.list_review=res;
@@ -211,13 +212,13 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
   }
   maxQty(){
-   
+
     if(this.list_san_pham_bien_the.filter(d=>d.tenMau==this.selectMau&&d.tenSize==this.selectSize)[0]!=null){
       let maxQty = this.list_san_pham_bien_the.filter(d=>d.tenMau==this.selectMau&&d.tenSize==this.selectSize)[0].soLuongTon
       return maxQty
     }
     return 0
-   
+
   }
   checkQty(){
     if(this.maxQty()<=0){
@@ -228,26 +229,32 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
     if(this.soLuong<this.maxQty()){
       this.soLuong++;
     }
-   
+
   }
   addToCard(product) {
-    var SanPhamBienThe = this.list_san_pham_bien_the.filter(d=>d.tenMau==this.selectMau&&d.tenSize==this.selectSize)[0];
-    const clicks = localStorage.getItem('idUser');
-    var SanPhamId=SanPhamBienThe.id;
-    console.log(SanPhamId);
-    this.http.post("https://localhost:44302/api/Carts"
-     ,{
-        Id_SanPhamBienThe:SanPhamId,
-       SanPhamId:this.product.id,
-       Mau:this.selectMau,
-       Size:this.selectSize,
-       UserID:clicks,
-       Soluong:this.soLuong,
-     }
-    ).subscribe(resp => {
+    if( !this.userService.checkLogin())
+    {
 
-    });
-    this.cartService.addToCart(product);
+    }
+    else{
+      var SanPhamBienThe = this.list_san_pham_bien_the.filter(d=>d.tenMau==this.selectMau&&d.tenSize==this.selectSize)[0];
+      const clicks = localStorage.getItem('idUser');
+      var SanPhamId=SanPhamBienThe.id;
+      this.http.post("https://localhost:44302/api/Carts"
+       ,{
+          Id_SanPhamBienThe:SanPhamId,
+         SanPhamId:this.product.id,
+         Mau:this.selectMau,
+         Size:this.selectSize,
+         UserID:clicks,
+         Soluong:this.soLuong,
+       }
+      ).subscribe(resp => {
+        this.cartService.addToCart(product);
+      });
+
+    }
+
   }
   // addToCard(){
   //   var SanPhamBienThe = this.list_san_pham_bien_the.filter(d=>d.tenMau==this.selectMau&&d.tenSize==this.selectSize)[0];

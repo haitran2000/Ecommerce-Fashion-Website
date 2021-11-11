@@ -82,13 +82,15 @@ export class UserService extends BaseService  {
   isLoggedIn() {
     return this.loggedIn;
   }
-  checkLogin()
+  checkLogin():boolean
   {
     if (localStorage.getItem("idUser") != null||localStorage.getItem("auth_token") != null) {
-
+      return true;
     }
     else {
       this.router.navigate(['/login']);
+      return false
+
     }
   }
 }

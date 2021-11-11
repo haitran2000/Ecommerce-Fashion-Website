@@ -15,6 +15,8 @@ namespace Web_API_e_Fashion.IdentityViewModels.Validations
             public string Email { get; set; }
             public string Password { get; set; }
             public string FirstName { get; set; }
+            public string DiaChi { get; set; }
+            public string SDT { get; set; }
             public string LastName { get; set; }
             public string Location { get; set; }
             public string Quyen { get; set; }

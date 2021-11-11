@@ -10,9 +10,10 @@ exports.ProductDetailsComponent = void 0;
 var core_1 = require("@angular/core");
 var sweetalert2_1 = require("sweetalert2");
 var ProductDetailsComponent = /** @class */ (function () {
-    function ProductDetailsComponent(cartService, http, route, sanitized) {
+    function ProductDetailsComponent(cartService, userService, http, route, sanitized) {
         var _this = this;
         this.cartService = cartService;
+        this.userService = userService;
         this.http = http;
         this.route = route;
         this.sanitized = sanitized;
@@ -22,7 +23,7 @@ var ProductDetailsComponent = /** @class */ (function () {
         this.route.params.subscribe(function (params) {
             _this.id_product = params['id']; // get id to params
         });
-        this.soLuong = 1;
+        this.soLuong = 0;
         this.http.get("https://localhost:44302/api/sanphams/chitietsanpham/" + this.id_product).subscribe(function (resp) {
             _this.product = resp;
             _this.list_san_pham_bien_the = _this.product.sanPhamBienThes;
@@ -63,11 +64,8 @@ var ProductDetailsComponent = /** @class */ (function () {
             _this.Content = "";
         });
     };
-    ProductDetailsComponent.prototype.soLuongCong = function () {
-        this.soLuong++;
-    };
     ProductDetailsComponent.prototype.soLuongTru = function () {
-        if (this.soLuong == 1) {
+        if (this.soLuong >= 0) {
         }
         else {
             this.soLuong--;
@@ -172,22 +170,43 @@ var ProductDetailsComponent = /** @class */ (function () {
             $(nameTab).find('.slick2').slick('reinit');
         });
     };
+    ProductDetailsComponent.prototype.maxQty = function () {
+        var _this = this;
+        if (this.list_san_pham_bien_the.filter(function (d) { return d.tenMau == _this.selectMau && d.tenSize == _this.selectSize; })[0] != null) {
+            var maxQty = this.list_san_pham_bien_the.filter(function (d) { return d.tenMau == _this.selectMau && d.tenSize == _this.selectSize; })[0].soLuongTon;
+            return maxQty;
+        }
+        return 0;
+    };
+    ProductDetailsComponent.prototype.checkQty = function () {
+        if (this.maxQty() <= 0) {
+            return true;
+        }
+    };
+    ProductDetailsComponent.prototype.soLuongCong = function () {
+        if (this.soLuong < this.maxQty()) {
+            this.soLuong++;
+        }
+    };
     ProductDetailsComponent.prototype.addToCard = function (product) {
         var _this = this;
-        var SanPhamBienThe = this.list_san_pham_bien_the.filter(function (d) { return d.tenMau == _this.selectMau && d.tenSize == _this.selectSize; })[0];
-        var clicks = localStorage.getItem('idUser');
-        var SanPhamId = SanPhamBienThe.id;
-        console.log(SanPhamId);
-        this.http.post("https://localhost:44302/api/Carts", {
-            Id_SanPhamBienThe: SanPhamId,
-            SanPhamId: this.product.id,
-            Mau: this.selectMau,
-            Size: this.selectSize,
-            UserID: clicks,
-            Soluong: this.soLuong
-        }).subscribe(function (resp) {
-        });
-        this.cartService.addToCart(product);
+        if (!this.userService.checkLogin()) {
+        }
+        else {
+            var SanPhamBienThe = this.list_san_pham_bien_the.filter(function (d) { return d.tenMau == _this.selectMau && d.tenSize == _this.selectSize; })[0];
+            var clicks = localStorage.getItem('idUser');
+            var SanPhamId = SanPhamBienThe.id;
+            this.http.post("https://localhost:44302/api/Carts", {
+                Id_SanPhamBienThe: SanPhamId,
+                SanPhamId: this.product.id,
+                Mau: this.selectMau,
+                Size: this.selectSize,
+                UserID: clicks,
+                Soluong: this.soLuong
+            }).subscribe(function (resp) {
+                _this.cartService.addToCart(product);
+            });
+        }
     };
     ProductDetailsComponent = __decorate([
         core_1.Component({

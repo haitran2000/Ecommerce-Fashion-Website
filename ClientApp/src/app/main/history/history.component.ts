@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as signalR from '@microsoft/signalr';
+import { UserService } from 'src/app/service/account/user.service';
 @Component({
   selector: 'app-contact',
   templateUrl: './history.component.html',
@@ -9,8 +10,8 @@ import * as signalR from '@microsoft/signalr';
 export class HistoryComponent implements OnInit {
 
   list_hoadon:any;
-  constructor(public http:HttpClient) {
-  
+  constructor(public http:HttpClient,private userService: UserService) {
+    userService.checkLogin();
    }
 
   ngOnInit(): void {

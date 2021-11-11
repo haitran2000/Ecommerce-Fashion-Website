@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 exports.__esModule = true;
-exports.CheckoutComponent = void 0;
+exports.deleteProduct = exports.CheckoutComponent = void 0;
 var core_1 = require("@angular/core");
 var sweetalert2_1 = require("sweetalert2");
 var CheckoutComponent = /** @class */ (function () {
@@ -24,9 +24,10 @@ var CheckoutComponent = /** @class */ (function () {
         });
         this.http.post("https://localhost:44302/api/Carts/getCart/" + this.id_user, {}).subscribe(function (res) {
             _this.list_item = res;
+            console.log(_this.list_item);
             _this.tongtien = 0;
             for (var i = 0; i < _this.list_item.length; i++) {
-                _this.tongtien = _this.tongtien + (_this.list_item[i].productDetail.gia * _this.list_item[i].soLuong);
+                _this.tongtien = _this.tongtien + (_this.list_item[i].productDetail.giaBan * _this.list_item[i].soLuong);
                 _this.tongThanhToan = _this.tongtien + 25000;
             }
         });
@@ -56,16 +57,17 @@ var CheckoutComponent = /** @class */ (function () {
     CheckoutComponent.prototype.deleteSanPham = function (item) {
         var _this = this;
         var clicks = localStorage.getItem('idUser');
-        this.http.post("https://localhost:44302/api/carts/delete", {
-            Id_sanpham: item.idSanPhamBienThe,
-            User_ID: clicks
-        }).subscribe(function (res) {
+        var delproduct = new deleteProduct();
+        delproduct.id_sanpham = item.idSanPhamBienThe;
+        delproduct.user_ID = clicks;
+        console.log(delproduct);
+        this.http.post("https://localhost:44302/api/Carts/delete", delproduct).subscribe(function (res) {
             sweetalert2_1["default"].fire("Xoá sản phẩm thành công .", '', 'success');
             _this.http.post("https://localhost:44302/api/Carts/getCart/" + clicks, {}).subscribe(function (res) {
                 _this.list_item = res;
                 _this.tongtien = 0;
                 for (var i = 0; i < _this.list_item.length; i++) {
-                    _this.tongtien = _this.tongtien + (_this.list_item[i].productDetail.gia * _this.list_item[i].soLuong);
+                    _this.tongtien = _this.tongtien + (_this.list_item[i].productDetail.giaBan * _this.list_item[i].soLuong);
                     _this.tongThanhToan = _this.tongtien + 25000;
                 }
                 _this.cartService.DeleteProduct(item.productDeatail);
@@ -81,7 +83,7 @@ var CheckoutComponent = /** @class */ (function () {
             });
         }
         else {
-            this.check = this.list_MGG.filter(function (d) { return d.myCode == _this.MaGiamGia; })[0];
+            this.check = this.list_MGG.filter(function (d) { return d.code == _this.MaGiamGia; })[0];
             this.check_sudung = this.list_MGGSD.filter(function (d) { return d == _this.MaGiamGia; })[0];
             if (this.check != null && this.check_sudung == null) {
                 this.list_MGGSD.push(this.MaGiamGia);
@@ -131,7 +133,7 @@ var CheckoutComponent = /** @class */ (function () {
             _this.list_item = res;
             _this.tongtien = 0;
             for (var i_1 = 0; i_1 < _this.list_item.length; i_1++) {
-                _this.tongtien = _this.tongtien + (_this.list_item[i_1].productDetail.gia * _this.list_item[i_1].soLuong);
+                _this.tongtien = _this.tongtien + (_this.list_item[i_1].productDetail.giaBan * _this.list_item[i_1].soLuong);
                 _this.tongThanhToan = _this.tongtien + 25000;
             }
         });
@@ -148,7 +150,7 @@ var CheckoutComponent = /** @class */ (function () {
             _this.list_item = res;
             _this.tongtien = 0;
             for (var i = 0; i < _this.list_item.length; i++) {
-                _this.tongtien = _this.tongtien + (_this.list_item[i].productDetail.gia * _this.list_item[i].soLuong);
+                _this.tongtien = _this.tongtien + (_this.list_item[i].productDetail.giaBan * _this.list_item[i].soLuong);
                 _this.tongThanhToan = _this.tongtien + 25000;
             }
         });
@@ -171,7 +173,7 @@ var CheckoutComponent = /** @class */ (function () {
             _this.list_item = res;
             _this.tongtien = 0;
             for (var i = 0; i < _this.list_item.length; i++) {
-                _this.tongtien = _this.tongtien + (_this.list_item[i].productDetail.gia * _this.list_item[i].soLuong);
+                _this.tongtien = _this.tongtien + (_this.list_item[i].productDetail.giaBan * _this.list_item[i].soLuong);
                 _this.tongThanhToan = _this.tongtien + 25000;
             }
         });
@@ -199,3 +201,9 @@ var CheckoutComponent = /** @class */ (function () {
     return CheckoutComponent;
 }());
 exports.CheckoutComponent = CheckoutComponent;
+var deleteProduct = /** @class */ (function () {
+    function deleteProduct() {
+    }
+    return deleteProduct;
+}());
+exports.deleteProduct = deleteProduct;
