@@ -117,26 +117,26 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
 				$(this).off('click');
 			});
 		});
-
-		$('.js-addwish-detail').each(function(){
-			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-
-			$(this).on('click', function(){
-				Swal.fire(nameProduct, "đã được thêm vào giỏ hàng !", "success");
-
-				$(this).addClass('js-addedwish-detail');
-				$(this).off('click');
-			});
-		});
-
-		/*---------------------------------------------*/
-
-		$('.js-addcart-detail').each(function(){
-			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-			$(this).on('click', function(){
-				Swal.fire(nameProduct, "đã được thêm vào giỏ hàng !", "success");
-			});
-		});
+      $('.js-addwish-detail').each(function(){
+        var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+  
+        $(this).on('click', function(){
+          Swal.fire(nameProduct, "đã được thêm vào giỏ hàng !", "success");
+  
+          $(this).addClass('js-addedwish-detail');
+          $(this).off('click');
+        });
+      });
+  
+      /*---------------------------------------------*/
+  
+      $('.js-addcart-detail').each(function(){
+        var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+        $(this).on('click', function(){
+          Swal.fire(nameProduct, "đã được thêm vào giỏ hàng !", "success");
+        });
+      });
+	
     $('.wrap-slick3').each(function(){
       $(this).find('.slick3').slick({
           slidesToShow: 1,
