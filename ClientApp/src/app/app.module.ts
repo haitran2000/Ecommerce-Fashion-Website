@@ -37,6 +37,8 @@ import { RegisterComponent } from './main/register/register.component';
 import { InfoUserComponent } from './main/info-user/info-user.component';
 import {CarouselModule} from 'primeng/carousel';
 import { BlogComponent } from './main/blog/blog.component';
+import { LoginfacebookComponent } from './loginfacebookgoogle/loginfacebook/loginfacebook.component';
+import { FacebookModule } from 'ngx-facebook';;
 //import {ButtonModule} from 'primeng/button';
 //import {ToastModule} from 'primeng/toast';
 @NgModule({
@@ -64,11 +66,13 @@ import { BlogComponent } from './main/blog/blog.component';
     FilterPipe,
     BillDetailsComponent,
     RegisterComponent,
-    InfoUserComponent
+    InfoUserComponent,
+    LoginfacebookComponent
 
 
   ],
   imports: [
+    FacebookModule.forRoot(),
     BrowserModule,
     MatIconModule,
     AppRoutingModule,

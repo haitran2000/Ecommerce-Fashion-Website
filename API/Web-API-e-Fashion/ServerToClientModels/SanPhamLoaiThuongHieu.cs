@@ -18,6 +18,8 @@ namespace Web_API_e_Fashion.ServerToClientModels
         public string TenNhanHieu { get; set; }
         public int? SoLuongLike { get; set; }
         public int? SoLuongComment { get; set; }
+        public bool IsLike { get; set; }
+        public string IdUserLogged { get; set; }
         public decimal? GiaBan { get; set; }
         public decimal? GiaNhap { get; set; }
         public string TenNhaCungCap { get; set; }

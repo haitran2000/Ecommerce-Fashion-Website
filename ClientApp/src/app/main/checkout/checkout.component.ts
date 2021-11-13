@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { CartService } from 'src/app/service/product.service';
 import { UserService } from 'src/app/service/account/user.service';
@@ -44,7 +44,7 @@ export class CheckoutComponent implements OnInit  {
         this.tongtien=0;
         for (let i = 0; i < this.list_item.length; i++) {
             this.tongtien=this.tongtien+(this.list_item[i].productDetail.giaBan*this.list_item[i].soLuong);
-          this.tongThanhToan=this.tongtien+25000;
+          this.tongThanhToan=this.tongtien+this.costShipping;
         }
       });
     this.http.get("https://localhost:44302/api/hoadons/magiamgia/").subscribe(res=>{
@@ -237,11 +237,33 @@ ChangeSoLuong(cartID,i){
     const search =this.list_tinh_thanh.filter(d=>d.name===tinh)[0];
     this.list_quan_huyen=search.districts;
   }
+
+  costShipping : number = 25000
+  
+  
   changHuyenQuan(event:any):void{
+
     this.Huyen=event;
     const Huyen = event;
     const search =this.list_quan_huyen.filter(d=>d.name===Huyen)[0];
     this.list_xa_phuong=search.wards;
+    let headers = new HttpHeaders();
+    let params = new HttpParams();
+   headers.set('token','d18912ac-7fe9-11eb-9035-ae038bcc764b').set('shop_id','2238416')
+   params.append('service_type_id',"1")
+   params.append('insurance_value',null)
+   params.append('coupon',null)
+   params.append('from_district_id',Huyen.code)
+
+   const options = { headers:headers,params:params}
+console.log(options)
+
+    this.http.get("https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",options).subscribe(
+
+    (result:any)=>{
+        this.costShipping = result.total
+    }
+    )
   }
 
 }
