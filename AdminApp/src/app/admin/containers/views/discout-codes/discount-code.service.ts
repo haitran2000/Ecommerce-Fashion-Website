@@ -14,7 +14,7 @@ export class DiscountCodeService {
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  public dataSource = new MatTableDataSource<Category>();
+  public dataSource = new MatTableDataSource<DiscountCode>();
     magiamgia : DiscountCode = new DiscountCode()
 
   
@@ -36,8 +36,7 @@ export class DiscountCodeService {
   }
   export class DiscountCode{
     id : number = 0
-    ten : string
-    namNu:string
-    imagePath : string 
+   code:string
+   soTienGiam:string
   }
   

@@ -41,7 +41,7 @@ namespace Web_API_e_Fashion.Models
         /// <summary>
         /// Set the timespan the token will be valid for (default is 5 min/300 seconds)
         /// </summary>
-        public TimeSpan ValidFor { get; set; } = TimeSpan.FromMinutes(30);
+        public TimeSpan ValidFor { get; set; } = TimeSpan.FromMinutes(300000);
 
         /// <summary>
         /// "jti" (JWT ID) Claim (default ID is a GUID)

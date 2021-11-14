@@ -101,7 +101,7 @@
 
                         <div class="size-209">
                             <span class="mtext-110 cl2">
-                                {{ this.costShipping|number}} VNĐ
+                                {{ 25000|number}} VNĐ
                             </span>
                         </div>
                         <div class="size-208" *ngIf="check!=null">
@@ -129,6 +129,33 @@
 
                                 <div class="p-t-15">
 
+
+
+
+                                    <!-- <div *ngIf="!checkdiachi">
+                                        <span>Tỉnh/thành Phố</span>
+                                        <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+
+                                            <select class="js-select2" (ngModelChange)="changTinhThanh($event)" [(ngModel)]="Tinh" name="tim3">
+                                      <option  *ngFor="let item of list_tinh_thanh" value="{{item.name}}">{{item.name}}</option>
+                                  </select>
+                                            <div class="dropDownSelect2"></div>
+                                        </div>
+                                        <span>Quận/Huyện</span>
+                                        <div class="bor8 bg0 m-b-12">
+
+                                            <select class="js-select2" (ngModelChange)="changHuyenQuan($event)" [(ngModel)]="Huyen" name="time2">
+                                  <option  *ngFor="let huyen of list_quan_huyen" value="{{huyen.name}}">{{huyen.name}}</option>
+                              </select>
+                                        </div>
+                                        <span>Xã/Phường</span>
+                                        <div class="bor8 bg0 m-b-22">
+
+                                            <select class="js-select2" [(ngModel)]="Xa" name="time5">
+                                  <option  *ngFor="let xa of list_xa_phuong" value="{{xa.name}}">{{xa.name}}</option>
+                              </select>
+                                        </div>
+                                    </div> -->
 
 
 

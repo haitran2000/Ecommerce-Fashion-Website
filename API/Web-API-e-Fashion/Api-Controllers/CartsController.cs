@@ -67,6 +67,28 @@ namespace Web_API_e_Fashion.Api_Controllers
 
             return Json(resuft);
         }
+
+        [HttpGet("getcouttotalqty")]
+        public async Task<TotalCart> GetTotalQty()
+        {
+            var variableQtys = await _context.Carts.Select(s => s.SoLuong).ToListAsync();
+            var totalQty = 0;
+            foreach(var item in variableQtys)
+            {
+                totalQty += item;
+            }
+            return new TotalCart(totalQty);
+        }
+
+        public class TotalCart
+        {
+            public TotalCart(int totalQty)
+            {
+                this.totalQty = totalQty;
+            }
+
+            public int totalQty { get; set; }
+        }
         [HttpPost("update")]
         public async Task<ActionResult> UpdateCarts(Models.Cart json)
         {
