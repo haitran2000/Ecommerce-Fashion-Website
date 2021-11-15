@@ -145,7 +145,7 @@
                                     {{item.TenSanPhamBienThe}}
                                 </td>
                                 <td>
-                                    {{item.GiaNhapSanPhamBienThe}}
+                                    {{item.GiaNhapSanPhamBienThe|number}} VNĐ
                                 </td>
                                 <td>
                                     {{item.SoLuongNhap}}
@@ -159,7 +159,7 @@
                                 </td>
 
                             </tr>
-                            <h4 style="font-weight: bold; text-underline-position: auto;">Tổng tiền: {{tongTien()}} VNĐ</h4>
+                            <h4 style="font-weight: bold; text-underline-position: auto;">Tổng tiền: {{tongTien()|number}} VNĐ</h4>
                         </tbody>
                     </table>
                     <form [formGroup]="newFormGroupPhieuNhap" (ngSubmit)="onSubmit(newFormGroupPhieuNhap.value)">
