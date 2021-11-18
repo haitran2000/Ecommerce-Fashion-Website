@@ -10,9 +10,6 @@
                 </div>
 
                 <div class="right-top-bar flex-w h-full">
-                    <a href="#" class="flex-c-m trans-04 p-lr-25">
-                        Trợ giúp
-                    </a>
 
                     <a [routerLink]="['/info_user']" class="flex-c-m trans-04 p-lr-25" *ngIf="this.user!=null">
                         Xin chào {{this.user.firstName+" "+this.user.lastName}}
@@ -23,6 +20,9 @@
                     <a href="/login" class="flex-c-m trans-04 p-lr-25" *ngIf="this.user==null">
                         Đăng nhập
                     </a>
+                    <a href="/register" class="flex-c-m trans-04 p-lr-25" *ngIf="this.user==null">
+                      Đăng ký
+                  </a>
                     <a (click)="logout()" href="#" class="flex-c-m trans-04 p-lr-25" *ngIf="this.user!=null">
                         Đăng xuất
                     </a>
@@ -53,9 +53,9 @@
                             <a routerLink = "/blog">Blog</a>
                         </li>
 
-                        <li>
+                        <!-- <li>
                             <a routerLink = "/about">Thông tin</a>
-                        </li>
+                        </li> -->
 
                         <li>
                             <a routerLink = "/contact">Liên hệ</a>

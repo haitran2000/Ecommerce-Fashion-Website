@@ -19,34 +19,23 @@
                       <div class="stext-107 flex-w p-b-14">
                           <span class="m-r-3">
                               <span class="cl4">
-                                  By
+                                  Tạo bởi
                               </span>
 
                               <span class="cl5">
-                                  Nancy Ward
-                              </span>
-                          </span>
-
-                          <span>
-                              <span class="cl4">
-                                  on
-                              </span>
-
-                              <span class="cl5">
-                                  July 22, 2017
+                                  Admin
                               </span>
                           </span>
                       </div>
 
                       <h4 class="p-b-12">
-                          <a href="blog-detail.html" class="mtext-101 cl2 hov-cl1 trans-04">
+                          <a class="mtext-101 cl2 hov-cl1 trans-04">
                               {{item.tieude}}
                           </a>
                       </h4>
 
-                      <p class="stext-108 cl6">
-                          {{item.noidung}}
-                      </p>
+                      <span [innerHTML]="item.noidung" class="stext-108 cl6">
+                      </span>
                   </div>
               </div>
           </div>

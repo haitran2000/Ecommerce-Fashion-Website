@@ -30,7 +30,7 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
 
       this.id_product = params['id']; // get id to params
   });
-  this.soLuong=0;
+  this.soLuong=1;
   this.http.get("https://localhost:44302/api/sanphams/chitietsanpham/"+this.id_product
           ).subscribe(resp => {
               this.product =resp as Product;
@@ -117,26 +117,26 @@ export class ProductDetailsComponent implements OnInit ,AfterViewInit{
 				$(this).off('click');
 			});
 		});
-      $('.js-addwish-detail').each(function(){
-        var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
-  
-        $(this).on('click', function(){
-          Swal.fire(nameProduct, "đã được thêm vào giỏ hàng !", "success");
-  
-          $(this).addClass('js-addedwish-detail');
-          $(this).off('click');
-        });
-      });
-  
-      /*---------------------------------------------*/
-  
-      $('.js-addcart-detail').each(function(){
-        var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
-        $(this).on('click', function(){
-          Swal.fire(nameProduct, "đã được thêm vào giỏ hàng !", "success");
-        });
-      });
-	
+      // $('.js-addwish-detail').each(function(){
+      //   var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+
+      //   $(this).on('click', function(){
+      //     Swal.fire(nameProduct, "đã được thêm vào giỏ hàng !", "success");
+
+      //     $(this).addClass('js-addedwish-detail');
+      //     $(this).off('click');
+      //   });
+      // });
+
+      // /*---------------------------------------------*/
+
+      // $('.js-addcart-detail').each(function(){
+      //   var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+      //   $(this).on('click', function(){
+      //     Swal.fire(nameProduct, "đã được thêm vào giỏ hàng !", "success");
+      //   });
+      // });
+
     $('.wrap-slick3').each(function(){
       $(this).find('.slick3').slick({
           slidesToShow: 1,
@@ -237,21 +237,30 @@ $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
 
     }
     else{
-      var SanPhamBienThe = this.list_san_pham_bien_the.filter(d=>d.tenMau==this.selectMau&&d.tenSize==this.selectSize)[0];
-      const clicks = localStorage.getItem('idUser');
-      var SanPhamId=SanPhamBienThe.id;
-      this.http.post("https://localhost:44302/api/Carts"
-       ,{
-          Id_SanPhamBienThe:SanPhamId,
-         SanPhamId:this.product.id,
-         Mau:this.selectMau,
-         Size:this.selectSize,
-         UserID:clicks,
-         Soluong:this.soLuong,
-       }
-      ).subscribe(resp => {
-        this.cartService.addToCart(product);
-      });
+      if(this.selectMau==null||this.selectSize==null)
+      {
+        Swal.fire("Vui lòng chọn đầy đủ màu sắc và size .", '', 'warning')
+      }
+      else
+      {
+        var SanPhamBienThe = this.list_san_pham_bien_the.filter(d=>d.tenMau==this.selectMau&&d.tenSize==this.selectSize)[0];
+        const clicks = localStorage.getItem('idUser');
+        var SanPhamId=SanPhamBienThe.id;
+        this.http.post("https://localhost:44302/api/Carts"
+         ,{
+            Id_SanPhamBienThe:SanPhamId,
+           SanPhamId:this.product.id,
+           Mau:this.selectMau,
+           Size:this.selectSize,
+           UserID:clicks,
+           Soluong:this.soLuong,
+         }
+        ).subscribe(resp => {
+          this.cartService.addToCart(product);
+        });
+        Swal.fire("Thêm sản phẩm vào giỏ hàng thành công .", '', 'success')
+      }
+
 
     }
 

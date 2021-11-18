@@ -70,6 +70,7 @@ var CheckoutComponent = /** @class */ (function () {
                     _this.tongtien = _this.tongtien + (_this.list_item[i].productDetail.giaBan * _this.list_item[i].soLuong);
                     _this.tongThanhToan = _this.tongtien + 25000;
                 }
+                _this.list_item.length == 0 ? _this.tongThanhToan = 0 : "";
                 _this.cartService.DeleteProduct(item.productDeatail);
             });
         });
@@ -101,25 +102,31 @@ var CheckoutComponent = /** @class */ (function () {
         }
     };
     CheckoutComponent.prototype.onSubmit = function () {
-        if (localStorage.getItem("products") === null) {
+        if (this.list_item.length == 0) {
             sweetalert2_1["default"].fire("Giỏ hàng trống.", '', 'warning').then(function () {
             });
         }
         else {
-            var clicks = localStorage.getItem('idUser');
-            this.http.post("https://localhost:44302/api/hoadons/", {
-                Tinh: this.Tinh,
-                Huyen: this.Huyen,
-                Xa: this.Xa,
-                DiaChi: this.DiaChi,
-                TongTien: this.tongThanhToan - 25000,
-                Id_User: clicks
-            }).subscribe(function (res) {
-                sweetalert2_1["default"].fire("Đặt hàng thành công.", '', 'success').then(function () {
-                    window.location.href = '/history';
-                    localStorage.removeItem('products');
+            if (this.Tinh == null || this.Huyen == null || this.Xa == null) {
+                sweetalert2_1["default"].fire("Thông tin nhận hàng không được trống", '', 'warning').then(function () {
                 });
-            });
+            }
+            else {
+                var clicks = localStorage.getItem('idUser');
+                this.http.post("https://localhost:44302/api/hoadons/", {
+                    Tinh: this.Tinh,
+                    Huyen: this.Huyen,
+                    Xa: this.Xa,
+                    DiaChi: this.DiaChi,
+                    TongTien: this.tongThanhToan - 25000,
+                    Id_User: clicks
+                }).subscribe(function (res) {
+                    sweetalert2_1["default"].fire("Đặt hàng thành công.", '', 'success').then(function () {
+                        window.location.href = '/history';
+                        localStorage.removeItem('products');
+                    });
+                });
+            }
         }
     };
     CheckoutComponent.prototype.ChangeSoLuong = function (cartID, i) {

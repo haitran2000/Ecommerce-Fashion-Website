@@ -1,5 +1,5 @@
 
-  
+
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
@@ -94,7 +94,9 @@ export class CheckoutComponent implements OnInit  {
         for (let i = 0; i < this.list_item.length; i++) {
             this.tongtien=this.tongtien+(this.list_item[i].productDetail.giaBan*this.list_item[i].soLuong);
           this.tongThanhToan=this.tongtien+25000;
+
         }
+        this.list_item.length==0?this.tongThanhToan=0:"";
         this.cartService.DeleteProduct(item.productDeatail);
       });
     })
@@ -137,30 +139,40 @@ export class CheckoutComponent implements OnInit  {
 
   }
   onSubmit(){
-    if (localStorage.getItem("products") === null) {
+    if (this.list_item.length==0) {
       Swal.fire("Giỏ hàng trống.", '', 'warning').then(function () {
       }
       )
     }
     else
     {
-      const clicks = localStorage.getItem('idUser');
-    this.http.post("https://localhost:44302/api/hoadons/",{
-      Tinh:this.Tinh,
-      Huyen:this.Huyen,
-      Xa:this.Xa,
-      DiaChi:this.DiaChi,
-      TongTien:this.tongThanhToan-25000,
-      Id_User:clicks
-
-    }).subscribe(
-      res=>{
-        Swal.fire("Đặt hàng thành công.", '', 'success').then(function () {
-          window.location.href='/history';
-          localStorage.removeItem('products');
+      if(this.Tinh==null||this.Huyen==null||this.Xa==null)
+      {
+        Swal.fire("Thông tin nhận hàng không được trống", '', 'warning').then(function () {
+        }
+        )
       }
-    );
-  })
+      else
+      {
+        const clicks = localStorage.getItem('idUser');
+        this.http.post("https://localhost:44302/api/hoadons/",{
+        Tinh:this.Tinh,
+        Huyen:this.Huyen,
+        Xa:this.Xa,
+        DiaChi:this.DiaChi,
+        TongTien:this.tongThanhToan-25000,
+        Id_User:clicks
+
+      }).subscribe(
+        res=>{
+          Swal.fire("Đặt hàng thành công.", '', 'success').then(function () {
+            window.location.href='/history';
+            localStorage.removeItem('products');
+        }
+      );
+    })
+      }
+
     }
 
 }

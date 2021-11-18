@@ -92,7 +92,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPost("update")]
         public async Task<ActionResult> UpdateCarts(Models.Cart json)
         {
-            var resuft = _context.Carts.Where(s => s.CartID == json.CartID).FirstOrDefault();
+            var resuft = _context.Carts.Where(s => s.CartID == json.CartID).FirstOrDefault()
             if (json.SoLuong < 1)
             {
                 _context.Carts.Remove(resuft);
@@ -107,6 +107,7 @@ namespace Web_API_e_Fashion.Api_Controllers
             var resuft1 = _context.Carts.Where(s => s.UserID == json.UserID)
                 .Select(d => new Web_API_e_Fashion.ServerToClientModels.Cart
                 {
+                    IdSanPhamBienThe = d.Id_SanPhamBienThe,
                     CartID = d.CartID,
                     Mau = d.Mau,
                     Size = d.Size,
