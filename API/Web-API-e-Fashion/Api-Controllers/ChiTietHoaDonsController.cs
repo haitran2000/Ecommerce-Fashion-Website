@@ -46,7 +46,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         {
             //var id = int.Parse(json.GetValue("id").ToString());
             var resuft = _context.HoaDons.Where(d => d.Id == id).SingleOrDefault();
-            resuft.TrangThai = 2;
+            resuft.TrangThai = 3;
             _context.SaveChanges();
             return Json(resuft);
         }

@@ -92,7 +92,7 @@ namespace Web_API_e_Fashion.Api_Controllers
         [HttpPost("update")]
         public async Task<ActionResult> UpdateCarts(Models.Cart json)
         {
-            var resuft = _context.Carts.Where(s => s.CartID == json.CartID).FirstOrDefault()
+            var resuft = _context.Carts.Where(s => s.CartID == json.CartID).FirstOrDefault();
             if (json.SoLuong < 1)
             {
                 _context.Carts.Remove(resuft);

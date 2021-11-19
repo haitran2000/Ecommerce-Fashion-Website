@@ -112,7 +112,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let item of service.dataThongKeNgay">
-                                <td>{{item.ngay}}</td>
+                                <td>{{item.ngay| date: 'dd/MM/yyyy'}}</td>
                                 <td>{{item.revenues|number}} VNĐ</td>
                             </tr>
                         </tbody>

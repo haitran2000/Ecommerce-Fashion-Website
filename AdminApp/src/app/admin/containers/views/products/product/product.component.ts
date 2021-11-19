@@ -292,7 +292,11 @@ export class ProductComponent implements OnInit {
     {value: 'Đồng Hồ Nam Crnaira Japan C3079', viewValue: 'Đồng Hồ Nam Crnaira Japan C3079'},
     {value: 'Giây lưng thắt lưng nam ', viewValue: 'Giây lưng thắt lưng nam '},
     {value: 'Dây Nịt Nam Mặt GG', viewValue: 'Dây Nịt Nam Mặt GG'},
-    {value: 'Thắt Lưng Da Bò SÁP', viewValue: 'Thắt Lưng Da Bò SÁP'},
+    {value: 'Áo Hoodie', viewValue: 'Áo Hoodie'},
+    {value: 'Áo thun Care & Share', viewValue: 'Áo thun Care & Share'}, 
+    {value: 'Áo Cotton Compact Prime-Everyday', viewValue: 'Áo Cotton Compact Prime-Everyday'},
+    {value: 'Quần Short Hàn Quốc', viewValue: 'Quần Short Hàn Quốc'},
+    {value: 'Áo khoác nữ 3 trong 1', viewValue: 'Áo khoác nữ 3 trong 1'}
   ];
 
   //Data gia nhap
@@ -303,6 +307,7 @@ export class ProductComponent implements OnInit {
     {value: '311000', viewValue: '311000'},
     {value: '900000', viewValue: '900000'},
     {value: '402000', viewValue: '402000'},
+    {value: '302000', viewValue: '302000'},
     {value: '450000', viewValue: '450000'},
     {value: '650000', viewValue: '650000'},
     {value: '550000', viewValue: '550000'},

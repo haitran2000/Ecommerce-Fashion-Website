@@ -348,6 +348,6 @@
     <button class="btn btn-secondary" (click)="closeModalCheckOut();">Close</button>
     <div style="margin-bottom: 10px;"></div>
     <div *ngFor="let msg of messagesCheckOut" [ngSwitch]="msg.tranType">
-        <h3><span class="badge badge-success" routerLink="admin/hoadons" style="cursor: pointer;">Đơn hàng mới đã được tạo</span></h3>
+        <h3><a class="badge badge-success" routerLink="admin/hoadons" style="cursor: pointer;">Đơn hàng mới đã được tạo</a></h3>
     </div>
 </app-modal>
